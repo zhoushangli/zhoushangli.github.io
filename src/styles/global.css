@@ -143,10 +143,6 @@ strong {
 	margin-bottom: 0.9rem;
 }
 
-.cn {
-	color: #c8c8ce;
-}
-
 .two-column {
 	display: grid;
 	grid-template-columns: minmax(220px, 0.75fr) minmax(300px, 1fr);

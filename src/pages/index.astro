@@ -6,89 +6,85 @@ import { GITHUB_URL, LINKEDIN_URL, SITE_DESCRIPTION, SITE_TITLE } from '../const
 <PortfolioLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
 	<section class="hero">
 		<div class="hero-copy">
-			<p class="eyebrow">ShangLi Zhou / 周尚礼</p>
-			<h1>Hi, I'm ShangLi</h1>
-			<p class="subtitle">I'm a Game Developer.</p>
-			<p class="cn">你好，我是周尚礼，一名游戏开发者。</p>
+			<p class="eyebrow" data-i18n="home.heroEyebrow">ShangLi Zhou</p>
+			<h1 data-i18n="home.heroTitle">Hi, I'm ShangLi</h1>
+			<p class="subtitle" data-i18n="home.heroSubtitle">I'm a Game Developer.</p>
 			<div class="link-row">
-				<a class="button" href="/individual-work">Individual Work</a>
-				<a class="button secondary" href="/teamwork">Team Projects</a>
-				<a class="button secondary" href="/personal">Resume & Letter</a>
+				<a class="button" href="/individual-work" data-i18n="home.ctaIndividual">Individual Work</a>
+				<a class="button secondary" href="/teamwork" data-i18n="home.ctaTeamwork">Team Projects</a>
+				<a class="button secondary" href="/personal" data-i18n="home.ctaPersonal">Resume & Letter</a>
 			</div>
 		</div>
 		<img
 			class="hero-image"
 			src="/images/hero-placeholder.svg"
 			alt="Placeholder hero portrait for ShangLi Zhou"
+			data-i18n-alt="home.heroAlt"
 		/>
 	</section>
 
 	<section class="section two-column" id="about">
 		<div>
-			<p class="section-label">About</p>
-			<h2>Game development, systems, and content creation.</h2>
+			<p class="section-label" data-i18n="home.aboutLabel">About</p>
+			<h2 data-i18n="home.aboutTitle">Game development, systems, and content creation.</h2>
 		</div>
 		<div class="copy-block">
-			<p>
+			<p data-i18n="home.aboutBody">
 				I am a game developer interested in building playable systems, interactive experiences,
 				and memorable game content. My work is currently centered on learning engine development,
 				strengthening technical foundations, and turning ideas into clear prototypes.
 			</p>
-			<p class="cn">
-				我是一名游戏开发者，关注玩法系统、互动体验和游戏内容创作。目前我正在逐渐学习并搭建游戏引擎，
-				同时打磨技术基础，把想法转化为可玩的原型。
-			</p>
 		</div>
 	</section>
 
 	<section class="section">
-		<p class="section-label">Education</p>
+		<p class="section-label" data-i18n="home.educationLabel">Education</p>
 		<div class="grid two">
 			<article class="card">
 				<p class="tag">2021-2025</p>
-				<h3>ShanghaiTech University</h3>
-				<p>B.S. in Computer Science</p>
-				<p class="cn">上海科技大学，计算机科学本科。</p>
+				<h3 data-i18n="home.shanghaiTechTitle">ShanghaiTech University</h3>
+				<p data-i18n="home.shanghaiTechDegree">B.S. in Computer Science</p>
 			</article>
 			<article class="card">
 				<p class="tag">2025-2027</p>
-				<h3>SMU Guildhall</h3>
-				<p>Currently studying Game Software Development.</p>
-				<p class="cn">目前在 SMU Guildhall 学习 Game Software Development。</p>
+				<h3 data-i18n="home.smuTitle">SMU Guildhall</h3>
+				<p data-i18n="home.smuDegree">Currently studying Game Software Development.</p>
 			</article>
 		</div>
 	</section>
 
 	<section class="section">
-		<p class="section-label">Portfolio Links</p>
+		<p class="section-label" data-i18n="home.linksLabel">Portfolio Links</p>
 		<div class="grid three">
 			<a class="card link-card" href="/individual-work">
-				<h3>Individual Work</h3>
-				<p>DFS I with static and animated media placeholders.</p>
+				<h3 data-i18n="home.individualTitle">Individual Work</h3>
+				<p data-i18n="home.individualBody">DFS I with static and animated media placeholders.</p>
 			</a>
 			<a class="card link-card" href="/teamwork">
-				<h3>Teamwork</h3>
-				<p>TGP I and TGP II project placeholders with embedded videos.</p>
+				<h3 data-i18n="home.teamworkTitle">Teamwork</h3>
+				<p data-i18n="home.teamworkBody">TGP I and TGP II project placeholders with embedded videos.</p>
 			</a>
 			<a class="card link-card" href="/personal">
-				<h3>Personal</h3>
-				<p>Resume, cover letter, LinkedIn, and GitHub links.</p>
+				<h3 data-i18n="home.personalTitle">Personal</h3>
+				<p data-i18n="home.personalBody">Resume, cover letter, LinkedIn, and GitHub links.</p>
 			</a>
 			<a class="card link-card" href="/documents/resume-placeholder.pdf" target="_blank">
-				<h3>Resume</h3>
-				<p>Placeholder PDF to replace with the final resume.</p>
+				<h3 data-i18n="home.resumeTitle">Resume</h3>
+				<p data-i18n="home.resumeBody">Placeholder PDF to replace with the final resume.</p>
 			</a>
 			<a class="card link-card" href="/documents/cover-letter-placeholder.pdf" target="_blank">
-				<h3>Cover Letter</h3>
-				<p>Placeholder PDF to replace with the final cover letter or letter of intent.</p>
+				<h3 data-i18n="home.coverTitle">Cover Letter</h3>
+				<p data-i18n="home.coverBody">
+					Placeholder PDF to replace with the final cover letter or letter of intent.
+				</p>
 			</a>
 			<a class="card link-card" href={LINKEDIN_URL} target="_blank" rel="noreferrer">
-				<h3>LinkedIn</h3>
-				<p>Basic profile, education, and professional contact link.</p>
+				<h3 data-i18n="home.linkedinTitle">LinkedIn</h3>
+				<p data-i18n="home.linkedinBody">Basic profile, education, and professional contact link.</p>
 			</a>
 			<a class="card link-card" href={GITHUB_URL} target="_blank" rel="noreferrer">
-				<h3>GitHub</h3>
-				<p>Profile and project repository placeholder.</p>
+				<h3 data-i18n="home.githubTitle">GitHub</h3>
+				<p data-i18n="home.githubBody">Profile and project repository placeholder.</p>
 			</a>
 		</div>
 	</section>

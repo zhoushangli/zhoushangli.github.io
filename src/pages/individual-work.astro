@@ -7,54 +7,55 @@ import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 	description="DFS I individual work by ShangLi Zhou, with placeholder static and animated media."
 >
 	<section class="page-hero">
-		<p class="eyebrow">Individual Work / 个人作品</p>
-		<h1>DFS I</h1>
-		<p>
+		<p class="eyebrow" data-i18n="individual.eyebrow">Individual Work</p>
+		<h1 data-i18n="individual.title">DFS I</h1>
+		<p data-i18n="individual.intro">
 			An individual project focused on gradually building a game engine and documenting the
 			technical decisions behind the work.
 		</p>
-		<p class="cn">一个逐渐开始搭建游戏引擎的个人项目，用于记录技术实现、系统设计和开发过程。</p>
 	</section>
 
 	<section class="section">
 		<div class="project-header">
 			<div>
-				<p class="section-label">Project</p>
-				<h2>DFS I - Engine Foundation</h2>
+				<p class="section-label" data-i18n="individual.label">Project</p>
+				<h2 data-i18n="individual.projectTitle">DFS I - Engine Foundation</h2>
 			</div>
-			<p class="tag">Individual Project</p>
+			<p class="tag" data-i18n="individual.tag">Individual Project</p>
 		</div>
 		<div class="copy-block wide">
-			<p>
+			<p data-i18n="individual.description">
 				DFS I is a placeholder portfolio entry for an individual engine-development project. The
 				final version will show how I approach rendering, input, update loops, asset handling, and
 				small gameplay tests as the engine grows from a technical base into a playable environment.
-			</p>
-			<p class="cn">
-				DFS I 是一个个人引擎开发项目的占位展示。最终版本会展示我如何处理渲染、输入、更新循环、资源管理，
-				以及如何通过小型玩法测试让引擎从技术基础逐渐变成可玩的环境。
 			</p>
 		</div>
 	</section>
 
 	<section class="section media-grid">
 		<article class="card media-card">
-			<img src="/images/dfs-static-placeholder.svg" alt="DFS I static image placeholder" />
-			<h3>Static Image</h3>
-			<p>
+			<img
+				src="/images/dfs-static-placeholder.svg"
+				alt="DFS I static image placeholder"
+				data-i18n-alt="individual.staticAlt"
+			/>
+			<h3 data-i18n="individual.staticTitle">Static Image</h3>
+			<p data-i18n="individual.staticDescription">
 				This placeholder will be replaced by a still screenshot of the DFS I engine or prototype
 				state.
 			</p>
-			<p class="cn">此占位图将替换为 DFS I 引擎或原型状态的静态截图。</p>
 		</article>
 		<article class="card media-card">
-			<img src="/images/dfs-animated-placeholder.svg" alt="DFS I animated image placeholder" />
-			<h3>Animated Image</h3>
-			<p>
+			<img
+				src="/images/dfs-animated-placeholder.svg"
+				alt="DFS I animated image placeholder"
+				data-i18n-alt="individual.animatedAlt"
+			/>
+			<h3 data-i18n="individual.animatedTitle">Animated Image</h3>
+			<p data-i18n="individual.animatedDescription">
 				This placeholder will be replaced by a GIF or animated capture showing the project in
 				motion.
 			</p>
-			<p class="cn">此占位图将替换为展示项目动态效果的 GIF 或动画录屏。</p>
 		</article>
 	</section>
 </PortfolioLayout>

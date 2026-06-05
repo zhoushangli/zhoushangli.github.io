@@ -8,44 +8,43 @@ import { GITHUB_URL, LINKEDIN_URL } from '../consts';
 	description="Resume, cover letter, LinkedIn, and GitHub links for ShangLi Zhou."
 >
 	<section class="page-hero">
-		<p class="eyebrow">Personal / 个人资料</p>
-		<h1>Resume, Letter, and Profiles</h1>
-		<p>
+		<p class="eyebrow" data-i18n="personal.eyebrow">Personal</p>
+		<h1 data-i18n="personal.title">Resume, Letter, and Profiles</h1>
+		<p data-i18n="personal.intro">
 			This page collects the required personal materials for the portfolio submission. Resume and
 			cover letter PDFs are placeholders until final documents are added.
 		</p>
-		<p class="cn">此页面集中展示作业要求的个人材料。简历和求职信 PDF 当前为占位文件，之后会替换为正式版本。</p>
 	</section>
 
 	<section class="section">
 		<div class="grid two">
 			<a class="card link-card" href="/documents/resume-placeholder.pdf" target="_blank">
-				<p class="tag">PDF Placeholder</p>
-				<h2>Resume</h2>
-				<p>Placeholder resume PDF for portfolio submission.</p>
-				<p class="cn">作品集提交用的简历 PDF 占位文件。</p>
+				<p class="tag" data-i18n="personal.pdfTag">PDF Placeholder</p>
+				<h2 data-i18n="personal.resumeTitle">Resume</h2>
+				<p data-i18n="personal.resumeDescription">Placeholder resume PDF for portfolio submission.</p>
 			</a>
 			<a class="card link-card" href="/documents/cover-letter-placeholder.pdf" target="_blank">
-				<p class="tag">PDF Placeholder</p>
-				<h2>Cover Letter / Letter of Intent</h2>
-				<p>Placeholder letter PDF to be replaced with the final version.</p>
-				<p class="cn">求职信或意向信 PDF 占位文件，之后替换为正式版本。</p>
+				<p class="tag" data-i18n="personal.pdfTag">PDF Placeholder</p>
+				<h2 data-i18n="personal.coverTitle">Cover Letter / Letter of Intent</h2>
+				<p data-i18n="personal.coverDescription">
+					Placeholder letter PDF to be replaced with the final version.
+				</p>
 			</a>
 		</div>
 	</section>
 
 	<section class="section">
-		<p class="section-label">Socials</p>
+		<p class="section-label" data-i18n="personal.socialsLabel">Socials</p>
 		<div class="grid two">
 			<a class="card link-card" href={LINKEDIN_URL} target="_blank" rel="noreferrer">
-				<h2>LinkedIn</h2>
-				<p>Basic information, undergraduate degree, and SMU Guildhall education.</p>
-				<p class="cn">包含基础信息、本科学历和 SMU Guildhall 教育经历。</p>
+				<h2 data-i18n="personal.linkedinTitle">LinkedIn</h2>
+				<p data-i18n="personal.linkedinDescription">
+					Basic information, undergraduate degree, and SMU Guildhall education.
+				</p>
 			</a>
 			<a class="card link-card" href={GITHUB_URL} target="_blank" rel="noreferrer">
-				<h2>GitHub</h2>
-				<p>GitHub profile with README and project placeholder.</p>
-				<p class="cn">GitHub 主页、README 和项目占位展示。</p>
+				<h2 data-i18n="personal.githubTitle">GitHub</h2>
+				<p data-i18n="personal.githubDescription">GitHub profile with README and project placeholder.</p>
 			</a>
 		</div>
 	</section>
