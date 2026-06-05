@@ -158,6 +158,7 @@ strong {
 }
 
 .section {
+	scroll-margin-top: 96px;
 	padding: 4rem 0;
 	border-top: 1px solid var(--border);
 }
@@ -256,13 +257,6 @@ strong {
 	border-color: var(--border);
 }
 
-.link-row {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.8rem;
-	margin-top: 2.4rem;
-}
-
 .project-header {
 	display: flex;
 	justify-content: space-between;
@@ -325,6 +319,63 @@ strong {
 .timeline-copy .timeline-tech {
 	color: #8b5cf6;
 	margin-top: 1.2rem;
+}
+
+.showcase-section h2 {
+	color: var(--muted);
+	font-size: clamp(2.8rem, 6vw, 4.5rem);
+	margin-bottom: 2.8rem;
+}
+
+.showcase-list {
+	display: grid;
+	gap: 2rem;
+}
+
+.showcase-card {
+	display: grid;
+	grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1.1fr);
+	gap: clamp(1.5rem, 4vw, 3rem);
+	align-items: center;
+	padding: 1rem;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	background: rgba(16, 16, 18, 0.92);
+	box-shadow: 0 0 22px rgba(255, 255, 255, 0.08);
+}
+
+.showcase-media {
+	overflow: hidden;
+	border-radius: 6px;
+	background: #050506;
+}
+
+.showcase-media img {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	object-fit: contain;
+	padding: 1rem;
+	border-radius: 6px;
+	background: #050506;
+}
+
+.showcase-copy h3 {
+	color: var(--muted);
+	font-size: clamp(1.8rem, 3vw, 2.5rem);
+	margin-bottom: 1rem;
+}
+
+.showcase-copy p {
+	color: var(--text);
+	font-size: clamp(1.1rem, 2vw, 1.35rem);
+	line-height: 1.25;
+	margin-bottom: 1rem;
+}
+
+.showcase-copy .showcase-tech {
+	color: #8b5cf6;
+	margin-top: 1.2rem;
+	margin-bottom: 0;
 }
 
 .media-grid {
@@ -397,6 +448,7 @@ strong {
 	.hero,
 	.about-profile-grid,
 	.timeline-item,
+	.showcase-card,
 	.two-column,
 	.project-card,
 	.grid.two,

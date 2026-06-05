@@ -1,19 +1,29 @@
 ---
 import { GITHUB_URL, LINKEDIN_URL } from '../consts';
-import HeaderLink from './HeaderLink.astro';
 ---
 
 <header>
 	<nav>
 		<h2><a href="/" data-i18n="nav.brand">SHANGLI ZHOU</a></h2>
 		<div class="internal-links">
-			<HeaderLink href="/" data-i18n="nav.about">About</HeaderLink>
-			<HeaderLink href="/individual-work" data-i18n="nav.individual">Individual Work</HeaderLink>
-			<HeaderLink href="/teamwork" data-i18n="nav.teamwork">Team Projects</HeaderLink>
-			<HeaderLink href="/personal" data-i18n="nav.personal">Personal</HeaderLink>
-			<a href={LINKEDIN_URL} target="_blank" rel="noreferrer" data-i18n="nav.linkedin">LinkedIn</a>
-			<a href={GITHUB_URL} target="_blank" rel="noreferrer" data-i18n="nav.github">GitHub</a>
-			<a href="/documents/resume-placeholder.pdf" target="_blank" data-i18n="nav.resume">Resume</a>
+			<a href="/#about" data-i18n="nav.about">About</a>
+			<a href="/#experience" data-i18n-inline data-en="Experience" data-zh="经历">Experience</a>
+			<a
+				href="/#personal-projects"
+				data-i18n-inline
+				data-en="Personal Projects"
+				data-zh="个人项目">Personal Projects</a
+			>
+			<a href="/#team-projects" data-i18n="nav.teamwork">Team Projects</a>
+			<a class="external-link" href={LINKEDIN_URL} target="_blank" rel="noreferrer" data-i18n="nav.linkedin"
+				>LinkedIn</a
+			>
+			<a class="external-link" href={GITHUB_URL} target="_blank" rel="noreferrer" data-i18n="nav.github"
+				>GitHub</a
+			>
+			<a class="external-link" href="/documents/resume-placeholder.pdf" target="_blank" data-i18n="nav.resume"
+				>Resume</a
+			>
 			<button
 				class="language-toggle"
 				type="button"
@@ -57,6 +67,13 @@ import HeaderLink from './HeaderLink.astro';
 	}
 	nav a {
 		font-size: 1.1rem;
+		color: var(--muted);
+		text-decoration: none;
+	}
+	nav a.external-link {
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.22em;
 	}
 	button.language-toggle {
 		min-width: 58px;
