@@ -6,8 +6,8 @@
 	--muted: #a6a6ad;
 	--subtle: #777780;
 	--border: #2d2d33;
-	--accent: #d9d9df;
-	--accent-strong: #ffffff;
+	--accent: #ece6d3;
+	--accent-strong: #fff8e6;
 }
 
 * {
@@ -318,7 +318,7 @@ strong {
 }
 
 .timeline-copy .timeline-tech {
-	color: #8b5cf6;
+	color: #f1ead2;
 	margin-top: 1.2rem;
 }
 
@@ -383,7 +383,7 @@ strong {
 	aspect-ratio: 16 / 9;
 	border: 1px solid rgba(255, 255, 255, 0.1);
 	background:
-		linear-gradient(135deg, rgba(139, 92, 246, 0.16), transparent 45%),
+		linear-gradient(135deg, rgba(241, 234, 210, 0.16), transparent 45%),
 		#09090b;
 }
 
@@ -432,7 +432,7 @@ strong {
 }
 
 .showcase-copy .showcase-tech {
-	color: #8b5cf6;
+	color: #f1ead2;
 	margin-top: 1.2rem;
 	margin-bottom: 0;
 }
@@ -625,9 +625,9 @@ strong {
 	.about-profile-grid,
 	.timeline-item,
 	.showcase-card,
-		.project-detail-grid,
-		.project-introduction-grid,
-		.two-column,
+	.project-detail-grid,
+	.project-introduction-grid,
+	.two-column,
 	.project-card,
 	.grid.two,
 	.grid.three,
