@@ -1,39 +1,53 @@
 ---
+import { Image } from 'astro:assets';
 import PortfolioLayout from '../layouts/PortfolioLayout.astro';
+import HeroImage from '../content/images/hero_image.jpg';
 import { GITHUB_URL, LINKEDIN_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
 <PortfolioLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-	<section class="hero">
+	<section class="hero hero-intro">
 		<div class="hero-copy">
 			<p class="eyebrow" data-i18n="home.heroEyebrow">ShangLi Zhou</p>
-			<h1 data-i18n="home.heroTitle">Hi, I'm ShangLi</h1>
+			<h1 class="hero-title" data-i18n="home.heroTitle">Hi, I'm ShangLi</h1>
 			<p class="subtitle" data-i18n="home.heroSubtitle">I'm a Game Developer.</p>
+			<p class="hero-intro-text" data-i18n="home.heroIntro">
+				I'm currently studying Game Software Development at SMU Guildhall. I previously studied
+				Computer Science at ShanghaiTech University. XXXXXXXXXXXXX.
+			</p>
+			<p class="contact-line" data-i18n="home.contactLine">
+				I reply fastest on email: XXXXXXXXXXXXX
+			</p>
 			<div class="link-row">
 				<a class="button" href="/individual-work" data-i18n="home.ctaIndividual">Individual Work</a>
 				<a class="button secondary" href="/teamwork" data-i18n="home.ctaTeamwork">Team Projects</a>
 				<a class="button secondary" href="/personal" data-i18n="home.ctaPersonal">Resume & Letter</a>
 			</div>
 		</div>
-		<img
-			class="hero-image"
-			src="/images/hero-placeholder.svg"
-			alt="Placeholder hero portrait for ShangLi Zhou"
-			data-i18n-alt="home.heroAlt"
-		/>
 	</section>
 
-	<section class="section two-column" id="about">
-		<div>
-			<p class="section-label" data-i18n="home.aboutLabel">About</p>
-			<h2 data-i18n="home.aboutTitle">Game development, systems, and content creation.</h2>
-		</div>
-		<div class="copy-block">
-			<p data-i18n="home.aboutBody">
-				I am a game developer interested in building playable systems, interactive experiences,
-				and memorable game content. My work is currently centered on learning engine development,
-				strengthening technical foundations, and turning ideas into clear prototypes.
-			</p>
+	<section class="section about-profile" id="about">
+		<p class="section-label" data-i18n="home.aboutLabel">About</p>
+		<h2 data-i18n="home.aboutSecondTitle">Hi, I'm ShangLi</h2>
+		<div class="about-profile-grid">
+			<Image
+				class="hero-image profile-image"
+				src={HeroImage}
+				alt="Portrait image of ShangLi Zhou"
+				data-i18n-alt="home.heroAlt"
+				format="webp"
+				quality={82}
+				widths={[480, 720, 960]}
+				sizes="(max-width: 860px) 100vw, 38vw"
+			/>
+			<div class="copy-block">
+				<p data-i18n="home.aboutSecondBody">
+					I'm a game developer interested in building playable systems, interactive experiences,
+					and memorable game content. My current work is centered on gradually building a game
+					engine, strengthening technical foundations, and turning ideas into clear prototypes.
+					XXXXXXXXXXXXX.
+				</p>
+			</div>
 		</div>
 	</section>
 

@@ -13,20 +13,23 @@ export const copy = {
 			languageToggleLabel: 'Switch language to Chinese',
 		},
 		footer: {
-			text: '© 2026 ShangLi Zhou. Portfolio placeholders will be replaced with final project media.',
+			text: '(c) 2026 ShangLi Zhou. Portfolio placeholders will be replaced with final project media.',
 		},
 		home: {
 			heroEyebrow: 'ShangLi Zhou',
 			heroTitle: "Hi, I'm ShangLi",
 			heroSubtitle: "I'm a Game Developer.",
-			heroAlt: 'Placeholder hero portrait for ShangLi Zhou',
+			heroIntro:
+				"I'm currently studying Game Software Development at SMU Guildhall. I previously studied Computer Science at ShanghaiTech University. XXXXXXXXXXXXX.",
+			contactLine: 'I reply fastest on email: XXXXXXXXXXXXX',
+			heroAlt: 'Portrait image of ShangLi Zhou',
 			ctaIndividual: 'Individual Work',
 			ctaTeamwork: 'Team Projects',
 			ctaPersonal: 'Resume & Letter',
 			aboutLabel: 'About',
-			aboutTitle: 'Game development, systems, and content creation.',
-			aboutBody:
-				'I am a game developer interested in building playable systems, interactive experiences, and memorable game content. My work is currently centered on learning engine development, strengthening technical foundations, and turning ideas into clear prototypes.',
+			aboutSecondTitle: "Hi, I'm ShangLi",
+			aboutSecondBody:
+				"I'm a game developer interested in building playable systems, interactive experiences, and memorable game content. My current work is centered on gradually building a game engine, strengthening technical foundations, and turning ideas into clear prototypes. XXXXXXXXXXXXX.",
 			educationLabel: 'Education',
 			shanghaiTechTitle: 'ShanghaiTech University',
 			shanghaiTechDegree: 'B.S. in Computer Science',
@@ -135,20 +138,23 @@ export const copy = {
 			languageToggleLabel: '切换语言为英文',
 		},
 		footer: {
-			text: '© 2026 周尚礼。作品集中的占位内容之后会替换为最终项目素材。',
+			text: '(c) 2026 周尚礼。作品集中的占位内容之后会替换为最终项目素材。',
 		},
 		home: {
-			heroEyebrow: '周尚礼 / ShangLi Zhou',
+			heroEyebrow: '周尚礼',
 			heroTitle: '你好，我是周尚礼',
 			heroSubtitle: '我是一名游戏开发者。',
-			heroAlt: '周尚礼作品集头像占位图',
+			heroIntro:
+				'我目前在 SMU Guildhall 学习 Game Software Development。本科就读于上海科技大学计算机科学专业。XXXXXXXXXXXXX。',
+			contactLine: '我最快回复的联系方式：XXXXXXXXXXXXX',
+			heroAlt: '周尚礼的头像照片',
 			ctaIndividual: '个人作品',
 			ctaTeamwork: '团队项目',
 			ctaPersonal: '简历与意向信',
 			aboutLabel: '关于',
-			aboutTitle: '游戏开发、系统搭建与内容创作。',
-			aboutBody:
-				'我是一名游戏开发者，关注可玩的系统、互动体验和有记忆点的游戏内容。目前我的工作重点是学习引擎开发、巩固技术基础，并把想法转化为清晰可玩的原型。',
+			aboutSecondTitle: '你好，我是周尚礼',
+			aboutSecondBody:
+				'我是一名游戏开发者，关注可玩的系统、互动体验和有记忆点的游戏内容。目前我正在逐渐搭建游戏引擎，巩固技术基础，并把想法转化为清晰可玩的原型。XXXXXXXXXXXXX。',
 			educationLabel: '教育经历',
 			shanghaiTechTitle: '上海科技大学',
 			shanghaiTechDegree: '计算机科学本科',
@@ -172,7 +178,7 @@ export const copy = {
 		},
 		about: {
 			eyebrow: '关于',
-			title: '周尚礼 / ShangLi Zhou',
+			title: '周尚礼',
 			body: '我是一名游戏开发者，关注可玩的系统、互动体验和游戏内容创作。本科就读于上海科技大学计算机科学专业，目前在 SMU Guildhall 学习 Game Software Development。',
 		},
 		individual: {

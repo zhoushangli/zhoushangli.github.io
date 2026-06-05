@@ -87,16 +87,18 @@ strong {
 }
 
 .hero {
-	display: grid;
-	grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
-	align-items: center;
-	gap: clamp(2rem, 6vw, 5rem);
 	min-height: calc(100vh - 9rem);
 	padding: 1rem 0 4rem;
 }
 
+.hero-intro {
+	display: flex;
+	align-items: flex-start;
+}
+
 .hero-copy {
-	max-width: 780px;
+	max-width: 980px;
+	padding-top: clamp(1rem, 5vw, 3rem);
 }
 
 .hero .subtitle {
@@ -106,12 +108,44 @@ strong {
 	margin-bottom: 1.5rem;
 }
 
+.hero-intro-text {
+	max-width: 920px;
+	color: var(--text);
+	font-size: clamp(1.35rem, 3vw, 2rem);
+	line-height: 1.25;
+	margin-top: 2.1rem;
+	margin-bottom: 3.2rem;
+}
+
+.contact-line {
+	color: var(--text);
+	font-size: 1.2rem;
+	margin-bottom: 0;
+}
+
 .hero-image {
 	width: 100%;
 	aspect-ratio: 1 / 1;
 	object-fit: cover;
 	border: 1px solid var(--border);
 	background: var(--surface);
+}
+
+.about-profile h2 {
+	color: var(--muted);
+	font-size: clamp(2.4rem, 5vw, 4rem);
+	margin-bottom: 2.4rem;
+}
+
+.about-profile-grid {
+	display: grid;
+	grid-template-columns: minmax(260px, 0.75fr) minmax(320px, 1.25fr);
+	gap: clamp(2rem, 6vw, 4rem);
+	align-items: start;
+}
+
+.profile-image {
+	max-width: 440px;
 }
 
 .page-hero {
@@ -219,7 +253,7 @@ strong {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.8rem;
-	margin-top: 2rem;
+	margin-top: 2.4rem;
 }
 
 .project-header {
@@ -297,6 +331,7 @@ strong {
 	}
 
 	.hero,
+	.about-profile-grid,
 	.two-column,
 	.project-card,
 	.grid.two,
@@ -309,6 +344,10 @@ strong {
 		min-height: auto;
 	}
 
+	.hero-copy {
+		padding-top: 0;
+	}
+
 	.hero-image {
 		max-width: 420px;
 	}
@@ -316,4 +355,23 @@ strong {
 	.project-header {
 		flex-direction: column;
 	}
+}
+
+html[lang='zh-CN'] .hero-title {
+	font-size: clamp(2.7rem, 7vw, 5rem);
+	line-height: 1.12;
+	max-width: 1000px;
+}
+
+html[lang='zh-CN'] .hero .subtitle {
+	font-size: clamp(2rem, 4.5vw, 3.5rem);
+}
+
+html[lang='zh-CN'] .hero-intro-text {
+	font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+	line-height: 1.45;
+}
+
+html[lang='zh-CN'] .about-profile h2 {
+	font-size: clamp(2.2rem, 4.8vw, 3.6rem);
 }
