@@ -1,5 +1,9 @@
 ---
 import { GITHUB_URL, LINKEDIN_URL } from '../consts';
+import { getProjectsByCategory } from '../data/projects';
+
+const personalProjects = getProjectsByCategory('personal');
+const teamProjects = getProjectsByCategory('team');
 ---
 
 <header>
@@ -8,13 +12,38 @@ import { GITHUB_URL, LINKEDIN_URL } from '../consts';
 		<div class="internal-links">
 			<a href="/#about" data-i18n="nav.about">About</a>
 			<a href="/#experience" data-i18n-inline data-en="Experience" data-zh="经历">Experience</a>
-			<a
-				href="/#personal-projects"
-				data-i18n-inline
-				data-en="Personal Projects"
-				data-zh="个人项目">Personal Projects</a
-			>
-			<a href="/#team-projects" data-i18n="nav.teamwork">Team Projects</a>
+
+			<div class="nav-dropdown">
+				<a
+					href="/#personal-projects"
+					data-i18n-inline
+					data-en="Personal Projects"
+					data-zh="个人项目">Personal Projects</a
+				>
+				<div class="dropdown-panel">
+					{
+						personalProjects.map((project) => (
+							<a class="dropdown-link" href={`/projects/${project.slug}`}>
+								{project.title}
+							</a>
+						))
+					}
+				</div>
+			</div>
+
+			<div class="nav-dropdown">
+				<a href="/#team-projects" data-i18n="nav.teamwork">Team Projects</a>
+				<div class="dropdown-panel">
+					{
+						teamProjects.map((project) => (
+							<a class="dropdown-link" href={`/projects/${project.slug}`}>
+								{project.title}
+							</a>
+						))
+					}
+				</div>
+			</div>
+
 			<a class="external-link" href={LINKEDIN_URL} target="_blank" rel="noreferrer" data-i18n="nav.linkedin"
 				>LinkedIn</a
 			>
@@ -28,10 +57,11 @@ import { GITHUB_URL, LINKEDIN_URL } from '../consts';
 				class="language-toggle"
 				type="button"
 				data-language-toggle
-				data-i18n="nav.languageToggle"
 				data-i18n-aria-label="nav.languageToggleLabel"
-				aria-label="Switch language to Chinese">中文</button
-			>
+				aria-label="Switch language to Chinese">
+				<span class="language-dot"></span>
+				<span data-i18n="nav.languageToggle">中文</span>
+			</button>
 		</div>
 	</nav>
 </header>
@@ -66,8 +96,8 @@ import { GITHUB_URL, LINKEDIN_URL } from '../consts';
 		min-height: 72px;
 	}
 	nav a {
-		font-size: 1.1rem;
 		color: var(--muted);
+		font-size: 1.1rem;
 		text-decoration: none;
 	}
 	nav a.external-link {
@@ -76,10 +106,27 @@ import { GITHUB_URL, LINKEDIN_URL } from '../consts';
 		text-underline-offset: 0.22em;
 	}
 	button.language-toggle {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
 		min-width: 58px;
 		min-height: 42px;
 		padding: 0.45rem 0.85rem;
+		border: 1px solid rgba(190, 184, 172, 0.42);
+		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.02);
+		color: var(--text);
+		box-shadow: inset 0 0 14px rgba(255, 255, 255, 0.05);
+		font: inherit;
 		font-size: 1.05rem;
+		cursor: pointer;
+	}
+	.language-dot {
+		width: 0.42rem;
+		height: 0.42rem;
+		border-radius: 999px;
+		background: #8b5cf6;
+		box-shadow: 0 0 10px rgba(139, 92, 246, 0.7);
 	}
 	nav a:hover,
 	nav a.active,
@@ -94,6 +141,46 @@ import { GITHUB_URL, LINKEDIN_URL } from '../consts';
 		gap: clamp(0.7rem, 2vw, 1.5rem);
 		flex-wrap: wrap;
 	}
+	.nav-dropdown {
+		position: relative;
+		display: flex;
+		align-items: center;
+	}
+	.dropdown-panel {
+		position: absolute;
+		top: calc(100% + 0.75rem);
+		left: 0;
+		z-index: 20;
+		display: grid;
+		min-width: 220px;
+		padding: 0.8rem 0;
+		border: 1px solid var(--border);
+		background: rgba(22, 22, 24, 0.98);
+		box-shadow:
+			0 16px 30px rgba(0, 0, 0, 0.38),
+			0 0 18px rgba(190, 184, 172, 0.08);
+		opacity: 0;
+		pointer-events: none;
+		transform: translateY(-4px);
+		transition:
+			opacity 150ms ease,
+			transform 150ms ease;
+	}
+	.nav-dropdown:hover .dropdown-panel,
+	.nav-dropdown:focus-within .dropdown-panel {
+		opacity: 1;
+		pointer-events: auto;
+		transform: translateY(0);
+	}
+	.dropdown-panel a.dropdown-link {
+		padding: 0.65rem 1rem;
+		color: var(--muted);
+		white-space: nowrap;
+	}
+	.dropdown-panel a.dropdown-link:hover {
+		color: var(--text);
+		background: rgba(255, 255, 255, 0.04);
+	}
 	@media (max-width: 720px) {
 		nav {
 			align-items: flex-start;
@@ -102,6 +189,21 @@ import { GITHUB_URL, LINKEDIN_URL } from '../consts';
 		}
 		.internal-links {
 			justify-content: flex-start;
+		}
+		.nav-dropdown {
+			align-items: flex-start;
+			flex-direction: column;
+		}
+		.dropdown-panel {
+			position: static;
+			min-width: 0;
+			padding: 0.25rem 0 0 0.75rem;
+			border: 0;
+			background: transparent;
+			box-shadow: none;
+			opacity: 1;
+			pointer-events: auto;
+			transform: none;
 		}
 	}
 </style>

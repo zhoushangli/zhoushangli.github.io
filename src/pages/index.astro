@@ -5,7 +5,11 @@ import HeroImage from '../content/images/hero_image.jpg';
 import NuverseImage from '../content/images/nuverse.png';
 import ShanghaiTechImage from '../content/images/shanghaitech.png';
 import SmuImage from '../content/images/smu.png';
+import { getProjectsByCategory } from '../data/projects';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const personalProjects = getProjectsByCategory('personal');
+const teamProjects = getProjectsByCategory('team');
 ---
 
 <PortfolioLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -160,83 +164,55 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		</div>
 	</section>
 
+
 	<section class="section showcase-section" id="personal-projects">
-		<h2 data-i18n-inline data-en="Personal Projects" data-zh="个人项目">Personal Projects</h2>
+		<h2 data-i18n-inline data-en="Personal Projects" data-zh="????">Personal Projects</h2>
 		<div class="showcase-list">
-			<article class="showcase-card">
-				<div class="showcase-media">
-					<img
-						src="/images/dfs-static-placeholder.svg"
-						alt="DFS I Engine Foundation placeholder"
-						data-i18n-alt="individual.staticAlt"
-					/>
-				</div>
-				<div class="showcase-copy">
-					<h3 data-i18n-inline data-en="DFS I Engine Foundation" data-zh="DFS I 引擎基础">
-						DFS I Engine Foundation
-					</h3>
-					<p
-						data-i18n-inline
-						data-en="An individual engine project focused on rendering, input, update loops, asset handling, and small gameplay tests as the engine grows from a technical base into a playable environment."
-						data-zh="一个个人引擎项目，关注渲染、输入、更新循环、资源管理和小型玩法测试，让引擎从技术基础逐渐变成可玩的环境。">
-						An individual engine project focused on rendering, input, update loops, asset handling,
-						and small gameplay tests as the engine grows from a technical base into a playable
-						environment.
-					</p>
-					<p class="showcase-tech">C++ | DirectX11 | Custom Engine</p>
-				</div>
-			</article>
+			{
+				personalProjects.map((project) => (
+					<a class="showcase-card clickable-card" href={`/projects/${project.slug}`}>
+						<div class="showcase-media">
+							<img
+								src={project.media.src}
+								alt={project.media.alt.en}
+								data-i18n-inline-alt
+								data-en={project.media.alt.en}
+								data-zh={project.media.alt.zh}
+							/>
+						</div>
+						<div class="showcase-copy">
+							<h3>{project.title}</h3>
+							<p data-i18n-inline data-en={project.summary.en} data-zh={project.summary.zh}>
+								{project.summary.en}
+							</p>
+							<p class="showcase-tech">{project.tech}</p>
+						</div>
+					</a>
+				))
+			}
 		</div>
 	</section>
 
 	<section class="section showcase-section" id="team-projects">
-		<h2 data-i18n-inline data-en="Team Projects" data-zh="团队项目">Team Projects</h2>
+		<h2 data-i18n-inline data-en="Team Projects" data-zh="????">Team Projects</h2>
 		<div class="showcase-list">
-			<article class="showcase-card">
-				<div class="showcase-media video-frame">
-					<iframe
-						src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-						title="TGP I placeholder video"
-						data-i18n-title="teamwork.tgp1VideoTitle"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen
-					/>
-				</div>
-				<div class="showcase-copy">
-					<h3>TGP I</h3>
-					<p
-						data-i18n-inline
-						data-en="A team game project placeholder prepared for a final trailer, gameplay description, team responsibilities, and production notes."
-						data-zh="团队游戏项目占位展示，后续用于放置正式预告片、玩法描述、团队职责和制作说明。">
-						A team game project placeholder prepared for a final trailer, gameplay description,
-						team responsibilities, and production notes.
-					</p>
-					<p class="showcase-tech">Unreal Engine | C++ | Team Project</p>
-				</div>
-			</article>
-
-			<article class="showcase-card">
-				<div class="showcase-media video-frame">
-					<iframe
-						src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-						title="TGP II placeholder video"
-						data-i18n-title="teamwork.tgp2VideoTitle"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen
-					/>
-				</div>
-				<div class="showcase-copy">
-					<h3>TGP II</h3>
-					<p
-						data-i18n-inline
-						data-en="A second team project placeholder focused on collaboration, iteration, production scope, and the work I contributed to the team."
-						data-zh="第二个团队项目占位展示，重点呈现协作、迭代、制作规模，以及我在团队中完成的工作。">
-						A second team project placeholder focused on collaboration, iteration, production scope,
-						and the work I contributed to the team.
-					</p>
-					<p class="showcase-tech">Unreal Engine | C++ | Team Project</p>
-				</div>
-			</article>
+			{
+				teamProjects.map((project) => (
+					<a class="showcase-card clickable-card" href={`/projects/${project.slug}`}>
+						<div class="showcase-media video-thumbnail">
+							<div class="play-mark" aria-hidden="true" />
+							<p>{project.title}</p>
+						</div>
+						<div class="showcase-copy">
+							<h3>{project.title}</h3>
+							<p data-i18n-inline data-en={project.summary.en} data-zh={project.summary.zh}>
+								{project.summary.en}
+							</p>
+							<p class="showcase-tech">{project.tech}</p>
+						</div>
+					</a>
+				))
+			}
 		</div>
 	</section>
 </PortfolioLayout>

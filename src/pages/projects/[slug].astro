@@ -1,0 +1,71 @@
+---
+import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
+import { projects } from '../../data/projects';
+
+export function getStaticPaths() {
+	return projects.map((project) => ({
+		params: { slug: project.slug },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+---
+
+<PortfolioLayout title={`${project.title} | ShangLi Zhou`} description={project.summary.en}>
+	<section class="project-detail-hero">
+		<p
+			class="eyebrow"
+			data-i18n-inline
+			data-en={project.category === 'personal' ? 'Personal Project' : 'Team Project'}
+			data-zh={project.category === 'personal' ? '个人项目' : '团队项目'}
+		>
+			{project.category === 'personal' ? 'Personal Project' : 'Team Project'}
+		</p>
+		<h1>{project.title}</h1>
+		<p data-i18n-inline data-en={project.summary.en} data-zh={project.summary.zh}>
+			{project.summary.en}
+		</p>
+		<p class="showcase-tech">{project.tech}</p>
+	</section>
+
+	<section class="section project-detail-grid">
+		<div class="project-detail-media">
+			{
+				project.media.type === 'video' ? (
+					<div class="video-frame">
+						<iframe
+							src={project.media.src}
+							title={project.media.alt.en}
+							data-i18n-inline-title
+							data-en={project.media.alt.en}
+							data-zh={project.media.alt.zh}
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen
+						/>
+					</div>
+				) : (
+					<img
+						src={project.media.src}
+						alt={project.media.alt.en}
+						data-i18n-inline-alt
+						data-en={project.media.alt.en}
+						data-zh={project.media.alt.zh}
+					/>
+				)
+			}
+		</div>
+
+		<div class="project-detail-copy">
+			<h2 data-i18n-inline data-en="Overview" data-zh="概览">Overview</h2>
+			<p data-i18n-inline data-en={project.detail.en} data-zh={project.detail.zh}>
+				{project.detail.en}
+			</p>
+
+			<h2 data-i18n-inline data-en="My Contribution" data-zh="我的贡献">My Contribution</h2>
+			<p data-i18n-inline data-en={project.contribution.en} data-zh={project.contribution.zh}>
+				{project.contribution.en}
+			</p>
+		</div>
+	</section>
+</PortfolioLayout>
