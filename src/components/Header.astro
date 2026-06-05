@@ -70,15 +70,14 @@ const teamProjects = getProjectsByCategory('team');
 		position: sticky;
 		top: 0;
 		z-index: 10;
-		border-bottom: 1px solid rgba(241, 234, 210, 0.26);
+		border-bottom: 1px solid var(--border);
 		background:
-			linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent 38%),
-			rgba(12, 12, 15, 0.86);
+			linear-gradient(180deg, rgba(232, 223, 204, 0.07), transparent 38%),
+			rgba(16, 16, 15, 0.9);
 		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.08),
-			inset 0 -1px 0 rgba(241, 234, 210, 0.24),
-			0 12px 30px rgba(0, 0, 0, 0.38),
-			0 0 26px rgba(241, 234, 210, 0.08);
+			inset 0 1px 0 rgba(232, 223, 204, 0.11),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.42),
+			0 12px 28px rgba(0, 0, 0, 0.34);
 		backdrop-filter: blur(18px);
 	}
 	header::after {
@@ -90,8 +89,9 @@ const teamProjects = getProjectsByCategory('team');
 		background: linear-gradient(
 			90deg,
 			transparent,
-			rgba(241, 234, 210, 0.72),
-			rgba(255, 248, 230, 0.48),
+			rgba(52, 51, 47, 0.9),
+			rgba(232, 223, 204, 0.2),
+			rgba(52, 51, 47, 0.9),
 			transparent
 		);
 		content: '';
@@ -119,15 +119,35 @@ const teamProjects = getProjectsByCategory('team');
 		min-height: 72px;
 	}
 	nav a {
+		position: relative;
 		color: var(--muted);
 		font-size: 1.1rem;
 		text-decoration: none;
 		text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
 	}
+	nav a::after {
+		position: absolute;
+		right: 0;
+		bottom: -0.35rem;
+		left: 0;
+		height: 1px;
+		background: var(--accent);
+		content: '';
+		opacity: 0;
+		transform: scaleX(0.35);
+		transition:
+			opacity 150ms ease,
+			transform 150ms ease;
+	}
 	nav a.external-link {
 		text-decoration: underline;
 		text-decoration-thickness: 1px;
 		text-underline-offset: 0.22em;
+	}
+	nav a.external-link::after,
+	h2 a::after,
+	.dropdown-panel a::after {
+		display: none;
 	}
 	button.language-toggle {
 		display: inline-flex;
@@ -136,15 +156,15 @@ const teamProjects = getProjectsByCategory('team');
 		min-width: 58px;
 		min-height: 42px;
 		padding: 0.45rem 0.85rem;
-		border: 1px solid rgba(241, 234, 210, 0.42);
+		border: 1px solid rgba(52, 51, 47, 0.9);
 		border-radius: 8px;
 		background:
-			linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.015)),
-			rgba(22, 22, 28, 0.72);
+			linear-gradient(180deg, rgba(232, 223, 204, 0.06), rgba(232, 223, 204, 0.015)),
+			rgba(23, 23, 21, 0.72);
 		color: var(--text);
 		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.1),
-			0 0 18px rgba(241, 234, 210, 0.12);
+			inset 0 1px 0 rgba(232, 223, 204, 0.08),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.34);
 		font: inherit;
 		font-size: 1.05rem;
 		cursor: pointer;
@@ -153,15 +173,20 @@ const teamProjects = getProjectsByCategory('team');
 		width: 0.42rem;
 		height: 0.42rem;
 		border-radius: 999px;
-		background: #f1ead2;
-		box-shadow: 0 0 10px rgba(241, 234, 210, 0.7);
+		background: var(--accent);
+		box-shadow: inset 0 1px 0 rgba(232, 223, 204, 0.35);
 	}
 	nav a:hover,
 	nav a.active,
 	button.language-toggle:hover {
 		color: var(--text);
-		border-color: rgba(255, 248, 230, 0.62);
-		text-shadow: 0 0 14px rgba(241, 234, 210, 0.42);
+		border-color: rgba(185, 155, 95, 0.62);
+		text-shadow: none;
+	}
+	nav a:hover::after,
+	nav a.active::after {
+		opacity: 1;
+		transform: scaleX(1);
 	}
 	.internal-links {
 		display: flex;
@@ -183,14 +208,14 @@ const teamProjects = getProjectsByCategory('team');
 		display: grid;
 		min-width: 220px;
 		padding: 0.8rem 0;
-		border: 1px solid rgba(241, 234, 210, 0.28);
+		border: 1px solid rgba(52, 51, 47, 0.96);
 		background:
-			linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 32%),
-			rgba(18, 18, 23, 0.98);
+			linear-gradient(180deg, rgba(232, 223, 204, 0.055), transparent 32%),
+			rgba(18, 18, 16, 0.98);
 		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.09),
-			0 16px 30px rgba(0, 0, 0, 0.45),
-			0 0 24px rgba(241, 234, 210, 0.16);
+			inset 0 1px 0 rgba(232, 223, 204, 0.08),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.42),
+			0 16px 30px rgba(0, 0, 0, 0.45);
 		opacity: 0;
 		pointer-events: none;
 		transform: translateY(-4px);
@@ -211,7 +236,7 @@ const teamProjects = getProjectsByCategory('team');
 	}
 	.dropdown-panel a.dropdown-link:hover {
 		color: var(--text);
-		background: rgba(255, 255, 255, 0.04);
+		background: rgba(232, 223, 204, 0.045);
 	}
 	@media (max-width: 720px) {
 		nav {

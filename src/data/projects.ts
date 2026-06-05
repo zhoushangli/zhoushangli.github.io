@@ -31,6 +31,13 @@ export interface Project {
 		en: string;
 		zh: string;
 	}[];
+	embedVideo?: {
+		src: string;
+		title: {
+			en: string;
+			zh: string;
+		};
+	};
 	media: {
 		type: 'image' | 'video';
 		src: string;
@@ -101,6 +108,13 @@ export const projects: Project[] = [
 				zh: '使用自发光贴图、体积云和地狱风格场景搭建形成最终氛围。',
 			},
 		],
+		embedVideo: {
+			src: 'https://player.bilibili.com/player.html?isOutside=true&bvid=BV1x75d6uEBT&page=1&autoplay=0',
+			title: {
+				en: 'Doomenstein gameplay video',
+				zh: 'Doomenstein 演示视频',
+			},
+		},
 		media: {
 			type: 'image',
 			src: DoomensteinTitleImage.src,

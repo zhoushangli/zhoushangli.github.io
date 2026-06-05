@@ -59,6 +59,24 @@ const { project } = Astro.props;
 		</div>
 
 		{
+			project.embedVideo && (
+				<div class="project-detail-video">
+					<div class="video-frame">
+						<iframe
+							src={project.embedVideo.src}
+							title={project.embedVideo.title.en}
+							data-i18n-inline-title
+							data-en={project.embedVideo.title.en}
+							data-zh={project.embedVideo.title.zh}
+							allow="autoplay; fullscreen; picture-in-picture"
+							allowfullscreen
+						/>
+					</div>
+				</div>
+			)
+		}
+
+		{
 			project.category === 'personal' ? (
 				<div class="project-detail-copy project-personal-copy">
 					<h2 data-i18n-inline data-en="Introduction" data-zh="介绍">
