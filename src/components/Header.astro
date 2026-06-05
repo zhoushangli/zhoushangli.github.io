@@ -70,9 +70,32 @@ const teamProjects = getProjectsByCategory('team');
 		position: sticky;
 		top: 0;
 		z-index: 10;
-		border-bottom: 1px solid var(--border);
-		background: rgba(14, 14, 15, 0.94);
-		backdrop-filter: blur(16px);
+		border-bottom: 1px solid rgba(154, 142, 255, 0.26);
+		background:
+			linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent 38%),
+			rgba(12, 12, 15, 0.86);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.08),
+			inset 0 -1px 0 rgba(139, 92, 246, 0.24),
+			0 12px 30px rgba(0, 0, 0, 0.38),
+			0 0 26px rgba(139, 92, 246, 0.08);
+		backdrop-filter: blur(18px);
+	}
+	header::after {
+		position: absolute;
+		right: 0;
+		bottom: -1px;
+		left: 0;
+		height: 1px;
+		background: linear-gradient(
+			90deg,
+			transparent,
+			rgba(139, 92, 246, 0.72),
+			rgba(226, 232, 240, 0.48),
+			transparent
+		);
+		content: '';
+		pointer-events: none;
 	}
 	h2 {
 		margin: 0;
@@ -99,6 +122,7 @@ const teamProjects = getProjectsByCategory('team');
 		color: var(--muted);
 		font-size: 1.1rem;
 		text-decoration: none;
+		text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
 	}
 	nav a.external-link {
 		text-decoration: underline;
@@ -112,11 +136,15 @@ const teamProjects = getProjectsByCategory('team');
 		min-width: 58px;
 		min-height: 42px;
 		padding: 0.45rem 0.85rem;
-		border: 1px solid rgba(190, 184, 172, 0.42);
+		border: 1px solid rgba(154, 142, 255, 0.42);
 		border-radius: 8px;
-		background: rgba(255, 255, 255, 0.02);
+		background:
+			linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.015)),
+			rgba(22, 22, 28, 0.72);
 		color: var(--text);
-		box-shadow: inset 0 0 14px rgba(255, 255, 255, 0.05);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.1),
+			0 0 18px rgba(139, 92, 246, 0.12);
 		font: inherit;
 		font-size: 1.05rem;
 		cursor: pointer;
@@ -132,7 +160,8 @@ const teamProjects = getProjectsByCategory('team');
 	nav a.active,
 	button.language-toggle:hover {
 		color: var(--text);
-		border-color: #55555f;
+		border-color: rgba(190, 184, 255, 0.62);
+		text-shadow: 0 0 14px rgba(190, 184, 255, 0.42);
 	}
 	.internal-links {
 		display: flex;
@@ -154,11 +183,14 @@ const teamProjects = getProjectsByCategory('team');
 		display: grid;
 		min-width: 220px;
 		padding: 0.8rem 0;
-		border: 1px solid var(--border);
-		background: rgba(22, 22, 24, 0.98);
+		border: 1px solid rgba(154, 142, 255, 0.28);
+		background:
+			linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 32%),
+			rgba(18, 18, 23, 0.98);
 		box-shadow:
-			0 16px 30px rgba(0, 0, 0, 0.38),
-			0 0 18px rgba(190, 184, 172, 0.08);
+			inset 0 1px 0 rgba(255, 255, 255, 0.09),
+			0 16px 30px rgba(0, 0, 0, 0.45),
+			0 0 24px rgba(139, 92, 246, 0.16);
 		opacity: 0;
 		pointer-events: none;
 		transform: translateY(-4px);

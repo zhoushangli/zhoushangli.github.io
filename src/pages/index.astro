@@ -185,7 +185,13 @@ const teamProjects = getProjectsByCategory('team');
 							<p data-i18n-inline data-en={project.summary.en} data-zh={project.summary.zh}>
 								{project.summary.en}
 							</p>
-							<p class="showcase-tech">{project.tech}</p>
+							<p
+								class="showcase-tech"
+								data-i18n-inline
+								data-en={project.tech.en}
+								data-zh={project.tech.zh}>
+								{project.tech.en}
+							</p>
 						</div>
 					</a>
 				))
@@ -208,7 +214,13 @@ const teamProjects = getProjectsByCategory('team');
 							<p data-i18n-inline data-en={project.summary.en} data-zh={project.summary.zh}>
 								{project.summary.en}
 							</p>
-							<p class="showcase-tech">{project.tech}</p>
+							<p
+								class="showcase-tech"
+								data-i18n-inline
+								data-en={project.tech.en}
+								data-zh={project.tech.zh}>
+								{project.tech.en}
+							</p>
 						</div>
 					</a>
 				))

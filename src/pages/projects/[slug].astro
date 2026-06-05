@@ -26,10 +26,12 @@ const { project } = Astro.props;
 		<p data-i18n-inline data-en={project.summary.en} data-zh={project.summary.zh}>
 			{project.summary.en}
 		</p>
-		<p class="showcase-tech">{project.tech}</p>
+		<p class="showcase-tech" data-i18n-inline data-en={project.tech.en} data-zh={project.tech.zh}>
+			{project.tech.en}
+		</p>
 	</section>
 
-	<section class="section project-detail-grid">
+	<section class={`section project-detail-grid ${project.category === 'personal' ? 'project-detail-stack' : ''}`}>
 		<div class="project-detail-media">
 			{
 				project.media.type === 'video' ? (
@@ -56,16 +58,76 @@ const { project } = Astro.props;
 			}
 		</div>
 
-		<div class="project-detail-copy">
-			<h2 data-i18n-inline data-en="Overview" data-zh="概览">Overview</h2>
-			<p data-i18n-inline data-en={project.detail.en} data-zh={project.detail.zh}>
-				{project.detail.en}
-			</p>
+		{
+			project.category === 'personal' ? (
+				<div class="project-detail-copy project-personal-copy">
+					<h2 data-i18n-inline data-en="Introduction" data-zh="介绍">
+						Introduction
+					</h2>
+					<div class="project-introduction-grid">
+						<div>
+							<p data-i18n-inline data-en={project.detail.en} data-zh={project.detail.zh}>
+								{project.detail.en}
+							</p>
+						</div>
+						<dl class="project-meta-list">
+							{project.duration && (
+								<div>
+									<dt data-i18n-inline data-en="Duration:" data-zh="周期：">
+										Duration:
+									</dt>
+									<dd>{project.duration}</dd>
+								</div>
+							)}
+							<div>
+								<dt data-i18n-inline data-en="Technologies:" data-zh="技术：">
+									Technologies:
+								</dt>
+								<dd data-i18n-inline data-en={project.tech.en} data-zh={project.tech.zh}>
+									{project.tech.en}
+								</dd>
+							</div>
+							{project.role && (
+								<div>
+									<dt data-i18n-inline data-en="Role:" data-zh="职责：">
+										Role:
+									</dt>
+									<dd data-i18n-inline data-en={project.role.en} data-zh={project.role.zh}>
+										{project.role.en}
+									</dd>
+								</div>
+							)}
+						</dl>
+					</div>
 
-			<h2 data-i18n-inline data-en="My Contribution" data-zh="我的贡献">My Contribution</h2>
-			<p data-i18n-inline data-en={project.contribution.en} data-zh={project.contribution.zh}>
-				{project.contribution.en}
-			</p>
-		</div>
+					<h2 data-i18n-inline data-en="Key Features" data-zh="主要功能">
+						Key Features
+					</h2>
+					<ul class="project-feature-list">
+						{project.features?.map((feature) => (
+							<li data-i18n-inline data-en={feature.en} data-zh={feature.zh}>
+								{feature.en}
+							</li>
+						))}
+					</ul>
+				</div>
+			) : (
+				<div class="project-detail-copy">
+					<h2 data-i18n-inline data-en="Overview" data-zh="概览">
+						Overview
+					</h2>
+					<p data-i18n-inline data-en={project.detail.en} data-zh={project.detail.zh}>
+						{project.detail.en}
+					</p>
+
+					<h2 data-i18n-inline data-en="My Contribution" data-zh="我的贡献">
+						My Contribution
+					</h2>
+					<p data-i18n-inline data-en={project.contribution.en} data-zh={project.contribution.zh}>
+						{project.contribution.en}
+					</p>
+				</div>
+			)
+		}
 	</section>
 </PortfolioLayout>

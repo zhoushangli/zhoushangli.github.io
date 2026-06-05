@@ -18,7 +18,19 @@ export interface Project {
 		en: string;
 		zh: string;
 	};
-	tech: string;
+	duration?: string;
+	role?: {
+		en: string;
+		zh: string;
+	};
+	tech: {
+		en: string;
+		zh: string;
+	};
+	features?: {
+		en: string;
+		zh: string;
+	}[];
 	media: {
 		type: 'image' | 'video';
 		src: string;
@@ -46,7 +58,49 @@ export const projects: Project[] = [
 			en: 'As the solo developer, I built the node-style gameplay framework, rendering features, input and controller support, local multiplayer, enemy behavior, IK, particles, post-processing, and hell-themed scene content.',
 			zh: '作为独立开发者，我负责类 Godot node 系统、渲染表现、键鼠与手柄输入、本地多人、敌人行为、IK、粒子、后处理和地狱风格场景内容。',
 		},
-		tech: 'Custom Node-Style Framework | 3D FPS | Local Multiplayer | OBJ Loading | Post-Processing | CPU Particles | Simple IK | Volumetric Clouds | Emissive Materials',
+		duration: '2026.1 - 2026.5',
+		role: {
+			en: 'Solo Developer',
+			zh: '独立开发',
+		},
+		tech: {
+			en: 'Node System | Hell-Styled Scene | IK Spider',
+			zh: '节点系统 | 地狱风格化场景 | IK 蜘蛛',
+		},
+		features: [
+			{
+				en: 'Built a Godot-like node system to organize gameplay objects, scene logic, and reusable behaviors.',
+				zh: '搭建类 Godot node 系统，用于组织玩法对象、场景逻辑和可复用行为。',
+			},
+			{
+				en: 'Implemented 8-direction sprite rendering for retro FPS-style enemies and characters.',
+				zh: '实现 8 面精灵渲染，用于复古 FPS 风格的角色和敌人表现。',
+			},
+			{
+				en: 'Added local multiplayer for up to two players using keyboard/mouse or Xbox controllers.',
+				zh: '支持最多 2 名玩家通过键盘鼠标或 Xbox 手柄进行本地多人游玩。',
+			},
+			{
+				en: 'Loaded 3D models from OBJ files for environment and gameplay assets.',
+				zh: '实现 OBJ 3D 模型加载，用于场景和玩法资产。',
+			},
+			{
+				en: 'Built a post-processing chain to strengthen the hell-themed visual style.',
+				zh: '搭建后处理链，强化整体地狱风格视觉。',
+			},
+			{
+				en: 'Implemented a simple CPU quad particle system for gameplay effects.',
+				zh: '实现简易 CPU quad 粒子系统，用于游戏特效。',
+			},
+			{
+				en: 'Added simple IK behavior for spider enemies.',
+				zh: '为蜘蛛敌人加入简易 IK 行为。',
+			},
+			{
+				en: 'Used emissive textures, volumetric clouds, and hell-themed scene composition to shape the final mood.',
+				zh: '使用自发光贴图、体积云和地狱风格场景搭建形成最终氛围。',
+			},
+		],
 		media: {
 			type: 'image',
 			src: DoomensteinTitleImage.src,
@@ -72,7 +126,10 @@ export const projects: Project[] = [
 			en: 'Role and contribution details will be added after the final project materials are ready.',
 			zh: '具体职责和贡献会在最终项目素材准备好后补充。',
 		},
-		tech: 'Unreal Engine | C++ | Team Project',
+		tech: {
+			en: 'Unreal Engine | C++ | Team Project',
+			zh: 'Unreal Engine | C++ | 团队项目',
+		},
 		media: {
 			type: 'video',
 			src: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
@@ -98,7 +155,10 @@ export const projects: Project[] = [
 			en: 'Role and contribution details will be added after the final project materials are ready.',
 			zh: '具体职责和贡献会在最终项目素材准备好后补充。',
 		},
-		tech: 'Unreal Engine | C++ | Team Project',
+		tech: {
+			en: 'Unreal Engine | C++ | Team Project',
+			zh: 'Unreal Engine | C++ | 团队项目',
+		},
 		media: {
 			type: 'video',
 			src: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
