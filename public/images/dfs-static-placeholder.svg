@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" role="img" aria-labelledby="title desc">
+  <title id="title">DFS I static placeholder</title>
+  <desc id="desc">Static screenshot placeholder for DFS I.</desc>
+  <rect width="1280" height="800" fill="#151517"/>
+  <rect x="70" y="70" width="1140" height="660" rx="20" fill="#222229" stroke="#3d3d45" stroke-width="4"/>
+  <path d="M170 580h940M170 500h760M170 420h560M170 340h860" stroke="#4b4e58" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="930" cy="270" r="88" fill="#636775"/>
+  <text x="640" y="690" text-anchor="middle" fill="#dddde6" font-family="Arial, sans-serif" font-size="42" font-weight="700">DFS I Static Image Placeholder</text>
+</svg>

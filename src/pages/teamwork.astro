@@ -1,0 +1,70 @@
+---
+import PortfolioLayout from '../layouts/PortfolioLayout.astro';
+
+const projects = [
+	{
+		title: 'TGP I',
+		video: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+		role: 'Role placeholder: gameplay programmer / technical contributor',
+		tools: 'Tools placeholder: Unreal Engine, Unity, C++, C#, or team-selected tools',
+		description:
+			'TGP I is a placeholder for the first team game project. The final entry will include the project goal, team responsibilities, development process, and a trailer or gameplay video.',
+		descriptionCn:
+			'TGP I 是第一个团队游戏项目的占位展示。最终内容会包含项目目标、团队职责、开发过程，以及预告片或玩法视频。',
+	},
+	{
+		title: 'TGP II',
+		video: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+		role: 'Role placeholder: gameplay programmer / technical contributor',
+		tools: 'Tools placeholder: Unreal Engine, Unity, C++, C#, or team-selected tools',
+		description:
+			'TGP II is a placeholder for the second team game project. The final entry will focus on collaboration, iteration, production scope, and the work I contributed to the team.',
+		descriptionCn:
+			'TGP II 是第二个团队游戏项目的占位展示。最终内容会强调协作、迭代、制作规模，以及我在团队中完成的工作。',
+	},
+];
+---
+
+<PortfolioLayout
+	title="Team Projects | ShangLi Zhou"
+	description="TGP I and TGP II teamwork portfolio entries by ShangLi Zhou."
+>
+	<section class="page-hero">
+		<p class="eyebrow">Teamwork / 团队项目</p>
+		<h1>Team Game Projects</h1>
+		<p>
+			Two placeholder entries for TGP I and TGP II, prepared for final trailers, project details,
+			and contribution summaries.
+		</p>
+		<p class="cn">两个团队游戏项目占位展示，后续会替换为正式预告片、项目细节和个人贡献说明。</p>
+	</section>
+
+	<section class="section project-list">
+		{
+			projects.map((project) => (
+				<article class="card project-card">
+					<div class="video-frame">
+						<iframe
+							src={project.video}
+							title={`${project.title} placeholder video`}
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen
+						/>
+					</div>
+					<div>
+						<p class="section-label">Team Project</p>
+						<h2>{project.title}</h2>
+						<p>{project.description}</p>
+						<p class="cn">{project.descriptionCn}</p>
+						<p>
+							<strong>Role:</strong> {project.role}
+						</p>
+						<p>
+							<strong>Tools:</strong> {project.tools}
+						</p>
+					</div>
+				</article>
+			))
+		}
+	</section>
+</PortfolioLayout>

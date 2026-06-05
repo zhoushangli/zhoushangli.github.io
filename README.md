@@ -1,63 +1,30 @@
-# Astro Starter Kit: Blog
+# ShangLi Zhou Portfolio
+
+A bilingual game developer portfolio for ShangLi Zhou / 周尚礼. The site is built with Astro and prepared for a class portfolio submission.
+
+## Portfolio Contents
+
+- Homepage with header, hero image placeholder, short bilingual bio, education, and required links
+- Individual Work page featuring `DFS I`
+- Teamwork page featuring `TGP I` and `TGP II`
+- Personal page with resume and cover letter placeholder PDFs
+- LinkedIn: https://www.linkedin.com/in/shangli-zhou-360979407/
+- GitHub: https://github.com/zhoushangli
+
+## Placeholder Project
+
+### DFS I Engine Foundation
+
+DFS I is an individual project placeholder focused on gradually building a game engine. The final entry will include screenshots, an animated capture, implementation notes, and a description of the technical goals.
+
+中文说明：DFS I 是一个逐渐开始搭建游戏引擎的个人项目占位条目。最终版本会加入截图、动态图、实现说明和技术目标。
+
+## Local Development
 
 ```sh
-npm create astro@latest -- --template blog
+npm install
+npm run dev
+npm run build
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+The portfolio will be submitted using the deployed GitHub Pages URL for this repository.

@@ -1,49 +1,95 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import PortfolioLayout from '../layouts/PortfolioLayout.astro';
+import { GITHUB_URL, LINKEDIN_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
+<PortfolioLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<section class="hero">
+		<div class="hero-copy">
+			<p class="eyebrow">ShangLi Zhou / 周尚礼</p>
+			<h1>Hi, I'm ShangLi</h1>
+			<p class="subtitle">I'm a Game Developer.</p>
+			<p class="cn">你好，我是周尚礼，一名游戏开发者。</p>
+			<div class="link-row">
+				<a class="button" href="/individual-work">Individual Work</a>
+				<a class="button secondary" href="/teamwork">Team Projects</a>
+				<a class="button secondary" href="/personal">Resume & Letter</a>
+			</div>
+		</div>
+		<img
+			class="hero-image"
+			src="/images/hero-placeholder.svg"
+			alt="Placeholder hero portrait for ShangLi Zhou"
+		/>
+	</section>
+
+	<section class="section two-column" id="about">
+		<div>
+			<p class="section-label">About</p>
+			<h2>Game development, systems, and content creation.</h2>
+		</div>
+		<div class="copy-block">
 			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
+				I am a game developer interested in building playable systems, interactive experiences,
+				and memorable game content. My work is currently centered on learning engine development,
+				strengthening technical foundations, and turning ideas into clear prototypes.
 			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
+			<p class="cn">
+				我是一名游戏开发者，关注玩法系统、互动体验和游戏内容创作。目前我正在逐渐学习并搭建游戏引擎，
+				同时打磨技术基础，把想法转化为可玩的原型。
 			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+		</div>
+	</section>
+
+	<section class="section">
+		<p class="section-label">Education</p>
+		<div class="grid two">
+			<article class="card">
+				<p class="tag">2021-2025</p>
+				<h3>ShanghaiTech University</h3>
+				<p>B.S. in Computer Science</p>
+				<p class="cn">上海科技大学，计算机科学本科。</p>
+			</article>
+			<article class="card">
+				<p class="tag">2025-2027</p>
+				<h3>SMU Guildhall</h3>
+				<p>Currently studying Game Software Development.</p>
+				<p class="cn">目前在 SMU Guildhall 学习 Game Software Development。</p>
+			</article>
+		</div>
+	</section>
+
+	<section class="section">
+		<p class="section-label">Portfolio Links</p>
+		<div class="grid three">
+			<a class="card link-card" href="/individual-work">
+				<h3>Individual Work</h3>
+				<p>DFS I with static and animated media placeholders.</p>
+			</a>
+			<a class="card link-card" href="/teamwork">
+				<h3>Teamwork</h3>
+				<p>TGP I and TGP II project placeholders with embedded videos.</p>
+			</a>
+			<a class="card link-card" href="/personal">
+				<h3>Personal</h3>
+				<p>Resume, cover letter, LinkedIn, and GitHub links.</p>
+			</a>
+			<a class="card link-card" href="/documents/resume-placeholder.pdf" target="_blank">
+				<h3>Resume</h3>
+				<p>Placeholder PDF to replace with the final resume.</p>
+			</a>
+			<a class="card link-card" href="/documents/cover-letter-placeholder.pdf" target="_blank">
+				<h3>Cover Letter</h3>
+				<p>Placeholder PDF to replace with the final cover letter or letter of intent.</p>
+			</a>
+			<a class="card link-card" href={LINKEDIN_URL} target="_blank" rel="noreferrer">
+				<h3>LinkedIn</h3>
+				<p>Basic profile, education, and professional contact link.</p>
+			</a>
+			<a class="card link-card" href={GITHUB_URL} target="_blank" rel="noreferrer">
+				<h3>GitHub</h3>
+				<p>Profile and project repository placeholder.</p>
+			</a>
+		</div>
+	</section>
+</PortfolioLayout>

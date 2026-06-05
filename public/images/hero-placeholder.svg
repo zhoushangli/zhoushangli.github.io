@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" role="img" aria-labelledby="title desc">
+  <title id="title">Hero image placeholder</title>
+  <desc id="desc">Placeholder portrait image for ShangLi Zhou portfolio.</desc>
+  <rect width="900" height="900" fill="#18181b"/>
+  <rect x="80" y="80" width="740" height="740" rx="28" fill="#232329" stroke="#3a3a42" stroke-width="4"/>
+  <circle cx="450" cy="330" r="120" fill="#555864"/>
+  <path d="M230 710c42-150 160-230 320-230 96 0 180 30 252 90v140H230z" fill="#3f424c"/>
+  <text x="450" y="810" text-anchor="middle" fill="#d8d8de" font-family="Arial, sans-serif" font-size="42" font-weight="700">Hero Image Placeholder</text>
+</svg>

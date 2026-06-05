@@ -1,0 +1,49 @@
+---
+import PortfolioLayout from '../layouts/PortfolioLayout.astro';
+import { GITHUB_URL } from '../consts';
+---
+
+<PortfolioLayout
+	title="GitHub | ShangLi Zhou"
+	description="GitHub profile and project placeholder for ShangLi Zhou."
+>
+	<section class="page-hero">
+		<p class="eyebrow">GitHub</p>
+		<h1>README and Project Placeholder</h1>
+		<p>
+			This page mirrors the GitHub requirement for the assignment: a profile link, README content,
+			and one project entry to replace with a final repository later.
+		</p>
+		<p class="cn">此页面对应作业中的 GitHub 要求：主页链接、README 内容和一个后续可替换的项目条目。</p>
+	</section>
+
+	<section class="section">
+		<article class="card readme-card">
+			<p class="section-label">README Preview</p>
+			<h2>ShangLi Zhou Portfolio</h2>
+			<p>
+				A bilingual game developer portfolio built with Astro. It includes individual work,
+				team projects, personal documents, LinkedIn, and GitHub links.
+			</p>
+			<p class="cn">
+				一个使用 Astro 构建的中英双语游戏开发作品集，包含个人作品、团队项目、个人文档、LinkedIn 和 GitHub 链接。
+			</p>
+			<a class="button" href={GITHUB_URL} target="_blank" rel="noreferrer">Open GitHub Profile</a>
+		</article>
+	</section>
+
+	<section class="section">
+		<article class="card">
+			<p class="tag">Project Placeholder</p>
+			<h2>DFS I Engine Foundation</h2>
+			<p>
+				A placeholder repository entry for an individual game-engine project. The final GitHub
+				project will include source code, build notes, screenshots, and a README describing the
+				technical goals.
+			</p>
+			<p class="cn">
+				个人游戏引擎项目的 GitHub 仓库占位条目。最终版本会包含源码、构建说明、截图和技术目标 README。
+			</p>
+		</article>
+	</section>
+</PortfolioLayout>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" role="img" aria-labelledby="title desc">
+  <title id="title">DFS I animated placeholder</title>
+  <desc id="desc">Animated image placeholder for DFS I.</desc>
+  <rect width="1280" height="800" fill="#151517"/>
+  <rect x="70" y="70" width="1140" height="660" rx="20" fill="#222229" stroke="#3d3d45" stroke-width="4"/>
+  <circle cx="360" cy="400" r="70" fill="#8b8f9f">
+    <animate attributeName="cx" values="300;980;300" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <path d="M190 560h890" stroke="#4b4e58" stroke-width="20" stroke-linecap="round"/>
+  <text x="640" y="690" text-anchor="middle" fill="#dddde6" font-family="Arial, sans-serif" font-size="42" font-weight="700">DFS I Animated Placeholder</text>
+</svg>
