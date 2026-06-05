@@ -20,7 +20,7 @@ export const copy = {
 			heroTitle: "Hi, I'm ShangLi Zhou",
 			heroSubtitle: "I'm a Game Developer.",
 			heroIntro:
-				"I'm currently studying game development at SMU Guildhall, where I'm building a custom game engine with DirectX11. I've also worked on a 50-person Unreal Engine team to develop and ship a Mario Kart-like racing game on Steam.",
+				"I'm currently studying game development at SMU Guildhall, I’ve previously studied as a Computer Science undergraduate at ShanghaiTech University.",
 			contactLine: 'I reply fastest on email: 185600557@qq.com',
 			heroAlt: 'Portrait image of ShangLi Zhou',
 			ctaIndividual: 'Individual Work',
@@ -29,7 +29,7 @@ export const copy = {
 			aboutLabel: 'About',
 			aboutSecondTitle: "Hi, I'm ShangLi Zhou",
 			aboutSecondBody:
-				'<p>I\'m currently studying game development at SMU Guildhall, where I\'m building a custom game engine with DirectX11. I\'ve also worked on a 50-person Unreal Engine team to develop and ship a Mario Kart-like racing game on Steam.</p><p>I\'m passionate about content creation, small animals, and <u title="Just a joke, please don\'t take it seriously">starting foreign wars</u>. I have nearly 600 hours in Victoria 3, which has made me especially interested in modernization, modernity, and the historical systems that shape China and the wider world.</p><p>Although my main discipline is programming, I also study level design. I\'ve written breakdowns of Ori and the Will of the Wisps and Celeste, and recreated a level from Uncharted 4 to better understand pacing, space, traversal, and encounter design.</p>',
+				'<p>I\'m currently studying game development at SMU Guildhall, where I\'m building a custom game engine with DirectX11. I\'ve also worked on a 50-person Unreal Engine team to develop and ship a Mario Kart-like racing game on Steam.</p><p>I\'m passionate about content creation, small animals, and <u title="Just a joke, please don\'t take it seriously">starting foreign wars</u>. I’m deeply interested in modernization and modernity, especially the historical systems that shaped that period. I have spent nearly 600 hours in Victoria 3 and have read several related books to explore those ideas further.</p><p>Although my main discipline is programming, I also study level design. I\'ve written breakdowns of Ori and the Will of the Wisps and Celeste, and recreated a level from Uncharted 4 to better understand pacing, space, traversal, and encounter design.</p>',
 			educationLabel: 'Education',
 			shanghaiTechTitle: 'ShanghaiTech University',
 			shanghaiTechDegree: 'B.S. in Computer Science',
