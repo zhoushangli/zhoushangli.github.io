@@ -1,3 +1,5 @@
+import DoomensteinTitleImage from '../content/images/doomenstein_titile.png';
+
 export type ProjectCategory = 'personal' | 'team';
 
 export interface Project {
@@ -29,28 +31,28 @@ export interface Project {
 
 export const projects: Project[] = [
 	{
-		slug: 'dfs-i',
+		slug: 'doomenstein',
 		category: 'personal',
-		title: 'DFS I Engine Foundation',
+		title: 'Doomenstein',
 		summary: {
-			en: 'An individual engine project focused on rendering, input, update loops, asset handling, and small gameplay tests as the engine grows from a technical base into a playable environment.',
-			zh: '一个个人引擎项目，关注渲染、输入、更新循环、资源管理和小型玩法测试，让引擎从技术基础逐渐变成可玩的环境。',
+			en: 'A solo-developed retro 3D first-person hell shooter with 8-direction sprites, local two-player support, OBJ model loading, post-processing, CPU particles, and simple IK-driven enemies.',
+			zh: '一款独立开发的复古 3D 第一人称地狱射击游戏，结合 8 面精灵、本地双人、OBJ 模型加载、后处理、CPU 粒子和简易 IK 敌人。',
 		},
 		detail: {
-			en: 'DFS I is a placeholder project page for an individual custom engine. This page will later document the architecture, rendering path, input layer, asset pipeline, gameplay experiments, and lessons learned while building the engine.',
-			zh: 'DFS I 是一个个人自定义引擎项目的占位详情页。之后这里会记录架构、渲染路径、输入层、资源管线、玩法实验，以及搭建引擎过程中的经验。',
+			en: 'Doomenstein began as a retro-style 3D first-person shooter using 8-direction sprites, with local multiplayer support for up to two players using keyboard/mouse or Xbox controllers. I later expanded it with OBJ model loading, simple IK, a post-processing chain, CPU quad particles, volumetric clouds, emissive textures, and a hell-themed environment, turning it into a small but complete doomlike shooter prototype.',
+			zh: '《末日迷宫》（Doomenstein）最初是一款复古风格的 3D 第一人称射击游戏，使用 8 面精灵图表现角色朝向，并支持最多 2 名玩家通过键盘鼠标或 Xbox 手柄进行本地多人游玩。随后我为项目加入了 OBJ 3D 模型加载、简易 IK、后处理链、CPU quad 粒子、体积云、自发光贴图和地狱风格场景，将它扩展成一个简单但完整的 doomlike 地狱射击游戏原型。',
 		},
 		contribution: {
-			en: 'I am responsible for the full technical implementation and documentation of the engine foundation.',
-			zh: '我负责引擎基础部分的完整技术实现和文档整理。',
+			en: 'As the solo developer, I built the node-style gameplay framework, rendering features, input and controller support, local multiplayer, enemy behavior, IK, particles, post-processing, and hell-themed scene content.',
+			zh: '作为独立开发者，我负责类 Godot node 系统、渲染表现、键鼠与手柄输入、本地多人、敌人行为、IK、粒子、后处理和地狱风格场景内容。',
 		},
-		tech: 'C++ | DirectX11 | Custom Engine',
+		tech: 'Custom Node-Style Framework | 3D FPS | Local Multiplayer | OBJ Loading | Post-Processing | CPU Particles | Simple IK | Volumetric Clouds | Emissive Materials',
 		media: {
 			type: 'image',
-			src: '/images/dfs-static-placeholder.svg',
+			src: DoomensteinTitleImage.src,
 			alt: {
-				en: 'DFS I Engine Foundation placeholder image',
-				zh: 'DFS I 引擎基础占位图',
+				en: 'Doomenstein title image',
+				zh: 'Doomenstein 标题图',
 			},
 		},
 	},
