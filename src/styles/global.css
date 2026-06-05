@@ -12,9 +12,60 @@
 	--line-bright: rgba(232, 223, 204, 0.2);
 	--panel: rgba(23, 23, 21, 0.88);
 	--panel-strong: rgba(18, 18, 16, 0.96);
+	--media-bg: #050506;
+	--video-bg: #09090b;
 	--shadow-dark: rgba(0, 0, 0, 0.42);
 	--highlight: rgba(232, 223, 204, 0.08);
 	--brass-soft: rgba(185, 155, 95, 0.42);
+	--inset-shadow: rgba(0, 0, 0, 0.42);
+	--thumbnail-border: rgba(52, 51, 47, 0.9);
+	--thumbnail-mark: rgba(232, 223, 204, 0.1);
+	--panel-sheen: rgba(232, 223, 204, 0.035);
+	--hover-highlight: rgba(232, 223, 204, 0.12);
+	--meta-highlight: rgba(232, 223, 204, 0.025);
+	--body-glow-primary: rgba(185, 155, 95, 0.08);
+	--body-glow-secondary: rgba(232, 223, 204, 0.035);
+	--topbar-bg: rgba(16, 16, 15, 0.9);
+	--topbar-highlight: rgba(232, 223, 204, 0.07);
+	--topbar-inset: rgba(0, 0, 0, 0.42);
+	--control-bg: rgba(23, 23, 21, 0.72);
+	--control-border: rgba(52, 51, 47, 0.9);
+	--dropdown-bg: rgba(18, 18, 16, 0.98);
+}
+
+html[data-theme='light'] {
+	--bg: #d8cfbb;
+	--surface: #f1ead8;
+	--surface-soft: #e2d8c2;
+	--text: #1b1a17;
+	--muted: #625d53;
+	--subtle: #7b715f;
+	--border: #b8ad98;
+	--accent: #8f6f35;
+	--accent-strong: #765829;
+	--line-soft: rgba(184, 173, 152, 0.82);
+	--line-bright: rgba(27, 26, 23, 0.16);
+	--panel: rgba(241, 234, 216, 0.9);
+	--panel-strong: rgba(241, 234, 216, 0.96);
+	--media-bg: #e2d8c2;
+	--video-bg: #d8cfbb;
+	--shadow-dark: rgba(27, 26, 23, 0.14);
+	--highlight: rgba(255, 252, 241, 0.66);
+	--brass-soft: rgba(143, 111, 53, 0.36);
+	--inset-shadow: rgba(27, 26, 23, 0.14);
+	--thumbnail-border: rgba(184, 173, 152, 0.92);
+	--thumbnail-mark: rgba(143, 111, 53, 0.12);
+	--panel-sheen: rgba(255, 252, 241, 0.34);
+	--hover-highlight: rgba(255, 252, 241, 0.58);
+	--meta-highlight: rgba(255, 252, 241, 0.3);
+	--body-glow-primary: rgba(143, 111, 53, 0.1);
+	--body-glow-secondary: rgba(255, 252, 241, 0.38);
+	--topbar-bg: rgba(241, 234, 216, 0.88);
+	--topbar-highlight: rgba(255, 252, 241, 0.72);
+	--topbar-inset: rgba(27, 26, 23, 0.14);
+	--control-bg: rgba(241, 234, 216, 0.78);
+	--control-border: rgba(184, 173, 152, 0.96);
+	--dropdown-bg: rgba(241, 234, 216, 0.98);
 }
 
 * {
@@ -30,8 +81,8 @@ body {
 	font-family: var(--font-atkinson), Arial, sans-serif;
 	margin: 0;
 	background:
-		radial-gradient(circle at top right, rgba(185, 155, 95, 0.08), transparent 32rem),
-		radial-gradient(circle at 12% 18%, rgba(232, 223, 204, 0.035), transparent 28rem),
+		radial-gradient(circle at top right, var(--body-glow-primary), transparent 32rem),
+		radial-gradient(circle at 12% 18%, var(--body-glow-secondary), transparent 28rem),
 		var(--bg);
 	color: var(--text);
 	font-size: 18px;
@@ -241,7 +292,7 @@ strong {
 	padding: 1.4rem;
 	box-shadow:
 		inset 0 1px 0 var(--highlight),
-		inset 0 -1px 0 rgba(0, 0, 0, 0.28);
+		inset 0 -1px 0 var(--inset-shadow);
 }
 
 .link-card {
@@ -269,7 +320,7 @@ strong {
 	border: 1px solid var(--accent);
 	border-radius: 6px;
 	background: var(--accent-strong);
-	color: #101012;
+	color: var(--bg);
 	font-weight: 700;
 	text-decoration: none;
 }
@@ -309,7 +360,7 @@ strong {
 .timeline-media {
 	overflow: hidden;
 	border-radius: 6px;
-	background: #050506;
+	background: var(--media-bg);
 }
 
 .timeline-media img {
@@ -318,7 +369,7 @@ strong {
 	object-fit: contain;
 	padding: 1.25rem;
 	border-radius: 6px;
-	background: #050506;
+	background: var(--media-bg);
 }
 
 .timeline-meta p,
@@ -359,12 +410,12 @@ strong {
 	border: 1px solid var(--border);
 	border-radius: 8px;
 	background:
-		linear-gradient(180deg, rgba(232, 223, 204, 0.035), transparent 32%),
+		linear-gradient(180deg, var(--panel-sheen), transparent 32%),
 		var(--panel);
 	box-shadow:
 		inset 0 1px 0 var(--highlight),
-		inset 0 -1px 0 rgba(0, 0, 0, 0.42),
-		0 14px 28px rgba(0, 0, 0, 0.22);
+		inset 0 -1px 0 var(--inset-shadow),
+		0 14px 28px var(--shadow-dark);
 	color: inherit;
 	text-decoration: none;
 	transition:
@@ -382,19 +433,19 @@ strong {
 	transform: translateY(-2px);
 	border-color: rgba(185, 155, 95, 0.58);
 	box-shadow:
-		inset 0 1px 0 rgba(232, 223, 204, 0.12),
-		inset 0 -1px 0 rgba(0, 0, 0, 0.48),
-		0 18px 34px rgba(0, 0, 0, 0.28);
+		inset 0 1px 0 var(--hover-highlight),
+		inset 0 -1px 0 var(--inset-shadow),
+		0 18px 34px var(--shadow-dark);
 	outline: none;
 }
 
 .showcase-media {
 	overflow: hidden;
 	border-radius: 6px;
-	background: #050506;
+	background: var(--media-bg);
 	box-shadow:
 		inset 0 1px 0 var(--highlight),
-		0 0 0 1px rgba(52, 51, 47, 0.8);
+		0 0 0 1px var(--thumbnail-border);
 }
 
 .showcase-media img {
@@ -403,7 +454,7 @@ strong {
 	object-fit: contain;
 	padding: 1rem;
 	border-radius: 6px;
-	background: #050506;
+	background: var(--media-bg);
 }
 
 .video-thumbnail {
@@ -411,10 +462,10 @@ strong {
 	display: grid;
 	place-items: center;
 	aspect-ratio: 16 / 9;
-	border: 1px solid rgba(52, 51, 47, 0.9);
+	border: 1px solid var(--thumbnail-border);
 	background:
 		linear-gradient(135deg, rgba(185, 155, 95, 0.12), transparent 45%),
-		#09090b;
+		var(--video-bg);
 }
 
 .video-thumbnail p {
@@ -431,10 +482,10 @@ strong {
 	width: 3.2rem;
 	height: 3.2rem;
 	border-radius: 999px;
-	background: rgba(232, 223, 204, 0.1);
+	background: var(--thumbnail-mark);
 	box-shadow:
 		inset 0 1px 0 var(--highlight),
-		0 0 0 1px rgba(52, 51, 47, 0.8);
+		0 0 0 1px var(--thumbnail-border);
 }
 
 .play-mark::before {
@@ -516,8 +567,8 @@ strong {
 	background: var(--panel-strong);
 	box-shadow:
 		inset 0 1px 0 var(--highlight),
-		inset 0 -1px 0 rgba(0, 0, 0, 0.42),
-		0 14px 28px rgba(0, 0, 0, 0.24);
+		inset 0 -1px 0 var(--inset-shadow),
+		0 14px 28px var(--shadow-dark);
 }
 
 .project-detail-media img {
@@ -525,7 +576,7 @@ strong {
 	aspect-ratio: 16 / 9;
 	object-fit: contain;
 	padding: 1rem;
-	background: #050506;
+	background: var(--media-bg);
 }
 
 .project-detail-stack .project-detail-media img {
@@ -540,8 +591,8 @@ strong {
 	background: var(--panel-strong);
 	box-shadow:
 		inset 0 1px 0 var(--highlight),
-		inset 0 -1px 0 rgba(0, 0, 0, 0.42),
-		0 14px 28px rgba(0, 0, 0, 0.24);
+		inset 0 -1px 0 var(--inset-shadow),
+		0 14px 28px var(--shadow-dark);
 }
 
 .project-detail-copy h2 {
@@ -581,8 +632,8 @@ strong {
 	align-items: baseline;
 	flex-wrap: wrap;
 	padding: 0.85rem 0;
-	border-bottom: 1px solid rgba(52, 51, 47, 0.74);
-	box-shadow: inset 0 -1px 0 rgba(232, 223, 204, 0.025);
+	border-bottom: 1px solid var(--line-soft);
+	box-shadow: inset 0 -1px 0 var(--meta-highlight);
 }
 
 .project-meta-list div:first-child {
@@ -650,7 +701,7 @@ strong {
 	aspect-ratio: 16 / 9;
 	border-radius: 8px;
 	border: 1px solid var(--border);
-	background: #050506;
+	background: var(--media-bg);
 	box-shadow: inset 0 1px 0 var(--highlight);
 }
 

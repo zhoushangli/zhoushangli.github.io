@@ -14,8 +14,20 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 	<head>
+		<script is:inline>
+			(() => {
+				try {
+					const theme = localStorage.getItem('portfolio-theme');
+					if (theme === 'dark' || theme === 'light') {
+						document.documentElement.setAttribute('data-theme', theme);
+					}
+				} catch {
+					// Keep the default dark theme if storage is unavailable.
+				}
+			})();
+		</script>
 		<BaseHead title={title} description={description} />
 	</head>
 	<body>
@@ -26,7 +38,9 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 		<Footer />
 		<script define:vars={{ copy }}>
 			const storageKey = 'portfolio-language';
+			const themeStorageKey = 'portfolio-theme';
 			const languages = ['en', 'zh'];
+			const themes = ['dark', 'light'];
 
 			function getValue(source, path) {
 				return path.split('.').reduce((value, part) => value?.[part], source);
@@ -34,6 +48,10 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 
 			function normalizeLanguage(language) {
 				return languages.includes(language) ? language : 'en';
+			}
+
+			function normalizeTheme(theme) {
+				return themes.includes(theme) ? theme : 'dark';
 			}
 
 			function getStoredLanguage() {
@@ -44,12 +62,46 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 				}
 			}
 
+			function getStoredTheme() {
+				try {
+					return normalizeTheme(localStorage.getItem(themeStorageKey));
+				} catch {
+					return 'dark';
+				}
+			}
+
 			function setStoredLanguage(language) {
 				try {
 					localStorage.setItem(storageKey, language);
 				} catch {
 					// Ignore storage failures and still update the current page.
 				}
+			}
+
+			function setStoredTheme(theme) {
+				try {
+					localStorage.setItem(themeStorageKey, theme);
+				} catch {
+					// Ignore storage failures and still update the current page.
+				}
+			}
+
+			function applyTheme(theme) {
+				const activeTheme = normalizeTheme(theme);
+				const nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
+				const icon = activeTheme === 'dark' ? '☀' : '☾';
+				const label = `Switch to ${nextTheme} theme`;
+
+				document.documentElement.setAttribute('data-theme', activeTheme);
+
+				document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
+					button.setAttribute('aria-label', label);
+					button.setAttribute('data-theme', activeTheme);
+				});
+
+				document.querySelectorAll('[data-theme-toggle-icon]').forEach((element) => {
+					element.textContent = icon;
+				});
 			}
 
 			function applyLanguage(language) {
@@ -137,6 +189,12 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 				applyLanguage(nextLanguage);
 			}
 
+			function toggleTheme() {
+				const nextTheme = getStoredTheme() === 'dark' ? 'light' : 'dark';
+				setStoredTheme(nextTheme);
+				applyTheme(nextTheme);
+			}
+
 			window.setPortfolioLanguage = (language) => {
 				const nextLanguage = normalizeLanguage(language);
 				setStoredLanguage(nextLanguage);
@@ -151,9 +209,16 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 				const toggle = event.target.closest('[data-language-toggle]');
 				if (toggle) {
 					toggleLanguage();
+					return;
+				}
+
+				const themeToggle = event.target.closest('[data-theme-toggle]');
+				if (themeToggle) {
+					toggleTheme();
 				}
 			});
 
+			applyTheme(getStoredTheme());
 			applyLanguage(getStoredLanguage());
 		</script>
 	</body>

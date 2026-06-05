@@ -54,6 +54,13 @@ const teamProjects = getProjectsByCategory('team');
 				>Resume</a
 			>
 			<button
+				class="theme-toggle"
+				type="button"
+				data-theme-toggle
+				aria-label="Switch to light theme">
+				<span data-theme-toggle-icon>☀</span>
+			</button>
+			<button
 				class="language-toggle"
 				type="button"
 				data-language-toggle
@@ -72,12 +79,12 @@ const teamProjects = getProjectsByCategory('team');
 		z-index: 10;
 		border-bottom: 1px solid var(--border);
 		background:
-			linear-gradient(180deg, rgba(232, 223, 204, 0.07), transparent 38%),
-			rgba(16, 16, 15, 0.9);
+			linear-gradient(180deg, var(--topbar-highlight), transparent 38%),
+			var(--topbar-bg);
 		box-shadow:
-			inset 0 1px 0 rgba(232, 223, 204, 0.11),
-			inset 0 -1px 0 rgba(0, 0, 0, 0.42),
-			0 12px 28px rgba(0, 0, 0, 0.34);
+			inset 0 1px 0 var(--highlight),
+			inset 0 -1px 0 var(--topbar-inset),
+			0 12px 28px var(--shadow-dark);
 		backdrop-filter: blur(18px);
 	}
 	header::after {
@@ -89,9 +96,9 @@ const teamProjects = getProjectsByCategory('team');
 		background: linear-gradient(
 			90deg,
 			transparent,
-			rgba(52, 51, 47, 0.9),
-			rgba(232, 223, 204, 0.2),
-			rgba(52, 51, 47, 0.9),
+			var(--line-soft),
+			var(--line-bright),
+			var(--line-soft),
 			transparent
 		);
 		content: '';
@@ -123,7 +130,7 @@ const teamProjects = getProjectsByCategory('team');
 		color: var(--muted);
 		font-size: 1.1rem;
 		text-decoration: none;
-		text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+		text-shadow: none;
 	}
 	nav a::after {
 		position: absolute;
@@ -149,38 +156,50 @@ const teamProjects = getProjectsByCategory('team');
 	.dropdown-panel a::after {
 		display: none;
 	}
-	button.language-toggle {
+	button.language-toggle,
+	button.theme-toggle {
 		display: inline-flex;
 		align-items: center;
+		justify-content: center;
 		gap: 0.45rem;
-		min-width: 58px;
 		min-height: 42px;
 		padding: 0.45rem 0.85rem;
-		border: 1px solid rgba(52, 51, 47, 0.9);
+		border: 1px solid var(--control-border);
 		border-radius: 8px;
 		background:
-			linear-gradient(180deg, rgba(232, 223, 204, 0.06), rgba(232, 223, 204, 0.015)),
-			rgba(23, 23, 21, 0.72);
+			linear-gradient(180deg, var(--topbar-highlight), transparent),
+			var(--control-bg);
 		color: var(--text);
 		box-shadow:
-			inset 0 1px 0 rgba(232, 223, 204, 0.08),
-			inset 0 -1px 0 rgba(0, 0, 0, 0.34);
+			inset 0 1px 0 var(--highlight),
+			inset 0 -1px 0 var(--topbar-inset);
 		font: inherit;
 		font-size: 1.05rem;
 		cursor: pointer;
+	}
+	button.language-toggle {
+		min-width: 58px;
+	}
+	button.theme-toggle {
+		width: 42px;
+		min-width: 42px;
+		padding: 0;
+		font-size: 1.12rem;
+		line-height: 1;
 	}
 	.language-dot {
 		width: 0.42rem;
 		height: 0.42rem;
 		border-radius: 999px;
 		background: var(--accent);
-		box-shadow: inset 0 1px 0 rgba(232, 223, 204, 0.35);
+		box-shadow: inset 0 1px 0 var(--highlight);
 	}
 	nav a:hover,
 	nav a.active,
-	button.language-toggle:hover {
+	button.language-toggle:hover,
+	button.theme-toggle:hover {
 		color: var(--text);
-		border-color: rgba(185, 155, 95, 0.62);
+		border-color: var(--brass-soft);
 		text-shadow: none;
 	}
 	nav a:hover::after,
@@ -208,14 +227,14 @@ const teamProjects = getProjectsByCategory('team');
 		display: grid;
 		min-width: 220px;
 		padding: 0.8rem 0;
-		border: 1px solid rgba(52, 51, 47, 0.96);
+		border: 1px solid var(--control-border);
 		background:
-			linear-gradient(180deg, rgba(232, 223, 204, 0.055), transparent 32%),
-			rgba(18, 18, 16, 0.98);
+			linear-gradient(180deg, var(--topbar-highlight), transparent 32%),
+			var(--dropdown-bg);
 		box-shadow:
-			inset 0 1px 0 rgba(232, 223, 204, 0.08),
-			inset 0 -1px 0 rgba(0, 0, 0, 0.42),
-			0 16px 30px rgba(0, 0, 0, 0.45);
+			inset 0 1px 0 var(--highlight),
+			inset 0 -1px 0 var(--topbar-inset),
+			0 16px 30px var(--shadow-dark);
 		opacity: 0;
 		pointer-events: none;
 		transform: translateY(-4px);
@@ -236,7 +255,7 @@ const teamProjects = getProjectsByCategory('team');
 	}
 	.dropdown-panel a.dropdown-link:hover {
 		color: var(--text);
-		background: rgba(232, 223, 204, 0.045);
+		background: var(--thumbnail-mark);
 	}
 	@media (max-width: 720px) {
 		nav {
