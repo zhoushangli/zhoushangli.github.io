@@ -2,6 +2,9 @@
 import { Image } from 'astro:assets';
 import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 import HeroImage from '../content/images/hero_image.jpg';
+import NuverseImage from '../content/images/nuverse.jpg';
+import ShanghaiTechImage from '../content/images/shanghaitech.webp';
+import SmuImage from '../content/images/smu.png';
 import { GITHUB_URL, LINKEDIN_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
@@ -63,18 +66,101 @@ import { GITHUB_URL, LINKEDIN_URL, SITE_DESCRIPTION, SITE_TITLE } from '../const
 		</div>
 	</section>
 
-	<section class="section">
-		<p class="section-label" data-i18n="home.educationLabel">Education</p>
-		<div class="grid two">
-			<article class="card">
-				<p class="tag">2021-2025</p>
-				<h3 data-i18n="home.shanghaiTechTitle">ShanghaiTech University</h3>
-				<p data-i18n="home.shanghaiTechDegree">B.S. in Computer Science</p>
+	<section class="section timeline-section" id="experience">
+		<h2 data-i18n-inline data-en="Experience" data-zh="经历">Experience</h2>
+		<div class="timeline-list">
+			<article class="timeline-item">
+				<div class="timeline-media">
+					<Image src={NuverseImage} alt="Nuverse logo" width={420} format="webp" quality={84} />
+				</div>
+				<div class="timeline-meta">
+					<p class="timeline-date">Aug 2023 - Dec 2023</p>
+					<h3
+						data-i18n-inline
+						data-en="Nuverse"
+						data-zh="朝夕光年">Nuverse</h3
+					>
+					<p
+						data-i18n-inline
+						data-en="Software Development Intern"
+						data-zh="软件开发">Software Development Intern</p
+					>
+				</div>
+				<div class="timeline-copy">
+					<p
+						data-i18n-inline
+						data-en="I worked as a frontend developer at Nuverse, using PyQt to support engine toolchain development."
+						data-zh="我在朝夕光年担任前端开发，使用 PyQt 辅助引擎工具链开发。">
+						I worked as a frontend developer at Nuverse, using PyQt to support engine toolchain
+						development.
+					</p>
+					<p class="timeline-tech">PyQt</p>
+				</div>
 			</article>
-			<article class="card">
-				<p class="tag">2025-2027</p>
-				<h3 data-i18n="home.smuTitle">SMU Guildhall</h3>
-				<p data-i18n="home.smuDegree">Currently studying Game Software Development.</p>
+		</div>
+	</section>
+
+	<section class="section timeline-section" id="education">
+		<h2 data-i18n-inline data-en="Education" data-zh="教育经历">Education</h2>
+		<div class="timeline-list">
+			<article class="timeline-item">
+				<div class="timeline-media">
+					<Image
+						src={ShanghaiTechImage}
+						alt="ShanghaiTech University logo"
+						width={420}
+						format="webp"
+						quality={84}
+					/>
+				</div>
+				<div class="timeline-meta">
+					<p class="timeline-date">2021 - 2025</p>
+					<h3
+						data-i18n-inline
+						data-en="ShanghaiTech University"
+						data-zh="上海科技大学">ShanghaiTech University</h3
+					>
+					<p
+						data-i18n-inline
+						data-en="B.S. in Computer Science"
+						data-zh="计算机科学本科">B.S. in Computer Science</p
+					>
+				</div>
+				<div class="timeline-copy">
+					<p
+						data-i18n-inline
+						data-en="I studied computer science as an undergraduate, building a foundation in programming, systems, and software development."
+						data-zh="我本科就读于计算机科学专业，建立了程序开发、系统和软件工程方面的基础。">
+						I studied computer science as an undergraduate, building a foundation in programming,
+						systems, and software development.
+					</p>
+					<p class="timeline-tech">Computer Science | Software Development</p>
+				</div>
+			</article>
+
+			<article class="timeline-item">
+				<div class="timeline-media">
+					<Image src={SmuImage} alt="SMU Guildhall logo" width={420} format="webp" quality={84} />
+				</div>
+				<div class="timeline-meta">
+					<p class="timeline-date">2025 - 2027</p>
+					<h3 data-i18n-inline data-en="SMU Guildhall" data-zh="SMU Guildhall">SMU Guildhall</h3>
+					<p
+						data-i18n-inline
+						data-en="Game Development Graduate Program"
+						data-zh="游戏开发研究生课程">Game Development Graduate Program</p
+					>
+				</div>
+				<div class="timeline-copy">
+					<p
+						data-i18n-inline
+						data-en="I am currently studying game development, with a focus on engine programming, gameplay systems, and production practice."
+						data-zh="我目前学习游戏开发研究生课程，关注引擎编程、玩法系统和制作实践。">
+						I am currently studying game development, with a focus on engine programming,
+						gameplay systems, and production practice.
+					</p>
+					<p class="timeline-tech">DirectX11 | Game Engine Programming</p>
+				</div>
 			</article>
 		</div>
 	</section>
