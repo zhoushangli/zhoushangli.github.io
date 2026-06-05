@@ -189,6 +189,17 @@ strong {
 	font-size: 1.15rem;
 }
 
+.bio-copy p {
+	margin-bottom: 1.35rem;
+}
+
+.bio-copy u {
+	color: var(--text);
+	cursor: help;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.18em;
+}
+
 .copy-block.wide {
 	max-width: 960px;
 }
