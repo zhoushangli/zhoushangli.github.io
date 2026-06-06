@@ -26,7 +26,7 @@ export const copy = {
 			aboutLabel: 'About',
 			aboutSecondTitle: "Hi, I'm ShangLi Zhou",
 			aboutSecondBody:
-				'<p>I\'m currently studying game development at SMU Guildhall, where I\'m building a custom game engine with DirectX11. I\'ve also worked on a 50-person Unreal Engine team to develop and ship a Mario Kart-like racing game on Steam.</p><p>I\'m passionate about content creation, small animals, and <u title="Just a joke, please don\'t take it seriously">starting foreign wars</u>. I’m deeply interested in modernization and modernity, especially the historical systems that shaped that period. I have spent nearly 600 hours in Victoria 3 and have read several related books to explore those ideas further.</p><p>Although my main discipline is programming, I also study level design. I\'ve written breakdowns of Ori and the Will of the Wisps and Celeste, and recreated a level from Uncharted 4 to better understand pacing, space, traversal, and encounter design.</p>',
+				'<p>I\'m currently studying game development at SMU Guildhall, where I\'m building a custom game engine with DirectX11. I\'ve also worked on a 50-person Unreal Engine team to develop and ship a Mario Kart-like racing game on Steam.</p><p>I\'m passionate about content creation and learning about other people\'s lives. I\'m deeply interested in modernization and modernity, especially the historical systems that shaped that period. I have spent nearly 600 hours in Victoria 3 and have read several related books to explore those ideas further.</p><p>Although my main discipline is programming, I also study level design. I\'ve written breakdowns of Ori and the Will of the Wisps and Celeste, and recreated a level from Uncharted 4 to better understand pacing, space, traversal, and encounter design.</p>',
 			educationLabel: 'Education',
 			shanghaiTechTitle: 'ShanghaiTech University',
 			shanghaiTechDegree: 'B.S. in Computer Science',
@@ -137,7 +137,7 @@ export const copy = {
 			aboutLabel: '关于',
 			aboutSecondTitle: '你好，我是周尚礼',
 			aboutSecondBody:
-				'<p>我目前在 SMU Guildhall 学习游戏开发研究生课程，并使用 DirectX11 开发自定义游戏引擎。我也曾在一个约 50 人的团队中使用 Unreal Engine 开发一款类马里奥赛车游戏，并将其发布到 Steam。</p><p>我喜爱创作、小动物，和<u title="开个玩笑，请别当真">发动对外战争</u>。我在《维多利亚3》中有近 600 小时的游戏时长，也因此对中国与世界的近代化进程，以及“现代性”究竟意味着什么很感兴趣。</p><p>我的专业方向是程序开发，但我也学习关卡设计。我写过《奥日与萤火意志》和《蔚蓝》的关卡拆解，也复刻过《神秘海域4》的关卡，用来研究节奏、空间、移动路径和遭遇设计。</p>',
+				'<p>我目前在 SMU Guildhall 学习游戏开发研究生课程，并使用 DirectX11 开发自定义游戏引擎。我也曾在一个约 50 人的团队中使用 Unreal Engine 开发一款类马里奥赛车游戏，并将其发布到 Steam。</p><p>我喜爱创作，了解他人的生活。我在《维多利亚3》中有近 600 小时的游戏时长，也因此对中国与世界的近代化进程，以及"现代性"究竟意味着什么很感兴趣。</p><p>我的专业方向是程序开发，但我也学习关卡设计。我写过《奥日与萤火意志》和《蔚蓝》的关卡拆解，也复刻过《神秘海域4》的关卡，用来研究节奏、空间、移动路径和遭遇设计。</p>',
 			educationLabel: '教育经历',
 			shanghaiTechTitle: '上海科技大学',
 			shanghaiTechDegree: '计算机科学本科',
