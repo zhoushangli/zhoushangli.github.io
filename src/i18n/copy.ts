@@ -13,7 +13,7 @@ export const copy = {
 			languageToggleLabel: 'Switch language to Chinese',
 		},
 		footer: {
-			text: '(c) 2026 ShangLi Zhou. Portfolio placeholders will be replaced with final project media.',
+			text: '© 2026 ShangLi Zhou. Portfolio placeholders will be replaced with final project media.',
 		},
 		home: {
 			heroEyebrow: 'ShangLi Zhou',
@@ -124,7 +124,7 @@ export const copy = {
 			languageToggleLabel: '切换语言为英文',
 		},
 		footer: {
-			text: '(c) 2026 周尚礼。作品集中的占位内容之后会替换为最终项目素材。',
+			text: '© 2026 周尚礼。作品集中的占位内容之后会替换为最终项目素材。',
 		},
 		home: {
 			heroEyebrow: '周尚礼',

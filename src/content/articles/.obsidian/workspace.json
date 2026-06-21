@@ -1,0 +1,230 @@
+{
+  "main": {
+    "id": "b38f599aa358d703",
+    "type": "split",
+    "children": [
+      {
+        "id": "333a25d4f7ef0296",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "eacd3b0cd3a913a0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "唐纳德特朗普的雾月十八/唐纳德特朗普的雾月十八.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "唐纳德特朗普的雾月十八"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a8e42c1948bac632",
+    "type": "split",
+    "children": [
+      {
+        "id": "aa7a59d722738ba7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6bc70ecba9c73bbf",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "44b40b71da11a9cf",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "2d00db02c2ef2e67",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          },
+          {
+            "id": "abcf490dd506436e",
+            "type": "leaf",
+            "state": {
+              "type": "copilot-chat-view",
+              "state": {},
+              "icon": "message-square",
+              "title": "Copilot"
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 430.5
+  },
+  "right": {
+    "id": "e9449c47569a2920",
+    "type": "split",
+    "children": [
+      {
+        "id": "43fc283fcac52244",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "81035223e3109b06",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "唐纳德特朗普的雾月十八/唐纳德特朗普的雾月十八.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "唐纳德特朗普的雾月十八 的反向链接列表"
+            }
+          },
+          {
+            "id": "a3b2383029b9f289",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "唐纳德特朗普的雾月十八/唐纳德特朗普的雾月十八.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "唐纳德特朗普的雾月十八 的出链列表"
+            }
+          },
+          {
+            "id": "de352863a1077836",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "d5bf5dbedfffda16",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "f852d9fe03e5d1cd",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "唐纳德特朗普的雾月十八/唐纳德特朗普的雾月十八.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "唐纳德特朗普的雾月十八 的大纲"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false,
+      "copilot:Open Copilot Chat": false
+    }
+  },
+  "active": "eacd3b0cd3a913a0",
+  "lastOpenFiles": [
+    "copilot/copilot-conversations/写作思路发散@20260610_213646.md",
+    "copilot/copilot-conversations",
+    "唐纳德特朗普的雾月十八/唐纳德特朗普的雾月十八.md",
+    "唐纳德特朗普的雾月十八/唐纳德特朗普的雾月十八.assets/乌鸦.jpg",
+    "唐纳德特朗普的雾月十八/唐纳德特朗普的雾月十八.assets/乌鸦-1772082902953-7-1772082906448-9.jpg",
+    "唐纳德特朗普的雾月十八/唐纳德特朗普的雾月十八.assets/OIP.webp",
+    "唐纳德特朗普的雾月十八/唐纳德特朗普的雾月十八.assets/image-20260227091600473.png",
+    "唐纳德特朗普的雾月十八/唐纳德特朗普的雾月十八.assets/image-20260227091557612.png",
+    "唐纳德特朗普的雾月十八/唐纳德特朗普的雾月十八.assets/51bbdfd283097eea539e8f167c1c7d2f-1772082849998-2-1772082851452-4.jpg",
+    "唐纳德特朗普的雾月十八/唐纳德特朗普的雾月十八.assets",
+    "唐纳德特朗普的雾月十八",
+    "copilot/copilot-custom-prompts/Clip Web Page.md",
+    "copilot/copilot-custom-prompts/Clip YouTube Transcript.md",
+    "copilot/copilot-custom-prompts/Rewrite as tweet thread.md",
+    "copilot/copilot-custom-prompts/Rewrite as tweet.md",
+    "copilot/copilot-custom-prompts/Remove URLs.md",
+    "copilot/copilot-custom-prompts/Generate glossary.md",
+    "copilot/copilot-custom-prompts/Generate table of contents.md",
+    "copilot/copilot-custom-prompts/Make longer.md",
+    "copilot/copilot-custom-prompts/Make shorter.md",
+    "copilot/copilot-custom-prompts/Emojify.md",
+    "copilot/copilot-custom-prompts/Explain like I am 5.md",
+    "copilot/copilot-custom-prompts/Simplify.md",
+    "copilot/copilot-custom-prompts/Summarize.md",
+    "copilot/copilot-custom-prompts/Translate to Chinese.md",
+    "copilot/copilot-custom-prompts/Fix grammar and spelling.md",
+    "copilot/copilot-custom-prompts",
+    "copilot"
+  ]
+}
