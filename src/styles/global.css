@@ -147,7 +147,7 @@ strong {
 
 .hero {
 	min-height: clamp(520px, 60vh, 720px);
-	padding: 4rem 0 2.5rem;
+	padding: 16rem 0 8rem;
 }
 
 .hero-intro {
@@ -157,7 +157,7 @@ strong {
 
 .hero-copy {
 	max-width: 980px;
-	padding-top: clamp(1rem, 5vw, 3rem);
+	padding-top: 0;
 }
 
 .hero .subtitle {
@@ -219,7 +219,7 @@ strong {
 .section {
 	position: relative;
 	scroll-margin-top: 96px;
-	padding: 4rem 0;
+	padding: 6rem 0;
 	border-top: 0;
 }
 
