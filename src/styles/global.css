@@ -147,7 +147,7 @@ strong {
 
 .hero {
 	min-height: clamp(520px, 60vh, 720px);
-	padding: 16rem 0 8rem;
+	padding: 18rem 0 8rem;
 }
 
 .hero-intro {
