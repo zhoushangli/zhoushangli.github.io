@@ -1,5 +1,6 @@
-import MingEngineImage from '../content/images/MingEngine.png';
+import MingEngineImage from '../content/images/ming_engine.png';
 import DoomensteinTitleImage from '../content/images/doomenstein_titile.png';
+import ThePrimaryColorsImage from '../content/images/the_primary_colors.png';
 
 export type ProjectCategory = 'personal' | 'team';
 
@@ -182,6 +183,69 @@ export const projects: Project[] = [
 			alt: {
 				en: 'Doomenstein title image',
 				zh: 'Doomenstein 标题图',
+			},
+		},
+	},
+	{
+		slug: 'the-primary-colors',
+		category: 'personal',
+		title: 'The Primary Colors',
+		summary: {
+			en: 'A solo-developed puzzle platformer featuring 30 handcrafted levels, where players gain different abilities by touching colors and use them to overcome environmental challenges.',
+			zh: '一款独立开发的平台解谜游戏，包含 30 个手工设计的关卡。玩家通过接触不同颜色改变自身能力，并利用这些能力解决谜题、通过关卡。',
+		},
+		detail: {
+			en: 'The Primary Colors is a puzzle platformer built with Unity and QFramework. Players change their abilities by touching different colors, then combine those abilities with movement and environmental interactions to progress through each level. I independently developed the game and designed 30 handcrafted levels around the color-switching mechanic. The project also became an important milestone in my development career and helped me earn my internship opportunity at Tencent MoreFun Studios.',
+			zh: '《三原色》是一款使用 Unity 和 QFramework 制作的平台解谜游戏。玩家通过接触不同颜色改变自己的能力，并结合移动与场景交互逐步通过关卡。我独立完成了游戏开发，并围绕颜色切换机制设计了 30 个手工关卡。这个项目也是我游戏开发经历中的重要里程碑，并帮助我获得了前往腾讯魔方工作室群实习的机会。',
+		},
+		contribution: {
+			en: 'As the solo developer, I designed and implemented the core mechanics, software architecture, event and command systems, presentation, and all 30 levels.',
+			zh: '作为独立开发者，我负责核心机制、软件架构、事件与命令系统、表现层以及全部 30 个关卡的设计与实现。',
+		},
+		duration: '2023.6 - 2023.8',
+		role: {
+			en: 'Solo Developer',
+			zh: '独立开发者',
+		},
+		tech: {
+			en: 'Unity | C# | QFramework | MVC',
+			zh: 'Unity | C# | QFramework | MVC',
+		},
+		features: [
+			{
+				en: "Designed a color-based ability system that changes the player's capabilities through environmental interaction.",
+				zh: '设计了基于颜色的能力系统，玩家通过与环境中的颜色交互改变自身能力。',
+			},
+			{
+				en: 'Created 30 handcrafted puzzle-platforming levels with progressively introduced mechanics.',
+				zh: '设计并制作了 30 个手工平台解谜关卡，并逐步引入新的游戏机制。',
+			},
+			{
+				en: 'Structured the project with QFramework and an MVC architecture separating data, presentation, and gameplay control.',
+				zh: '使用 QFramework 和 MVC 架构组织项目，分离数据层、表现层和游戏控制逻辑。',
+			},
+			{
+				en: 'Built an event system to decouple communication between gameplay systems and presentation.',
+				zh: '构建事件系统，解耦游戏系统与表现层之间的通信。',
+			},
+			{
+				en: 'Implemented a command system to encapsulate gameplay actions and application flow.',
+				zh: '实现命令系统，用于封装游戏行为和程序流程。',
+			},
+		],
+		embedVideo: {
+			src: 'https://player.bilibili.com/player.html?isOutside=true&bvid=BV1d94y1W7UU&page=1&autoplay=0',
+			title: {
+				en: 'The Primary Colors gameplay video',
+				zh: '《三原色》游戏演示视频',
+			},
+		},
+		media: {
+			type: 'image',
+			src: ThePrimaryColorsImage.src,
+			alt: {
+				en: 'The Primary Colors title image',
+				zh: '《三原色》封面图',
 			},
 		},
 	},
