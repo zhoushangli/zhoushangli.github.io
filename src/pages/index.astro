@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 import HeroImage from '../content/images/hero_image.jpg';
+import TencentImage from '../content/images/tencent.png';
 import NuverseImage from '../content/images/nuverse.png';
 import ShanghaiTechImage from '../content/images/shanghaitech.png';
 import SmuImage from '../content/images/smu.png';
@@ -68,6 +69,37 @@ const teamProjects = getProjectsByCategory('team');
 	<section class="section timeline-section" id="experience">
 		<h2 data-i18n-inline data-en="Experience" data-zh="经历">Experience</h2>
 		<div class="timeline-list">
+			<article class="timeline-item">
+				<div class="timeline-media">
+					<Image
+						src={TencentImage}
+						alt="Tencent MoreFun Studios logo"
+						width={420}
+						format="webp"
+						quality={84}
+					/>
+				</div>
+				<div class="timeline-meta">
+					<p class="timeline-date">Jan 2024 - Feb 2024</p>
+					<h3 data-i18n-inline data-en="Tencent MoreFun Studios" data-zh="腾讯魔方工作室群">
+						Tencent MoreFun Studios
+					</h3>
+					<p data-i18n-inline data-en="Combat Designer Intern" data-zh="战斗策划实习生">
+						Combat Designer Intern
+					</p>
+				</div>
+				<div class="timeline-copy">
+					<p
+						data-i18n-inline
+						data-en="I configured in-game audio and enemy combat animations as a combat designer at Tencent MoreFun Studios."
+						data-zh="我在腾讯魔方工作室群担任战斗策划实习生，主要负责游戏音效配置和敌人战斗动画配置。">
+						I configured in-game audio and enemy combat animations as a combat designer at
+						Tencent MoreFun Studios.
+					</p>
+					<p class="timeline-tech">Combat Design | Audio | Enemy Animation</p>
+				</div>
+			</article>
+
 			<article class="timeline-item">
 				<div class="timeline-media">
 					<Image src={NuverseImage} alt="Nuverse logo" width={420} format="webp" quality={84} />

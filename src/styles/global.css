@@ -146,12 +146,14 @@ strong {
 }
 
 .hero {
-	min-height: clamp(520px, 60vh, 720px);
-	padding: 18rem 0 8rem;
+	min-height: calc(100svh - 72px - 4rem);
+	padding: clamp(5rem, 12vh, 9rem) 0 clamp(3rem, 6vh, 5rem);
 }
 
 .hero-intro {
 	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	align-items: flex-start;
 }
 
@@ -754,6 +756,7 @@ strong {
 
 	.hero {
 		min-height: auto;
+		padding: 7rem 0 5rem;
 	}
 
 	.hero-copy {
