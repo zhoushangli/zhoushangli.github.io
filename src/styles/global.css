@@ -393,8 +393,7 @@ strong {
 }
 
 .personal-statement {
-	max-width: 960px;
-	margin: clamp(4rem, 8vw, 7rem) auto 0;
+	margin: clamp(2.5rem, 5vw, 4rem) 0 0;
 	padding-left: clamp(1.25rem, 3vw, 2rem);
 	border-left: 1px solid var(--accent);
 }
