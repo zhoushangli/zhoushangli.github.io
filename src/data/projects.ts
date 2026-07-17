@@ -8,6 +8,7 @@ export type ProjectCategory = 'personal' | 'team';
 export interface Project {
 	slug: string;
 	category: ProjectCategory;
+	detailLayout?: 'stacked' | 'split';
 	title: string;
 	summary: {
 		en: string;
@@ -260,6 +261,7 @@ export const projects: Project[] = [
 	{
 		slug: 'hamsterballin',
 		category: 'team',
+		detailLayout: 'stacked',
 		title: "Hamsterballin'",
 		summary: {
 			en: 'A competitive arcade racer developed by a 40-person team in Unreal Engine 5, where players roll, bounce, disrupt rivals, and discover creative shortcuts as hamsters racing inside balls.',
@@ -273,10 +275,33 @@ export const projects: Project[] = [
 			en: "My primary responsibility was developing the procedural road-generation workflow with Unreal Engine 5's PCG framework and optimizing its performance for production use. I also collaborated with artists to build materials and other visual effects, supported technical art workflows during track production, and contributed to selected UI features.",
 			zh: '我的主要职责是使用 Unreal Engine 5 的 PCG 框架开发程序化道路生成流程，并对 PCG 系统进行性能优化，使其能够稳定用于赛道生产。我也与美术成员合作搭建材质和其他视觉效果，为赛道制作提供技术美术支持，并参与部分 UI 功能的实现。',
 		},
+		duration: '2026.1 - 2026.5',
+		role: {
+			en: 'Game Programmer',
+			zh: '游戏程序',
+		},
 		tech: {
 			en: 'Unreal Engine 5 | PCG | Technical Art | UI',
 			zh: 'Unreal Engine 5 | PCG | 技术美术 | UI',
 		},
+		features: [
+			{
+				en: 'Developed PCG-based procedural road-generation tools for track production.',
+				zh: '开发基于 PCG 的程序化道路生成工具，用于赛道生产。',
+			},
+			{
+				en: 'Optimized PCG generation performance to support an efficient production workflow.',
+				zh: '优化 PCG 生成性能，提升赛道制作流程的效率。',
+			},
+			{
+				en: 'Collaborated with artists on materials and other visual effects, providing technical support for asset integration.',
+				zh: '与美术成员合作搭建材质和其他视觉效果，并为美术资源整合提供技术支持。',
+			},
+			{
+				en: 'Implemented and supported selected UI functionality.',
+				zh: '实现并协助完善部分 UI 功能。',
+			},
+		],
 		externalLink: {
 			href: 'https://store.steampowered.com/app/4319370/Hamsterballin/',
 			label: {

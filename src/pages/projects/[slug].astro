@@ -10,6 +10,7 @@ export function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+const usesStackedDetail = project.category === 'personal' || project.detailLayout === 'stacked';
 ---
 
 <PortfolioLayout title={`${project.title} | ShangLi Zhou`} description={project.summary.en}>
@@ -47,7 +48,7 @@ const { project } = Astro.props;
 		}
 	</section>
 
-	<section class={`section project-detail-grid ${project.category === 'personal' ? 'project-detail-stack' : ''}`}>
+	<section class={`section project-detail-grid ${usesStackedDetail ? 'project-detail-stack' : ''}`}>
 		<div class="project-detail-media">
 			{
 				project.media.type === 'video' ? (
@@ -93,7 +94,7 @@ const { project } = Astro.props;
 		}
 
 		{
-			project.category === 'personal' ? (
+			usesStackedDetail ? (
 				<div class="project-detail-copy project-personal-copy">
 					<h2 data-i18n-inline data-en="Introduction" data-zh="介绍">
 						Introduction
@@ -134,8 +135,11 @@ const { project } = Astro.props;
 						</dl>
 					</div>
 
-					<h2 data-i18n-inline data-en="Key Features" data-zh="主要功能">
-						Key Features
+					<h2
+						data-i18n-inline
+						data-en={project.category === 'team' ? 'Key Contributions' : 'Key Features'}
+						data-zh={project.category === 'team' ? '主要贡献' : '主要功能'}>
+						{project.category === 'team' ? 'Key Contributions' : 'Key Features'}
 					</h2>
 					<ul class="project-feature-list">
 						{project.features?.map((feature) => (
