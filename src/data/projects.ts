@@ -302,6 +302,13 @@ export const projects: Project[] = [
 				zh: '实现并协助完善部分 UI 功能。',
 			},
 		],
+		embedVideo: {
+			src: 'https://www.youtube.com/embed/ogLB5EIMdcw',
+			title: {
+				en: "Hamsterballin' gameplay video",
+				zh: "《Hamsterballin'》游戏演示视频",
+			},
+		},
 		externalLink: {
 			href: 'https://store.steampowered.com/app/4319370/Hamsterballin/',
 			label: {

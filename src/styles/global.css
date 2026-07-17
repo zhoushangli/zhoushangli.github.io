@@ -347,6 +347,51 @@ strong {
 	margin-bottom: 3rem;
 }
 
+.interests-section h2 {
+	color: var(--muted);
+	font-size: clamp(1.8rem, 4vw, 3rem);
+	margin-bottom: 3rem;
+}
+
+.interests-grid {
+	display: grid;
+	grid-template-columns: minmax(320px, 0.9fr) minmax(320px, 1.1fr);
+	gap: clamp(2rem, 6vw, 5rem);
+	align-items: center;
+}
+
+.interests-media {
+	margin: 0;
+}
+
+.interests-media img {
+	width: 100%;
+	height: auto;
+	border: 1px solid var(--border);
+	background: var(--surface);
+	box-shadow:
+		inset 0 1px 0 var(--highlight),
+		0 14px 28px var(--shadow-dark);
+}
+
+.interests-media figcaption {
+	color: var(--subtle);
+	font-size: 0.95rem;
+	line-height: 1.4;
+	margin-top: 0.85rem;
+}
+
+.interests-copy p {
+	color: var(--text);
+	font-size: clamp(1.1rem, 2vw, 1.3rem);
+	line-height: 1.5;
+	margin-bottom: 1.5rem;
+}
+
+.interests-copy p:last-child {
+	margin-bottom: 0;
+}
+
 .timeline-list {
 	display: grid;
 	gap: clamp(2.5rem, 6vw, 4rem);
@@ -753,6 +798,7 @@ strong {
 	.showcase-card,
 	.project-detail-grid,
 	.project-introduction-grid,
+	.interests-grid,
 	.two-column,
 	.project-card,
 	.grid.two,

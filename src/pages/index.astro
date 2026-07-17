@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 import HeroImage from '../content/images/hero_image.jpg';
+import DesktopImage from '../content/images/desktop.jpg';
 import TencentImage from '../content/images/tencent.png';
 import NuverseImage from '../content/images/nuverse.png';
 import ShanghaiTechImage from '../content/images/shanghaitech.png';
@@ -269,6 +270,63 @@ const teamProjects = getProjectsByCategory('team');
 					</a>
 				))
 			}
+		</div>
+	</section>
+
+	<section class="section interests-section" id="interests">
+		<p class="section-label" data-i18n-inline data-en="Personal Interests" data-zh="个人兴趣">
+			Personal Interests
+		</p>
+		<h2 data-i18n-inline data-en="Beyond Game Development" data-zh="游戏开发之外">
+			Beyond Game Development
+		</h2>
+		<div class="interests-grid">
+			<figure class="interests-media">
+				<Image
+					src={DesktopImage}
+					alt="ShangLi Zhou's desk with Gundam models and books"
+					data-i18n-inline-alt
+					data-en="ShangLi Zhou's desk with Gundam models and books"
+					data-zh="周尚礼摆放着高达模型和书籍的书桌"
+					format="webp"
+					quality={84}
+					widths={[480, 720, 960]}
+					sizes="(max-width: 860px) 100vw, 45vw"
+				/>
+				<figcaption
+					data-i18n-inline
+					data-en="My desk, surrounded by models, books, and everyday sources of inspiration."
+					data-zh="我的书桌，以及陪伴我创作的模型、书籍和日常灵感。">
+					My desk, surrounded by models, books, and everyday sources of inspiration.
+				</figcaption>
+			</figure>
+			<div class="copy-block interests-copy">
+				<p
+					data-i18n-inline
+					data-en="Model building is one of my favorite hands-on creative hobbies. The PG Banshee in the upper right and the Sazabi in the upper left reflect that interest. When I graduated, I built different Gundam kits for several friends and hand-painted them with battle damage and weathering effects."
+					data-zh="模型制作是我很喜欢的一项动手创作爱好。图片右上角是 PG 报丧女妖，左上角是沙扎比。毕业时，我也为几位朋友分别制作了不同的高达模型，并通过笔涂加入战损和做旧效果。">
+					Model building is one of my favorite hands-on creative hobbies. The PG Banshee in
+					the upper right and the Sazabi in the upper left reflect that interest. When I
+					graduated, I built different Gundam kits for several friends and hand-painted them
+					with battle damage and weathering effects.
+				</p>
+				<p
+					data-i18n-inline
+					data-en="I enjoy reading history and social science, with a particular interest in modern Chinese history. Reading gives me another way to understand people, society, and the historical forces behind change."
+					data-zh="我喜欢阅读历史与社会科学类书籍，尤其对中国近现代史有较多兴趣。阅读也让我能够从另一个角度理解人物、社会，以及历史变化背后的力量。">
+					I enjoy reading history and social science, with a particular interest in modern
+					Chinese history. Reading gives me another way to understand people, society, and
+					the historical forces behind change.
+				</p>
+				<p
+					data-i18n-inline
+					data-en="I also enjoy a wide range of artistic and cultural works. I hope to draw inspiration from different forms of expression and bring those ideas into the worlds, systems, and experiences I create."
+					data-zh="我也喜欢接触各种文艺作品，希望从不同形式的表达中获得灵感，并将这些想法带入自己创造的世界、系统和体验之中。">
+					I also enjoy a wide range of artistic and cultural works. I hope to draw inspiration
+					from different forms of expression and bring those ideas into the worlds, systems,
+					and experiences I create.
+				</p>
+			</div>
 		</div>
 	</section>
 </PortfolioLayout>
