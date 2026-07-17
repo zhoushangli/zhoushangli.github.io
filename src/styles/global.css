@@ -392,6 +392,30 @@ strong {
 	margin-bottom: 0;
 }
 
+.personal-statement {
+	max-width: 960px;
+	margin: clamp(4rem, 8vw, 7rem) auto 0;
+	padding-left: clamp(1.25rem, 3vw, 2rem);
+	border-left: 1px solid var(--accent);
+}
+
+.personal-statement h3 {
+	color: var(--muted);
+	font-size: clamp(1.6rem, 3vw, 2.3rem);
+	margin-bottom: 1.5rem;
+}
+
+.personal-statement p {
+	color: var(--text);
+	font-size: clamp(1.1rem, 2vw, 1.3rem);
+	line-height: 1.65;
+	margin-bottom: 1.5rem;
+}
+
+.personal-statement p:last-child {
+	margin-bottom: 0;
+}
+
 .timeline-list {
 	display: grid;
 	gap: clamp(2.5rem, 6vw, 4rem);
