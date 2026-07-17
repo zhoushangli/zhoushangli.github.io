@@ -1,3 +1,4 @@
+import MingEngineImage from '../content/images/MingEngine.png';
 import DoomensteinTitleImage from '../content/images/doomenstein_titile.png';
 
 export type ProjectCategory = 'personal' | 'team';
@@ -49,6 +50,66 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+	{
+		slug: 'ming-engine',
+		category: 'personal',
+		title: 'MingEngine',
+		summary: {
+			en: 'A Godot-inspired 3D game engine and editor built with C++ and DirectX 11, featuring a node-based scene system, asset pipeline, scene serialization, editor tooling, and AngelScript integration.',
+			zh: '一款使用 C++ 和 DirectX 11 开发、受 Godot 启发的 3D 游戏引擎与编辑器，包含节点式场景系统、资源管线、场景序列化、编辑器工具和 AngelScript 集成。',
+		},
+		detail: {
+			en: 'MingEngine is a custom 3D game engine and editor built around a reusable C++ runtime. I developed a Godot-inspired node and scene architecture, a DirectX 11 rendering backend, and an ImGui-based editor that connects asset importing, scene authoring, inspection, serialization, and runtime execution into one workflow.',
+			zh: 'MingEngine 是一款围绕可复用 C++ 运行时开发的自定义 3D 游戏引擎与编辑器。我构建了受 Godot 启发的节点与场景架构、DirectX 11 渲染后端，以及基于 ImGui 的编辑器，将资源导入、场景编辑、属性检查、序列化和游戏运行连接成一套完整工作流。',
+		},
+		contribution: {
+			en: 'As the solo engine developer, I designed and implemented the engine architecture, rendering backend, scene and resource systems, editor tools, asset pipeline, and scripting integration.',
+			zh: '作为独立引擎开发者，我设计并实现了引擎架构、渲染后端、场景与资源系统、编辑器工具、资源管线和脚本集成。',
+		},
+		duration: '2026.5 - Present',
+		role: {
+			en: 'Solo Engine Developer',
+			zh: '独立引擎开发者',
+		},
+		tech: {
+			en: 'C++ | DirectX 11 | ImGui | AngelScript',
+			zh: 'C++ | DirectX 11 | ImGui | AngelScript',
+		},
+		features: [
+			{
+				en: 'Built a Godot-inspired node, scene tree, reflection, and class-registration system.',
+				zh: '构建了受 Godot 启发的节点、场景树、反射和类注册系统。',
+			},
+			{
+				en: 'Developed an ImGui editor with scene hierarchy, inspector, filesystem, import, viewport, and output panels.',
+				zh: '开发了基于 ImGui 的编辑器，包含场景层级、属性检查器、文件系统、资源导入、视口和输出面板。',
+			},
+			{
+				en: 'Implemented interactive translation, rotation, and scale gizmos for editing 3D transforms.',
+				zh: '实现了用于编辑 3D 变换的交互式移动、旋转和缩放 Gizmo。',
+			},
+			{
+				en: 'Created an asset pipeline for images, OBJ, and glTF models with custom serialized texture, mesh, and scene resources.',
+				zh: '构建了支持图片、OBJ 和 glTF 模型的资源管线，并实现自定义纹理、网格和场景资源序列化。',
+			},
+			{
+				en: 'Built a DirectX 11 renderer supporting material textures, directional and point lights, CPU particles, and post-processing.',
+				zh: '构建了支持材质纹理、方向光、点光源、CPU 粒子和后处理的 DirectX 11 渲染器。',
+			},
+			{
+				en: "Integrated AngelScript through generated bindings backed by the engine's reflection metadata.",
+				zh: '通过基于引擎反射元数据生成的绑定集成 AngelScript。',
+			},
+		],
+		media: {
+			type: 'image',
+			src: MingEngineImage.src,
+			alt: {
+				en: 'MingEngine editor interface',
+				zh: 'MingEngine 编辑器界面',
+			},
+		},
+	},
 	{
 		slug: 'doomenstein',
 		category: 'personal',

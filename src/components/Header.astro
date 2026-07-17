@@ -242,6 +242,14 @@ const teamProjects = getProjectsByCategory('team');
 			opacity 150ms ease,
 			transform 150ms ease;
 	}
+	.dropdown-panel::before {
+		position: absolute;
+		right: 0;
+		bottom: 100%;
+		left: 0;
+		height: 0.75rem;
+		content: '';
+	}
 	.nav-dropdown:hover .dropdown-panel,
 	.nav-dropdown:focus-within .dropdown-panel {
 		opacity: 1;
@@ -253,9 +261,11 @@ const teamProjects = getProjectsByCategory('team');
 		color: var(--muted);
 		white-space: nowrap;
 	}
-	.dropdown-panel a.dropdown-link:hover {
+	.dropdown-panel a.dropdown-link:hover,
+	.dropdown-panel a.dropdown-link:focus-visible {
 		color: var(--text);
 		background: var(--thumbnail-mark);
+		outline: none;
 	}
 	@media (max-width: 720px) {
 		nav {
