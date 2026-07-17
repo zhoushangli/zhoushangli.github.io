@@ -1,6 +1,7 @@
 import MingEngineImage from '../content/images/ming_engine.png';
 import DoomensteinTitleImage from '../content/images/doomenstein_titile.png';
 import ThePrimaryColorsImage from '../content/images/the_primary_colors.png';
+import HamsterballinImage from '../content/images/hamsterballin.jpg';
 
 export type ProjectCategory = 'personal' | 'team';
 
@@ -36,6 +37,13 @@ export interface Project {
 	embedVideo?: {
 		src: string;
 		title: {
+			en: string;
+			zh: string;
+		};
+	};
+	externalLink?: {
+		href: string;
+		label: {
 			en: string;
 			zh: string;
 		};
@@ -250,60 +258,38 @@ export const projects: Project[] = [
 		},
 	},
 	{
-		slug: 'tgp-i',
+		slug: 'hamsterballin',
 		category: 'team',
-		title: 'TGP I',
+		title: "Hamsterballin'",
 		summary: {
-			en: 'A team game project placeholder prepared for a final trailer, gameplay description, team responsibilities, and production notes.',
-			zh: '团队游戏项目占位展示，后续用于放置正式预告片、玩法描述、团队职责和制作说明。',
+			en: 'A competitive arcade racer developed by a 40-person team in Unreal Engine 5, where players roll, bounce, disrupt rivals, and discover creative shortcuts as hamsters racing inside balls.',
+			zh: '一款由 40 人团队使用 Unreal Engine 5 开发的竞技街机赛车游戏。玩家操控仓鼠球滚动、弹跳、干扰对手，并在充满想象力的赛道中寻找捷径。',
 		},
 		detail: {
-			en: 'TGP I is a placeholder team-project detail page. The final page will include the trailer, project pitch, production scope, my role, and specific systems or content I contributed.',
-			zh: 'TGP I 是团队项目详情页占位。最终页面会包含预告片、项目介绍、制作范围、我的职责，以及我参与完成的具体系统或内容。',
+			en: "Hamsterballin' is a competitive arcade racing game developed by a 40-person SMU Guildhall team in Unreal Engine 5. Players race through imaginative tracks as hamsters inside rolling balls, using momentum, environmental interactions, and creative shortcuts to gain an advantage over their opponents.",
+			zh: "《Hamsterballin'》是一款由 SMU Guildhall 40 人团队使用 Unreal Engine 5 开发的竞技街机赛车游戏。玩家操控仓鼠球穿越充满想象力的赛道，利用动量、场景交互和隐藏捷径取得比赛优势。",
 		},
 		contribution: {
-			en: 'Role and contribution details will be added after the final project materials are ready.',
-			zh: '具体职责和贡献会在最终项目素材准备好后补充。',
+			en: "My primary responsibility was developing the procedural road-generation workflow with Unreal Engine 5's PCG framework and optimizing its performance for production use. I also collaborated with artists to build materials and other visual effects, supported technical art workflows during track production, and contributed to selected UI features.",
+			zh: '我的主要职责是使用 Unreal Engine 5 的 PCG 框架开发程序化道路生成流程，并对 PCG 系统进行性能优化，使其能够稳定用于赛道生产。我也与美术成员合作搭建材质和其他视觉效果，为赛道制作提供技术美术支持，并参与部分 UI 功能的实现。',
 		},
 		tech: {
-			en: 'Unreal Engine | C++ | Team Project',
-			zh: 'Unreal Engine | C++ | 团队项目',
+			en: 'Unreal Engine 5 | PCG | Technical Art | UI',
+			zh: 'Unreal Engine 5 | PCG | 技术美术 | UI',
 		},
-		media: {
-			type: 'video',
-			src: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-			alt: {
-				en: 'TGP I placeholder video',
-				zh: 'TGP I 视频占位',
+		externalLink: {
+			href: 'https://store.steampowered.com/app/4319370/Hamsterballin/',
+			label: {
+				en: 'View on Steam',
+				zh: '前往 Steam',
 			},
 		},
-	},
-	{
-		slug: 'tgp-ii',
-		category: 'team',
-		title: 'TGP II',
-		summary: {
-			en: 'A second team project placeholder focused on collaboration, iteration, production scope, and the work I contributed to the team.',
-			zh: '第二个团队项目占位展示，重点呈现协作、迭代、制作规模，以及我在团队中完成的工作。',
-		},
-		detail: {
-			en: 'TGP II is a placeholder detail page for the second team game project. The final page will focus on the project goals, team process, implementation decisions, and the parts I owned or supported.',
-			zh: 'TGP II 是第二个团队游戏项目的详情页占位。最终页面会重点展示项目目标、团队流程、实现决策，以及我负责或支持的部分。',
-		},
-		contribution: {
-			en: 'Role and contribution details will be added after the final project materials are ready.',
-			zh: '具体职责和贡献会在最终项目素材准备好后补充。',
-		},
-		tech: {
-			en: 'Unreal Engine | C++ | Team Project',
-			zh: 'Unreal Engine | C++ | 团队项目',
-		},
 		media: {
-			type: 'video',
-			src: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+			type: 'image',
+			src: HamsterballinImage.src,
 			alt: {
-				en: 'TGP II placeholder video',
-				zh: 'TGP II 视频占位',
+				en: "Hamsterballin' title image",
+				zh: "《Hamsterballin'》封面图",
 			},
 		},
 	},

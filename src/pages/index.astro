@@ -237,10 +237,22 @@ const teamProjects = getProjectsByCategory('team');
 			{
 				teamProjects.map((project) => (
 					<a class="showcase-card clickable-card" href={`/projects/${project.slug}`}>
-						<div class="showcase-media video-thumbnail">
-							<div class="play-mark" aria-hidden="true" />
-							<p>{project.title}</p>
-						</div>
+						{project.media.type === 'image' ? (
+							<div class="showcase-media">
+								<img
+									src={project.media.src}
+									alt={project.media.alt.en}
+									data-i18n-inline-alt
+									data-en={project.media.alt.en}
+									data-zh={project.media.alt.zh}
+								/>
+							</div>
+						) : (
+							<div class="showcase-media video-thumbnail">
+								<div class="play-mark" aria-hidden="true" />
+								<p>{project.title}</p>
+							</div>
+						)}
 						<div class="showcase-copy">
 							<h3>{project.title}</h3>
 							<p data-i18n-inline data-en={project.summary.en} data-zh={project.summary.zh}>

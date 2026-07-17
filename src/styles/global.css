@@ -550,6 +550,13 @@ strong {
 	line-height: 1.35;
 }
 
+.project-links {
+	display: flex;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+	margin-top: 1.5rem;
+}
+
 .project-detail-grid {
 	display: grid;
 	grid-template-columns: minmax(280px, 0.95fr) minmax(320px, 1.05fr);

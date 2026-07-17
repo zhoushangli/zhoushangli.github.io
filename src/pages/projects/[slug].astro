@@ -29,6 +29,22 @@ const { project } = Astro.props;
 		<p class="showcase-tech" data-i18n-inline data-en={project.tech.en} data-zh={project.tech.zh}>
 			{project.tech.en}
 		</p>
+		{
+			project.externalLink && (
+				<div class="project-links">
+					<a
+						class="button secondary"
+						href={project.externalLink.href}
+						target="_blank"
+						rel="noreferrer"
+						data-i18n-inline
+						data-en={project.externalLink.label.en}
+						data-zh={project.externalLink.label.zh}>
+						{project.externalLink.label.en}
+					</a>
+				</div>
+			)
+		}
 	</section>
 
 	<section class={`section project-detail-grid ${project.category === 'personal' ? 'project-detail-stack' : ''}`}>
