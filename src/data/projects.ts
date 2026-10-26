@@ -23,6 +23,18 @@ export interface Project {
 		zh: string;
 	};
 	duration?: string;
+	platform?: { zh: string; en: string };
+	status?: { zh: string; en: string };
+	decisions?: { zh: string; en: string }[];
+	limitations?: { zh: string; en: string }[];
+	relatedArticles?: string[];
+	downloads?: { href: string; label: { zh: string; en: string } }[];
+	platform?: { zh: string; en: string };
+	status?: { zh: string; en: string };
+	decisions?: { zh: string; en: string }[];
+	limitations?: { zh: string; en: string }[];
+	relatedArticles?: string[];
+	downloads?: { href: string; label: { zh: string; en: string } }[];
 	role?: {
 		en: string;
 		zh: string;
@@ -62,15 +74,20 @@ export interface Project {
 export const projects: Project[] = [
 	{
 		slug: 'ming-engine',
+		"platform": {"zh": "Windows · Direct3D 11", "en": "Windows · Direct3D 11"},
+		"status": {"zh": "持续开发中的个人引擎", "en": "Personal engine in active development"},
+		"decisions": [{"zh": "参考 Godot 的节点与资源职责划分，将场景对象、序列化数据和渲染提交分开。", "en": "Use Godot as a reference for separating scene objects, serialized data and rendering submission."}, {"zh": "脚本桥接使用生成代码与反射绑定，编辑器逐步引入原生 UI。", "en": "Use generated code and reflection for script bindings while incrementally introducing native editor UI."}],
+		"limitations": [{"zh": "原生编辑器 UI 与导出流程仍在完善，现有截图来自较早的编辑器阶段。", "en": "Native editor UI and export workflows are still evolving; the displayed screenshot is from an earlier editor stage."}],
+		"relatedArticles": ["ming-scene-resources", "ming-csharp-bridge", "ming-gui-input"],
 		category: 'personal',
 		title: 'MingEngine',
 		summary: {
-			en: 'A Godot-inspired 3D game engine and editor built with C++ and DirectX 11, featuring a node-based scene system, asset pipeline, scene serialization, editor tooling, and AngelScript integration.',
-			zh: '一款使用 C++ 和 DirectX 11 开发、受 Godot 启发的 3D 游戏引擎与编辑器，包含节点式场景系统、资源管线、场景序列化、编辑器工具和 AngelScript 集成。',
+			en: 'A Godot-inspired 3D game engine and editor built with C++ and DirectX 11, featuring a node-based scene system, asset pipeline, scene serialization, editor tooling, and C#/.NET script integration.',
+			zh: '一款使用 C++ 和 DirectX 11 开发、受 Godot 启发的 3D 游戏引擎与编辑器，包含节点式场景系统、资源管线、场景序列化、编辑器工具和 C#/.NET 脚本集成。',
 		},
 		detail: {
-			en: 'MingEngine is a custom 3D game engine and editor built around a reusable C++ runtime. I developed a Godot-inspired node and scene architecture, a DirectX 11 rendering backend, and an ImGui-based editor that connects asset importing, scene authoring, inspection, serialization, and runtime execution into one workflow.',
-			zh: 'MingEngine 是一款围绕可复用 C++ 运行时开发的自定义 3D 游戏引擎与编辑器。我构建了受 Godot 启发的节点与场景架构、DirectX 11 渲染后端，以及基于 ImGui 的编辑器，将资源导入、场景编辑、属性检查、序列化和游戏运行连接成一套完整工作流。',
+			en: 'MingEngine is a custom 3D game engine and editor built around a reusable C++ runtime. I developed a Godot-inspired node and scene architecture, a DirectX 11 rendering backend, and editor tools for importing assets, authoring scenes, inspecting properties and running gameplay. The current code integrates C# through .NET and introduces native CanvasItem/Control UI alongside the existing ImGui tooling.',
+			zh: 'MingEngine 是一款围绕可复用 C++ 运行时开发的自定义 3D 游戏引擎与编辑器。我构建了受 Godot 启发的节点与场景架构、DirectX 11 渲染后端，以及资源导入、场景编辑、属性检查与运行工具。目前源码采用 C#/.NET 脚本集成，并在既有 ImGui 工具之外推进原生 CanvasItem/Control UI。',
 		},
 		contribution: {
 			en: 'As the solo engine developer, I designed and implemented the engine architecture, rendering backend, scene and resource systems, editor tools, asset pipeline, and scripting integration.',
@@ -82,8 +99,8 @@ export const projects: Project[] = [
 			zh: '独立引擎开发者',
 		},
 		tech: {
-			en: 'C++ | DirectX 11 | ImGui | AngelScript',
-			zh: 'C++ | DirectX 11 | ImGui | AngelScript',
+			en: 'C++ | DirectX 11 | C# / .NET | Editor UI',
+			zh: 'C++ | DirectX 11 | C# / .NET | Editor UI',
 		},
 		features: [
 			{
@@ -107,21 +124,106 @@ export const projects: Project[] = [
 				zh: '构建了支持材质纹理、方向光、点光源、CPU 粒子和后处理的 DirectX 11 渲染器。',
 			},
 			{
-				en: "Integrated AngelScript through generated bindings backed by the engine's reflection metadata.",
-				zh: '通过基于引擎反射元数据生成的绑定集成 AngelScript。',
+				en: "Integrated C# through hostfxr, generated managed wrappers and reflection-backed native method bindings.",
+				zh: '通过 hostfxr、生成的托管包装和反射方法绑定接入 C#。',
 			},
 		],
 		media: {
 			type: 'image',
 			src: MingEngineImage.src,
 			alt: {
-				en: 'MingEngine editor interface',
-				zh: 'MingEngine 编辑器界面',
+				en: 'MingEngine editor screenshot from an earlier development stage',
+				zh: 'MingEngine 较早开发阶段的编辑器截图',
 			},
 		},
 	},
 	{
+  "slug": "spectrex",
+  "category": "team",
+  "detailLayout": "stacked",
+  "title": "SpectreX",
+  "summary": {
+    "zh": "使用 Godot 与 C# 制作的光学解谜团队项目。我参与技术美术、程序与策划，连接光路交互、视觉反馈和制作工具。",
+    "en": "A light-based puzzle team project built with Godot and C#. I contribute technical art, programming and game design, connecting optical interactions, visual feedback and authoring tools."
+  },
+  "detail": {
+    "zh": "SpectreX 围绕光路、颜色与场景交互构建谜题。当前项目包含光线求解、镜面与插槽交互、感光器、分层渲染，以及房间、存档和 UI 服务。我的工作横跨技术美术、程序与策划；页面中的系统分析说明当前实现，不将团队的全部设计与资产归为个人成果。",
+    "en": "SpectreX builds puzzles around light paths, color and environmental interaction. The current project includes light solving, mirrors and sockets, sensors, layered rendering, and room, save and UI services. My role spans technical art, programming and design; the implementation studies describe the current project without attributing all team design or assets to me."
+  },
+  "contribution": {
+    "zh": "在团队中承担技术美术、程序与策划工作，参与光学交互与视觉呈现之间的整合，并维护相关实现与制作流程。",
+    "en": "I work across technical art, programming and game design, contributing to the integration of optical interactions and visual presentation and supporting the associated implementation and production workflow."
+  },
+  "role": {
+    "zh": "技术美术 · 程序 · 策划",
+    "en": "Technical artist · programmer · designer"
+  },
+  "tech": {
+    "zh": "Godot | C# | 光学交互 | Shader | 制作工具",
+    "en": "Godot | C# | Optical interaction | Shaders | Tools"
+  },
+  "platform": {
+    "zh": "桌面端 · Godot GL Compatibility",
+    "en": "Desktop · Godot GL Compatibility"
+  },
+  "status": {
+    "zh": "团队制作项目",
+    "en": "Team production"
+  },
+  "features": [
+    {
+      "zh": "按颜色频率处理光线传播、反射与感光器输入。",
+      "en": "Process light propagation, reflections and sensor input by color frequency."
+    },
+    {
+      "zh": "通过脏标记与求解预算分配光路更新。",
+      "en": "Schedule light-path updates with dirty flags and solving budgets."
+    },
+    {
+      "zh": "以多组 SubViewport、遮罩、法线和发光层组织像素场景的渲染。",
+      "en": "Organize pixel-scene rendering with SubViewports, masks, normals and emission layers."
+    },
+    {
+      "zh": "使用房间、存档、UI 与编辑器插件支持内容制作。",
+      "en": "Support content production with room, save and UI services and editor plugins."
+    }
+  ],
+  "decisions": [
+    {
+      "zh": "区分真实的机关激活条件与用于阅读场景的视觉反馈状态。",
+      "en": "Separate actual mechanism activation from visual feedback used to read the scene."
+    },
+    {
+      "zh": "将光学求解与画面合成分开，使玩法状态和视觉效果各自维护。",
+      "en": "Keep optical solving separate from image compositing so gameplay state and presentation can be maintained independently."
+    }
+  ],
+  "limitations": [
+    {
+      "zh": "本页展示项目原始图标；玩法与渲染专题依据当前源码展开，不附加未经记录的玩家测试或性能提升数据。",
+      "en": "This page displays the original project icon. The linked implementation studies are grounded in current source, without unrecorded playtest or performance claims."
+    }
+  ],
+  "relatedArticles": [
+    "spectrex-light-gameplay",
+    "spectrex-rendering"
+  ],
+  "media": {
+    "type": "image",
+    "src": "/media/projects/spectrex-icon.png",
+    "alt": {
+      "zh": "SpectreX 项目原始图标",
+      "en": "Original SpectreX project icon"
+    }
+  }
+},
+	{
 		slug: 'doomenstein',
+		"platform": {"zh": "桌面端 · 键鼠与 Xbox 手柄", "en": "Desktop · keyboard/mouse & Xbox controllers"},
+		"status": {"zh": "复古射击游戏原型", "en": "Retro shooter prototype"},
+		"decisions": [{"zh": "用八方向精灵保留复古角色表现，再以模型、粒子与后处理扩展场景层次。", "en": "Retain a retro character style with eight-direction sprites, then extend scene depth with models, particles and post-processing."}, {"zh": "将输入与玩家实例分开组织，以支持本地双人。", "en": "Separate input handling from player instances to support local two-player play."}],
+		"limitations": [{"zh": "项目以小规模可玩原型为范围，蜘蛛 IK 与敌人逻辑服务于该范围。", "en": "The project is scoped as a small playable prototype; spider IK and enemy behavior are designed for that scope."}],
+		"relatedArticles": [],
 		category: 'personal',
 		title: 'Doomenstein',
 		summary: {
@@ -197,6 +299,11 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'the-primary-colors',
+		"platform": {"zh": "Unity 桌面游戏", "en": "Unity desktop game"},
+		"status": {"zh": "独立完成的解谜平台游戏", "en": "Independently developed puzzle platformer"},
+		"decisions": [{"zh": "以颜色切换能力为核心，通过三十个手工关卡逐步引入机制与组合。", "en": "Build around color-dependent abilities, introducing mechanics and combinations across thirty handcrafted levels."}, {"zh": "使用 QFramework 与 MVC 分离数据、表现和控制，使用事件与命令组织交互。", "en": "Separate data, presentation and control with QFramework/MVC, and organize interactions with events and commands."}],
+		"limitations": [{"zh": "关卡与表现围绕颜色能力展开，重点是机制表达和独立制作实践。", "en": "Levels and presentation focus on color abilities, emphasizing mechanic communication and independent production."}],
+		"relatedArticles": [],
 		category: 'personal',
 		title: 'The Primary Colors',
 		summary: {
@@ -260,16 +367,21 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'hamsterballin',
+		"platform": {"zh": "PC · Unreal Engine 5", "en": "PC · Unreal Engine 5"},
+		"status": {"zh": "团队游戏项目 · Steam 页面可访问", "en": "Team game project · Steam page available"},
+		"decisions": [{"zh": "将重复的赛道制作任务转化为 PCG 道路生成流程，配合美术生产使用。", "en": "Turn repetitive track-authoring work into a PCG road-generation workflow for art production."}, {"zh": "围绕实际制作需求处理生成开销，并协作完成材质、视觉效果和部分 UI。", "en": "Address generation overhead for production needs and collaborate on materials, effects and selected UI features."}],
+		"limitations": [{"zh": "展示的是我负责的工具与协作内容，游戏整体由团队共同制作；不列未经核实的团队人数或性能提升比例。", "en": "My contribution centers on tools and cross-discipline support; the game as a whole was made by the team. No unverified team-size or performance figures are listed."}],
+		"relatedArticles": [],
 		category: 'team',
 		detailLayout: 'stacked',
 		title: "Hamsterballin'",
 		summary: {
-			en: 'A competitive arcade racer developed by a 40-person team in Unreal Engine 5, where players roll, bounce, disrupt rivals, and discover creative shortcuts as hamsters racing inside balls.',
-			zh: '一款由 40 人团队使用 Unreal Engine 5 开发的竞技街机赛车游戏。玩家操控仓鼠球滚动、弹跳、干扰对手，并在充满想象力的赛道中寻找捷径。',
+			en: 'A competitive arcade racer developed by a team in Unreal Engine 5, where players roll, bounce, disrupt rivals, and discover creative shortcuts as hamsters racing inside balls.',
+			zh: '一款由团队使用 Unreal Engine 5 开发的竞技街机赛车游戏。玩家操控仓鼠球滚动、弹跳、干扰对手，并在充满想象力的赛道中寻找捷径。',
 		},
 		detail: {
-			en: "Hamsterballin' is a competitive arcade racing game developed by a 40-person SMU Guildhall team in Unreal Engine 5. Players race through imaginative tracks as hamsters inside rolling balls, using momentum, environmental interactions, and creative shortcuts to gain an advantage over their opponents.",
-			zh: "《Hamsterballin'》是一款由 SMU Guildhall 40 人团队使用 Unreal Engine 5 开发的竞技街机赛车游戏。玩家操控仓鼠球穿越充满想象力的赛道，利用动量、场景交互和隐藏捷径取得比赛优势。",
+			en: "Hamsterballin' is a competitive arcade racing game developed by an SMU Guildhall team in Unreal Engine 5. Players race through imaginative tracks as hamsters inside rolling balls, using momentum, environmental interactions, and creative shortcuts to gain an advantage over their opponents.",
+			zh: "《Hamsterballin'》是一款由 SMU Guildhall 团队使用 Unreal Engine 5 开发的竞技街机赛车游戏。玩家操控仓鼠球穿越充满想象力的赛道，利用动量、场景交互和隐藏捷径取得比赛优势。",
 		},
 		contribution: {
 			en: "My primary responsibility was developing the procedural road-generation workflow with Unreal Engine 5's PCG framework and optimizing its performance for production use. I also collaborated with artists to build materials and other visual effects, supported technical art workflows during track production, and contributed to selected UI features.",

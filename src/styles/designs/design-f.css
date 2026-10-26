@@ -1,0 +1,11 @@
+/* Slot F placeholder stylesheet: the designer replaces this file with the full concept. */
+html.theme-design-f {
+  --paper: #0e0f0d;
+  --ink: #e9eae4;
+  --muted: #9aa094;
+  --line: #262a24;
+  --accent: #9fa88e;
+  --panel: #161815;
+}
+
+html.theme-design-f body { background: var(--paper); color: var(--ink); }

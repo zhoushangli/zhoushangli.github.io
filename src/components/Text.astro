@@ -1,0 +1,16 @@
+---
+import type { HTMLTag } from 'astro/types';
+interface Props {
+	zh: string;
+	en: string;
+	as?: HTMLTag;
+	html?: boolean;
+	[key: string]: unknown;
+}
+const { zh, en, as: Tag = 'span', html = false, ...attributes } = Astro.props;
+---
+{html ? (
+	<Tag {...attributes} data-i18n-inline-html data-zh={zh} data-en={en} set:html={zh} />
+) : (
+	<Tag {...attributes} data-i18n-inline data-zh={zh} data-en={en}>{zh}</Tag>
+)}

@@ -1,0 +1,13 @@
+---
+import Text from './Text.astro';
+import { categories, type ContentPair } from '../data/content';
+interface Props { pair: ContentPair; }
+const { pair } = Astro.props;
+const category = categories[pair.zh.data.category];
+---
+<a class="reading-card" href={`/${pair.zh.data.section}/${pair.zh.data.contentId}`} data-category={pair.zh.data.category}>
+	<Text as="p" class="eyebrow" {...category} />
+	<Text as="h2" zh={pair.zh.data.title} en={pair.en.data.title} />
+	<Text as="p" zh={pair.zh.data.description} en={pair.en.data.description} />
+	<Text class="card-action" zh="阅读全文 →" en="Read more →" />
+</a>

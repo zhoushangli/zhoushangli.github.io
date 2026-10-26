@@ -1,76 +1,21 @@
 ---
+import Text from './Text.astro';
 import { GITHUB_URL, LINKEDIN_URL } from '../consts';
-import { getProjectsByCategory } from '../data/projects';
-
-const personalProjects = getProjectsByCategory('personal');
-const teamProjects = getProjectsByCategory('team');
 ---
-
 <header>
-	<nav>
-		<h2><a href="/" data-i18n="nav.brand">SHANGLI ZHOU</a></h2>
-		<div class="internal-links">
-			<a href="/#about" data-i18n="nav.about">About</a>
-			<a href="/#experience" data-i18n-inline data-en="Experience" data-zh="经历">Experience</a>
-
-			<div class="nav-dropdown">
-				<a
-					href="/#personal-projects"
-					data-i18n-inline
-					data-en="Personal Projects"
-					data-zh="个人项目">Personal Projects</a
-				>
-				<div class="dropdown-panel">
-					{
-						personalProjects.map((project) => (
-							<a class="dropdown-link" href={`/projects/${project.slug}`}>
-								{project.title}
-							</a>
-						))
-					}
-				</div>
-			</div>
-
-			<div class="nav-dropdown">
-				<a href="/#team-projects" data-i18n="nav.teamwork">Team Projects</a>
-				<div class="dropdown-panel">
-					{
-						teamProjects.map((project) => (
-							<a class="dropdown-link" href={`/projects/${project.slug}`}>
-								{project.title}
-							</a>
-						))
-					}
-				</div>
-			</div>
-
-			<a class="external-link" href={LINKEDIN_URL} target="_blank" rel="noreferrer" data-i18n="nav.linkedin"
-				>LinkedIn</a
-			>
-			<a class="external-link" href={GITHUB_URL} target="_blank" rel="noreferrer" data-i18n="nav.github"
-				>GitHub</a
-			>
-			<a class="external-link" href="/documents/resume-placeholder.pdf" target="_blank" data-i18n="nav.resume"
-				>Resume</a
-			>
-			<button
-				class="theme-toggle"
-				type="button"
-				data-theme-toggle
-				aria-label="Switch to light theme">
-				<span data-theme-toggle-icon>☀</span>
-			</button>
-			<button
-				class="language-toggle"
-				type="button"
-				data-language-toggle
-				data-i18n-aria-label="nav.languageToggleLabel"
-				aria-label="Switch language to Chinese">
-				<span class="language-dot"></span>
-				<span data-i18n="nav.languageToggle">中文</span>
-			</button>
-		</div>
-	</nav>
+  <nav aria-label="主导航" data-i18n-inline-aria-label data-zh="主导航" data-en="Main navigation">
+    <h2><a href="/"><Text zh="周尚礼" en="SHANGLI ZHOU" /></a></h2>
+    <div class="internal-links">
+      <a href="/#about"><Text zh="个人介绍与经历" en="About & experience" /></a>
+      <a href="/projects/"><Text zh="项目作品" en="Projects" /></a>
+      <a href="/articles/"><Text zh="技术研究与开发笔记" en="Studies & notes" /></a>
+      <a href="/teaching/"><Text zh="教学与社群实践" en="Teaching & community" /></a>
+      <a class="external-link" href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a>
+      <a class="external-link" href={LINKEDIN_URL} target="_blank" rel="noreferrer">LinkedIn</a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换为浅色主题"><span data-theme-toggle-icon>☀</span></button>
+      <button class="language-toggle" type="button" data-language-toggle aria-label="切换为英文"><span class="language-dot"></span><span data-language-label>EN</span></button>
+    </div>
+  </nav>
 </header>
 <style>
 	header {

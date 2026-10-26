@@ -1,0 +1,9 @@
+---
+import ReadingPage from '../../components/ReadingPage.astro';
+import { getContentPairs } from '../../data/content';
+export async function getStaticPaths() {
+	return (await getContentPairs('teaching')).map((pair) => ({ params: { slug: pair.zh.data.contentId }, props: { pair } }));
+}
+const { pair } = Astro.props;
+---
+<ReadingPage pair={pair} />

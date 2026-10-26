@@ -1,0 +1,11 @@
+/* Slot D placeholder stylesheet: the designer replaces this file with the full concept. */
+html.theme-design-d {
+  --paper: #0c0f11;
+  --ink: #e8ecee;
+  --muted: #96a0a5;
+  --line: #242b2f;
+  --accent: #c98f5a;
+  --panel: #141a1d;
+}
+
+html.theme-design-d body { background: var(--paper); color: var(--ink); }

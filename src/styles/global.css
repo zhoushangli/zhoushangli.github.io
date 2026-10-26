@@ -364,6 +364,14 @@ strong {
 	margin-left: calc(-1 * var(--interests-overhang));
 }
 
+/* The overhang bleeds past the 1180px container; above ~1360px it still fits the
+   viewport. Below that, keep the grid inside the page to avoid horizontal scrolling. */
+@media (max-width: 1360px) {
+	.interests-grid {
+		--interests-overhang: 0rem;
+	}
+}
+
 .interests-media {
 	margin: 0;
 }

@@ -2,12 +2,17 @@
 
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import { rehypeHeadingIds, unified } from '@astrojs/markdown-remark';
 import { defineConfig, fontProviders } from 'astro/config';
+import languageHeadings from './src/utils/rehype-language.mjs';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://example.com',
-	integrations: [mdx(), sitemap()],
+	site: 'https://zhoushangli.github.io',
+	integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/previews/') })],
+	// Astro's built-in heading-id plugin runs after user rehype plugins, so run it
+	// explicitly first: languageHeadings then prefixes the generated ids with zh-/en-.
+	markdown: { processor: unified({ rehypePlugins: [rehypeHeadingIds, languageHeadings] }) },
 	fonts: [
 		{
 			provider: fontProviders.local(),

@@ -1,0 +1,11 @@
+/* Slot E placeholder stylesheet: the designer replaces this file with the full concept. */
+html.theme-design-e {
+  --paper: #0f0d0b;
+  --ink: #ece7df;
+  --muted: #a49a8c;
+  --line: #2c2822;
+  --accent: #a8825a;
+  --panel: #191512;
+}
+
+html.theme-design-e body { background: var(--paper); color: var(--ink); }

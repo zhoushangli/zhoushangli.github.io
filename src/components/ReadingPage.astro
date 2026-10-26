@@ -1,0 +1,43 @@
+---
+import { render } from 'astro:content';
+import PortfolioLayout from '../layouts/PortfolioLayout.astro';
+import Text from './Text.astro';
+import GameJamGallery from './GameJamGallery.astro';
+import { categories, type ContentPair } from '../data/content';
+import { getProjectBySlug } from '../data/projects';
+interface Props { pair: ContentPair; }
+const { pair } = Astro.props;
+const zh = await render(pair.zh);
+const en = await render(pair.en);
+const versions = [{ lang: 'zh', entry: pair.zh, rendered: zh }, { lang: 'en', entry: pair.en, rendered: en }];
+const title = { zh: pair.zh.data.title, en: pair.en.data.title };
+const description = { zh: pair.zh.data.description, en: pair.en.data.description };
+const section = pair.zh.data.section;
+const project = pair.zh.data.relatedProject ? getProjectBySlug(pair.zh.data.relatedProject) : undefined;
+---
+<PortfolioLayout title={title} description={description}>
+	<header class="page-intro">
+		<a href={`/${section}/`}><Text zh={section === 'articles' ? '← 技术研究与开发笔记' : '← 教学与社群实践'} en={section === 'articles' ? '← Studies & notes' : '← Teaching & community'} /></a>
+		<Text as="p" class="eyebrow" {...categories[pair.zh.data.category]} />
+		<Text as="h1" {...title} />
+		<Text as="p" {...description} />
+		{project && <a href={`/projects/${project.slug}`}><Text zh={`相关项目：${project.title}`} en={`Related project: ${project.title}`} /></a>}
+	</header>
+	{versions.map(({ lang, entry, rendered }) => {
+		const Content = rendered.Content;
+		const headings = rendered.headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+		return <section data-language-block={lang} lang={lang === 'zh' ? 'zh-CN' : 'en'} hidden={lang === 'en'} inert={lang === 'en'}>
+			<div class="reading-layout">
+				<article class="prose"><Content /></article>
+				<aside class="toc">
+					<nav aria-label={lang === 'zh' ? '文章目录' : 'Table of contents'}>
+						<p>{lang === 'zh' ? '本文目录' : 'On this page'}</p>
+						<ol>{headings.map((heading) => <li class={`depth-${heading.depth}`}><a href={`#${heading.slug.startsWith(`${lang}-`) ? heading.slug : `${lang}-${heading.slug}`}`}>{heading.text}</a></li>)}</ol>
+					</nav>
+					<p class="caption">{entry.data.tags.join(' · ')}</p>
+				</aside>
+			</div>
+		</section>;
+	})}
+	{pair.zh.data.contentId === 'pico8-game-jam' && <GameJamGallery />}
+</PortfolioLayout>

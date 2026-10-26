@@ -1,13 +1,8 @@
 ---
-const today = new Date();
+import Text from './Text.astro';
+const year = new Date().getUTCFullYear();
 ---
-
-<footer>
-	<span data-i18n="footer.text"
-		>&copy; {today.getFullYear()} ShangLi Zhou. Portfolio placeholders will be replaced with final
-		project media.</span
-	>
-</footer>
+<footer><Text zh={`© ${year} 周尚礼 · 游戏开发、研究与教学`} en={`© ${year} ShangLi Zhou · Game development, studies & teaching`} /></footer>
 <style>
 	footer {
 		border-top: 1px solid var(--border);

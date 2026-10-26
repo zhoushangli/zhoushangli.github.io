@@ -1,0 +1,17 @@
+---
+import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
+import Text from '../../components/Text.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getProjectsByCategory } from '../../data/projects';
+const title = { zh: '项目作品', en: 'Projects' };
+const description = { zh: '个人引擎、独立游戏与团队制作：项目目标、个人职责和技术实践。', en: 'Personal engines, independent games and team productions: goals, contributions and technical practice.' };
+---
+<PortfolioLayout title={title} description={description}>
+	<header class="page-intro"><Text as="p" class="eyebrow" zh="作品集" en="Portfolio" /><Text as="h1" {...title} /><Text as="p" {...description} /></header>
+	{(['personal', 'team'] as const).map((category) => (
+		<section class="section">
+			<Text as="h2" zh={category === 'personal' ? '个人项目' : '团队项目'} en={category === 'personal' ? 'Personal projects' : 'Team projects'} />
+			<div class="showcase-list">{getProjectsByCategory(category).map((project) => <ProjectCard project={project} />)}</div>
+		</section>
+	))}
+</PortfolioLayout>

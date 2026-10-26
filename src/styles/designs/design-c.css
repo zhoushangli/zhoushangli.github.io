@@ -1,0 +1,11 @@
+/* Slot C placeholder stylesheet: the designer replaces this file with the full concept. */
+html.theme-design-c {
+  --paper: #0d0c10;
+  --ink: #eae7ef;
+  --muted: #9d98a8;
+  --line: #2a2731;
+  --accent: #b8a6c8;
+  --panel: #16141c;
+}
+
+html.theme-design-c body { background: var(--paper); color: var(--ink); }

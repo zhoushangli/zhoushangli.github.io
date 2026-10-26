@@ -1,0 +1,11 @@
+/* Slot A placeholder stylesheet: the designer replaces this file with the full concept. */
+html.theme-design-a {
+  --paper: #101114;
+  --ink: #e9eaee;
+  --muted: #9ba1ac;
+  --line: #272a31;
+  --accent: #9aa7b8;
+  --panel: #16181d;
+}
+
+html.theme-design-a body { background: var(--paper); color: var(--ink); }
