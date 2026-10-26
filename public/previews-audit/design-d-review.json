@@ -1,0 +1,994 @@
+{
+  "design": "design-d",
+  "name": "橄榄标本册",
+  "passed": true,
+  "gates": {
+    "design": "design-d",
+    "round": 3,
+    "base": "http://127.0.0.1:4323",
+    "capturedAt": "2026-10-26T20:19:21.051681+00:00",
+    "views": {
+      "home": {
+        "desktop": {
+          "title": "橄榄标本册 · 首页 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.24,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-d\\round-3\\home-desktop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-d\\round-3\\home-desktop-full.jpg"
+          },
+          "interactions": {},
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "✳ 周尚礼",
+              "visible": true
+            },
+            {
+              "text": "概览",
+              "visible": true
+            },
+            {
+              "text": "索引",
+              "visible": true
+            },
+            {
+              "text": "观察",
+              "visible": true
+            },
+            {
+              "text": "进入研究索引 →",
+              "visible": true
+            },
+            {
+              "text": "MingEngine一款使用 C++ 和 Dir",
+              "visible": true
+            },
+            {
+              "text": "SpectreX使用 Godot 与 C# 制作",
+              "visible": true
+            }
+          ],
+          "focusPass": true
+        },
+        "laptop": {
+          "title": "橄榄标本册 · 首页 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.24,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-d\\round-3\\home-laptop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-d\\round-3\\home-laptop-full.jpg"
+          },
+          "interactions": {},
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "✳ 周尚礼",
+              "visible": true
+            },
+            {
+              "text": "概览",
+              "visible": true
+            },
+            {
+              "text": "索引",
+              "visible": true
+            },
+            {
+              "text": "观察",
+              "visible": true
+            },
+            {
+              "text": "进入研究索引 →",
+              "visible": true
+            },
+            {
+              "text": "MingEngine一款使用 C++ 和 Dir",
+              "visible": true
+            },
+            {
+              "text": "SpectreX使用 Godot 与 C# 制作",
+              "visible": true
+            }
+          ],
+          "focusPass": true
+        },
+        "mobile": {
+          "title": "橄榄标本册 · 首页 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.24,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-d\\round-3\\home-mobile-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-d\\round-3\\home-mobile-full.jpg"
+          },
+          "interactions": {},
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "✳ 周尚礼",
+              "visible": true
+            },
+            {
+              "text": "概览",
+              "visible": true
+            },
+            {
+              "text": "索引",
+              "visible": true
+            },
+            {
+              "text": "观察",
+              "visible": true
+            },
+            {
+              "text": "进入研究索引 →",
+              "visible": true
+            },
+            {
+              "text": "MingEngine一款使用 C++ 和 Dir",
+              "visible": true
+            },
+            {
+              "text": "SpectreX使用 Godot 与 C# 制作",
+              "visible": true
+            }
+          ],
+          "focusPass": true
+        }
+      },
+      "articles": {
+        "desktop": {
+          "title": "橄榄标本册 · 文章索引 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 7.81,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-d\\round-3\\articles-desktop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-d\\round-3\\articles-desktop-full.jpg"
+          },
+          "interactions": {
+            "filters": [
+              {
+                "category": "all",
+                "expected": 7,
+                "count": 7,
+                "correct": true,
+                "selected": "all",
+                "pass": true
+              },
+              {
+                "category": "engine",
+                "expected": 3,
+                "count": 3,
+                "correct": true,
+                "selected": "engine",
+                "pass": true
+              },
+              {
+                "category": "graphics",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "graphics",
+                "pass": true
+              },
+              {
+                "category": "gameplay",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "gameplay",
+                "pass": true
+              }
+            ],
+            "filterState": {
+              "category": "engine",
+              "screenshot": "artifacts\\preview-audit\\design-d\\round-3\\articles-desktop-filter.jpg"
+            },
+            "selection": {
+              "pass": true,
+              "readingLinkVisible": true,
+              "readingLinkBox": {
+                "x": 871.1875,
+                "y": 325.59375,
+                "width": 109.453125,
+                "height": 48
+              },
+              "previewBox": {
+                "x": 834.1875,
+                "y": 30,
+                "width": 533.8125,
+                "height": 380.59375
+              },
+              "title": "SpectreX：分层采集、光照与场景合成",
+              "href": "/articles/spectrex-rendering/",
+              "screenshot": "artifacts\\preview-audit\\design-d\\round-3\\desktop-selection.jpg"
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "✳ 周尚礼",
+              "visible": true
+            },
+            {
+              "text": "概览",
+              "visible": true
+            },
+            {
+              "text": "索引",
+              "visible": true
+            },
+            {
+              "text": "观察",
+              "visible": true
+            },
+            {
+              "text": "全部文章",
+              "visible": true
+            },
+            {
+              "text": "引擎开发",
+              "visible": true
+            },
+            {
+              "text": "图形渲染",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "growthStress": {
+            "count": 21,
+            "overflow": 0,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-d\\round-3\\desktop-growth.jpg"
+          }
+        },
+        "laptop": {
+          "title": "橄榄标本册 · 文章索引 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 7.81,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-d\\round-3\\articles-laptop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-d\\round-3\\articles-laptop-full.jpg"
+          },
+          "interactions": {
+            "filters": [
+              {
+                "category": "all",
+                "expected": 7,
+                "count": 7,
+                "correct": true,
+                "selected": "all",
+                "pass": true
+              },
+              {
+                "category": "engine",
+                "expected": 3,
+                "count": 3,
+                "correct": true,
+                "selected": "engine",
+                "pass": true
+              },
+              {
+                "category": "graphics",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "graphics",
+                "pass": true
+              },
+              {
+                "category": "gameplay",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "gameplay",
+                "pass": true
+              }
+            ],
+            "filterState": {
+              "category": "engine",
+              "screenshot": "artifacts\\preview-audit\\design-d\\round-3\\articles-laptop-filter.jpg"
+            },
+            "selection": {
+              "pass": true,
+              "readingLinkVisible": true,
+              "readingLinkBox": {
+                "x": 551,
+                "y": 315.59375,
+                "width": 109.453125,
+                "height": 48
+              },
+              "previewBox": {
+                "x": 524,
+                "y": 30,
+                "width": 448.8125,
+                "height": 360.59375
+              },
+              "title": "SpectreX：分层采集、光照与场景合成",
+              "href": "/articles/spectrex-rendering/",
+              "screenshot": "artifacts\\preview-audit\\design-d\\round-3\\laptop-selection.jpg"
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "✳ 周尚礼",
+              "visible": true
+            },
+            {
+              "text": "概览",
+              "visible": true
+            },
+            {
+              "text": "索引",
+              "visible": true
+            },
+            {
+              "text": "观察",
+              "visible": true
+            },
+            {
+              "text": "全部文章",
+              "visible": true
+            },
+            {
+              "text": "引擎开发",
+              "visible": true
+            },
+            {
+              "text": "图形渲染",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "growthStress": {
+            "count": 21,
+            "overflow": 0,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-d\\round-3\\laptop-growth.jpg"
+          }
+        },
+        "mobile": {
+          "title": "橄榄标本册 · 文章索引 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 7.81,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-d\\round-3\\articles-mobile-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-d\\round-3\\articles-mobile-full.jpg"
+          },
+          "interactions": {
+            "filters": [
+              {
+                "category": "all",
+                "expected": 7,
+                "count": 7,
+                "correct": true,
+                "selected": "all",
+                "pass": true
+              },
+              {
+                "category": "engine",
+                "expected": 3,
+                "count": 3,
+                "correct": true,
+                "selected": "engine",
+                "pass": true
+              },
+              {
+                "category": "graphics",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "graphics",
+                "pass": true
+              },
+              {
+                "category": "gameplay",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "gameplay",
+                "pass": true
+              }
+            ],
+            "filterState": {
+              "category": "engine",
+              "screenshot": "artifacts\\preview-audit\\design-d\\round-3\\articles-mobile-filter.jpg"
+            },
+            "selection": {
+              "pass": true,
+              "readingLinkVisible": true,
+              "readingLinkBox": {
+                "x": 49,
+                "y": 319.859375,
+                "width": 109.453125,
+                "height": 48
+              },
+              "previewBox": {
+                "x": 22,
+                "y": 22.265625,
+                "width": 346,
+                "height": 372.59375
+              },
+              "title": "SpectreX：分层采集、光照与场景合成",
+              "href": "/articles/spectrex-rendering/",
+              "screenshot": "artifacts\\preview-audit\\design-d\\round-3\\mobile-selection.jpg"
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "✳ 周尚礼",
+              "visible": true
+            },
+            {
+              "text": "概览",
+              "visible": true
+            },
+            {
+              "text": "索引",
+              "visible": true
+            },
+            {
+              "text": "观察",
+              "visible": true
+            },
+            {
+              "text": "全部文章",
+              "visible": true
+            },
+            {
+              "text": "引擎开发",
+              "visible": true
+            },
+            {
+              "text": "图形渲染",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "growthStress": {
+            "count": 21,
+            "overflow": 0,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-d\\round-3\\mobile-growth.jpg"
+          }
+        }
+      },
+      "article": {
+        "desktop": {
+          "title": "橄榄标本册 · 文章阅读 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.24,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": {
+            "fontSize": 18,
+            "lineHeight": 1.9500000000000002,
+            "contrast": 14.55,
+            "width": 648,
+            "charsPerLine": 36,
+            "left": 549.1875,
+            "right": 242.8125,
+            "images": 17,
+            "codeBlocks": 3,
+            "headings": [
+              "zh-分析问题与证据范围",
+              "zh-用四个空间层次建立阅读顺序",
+              "zh-远景静态图像也能产生流动感",
+              "zh-背景颜色与法线分开处理",
+              "zh-中景颜色之外还需要可见性信息",
+              "zh-透明效果与边缘提亮",
+              "zh-我从这次分析中得到什么"
+            ]
+          },
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-d\\round-3\\article-desktop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-d\\round-3\\article-desktop-full.jpg",
+            "detail": "artifacts\\preview-audit\\design-d\\round-3\\article-desktop-detail.jpg"
+          },
+          "interactions": {
+            "imageInspector": {
+              "pass": true,
+              "focusInside": true,
+              "screenshot": "artifacts\\preview-audit\\design-d\\round-3\\desktop-zoom.jpg",
+              "escapeCloses": true,
+              "focusRestored": true,
+              "buttonCloses": true
+            },
+            "anchor": {
+              "pass": true,
+              "href": "#zh-远景静态图像也能产生流动感",
+              "targetTop": 100.078125
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "✳ 周尚礼",
+              "visible": true
+            },
+            {
+              "text": "概览",
+              "visible": true
+            },
+            {
+              "text": "索引",
+              "visible": true
+            },
+            {
+              "text": "观察",
+              "visible": true
+            },
+            {
+              "text": "01 / 分析问题与证据范围",
+              "visible": true
+            },
+            {
+              "text": "02 / 用四个空间层次建立阅读顺序",
+              "visible": true
+            },
+            {
+              "text": "03 / 远景：静态图像也能产生流动感",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "wideContent": {
+            "overflow": 0,
+            "tableScrollable": true,
+            "codeScrollable": true,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-d\\round-3\\desktop-wide-content.jpg"
+          }
+        },
+        "laptop": {
+          "title": "橄榄标本册 · 文章阅读 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.24,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": {
+            "fontSize": 18,
+            "lineHeight": 1.9500000000000002,
+            "contrast": 14.55,
+            "width": 648,
+            "charsPerLine": 36,
+            "left": 295.5,
+            "right": 80.5,
+            "images": 17,
+            "codeBlocks": 3,
+            "headings": [
+              "zh-分析问题与证据范围",
+              "zh-用四个空间层次建立阅读顺序",
+              "zh-远景静态图像也能产生流动感",
+              "zh-背景颜色与法线分开处理",
+              "zh-中景颜色之外还需要可见性信息",
+              "zh-透明效果与边缘提亮",
+              "zh-我从这次分析中得到什么"
+            ]
+          },
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-d\\round-3\\article-laptop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-d\\round-3\\article-laptop-full.jpg",
+            "detail": "artifacts\\preview-audit\\design-d\\round-3\\article-laptop-detail.jpg"
+          },
+          "interactions": {
+            "imageInspector": {
+              "pass": true,
+              "focusInside": true,
+              "screenshot": "artifacts\\preview-audit\\design-d\\round-3\\laptop-zoom.jpg",
+              "escapeCloses": true,
+              "focusRestored": true,
+              "buttonCloses": true
+            },
+            "anchor": {
+              "pass": true,
+              "href": "#zh-远景静态图像也能产生流动感",
+              "targetTop": 99.625
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "✳ 周尚礼",
+              "visible": true
+            },
+            {
+              "text": "概览",
+              "visible": true
+            },
+            {
+              "text": "索引",
+              "visible": true
+            },
+            {
+              "text": "观察",
+              "visible": true
+            },
+            {
+              "text": "01 / 分析问题与证据范围",
+              "visible": true
+            },
+            {
+              "text": "02 / 用四个空间层次建立阅读顺序",
+              "visible": true
+            },
+            {
+              "text": "03 / 远景：静态图像也能产生流动感",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "wideContent": {
+            "overflow": 0,
+            "tableScrollable": true,
+            "codeScrollable": true,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-d\\round-3\\laptop-wide-content.jpg"
+          }
+        },
+        "mobile": {
+          "title": "橄榄标本册 · 文章阅读 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.24,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": {
+            "fontSize": 17,
+            "lineHeight": 1.95,
+            "contrast": 14.55,
+            "width": 346,
+            "charsPerLine": 20.352941176470587,
+            "left": 22,
+            "right": 22,
+            "images": 17,
+            "codeBlocks": 3,
+            "headings": [
+              "zh-分析问题与证据范围",
+              "zh-用四个空间层次建立阅读顺序",
+              "zh-远景静态图像也能产生流动感",
+              "zh-背景颜色与法线分开处理",
+              "zh-中景颜色之外还需要可见性信息",
+              "zh-透明效果与边缘提亮",
+              "zh-我从这次分析中得到什么"
+            ]
+          },
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-d\\round-3\\article-mobile-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-d\\round-3\\article-mobile-full.jpg",
+            "detail": "artifacts\\preview-audit\\design-d\\round-3\\article-mobile-detail.jpg"
+          },
+          "interactions": {
+            "imageInspector": {
+              "pass": true,
+              "focusInside": true,
+              "screenshot": "artifacts\\preview-audit\\design-d\\round-3\\mobile-zoom.jpg",
+              "escapeCloses": true,
+              "focusRestored": true,
+              "buttonCloses": true
+            },
+            "anchor": {
+              "pass": true,
+              "href": "#zh-远景静态图像也能产生流动感",
+              "targetTop": 100.046875
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "✳ 周尚礼",
+              "visible": true
+            },
+            {
+              "text": "概览",
+              "visible": true
+            },
+            {
+              "text": "索引",
+              "visible": true
+            },
+            {
+              "text": "观察",
+              "visible": true
+            },
+            {
+              "text": "01 / 分析问题与证据范围",
+              "visible": true
+            },
+            {
+              "text": "02 / 用四个空间层次建立阅读顺序",
+              "visible": true
+            },
+            {
+              "text": "03 / 远景：静态图像也能产生流动感",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "wideContent": {
+            "overflow": 0,
+            "tableScrollable": true,
+            "codeScrollable": true,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-d\\round-3\\mobile-wide-content.jpg"
+          }
+        }
+      }
+    },
+    "gates": {
+      "routesLoaded": true,
+      "noErrors": true,
+      "localAssets": true,
+      "noBrokenImages": true,
+      "linksValid": true,
+      "noHorizontalOverflow": true,
+      "darkSurface": true,
+      "bodyContrast": true,
+      "smallTextContrast": true,
+      "readingMetrics": true,
+      "mobileGutters": true,
+      "touchTargets": true,
+      "focusVisible": true,
+      "interactions": true,
+      "growthStress": true,
+      "wideContent": true,
+      "noindex": true,
+      "reducedMotion": true,
+      "categoryRedirect": true
+    },
+    "screenshots": {
+      "desktop": "artifacts\\preview-audit\\design-d\\round-3\\contact-desktop.jpg",
+      "laptop": "artifacts\\preview-audit\\design-d\\round-3\\contact-laptop.jpg",
+      "mobile": "artifacts\\preview-audit\\design-d\\round-3\\contact-mobile.jpg"
+    },
+    "categoryRedirect": {
+      "status": 200,
+      "url": "http://127.0.0.1:4323/previews/design-d/articles/"
+    },
+    "reducedMotion": true,
+    "errors": [],
+    "externalRequests": [],
+    "links": {
+      "/articles/ming-csharp-bridge/": 200,
+      "/articles/ming-gui-input/": 200,
+      "/previews/": 200,
+      "/previews/design-d/article": 200,
+      "/previews/design-d/articles": 200,
+      "/previews/design-d/home": 200,
+      "/projects/doomenstein/": 200,
+      "/projects/ming-engine/": 200,
+      "/projects/spectrex/": 200,
+      "/projects/the-primary-colors/": 200
+    },
+    "allGatesPass": true
+  },
+  "review": {
+    "design": "design-d",
+    "round": 3,
+    "reviewedAt": "2026-10-26T20:21:54+00:00",
+    "scores": {
+      "aesthetics": 22,
+      "reading": 23,
+      "structure": 18,
+      "diversity": 14,
+      "mobile": 14
+    },
+    "summary": "??????3???????????????????????????????????Tab??????????",
+    "evidence": [
+      "home/articles|1440/390|round-3/contact-mobile.jpg??2?contact-desktop.jpg????????????????????????????????????????????",
+      "articles|390|round-3/mobile-selection.jpg?gates.json????????????top=22.27px?bottom=394.86px?????top=319.86px?bottom=367.86px?????????????",
+      "articles|390|????http://127.0.0.1:4323/previews/design-d/articles?????????????SpectreX??????????H2???Tab???/articles/spectrex-rendering/?????????????",
+      "article|1440/390|round-3/gates.json??2?article-desktop-detail.jpg?mobile-zoom.jpg???18/17px???1.95???14.55:1??????Escape/??????????????????"
+    ],
+    "defects": [],
+    "verdict": "pass"
+  },
+  "comparisonPairs": [
+    {
+      "left": "design-a",
+      "right": "design-d",
+      "rounds": {
+        "design-a": 2,
+        "design-d": 3
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home/articles|1440?A?????????????D?3?D?3??????????D?3????????????",
+        "articles/article|390?A?D?3?????????D?3?D?3????????????D?3??????????????"
+      ]
+    },
+    {
+      "left": "design-b",
+      "right": "design-d",
+      "rounds": {
+        "design-b": 2,
+        "design-d": 3
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home/articles|1440?B????????????D?3?D?3??????????D?3????????C/D?3??????????",
+        "article/articles|390?B????????D?3?D?3????????C/D?3?????????????"
+      ]
+    },
+    {
+      "left": "design-c",
+      "right": "design-d",
+      "rounds": {
+        "design-c": 3,
+        "design-d": 3
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home/articles|1440?C?????????????D?3?D?3??????????D?3????????????????",
+        "article|390?C??????????D?3?D?3????????C/D?3????????????????"
+      ]
+    },
+    {
+      "left": "design-d",
+      "right": "design-e",
+      "rounds": {
+        "design-d": 3,
+        "design-e": 2
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home/articles|1440?D?3?D?3?????????????E?D?3????????C/D?3????????????????",
+        "articles/article/home|390?D?3?D?3???????????E?D?3????????C/D?3???????????"
+      ]
+    },
+    {
+      "left": "design-d",
+      "right": "design-f",
+      "rounds": {
+        "design-d": 3,
+        "design-f": 2
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home/articles|1440?D?3?D?3???????????F?D?3??????????D?3????????C/D?3??????????",
+        "home/articles/article|390?D??????????F?D?3????????C/D?3?????????"
+      ]
+    }
+  ]
+}

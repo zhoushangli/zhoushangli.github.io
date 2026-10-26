@@ -1,0 +1,962 @@
+{
+  "design": "design-f",
+  "name": "钴蓝画册",
+  "passed": true,
+  "gates": {
+    "design": "design-f",
+    "round": 2,
+    "base": "http://127.0.0.1:4323",
+    "capturedAt": "2026-10-26T20:15:54.948615+00:00",
+    "views": {
+      "home": {
+        "desktop": {
+          "title": "钴蓝画册 · 首页 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 7.76,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-f\\round-2\\home-desktop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-f\\round-2\\home-desktop-full.jpg"
+          },
+          "interactions": {
+            "gallery": {
+              "pass": true,
+              "before": 4,
+              "next": 927,
+              "previous": 4,
+              "keyboard": 927,
+              "screenshot": "artifacts\\preview-audit\\design-f\\round-2\\desktop-gallery.jpg"
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "SHANGLIZHOU周尚礼游戏开发与教学",
+              "visible": true
+            },
+            {
+              "text": "作品与我",
+              "visible": true
+            },
+            {
+              "text": "文字图录",
+              "visible": true
+            },
+            {
+              "text": "选页",
+              "visible": true
+            },
+            {
+              "text": "01 / Doomenstein · 前往正式项",
+              "visible": true
+            },
+            {
+              "text": "翻阅文字图录 ↗",
+              "visible": true
+            },
+            {
+              "text": "←",
+              "visible": true
+            }
+          ],
+          "focusPass": true
+        },
+        "laptop": {
+          "title": "钴蓝画册 · 首页 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.14,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-f\\round-2\\home-laptop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-f\\round-2\\home-laptop-full.jpg"
+          },
+          "interactions": {
+            "gallery": {
+              "pass": true,
+              "before": 4,
+              "next": 682,
+              "previous": 4,
+              "keyboard": 682,
+              "screenshot": "artifacts\\preview-audit\\design-f\\round-2\\laptop-gallery.jpg"
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "SHANGLIZHOU周尚礼游戏开发与教学",
+              "visible": true
+            },
+            {
+              "text": "作品与我",
+              "visible": true
+            },
+            {
+              "text": "文字图录",
+              "visible": true
+            },
+            {
+              "text": "选页",
+              "visible": true
+            },
+            {
+              "text": "01 / Doomenstein · 前往正式项",
+              "visible": true
+            },
+            {
+              "text": "翻阅文字图录 ↗",
+              "visible": true
+            },
+            {
+              "text": "←",
+              "visible": true
+            }
+          ],
+          "focusPass": true
+        },
+        "mobile": {
+          "title": "钴蓝画册 · 首页 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.14,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-f\\round-2\\home-mobile-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-f\\round-2\\home-mobile-full.jpg"
+          },
+          "interactions": {
+            "gallery": {
+              "pass": true,
+              "before": 4,
+              "next": 311,
+              "previous": 4,
+              "keyboard": 311,
+              "screenshot": "artifacts\\preview-audit\\design-f\\round-2\\mobile-gallery.jpg"
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "SHANGLIZHOU周尚礼游戏开发与教学",
+              "visible": true
+            },
+            {
+              "text": "作品与我",
+              "visible": true
+            },
+            {
+              "text": "文字图录",
+              "visible": true
+            },
+            {
+              "text": "选页",
+              "visible": true
+            },
+            {
+              "text": "01 / Doomenstein · 前往正式项",
+              "visible": true
+            },
+            {
+              "text": "翻阅文字图录 ↗",
+              "visible": true
+            },
+            {
+              "text": "←",
+              "visible": true
+            }
+          ],
+          "focusPass": true
+        }
+      },
+      "articles": {
+        "desktop": {
+          "title": "钴蓝画册 · 文章索引 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.14,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-f\\round-2\\articles-desktop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-f\\round-2\\articles-desktop-full.jpg"
+          },
+          "interactions": {
+            "filters": [
+              {
+                "category": "all",
+                "expected": 7,
+                "count": 7,
+                "correct": true,
+                "selected": "all",
+                "pass": true
+              },
+              {
+                "category": "engine",
+                "expected": 3,
+                "count": 3,
+                "correct": true,
+                "selected": "engine",
+                "pass": true
+              },
+              {
+                "category": "graphics",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "graphics",
+                "pass": true
+              },
+              {
+                "category": "gameplay",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "gameplay",
+                "pass": true
+              }
+            ],
+            "filterState": {
+              "category": "engine",
+              "screenshot": "artifacts\\preview-audit\\design-f\\round-2\\articles-desktop-filter.jpg"
+            },
+            "viewSwitch": {
+              "pass": true,
+              "screenshot": "artifacts\\preview-audit\\design-f\\round-2\\desktop-compact.jpg",
+              "restored": true
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "SHANGLIZHOU周尚礼游戏开发与教学",
+              "visible": true
+            },
+            {
+              "text": "作品与我",
+              "visible": true
+            },
+            {
+              "text": "文字图录",
+              "visible": true
+            },
+            {
+              "text": "选页",
+              "visible": true
+            },
+            {
+              "text": "全部文章",
+              "visible": true
+            },
+            {
+              "text": "引擎开发",
+              "visible": true
+            },
+            {
+              "text": "图形渲染",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "growthStress": {
+            "count": 21,
+            "overflow": 0,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-f\\round-2\\desktop-growth.jpg"
+          }
+        },
+        "laptop": {
+          "title": "钴蓝画册 · 文章索引 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.14,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-f\\round-2\\articles-laptop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-f\\round-2\\articles-laptop-full.jpg"
+          },
+          "interactions": {
+            "filters": [
+              {
+                "category": "all",
+                "expected": 7,
+                "count": 7,
+                "correct": true,
+                "selected": "all",
+                "pass": true
+              },
+              {
+                "category": "engine",
+                "expected": 3,
+                "count": 3,
+                "correct": true,
+                "selected": "engine",
+                "pass": true
+              },
+              {
+                "category": "graphics",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "graphics",
+                "pass": true
+              },
+              {
+                "category": "gameplay",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "gameplay",
+                "pass": true
+              }
+            ],
+            "filterState": {
+              "category": "engine",
+              "screenshot": "artifacts\\preview-audit\\design-f\\round-2\\articles-laptop-filter.jpg"
+            },
+            "viewSwitch": {
+              "pass": true,
+              "screenshot": "artifacts\\preview-audit\\design-f\\round-2\\laptop-compact.jpg",
+              "restored": true
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "SHANGLIZHOU周尚礼游戏开发与教学",
+              "visible": true
+            },
+            {
+              "text": "作品与我",
+              "visible": true
+            },
+            {
+              "text": "文字图录",
+              "visible": true
+            },
+            {
+              "text": "选页",
+              "visible": true
+            },
+            {
+              "text": "全部文章",
+              "visible": true
+            },
+            {
+              "text": "引擎开发",
+              "visible": true
+            },
+            {
+              "text": "图形渲染",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "growthStress": {
+            "count": 21,
+            "overflow": 0,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-f\\round-2\\laptop-growth.jpg"
+          }
+        },
+        "mobile": {
+          "title": "钴蓝画册 · 文章索引 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.14,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-f\\round-2\\articles-mobile-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-f\\round-2\\articles-mobile-full.jpg"
+          },
+          "interactions": {
+            "filters": [
+              {
+                "category": "all",
+                "expected": 7,
+                "count": 7,
+                "correct": true,
+                "selected": "all",
+                "pass": true
+              },
+              {
+                "category": "engine",
+                "expected": 3,
+                "count": 3,
+                "correct": true,
+                "selected": "engine",
+                "pass": true
+              },
+              {
+                "category": "graphics",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "graphics",
+                "pass": true
+              },
+              {
+                "category": "gameplay",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "gameplay",
+                "pass": true
+              }
+            ],
+            "filterState": {
+              "category": "engine",
+              "screenshot": "artifacts\\preview-audit\\design-f\\round-2\\articles-mobile-filter.jpg"
+            },
+            "viewSwitch": {
+              "pass": true,
+              "screenshot": "artifacts\\preview-audit\\design-f\\round-2\\mobile-compact.jpg",
+              "restored": true
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "SHANGLIZHOU周尚礼游戏开发与教学",
+              "visible": true
+            },
+            {
+              "text": "作品与我",
+              "visible": true
+            },
+            {
+              "text": "文字图录",
+              "visible": true
+            },
+            {
+              "text": "选页",
+              "visible": true
+            },
+            {
+              "text": "全部文章",
+              "visible": true
+            },
+            {
+              "text": "引擎开发",
+              "visible": true
+            },
+            {
+              "text": "图形渲染",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "growthStress": {
+            "count": 21,
+            "overflow": 0,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-f\\round-2\\mobile-growth.jpg"
+          }
+        }
+      },
+      "article": {
+        "desktop": {
+          "title": "钴蓝画册 · 文章阅读 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.14,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": {
+            "fontSize": 18,
+            "lineHeight": 1.9500000000000002,
+            "contrast": 14.93,
+            "width": 648,
+            "charsPerLine": 36,
+            "left": 559.1875,
+            "right": 232.8125,
+            "images": 17,
+            "codeBlocks": 3,
+            "headings": [
+              "zh-分析问题与证据范围",
+              "zh-用四个空间层次建立阅读顺序",
+              "zh-远景静态图像也能产生流动感",
+              "zh-背景颜色与法线分开处理",
+              "zh-中景颜色之外还需要可见性信息",
+              "zh-透明效果与边缘提亮",
+              "zh-我从这次分析中得到什么"
+            ]
+          },
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-f\\round-2\\article-desktop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-f\\round-2\\article-desktop-full.jpg",
+            "detail": "artifacts\\preview-audit\\design-f\\round-2\\article-desktop-detail.jpg"
+          },
+          "interactions": {
+            "anchor": {
+              "pass": true,
+              "href": "#zh-远景静态图像也能产生流动感",
+              "targetTop": 99.84375
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "SHANGLIZHOU周尚礼游戏开发与教学",
+              "visible": true
+            },
+            {
+              "text": "作品与我",
+              "visible": true
+            },
+            {
+              "text": "文字图录",
+              "visible": true
+            },
+            {
+              "text": "选页",
+              "visible": true
+            },
+            {
+              "text": "01 分析问题与证据范围",
+              "visible": true
+            },
+            {
+              "text": "02 用四个空间层次建立阅读顺序",
+              "visible": true
+            },
+            {
+              "text": "03 远景：静态图像也能产生流动感",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "wideContent": {
+            "overflow": 0,
+            "tableScrollable": true,
+            "codeScrollable": true,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-f\\round-2\\desktop-wide-content.jpg"
+          }
+        },
+        "laptop": {
+          "title": "钴蓝画册 · 文章阅读 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.14,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": {
+            "fontSize": 18,
+            "lineHeight": 1.9500000000000002,
+            "contrast": 14.93,
+            "width": 640.65625,
+            "charsPerLine": 35.592013888888886,
+            "left": 342.390625,
+            "right": 40.953125,
+            "images": 17,
+            "codeBlocks": 3,
+            "headings": [
+              "zh-分析问题与证据范围",
+              "zh-用四个空间层次建立阅读顺序",
+              "zh-远景静态图像也能产生流动感",
+              "zh-背景颜色与法线分开处理",
+              "zh-中景颜色之外还需要可见性信息",
+              "zh-透明效果与边缘提亮",
+              "zh-我从这次分析中得到什么"
+            ]
+          },
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-f\\round-2\\article-laptop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-f\\round-2\\article-laptop-full.jpg",
+            "detail": "artifacts\\preview-audit\\design-f\\round-2\\article-laptop-detail.jpg"
+          },
+          "interactions": {
+            "anchor": {
+              "pass": true,
+              "href": "#zh-远景静态图像也能产生流动感",
+              "targetTop": 99.84375
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "SHANGLIZHOU周尚礼游戏开发与教学",
+              "visible": true
+            },
+            {
+              "text": "作品与我",
+              "visible": true
+            },
+            {
+              "text": "文字图录",
+              "visible": true
+            },
+            {
+              "text": "选页",
+              "visible": true
+            },
+            {
+              "text": "01 分析问题与证据范围",
+              "visible": true
+            },
+            {
+              "text": "02 用四个空间层次建立阅读顺序",
+              "visible": true
+            },
+            {
+              "text": "03 远景：静态图像也能产生流动感",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "wideContent": {
+            "overflow": 0,
+            "tableScrollable": true,
+            "codeScrollable": true,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-f\\round-2\\laptop-wide-content.jpg"
+          }
+        },
+        "mobile": {
+          "title": "钴蓝画册 · 文章阅读 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.14,
+          "backgroundLightness": 9.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": {
+            "fontSize": 17,
+            "lineHeight": 1.95,
+            "contrast": 14.93,
+            "width": 346,
+            "charsPerLine": 20.352941176470587,
+            "left": 22,
+            "right": 22,
+            "images": 17,
+            "codeBlocks": 3,
+            "headings": [
+              "zh-分析问题与证据范围",
+              "zh-用四个空间层次建立阅读顺序",
+              "zh-远景静态图像也能产生流动感",
+              "zh-背景颜色与法线分开处理",
+              "zh-中景颜色之外还需要可见性信息",
+              "zh-透明效果与边缘提亮",
+              "zh-我从这次分析中得到什么"
+            ]
+          },
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-f\\round-2\\article-mobile-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-f\\round-2\\article-mobile-full.jpg",
+            "detail": "artifacts\\preview-audit\\design-f\\round-2\\article-mobile-detail.jpg"
+          },
+          "interactions": {
+            "anchor": {
+              "pass": true,
+              "href": "#zh-远景静态图像也能产生流动感",
+              "targetTop": 100.25
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "SHANGLIZHOU周尚礼游戏开发与教学",
+              "visible": true
+            },
+            {
+              "text": "作品与我",
+              "visible": true
+            },
+            {
+              "text": "文字图录",
+              "visible": true
+            },
+            {
+              "text": "选页",
+              "visible": true
+            },
+            {
+              "text": "01 分析问题与证据范围",
+              "visible": true
+            },
+            {
+              "text": "02 用四个空间层次建立阅读顺序",
+              "visible": true
+            },
+            {
+              "text": "03 远景：静态图像也能产生流动感",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "wideContent": {
+            "overflow": 0,
+            "tableScrollable": true,
+            "codeScrollable": true,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-f\\round-2\\mobile-wide-content.jpg"
+          }
+        }
+      }
+    },
+    "gates": {
+      "routesLoaded": true,
+      "noErrors": true,
+      "localAssets": true,
+      "noBrokenImages": true,
+      "linksValid": true,
+      "noHorizontalOverflow": true,
+      "darkSurface": true,
+      "bodyContrast": true,
+      "smallTextContrast": true,
+      "readingMetrics": true,
+      "mobileGutters": true,
+      "touchTargets": true,
+      "focusVisible": true,
+      "interactions": true,
+      "growthStress": true,
+      "wideContent": true,
+      "noindex": true,
+      "reducedMotion": true,
+      "categoryRedirect": true
+    },
+    "screenshots": {
+      "desktop": "artifacts\\preview-audit\\design-f\\round-2\\contact-desktop.jpg",
+      "laptop": "artifacts\\preview-audit\\design-f\\round-2\\contact-laptop.jpg",
+      "mobile": "artifacts\\preview-audit\\design-f\\round-2\\contact-mobile.jpg"
+    },
+    "categoryRedirect": {
+      "status": 200,
+      "url": "http://127.0.0.1:4323/previews/design-f/articles/"
+    },
+    "reducedMotion": true,
+    "errors": [],
+    "externalRequests": [],
+    "links": {
+      "/articles/ming-csharp-bridge/": 200,
+      "/articles/ming-gui-input/": 200,
+      "/articles/ming-scene-resources/": 200,
+      "/articles/sifu-combat-analysis/": 200,
+      "/articles/spectrex-light-gameplay/": 200,
+      "/articles/spectrex-rendering/": 200,
+      "/previews/": 200,
+      "/previews/design-f/article": 200,
+      "/previews/design-f/articles": 200,
+      "/previews/design-f/home": 200,
+      "/projects/doomenstein/": 200,
+      "/projects/ming-engine/": 200,
+      "/projects/spectrex/": 200,
+      "/projects/the-primary-colors/": 200
+    },
+    "allGatesPass": true
+  },
+  "review": {
+    "design": "design-f",
+    "round": 2,
+    "reviewedAt": "2026-10-26T20:20:56+00:00",
+    "scores": {
+      "aesthetics": 21,
+      "reading": 23,
+      "structure": 18,
+      "diversity": 14,
+      "mobile": 14
+    },
+    "evidence": [
+      "home|1440/390|round-2/contact-desktop.jpg?contact-mobile.jpg?????????????????????????????????????????",
+      "home|390|mobile-gallery.jpg? gates.json????scrollLeft?4?311??????4?ArrowRight??311?????????????????????????",
+      "articles|1440/390|contact-desktop.jpg?mobile-compact.jpg? gates.json??????????????????????????????????????",
+      "article|1440/390|article-desktop-detail.jpg?contact-mobile.jpg? gates.json???????????????????18/17px???1.95???14.93:1?????????",
+      "home|390|round-2/touch-swipe.json?mobile-touch-swipe.jpg?Chromium??touchStart/touchMove/touchEnd???scrollLeft?4?311??????????????????"
+    ],
+    "defects": [
+      "?????|home|390|mobile-gallery.jpg?????????Selected works???????????????????????????????????????"
+    ],
+    "verdict": "pass",
+    "summary": "?????????????????????????????????/????????????????"
+  },
+  "comparisonPairs": [
+    {
+      "left": "design-a",
+      "right": "design-f",
+      "rounds": {
+        "design-a": 2,
+        "design-f": 2
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home|1440?A???????????F?D?3??????????D?3????????C/D?3??????????????",
+        "home/articles|390?A????????F????/ArrowRight?D?3??????????"
+      ]
+    },
+    {
+      "left": "design-b",
+      "right": "design-f",
+      "rounds": {
+        "design-b": 2,
+        "design-f": 2
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home|1440?B????????????F?D?3??????????D?3????????C/D?3?????????",
+        "home/articles/article|390?B????????F?????????????/????????????"
+      ]
+    },
+    {
+      "left": "design-c",
+      "right": "design-f",
+      "rounds": {
+        "design-c": 3,
+        "design-f": 2
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home|1440?C??????????F?D?3??????????D?3????????C/D?3??????????",
+        "home/articles/article|390?C??????????F?D?3????????C/D?3???????????"
+      ]
+    },
+    {
+      "left": "design-d",
+      "right": "design-f",
+      "rounds": {
+        "design-d": 3,
+        "design-f": 2
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home/articles|1440?D?3?D?3???????????F?D?3??????????D?3????????C/D?3??????????",
+        "home/articles/article|390?D??????????F?D?3????????C/D?3?????????"
+      ]
+    },
+    {
+      "left": "design-e",
+      "right": "design-f",
+      "rounds": {
+        "design-e": 2,
+        "design-f": 2
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home|1440?E?D?3??????????F?D?3??????????D?3????????????????",
+        "home/articles|390?E?????????????F?D?3??????????D?3??????????"
+      ]
+    }
+  ]
+}

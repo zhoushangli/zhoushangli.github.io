@@ -1,67 +1,50 @@
-# 暗色博客候选设计 · 评审任务书
+# 六套暗色古典博客 · 独立评审任务书
 
-## 1. 你的角色
+你是独立评审，不参与页面实现，不修改页面、样式或技术检查结果。评审已实现的页面及浏览器证据，不以设计者自述代替观察。
 
-你是独立评审，只做评判与取证，**不修改任何设计文件**。设计者与你是不同 agent，你只拿到证据，不看设计者的自述。你的产出是一份评分卡 JSON 与一份缺陷清单，供 `/root` 决定是否返工。
+## 评审输入与取证
 
-## 2. 输入
+- 当前检查文件为 src/data/preview-audit/design-<x>.gates.json，包含三个视图在 1440/1024/390px 下的指标、状态截图、真实交互结果。
+- 完整证据在 artifacts/preview-audit/design-<x>/round-<n>/，先查看 contact-desktop.jpg、contact-mobile.jpg，再查看单页 fold、article detail 与交互状态截图。至少实际查看每案桌面与手机拼图；必要时检查笔记本宽度。
+- 使用 view_image 查看截图；可通过 Playwright 自行访问本地预览，重现筛选、目录、旁注、放大、分幕和画廊。记录使用的地址和轮次。
+- 程序检测不包含完整的美学、内容遮挡和方案差异判断，需要评审实际核对。未验证项目不能判通过。
 
-- `src/data/preview-audit/design-<x>.gates.json`：硬门槛检测结果、可读性数字、截图路径、评审轮次。
-- 截图（路径在 gates.json 的 `screenshots` 字段）：`fold-desktop.jpg`（四视图首屏拼图）、`contact-desktop.jpg`、`contact-mobile.jpg`，以及 `shots/` 下的单张原图。用 `view_image` 查看，必要时打开单张原图核对细节。
-- `src/styles/designs/design-<x>.css` 与 `src/data/designs/design-<x>.ts`：用来判断实现是否被门禁漏检（例如固定宽度、硬编码条目数、`:focus` 全靠浏览器默认样式）。
-- `scripts/preview-audit/slot-brief.md`：设计契约与硬指标原文。
+## 评分及判定
 
-## 3. 评分表（100 分）
+五项整数分数：aesthetics 美术表现 /25、reading 中文阅读 /25、structure 信息组织 /20、diversity 创意与六案差异 /15、mobile 移动端与交互 /15。
 
-| 维度 | key | 分值 | 满分锚点 | 低分锚点 |
-| --- | --- | --- | --- | --- |
-| 中文长文阅读 | reading | 25 | 行宽 32–40 字、行高 ≥1.75、正文 17–19px、引用/代码/图注/目录层级分明 | 正文 <16px、行宽 >50 字或对比不足 |
-| 信息结构与可扩展性 | structure | 25 | 四视图共享同一套视觉语法，编号/日期/分类系统一致，新增文章不破坏版式 | 首页与内页像两套设计 |
-| 视觉创意与记忆点 | creativity | 20 | 记忆点装置可一句话说清且在截图里可指认，与种子意象的关联可解释 | 装置可替换、看不出与意象的关联，或命中黑名单两项 |
-| 暗色体系完成度 | darkSystem | 15 | 底色/卡片/浮层层次清楚，正文对比 ≥7:1，强调色视觉占比 ≤10%，图片不发灰 | 主背景亮度 >15% 或正文对比 <4.5:1 |
-| 移动端与状态 | mobile | 15 | 390px 无溢出、触摸目标 ≥44px、断行合理、悬停/聚焦/当前项状态齐备 | 横向滚动、遮挡或不可读 |
+通过要求：总分 >=80，aesthetics >=20，reading >=20，diversity >=12，mobile >=12；当前轮次所有技术门槛通过；截图及交互没有严重缺陷；六案任意两案的实际布局、主要交互不同，总计至少四个维度不同。
 
-反俗套黑名单：紫蓝渐变 + 玻璃拟态 + 霓虹描边三件套；全屏居中大标题 Hero + 滚动淡入作为唯一叙事；无叙事的等宽三栏卡片墙首页；全站伪终端 cosplay；无意义漂浮粒子/星空/矩阵雨；emoji 当图标体系。命中两项则 creativity 判 <14，且当轮不得通过。
+风格要求：暗色主导，古典、严肃、精致且有新意；排除哥特、科技、涂鸦风。比较维度为 imagery 意象、layout 布局、typography 字体、accent 色彩材质、mechanism 主要交互、rhythm 节奏。只计算能在截图或实际交互中证实的差异，不把名称不同算作差异。
 
-## 4. 判定规则
+硬指标：正文对比 >=7，小字与操作标签 >=4.5；正文17–19px、行高>=1.75，桌面约32–40汉字宽；手机正文边距>=16px，主要操作高度>=44px；无整体溢出和遮挡；代码/宽表格容器内滚动；焦点可见、全部主要交互可操作。
 
-`verdict = pass` 当且仅当同时满足：
+## 输出
 
-1. `gates.json` 中 `gates` 的每一项都是 true；
-2. 总分 ≥ 80；
-3. `reading` ≥ 20；
-4. `mobile` ≥ 12；
-5. 没有被门禁覆盖、但你在截图里确认的严重缺陷（遮挡、不可读、明显破版）。
-
-总分等于五个维度之和，必须等于你写出的分数之和。
-
-## 5. 取证要求
-
-- 每条评分必须给出可核查证据：`视图/断点` + 截图中的具体位置 + 具体数字（行宽、字号、对比度、间距），例如 `reading|article|1440`：正文 18px、行高 1.9、行宽 34 字，达标。
-- 缺陷必须是可执行的：写明视图、断点、截图中位置、现象与建议修法。禁止「整体偏弱」「再精致一些」这类无法执行的评语。
-- 不要只看总分：即使总分很高，也要把移动端内边距、标题断行、图注对比、状态缺失等具体问题写进 defects。
-- 注意门禁的盲区，重点复核：390px 下标题断行是否难看、卡片内边距是否过窄、小字（日期/图注/元数据）对比是否达标、`.brand` 等点击目标是否够大、装饰元素是否在 1024 与 1440 之间错位、渐变/噪点是否让文字发糊。
-
-## 6. 输出（唯一允许你写的文件）
-
-写入 `src/data/preview-audit/design-<x>.score.json`，UTF-8：
-
-```json
+每案输出 src/data/preview-audit/design-<x>.score.json，并将完全相同的内容归档至对应 round-<n>/score.json：
 {
   "design": "design-a",
-  "round": 1,
-  "reviewedAt": "2026-09-28T00:00:00+00:00",
-  "scores": { "reading": 22, "structure": 21, "creativity": 16, "darkSystem": 13, "mobile": 13 },
-  "evidence": [ "reading|article|1440：正文 18px、行高 1.85、行宽 35 字，达标", "…" ],
-  "defects": [ "home|390：hero 标题第二行「可游玩的世界。」右侧贴边，建议把 .home-hero h1 的移动端字号降到 clamp(30px,10vw,38px)" ],
-  "blacklistHits": [],
-  "verdict": "pass",
-  "summary": "一句话结论"
+  "round": 2,
+  "reviewedAt": "ISO timestamp",
+  "scores": {"aesthetics": 0, "reading": 0, "structure": 0, "diversity": 0, "mobile": 0},
+  "evidence": ["view|width|截图或交互证据：具体观察"],
+  "defects": ["严重度|view|width：具体问题及修复方向；没有则空数组"],
+  "verdict": "pass or fail",
+  "summary": "可独立理解的结论"
 }
-```
 
-`defects` 必须是字符串数组（总览页直接展示每一条）。`evidence` 每条都要能指到具体截图位置。
+横向输出 src/data/preview-audit/comparison.json，另存 artifacts/preview-audit/comparison-round-<n>.json。覆盖全部15个唯一组合：
+{
+  "round": 2,
+  "pairs": [{
+    "left": "design-a", "right": "design-b",
+    "rounds": {"design-a": 2, "design-b": 2},
+    "differentAxes": ["imagery", "layout", "accent", "mechanism"],
+    "layoutDifferent": true, "interactionDifferent": true,
+    "evidence": ["截图中可见的区别", "已核验的交互区别"]
+  }],
+  "verdict": "pass or fail",
+  "summary": "横向判断，包含最接近的组合及差别是否充分"
+}
 
-## 7. 汇报
-
-给 `/root` 回一条紧凑消息：`slot`、总分、五个分项、`verdict`、缺陷条数与最高优先级的 2–3 条缺陷（含视图与断点）。若 `verdict=fail`，缺陷清单必须完整，让人可以逐条修复。
+所有证据要具体到视图、宽度或文件。不要为了让六案过线而提高分数；严重问题必须 fail。轻微、非阻塞的改善建议可以在 pass 时保留，但需明确其性质。将每案分数、结论、最高优先级问题告知主 agent。

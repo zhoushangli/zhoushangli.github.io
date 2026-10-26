@@ -1,0 +1,37 @@
+---
+import Shell from './Shell.astro';
+import ArticleBody from './ArticleBody.astro';
+import Entries from './Entries.astro';
+import Filters from './Filters.astro';
+import type { DesignProps } from '../../data/design-content';
+const { concept, view, base, data } = Astro.props as DesignProps;
+---
+<Shell concept={concept} view={view}>
+  <header class="stone-header"><a class="brand" href={base + '/home'}>周尚礼 <span class="micro">/ 制作与研究</span></a><nav class="nav-links" aria-label="主导航"><a href={base + '/home'} aria-current={view === 'home' ? 'page' : undefined}>序章</a><a href={base + '/articles'} aria-current={view === 'articles' ? 'page' : undefined}>文章</a><a href={base + '/article'} aria-current={view === 'article' ? 'page' : undefined}>选读</a></nav></header>
+  <main id="main-content" class="stone-main">
+    {view === 'home' && <>
+      <section class="stone-hero"><p class="eyebrow">A STUDY IN STONE / 月光石廊</p><div class="stone-inscription"><span aria-hidden="true">I</span><h1>以结构，<br />承载想象。</h1><span aria-hidden="true">II</span></div><p class="lede">周尚礼的游戏开发与研究记录。<br />从一个实现细节，走向一个完整世界。</p><a class="action" href={base + '/articles'}>沿着问题，继续阅读 ↓</a><div class="stone-axis" aria-hidden="true"><span>比例</span><span>秩序</span><span>留白</span></div></section>
+      <section class="stone-works" id="projects"><div class="section-title"><p class="eyebrow">I / SELECTED WORKS</p><h2>世界的构造</h2></div>{data.projects.map((project, index) => <article class="stone-work"><a href={'/projects/' + project.slug + '/'}><img src={project.media.src} alt={project.media.alt.zh} loading="lazy" /></a><div><span class="micro">作品 / 0{index + 1}</span><h3>{project.title}</h3><p class="lede">{project.summary.zh}</p><a class="action" href={'/projects/' + project.slug + '/'}>前往正式项目 ↗</a></div></article>)}</section>
+      <section class="stone-writing"><div class="section-title"><p class="eyebrow">II / OBSERVATIONS</p><h2>把过程留在文字里</h2></div><Entries data={data} base={base} limit={3} /></section>
+    </>}
+    {view === 'articles' && <><header class="stone-page-head"><p class="eyebrow">THE INDEX / 研究索引</p><h1>观察的次序</h1><p class="lede">每篇文章，是对一个具体问题的认真回答。</p></header><div class="stone-index"><Filters data={data} /><Entries data={data} base={base} /></div></>}
+    {view === 'article' && <><div class="stone-progress" aria-label="文章阅读进度" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div><header class="stone-page-head"><p class="eyebrow">ESSAY / 图形渲染</p><h1 class="article-title">{data.sample.title}</h1><p class="article-deck">{data.sample.description}</p></header><details class="stone-toc"><summary>展开文章目录 <span>CONTENTS / ＋</span></summary><nav class="toc" aria-label="文章目录">{data.headings.map((heading) => <a href={'#' + heading.slug}>{heading.text}</a>)}</nav></details><ArticleBody data={data} /></>}
+  </main>
+</Shell>
+<script>
+  const progress = document.querySelector<HTMLElement>('.stone-progress');
+  if (progress) {
+    const update = () => {
+      const article = document.querySelector('[data-reading]');
+      if (!article) {
+        return;
+      }
+      const rect = article.getBoundingClientRect();
+      const value = Math.round(Math.max(0, Math.min(100, -rect.top / Math.max(1, rect.height - innerHeight) * 100)));
+      progress.setAttribute('aria-valuenow', String(value));
+      (progress.firstElementChild as HTMLElement).style.width = value + '%';
+    };
+    addEventListener('scroll', update, { passive: true });
+    update();
+  }
+</script>

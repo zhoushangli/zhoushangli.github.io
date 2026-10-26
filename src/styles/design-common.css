@@ -1,0 +1,87 @@
+html.design-lab {
+  color-scheme: dark;
+  --bg: #10151d; --surface: #19212b; --ink: #ede7db; --muted: #b6b4ad;
+  --accent: #c7ad82; --line: #404952;
+  --sans: 'Microsoft YaHei', 'PingFang SC', system-ui, sans-serif;
+  --serif: 'Songti SC', 'SimSun', Georgia, serif;
+  background: var(--bg); color: var(--ink); scroll-behavior: smooth;
+}
+.design-lab *, .design-lab *::before, .design-lab *::after { box-sizing: border-box; }
+.design-lab body { margin: 0; font: 15px/1.8 var(--sans); background: var(--bg); color: var(--ink); }
+.design-lab h1, .design-lab h2, .design-lab h3, .design-lab p { margin: 0; }
+.design-lab h1, .design-lab h2, .design-lab h3 { font-family: var(--serif); font-weight: 400; overflow-wrap: anywhere; }
+.design-lab h1 { font-size: clamp(38px, 4.5vw, 70px); line-height: 1.38; }
+.design-lab h2 { font-size: clamp(28px, 3vw, 43px); line-height: 1.5; }
+.design-lab h3 { font-size: 23px; line-height: 1.65; }
+.design-lab a { color: inherit; text-decoration: none; }
+.design-lab a:hover { color: var(--accent); }
+.design-lab button, .design-lab summary { font: inherit; color: inherit; cursor: pointer; }
+.design-lab button { border: 1px solid var(--line); background: transparent; padding: 9px 17px; }
+.design-lab a, .design-lab button, .design-lab summary { -webkit-tap-highlight-color: transparent; }
+.design-lab a:focus-visible, .design-lab button:focus-visible, .design-lab summary:focus-visible, .design-lab [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.design-lab button:hover, .design-lab button[aria-pressed="true"] { background: var(--surface); border-color: var(--accent); }
+.design-lab img { display: block; max-width: 100%; height: auto; }
+.design-lab [hidden] { display: none !important; }
+.design-lab main, .design-lab section, .design-lab article, .design-lab aside, .design-lab div { min-width: 0; }
+.design-lab .micro { font: 12px/1.9 var(--sans); color: var(--muted); letter-spacing: .1em; }
+.design-lab .eyebrow { font: 12px/1.8 Georgia, var(--serif); letter-spacing: .22em; color: var(--accent); margin-bottom: 28px; }
+.design-lab .muted, .design-lab .destination { color: var(--muted); }
+.design-lab .lede { font-size: 17px; line-height: 2; color: var(--muted); max-width: 650px; margin-top: 26px; }
+.design-lab .page-intro { margin-bottom: 46px; }
+.design-lab .brand { display: inline-flex; align-items: center; min-height: 48px; gap: 14px; font-family: var(--serif); font-size: 22px; }
+.design-lab .nav-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.design-lab .nav-links a { min-height: 48px; display: inline-flex; align-items: center; border-bottom: 1px solid transparent; }
+.design-lab .nav-links a[aria-current="page"] { color: var(--accent); border-color: var(--accent); }
+.design-lab .action { display: inline-flex; min-height: 48px; align-items: center; gap: 24px; margin-top: 30px; border-bottom: 1px solid var(--accent); }
+.design-lab .section-title { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; margin-bottom: 30px; }
+.design-lab .filters { display: flex; flex-wrap: wrap; gap: 10px; }
+.design-lab .filters button { min-height: 46px; }
+.design-lab .results-status { margin: 20px 0; }
+.design-lab .entry-list { border-top: 1px solid var(--line); }
+.design-lab .entry { display: grid; grid-template-columns: 35px minmax(0, 1fr); gap: 20px; padding: 28px 0; border-bottom: 1px solid var(--line); }
+.design-lab .entry-number { color: var(--accent); font: italic 18px/2 Georgia, serif; }
+.design-lab .entry h3 a { display: block; padding: 5px 0; min-height: 46px; }
+.design-lab .entry-copy p { font-size: 14px; color: var(--muted); line-height: 1.9; margin: 9px 0 14px; }
+.design-lab .destination { font-size: 12px; }
+.design-lab .project-link { display: block; padding-bottom: 18px; }
+.design-lab .project-link img { width: 100%; aspect-ratio: 16/10; object-fit: cover; margin-bottom: 18px; }
+.design-lab .project-link p { color: var(--muted); font-size: 14px; margin-top: 8px; }
+.design-lab .project-link .micro { display: block; margin-top: 12px; }
+.design-lab .article-title { font-size: clamp(30px, 3.5vw, 52px); line-height: 1.5; max-width: 1000px; }
+.design-lab .article-deck { max-width: 700px; color: var(--muted); margin-top: 24px; font-size: 16px; line-height: 2; }
+.design-lab .reading-prose { width: 100%; max-width: 648px; margin: 0 auto; font-size: 18px; line-height: 1.95; overflow-wrap: anywhere; }
+.design-lab .reading-prose > p { margin: 0 0 28px; }
+.design-lab .reading-prose h2 { font-size: 28px; margin: 66px 0 25px; scroll-margin-top: 100px; }
+.design-lab .reading-prose h3 { font-size: 23px; margin: 38px 0 22px; scroll-margin-top: 100px; }
+.design-lab .reading-prose img { width: 100%; margin: 32px auto 14px; }
+.design-lab .reading-prose p:has(> em:only-child) { font-size: 14px; color: var(--muted); line-height: 1.9; border-left: 1px solid var(--accent); padding-left: 18px; }
+.design-lab .reading-prose pre { padding: 22px; border: 1px solid var(--line); background: var(--surface) !important; max-width: 100%; overflow: auto; font-size: 14px; line-height: 1.9; color: var(--ink) !important; }
+.design-lab .reading-prose code { font-family: Consolas, monospace; }
+.design-lab .reading-prose :not(pre) > code { font-size: .88em; background: var(--surface); padding: 2px 4px; }
+.design-lab .reading-prose blockquote { margin: 30px 0; padding: 16px 24px; border-left: 2px solid var(--accent); background: var(--surface); }
+.design-lab .table-scroll { max-width: 100%; overflow-x: auto; }
+.design-lab .reading-prose table { border-collapse: collapse; font-size: 15px; }
+.design-lab .reading-prose th, .design-lab .reading-prose td { padding: 12px; border: 1px solid var(--line); }
+.design-lab .toc a { display: block; min-height: 44px; padding: 10px 0; font-size: 13px; line-height: 1.8; color: var(--muted); }
+.design-lab .toc a:hover { color: var(--ink); }
+.design-lab .toc { border-top: 1px solid var(--line); padding-top: 18px; }
+.design-lab details > summary { min-height: 48px; padding: 12px 0; }
+.design-lab .lab-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; padding: 30px 5vw; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+.design-lab .lab-footer a { display: inline-flex; align-items: center; min-height: 44px; }
+.design-lab .skip-link { position: fixed; left: 20px; top: -100px; padding: 12px 20px; background: var(--ink); color: var(--bg); z-index: 100; }
+.design-lab .skip-link:focus { top: 12px; }
+@media (max-width: 700px) {
+  .design-lab h1 { font-size: 38px; }
+  .design-lab h3 { font-size: 21px; }
+  .design-lab .nav-links { gap: 18px; }
+  .design-lab .reading-prose { font-size: 17px; line-height: 1.95; }
+  .design-lab .reading-prose h2 { font-size: 25px; margin-top: 45px; }
+  .design-lab .reading-prose pre { padding: 16px; font-size: 13px; }
+  .design-lab .section-title { align-items: start; flex-direction: column; gap: 8px; }
+  .design-lab .entry { gap: 12px; grid-template-columns: 26px minmax(0, 1fr); }
+  .design-lab .lede { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.design-lab { scroll-behavior: auto; }
+  .design-lab *, .design-lab *::before, .design-lab *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

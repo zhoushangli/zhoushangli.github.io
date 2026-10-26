@@ -1,240 +1,75 @@
 ---
 import Text from './Text.astro';
 import { GITHUB_URL, LINKEDIN_URL } from '../consts';
+const path = Astro.url.pathname;
+const home = path === '/';
+const links = [
+  { href: '/', number: 'I.', zh: '首页序言', en: 'Home', active: home },
+  { href: '/projects/', number: 'II.', zh: '项目作品', en: 'Projects', active: path.startsWith('/projects') },
+  { href: '/articles/', number: 'III.', zh: '研究与笔记', en: 'Studies & notes', active: path.startsWith('/articles') },
+  { href: '/teaching/', number: 'IV.', zh: '教学与社群', en: 'Teaching', active: path.startsWith('/teaching') },
+  { href: '/#about', number: 'V.', zh: '个人经历', en: 'About & experience', active: false },
+];
+const chapters = [
+  { href: '#projects', zh: '一 / 选定作品', en: '01 / Selected works' },
+  { href: '#articles', zh: '二 / 近期文字', en: '02 / Recent writing' },
+  { href: '#teaching', zh: '三 / 教学实践', en: '03 / Teaching' },
+  { href: '#about', zh: '四 / 个人经历', en: '04 / About' },
+  { href: '#interests', zh: '五 / 个人兴趣', en: '05 / Beyond games' },
+];
 ---
-<header>
-  <nav aria-label="主导航" data-i18n-inline-aria-label data-zh="主导航" data-en="Main navigation">
-    <h2><a href="/"><Text zh="周尚礼" en="SHANGLI ZHOU" /></a></h2>
-    <div class="internal-links">
-      <a href="/#about"><Text zh="个人介绍与经历" en="About & experience" /></a>
-      <a href="/projects/"><Text zh="项目作品" en="Projects" /></a>
-      <a href="/articles/"><Text zh="技术研究与开发笔记" en="Studies & notes" /></a>
-      <a href="/teaching/"><Text zh="教学与社群实践" en="Teaching & community" /></a>
-      <a class="external-link" href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a>
-      <a class="external-link" href={LINKEDIN_URL} target="_blank" rel="noreferrer">LinkedIn</a>
-      <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换为浅色主题"><span data-theme-toggle-icon>☀</span></button>
-      <button class="language-toggle" type="button" data-language-toggle aria-label="切换为英文"><span class="language-dot"></span><span data-language-label>EN</span></button>
-    </div>
-  </nav>
+<header class="site-sidebar">
+  <a class="site-brand" href="/"><span class="brand-seal" aria-hidden="true">周</span><Text zh="周尚礼" en="ShangLi Zhou" /></a>
+  <Text as="p" class="sidebar-description" zh="游戏开发 · 研究 · 教学" en="Game development · Studies · Teaching" />
+  <details class="site-menu" open>
+    <summary><Text zh="站点目录" en="Contents" /><span aria-hidden="true">＋</span></summary>
+    <nav class="site-navigation" aria-label="主导航" data-i18n-inline-aria-label data-zh="主导航" data-en="Main navigation">
+      {links.map((link) => <a href={link.href} aria-current={link.active ? 'page' : undefined}><span class="nav-number" aria-hidden="true">{link.number}</span><Text zh={link.zh} en={link.en} /></a>)}
+    </nav>
+    {home && <nav class="home-chapters" aria-label="首页章节" data-i18n-inline-aria-label data-zh="首页章节" data-en="Home chapters">
+      {chapters.map((link) => <a href={link.href} data-chapter-link><Text zh={link.zh} en={link.en} /></a>)}
+    </nav>}
+  </details>
+  <div class="sidebar-bottom">
+    <Text as="p" class="sidebar-note" zh="写下实现的过程，\n也留下思考的余地。" en="Notes on making,\nand room for thought." />
+    <div class="sidebar-social"><a href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub ↗</a><a href={LINKEDIN_URL} target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
+    <button class="language-toggle" type="button" data-language-toggle aria-label="切换为英文"><span class="language-mark" aria-hidden="true"></span><span data-language-label>EN</span></button>
+  </div>
 </header>
-<style>
-	header {
-		position: sticky;
-		top: 0;
-		z-index: 10;
-		border-bottom: 1px solid var(--border);
-		background:
-			linear-gradient(180deg, var(--topbar-highlight), transparent 38%),
-			var(--topbar-bg);
-		box-shadow:
-			inset 0 1px 0 var(--highlight),
-			inset 0 -1px 0 var(--topbar-inset),
-			0 12px 28px var(--shadow-dark);
-		backdrop-filter: blur(18px);
-	}
-	header::after {
-		position: absolute;
-		right: 0;
-		bottom: -1px;
-		left: 0;
-		height: 1px;
-		background: linear-gradient(
-			90deg,
-			transparent,
-			var(--line-soft),
-			var(--line-bright),
-			var(--line-soft),
-			transparent
-		);
-		content: '';
-		pointer-events: none;
-	}
-	h2 {
-		margin: 0;
-		font-size: 1.35rem;
-		letter-spacing: 0;
-		white-space: nowrap;
-	}
-
-	h2 a,
-	h2 a.active {
-		color: var(--text);
-		text-decoration: none;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1.5rem;
-		width: min(1180px, calc(100% - 2rem));
-		margin: 0 auto;
-		min-height: 72px;
-	}
-	nav a {
-		position: relative;
-		color: var(--muted);
-		font-size: 1.1rem;
-		text-decoration: none;
-		text-shadow: none;
-	}
-	nav a::after {
-		position: absolute;
-		right: 0;
-		bottom: -0.35rem;
-		left: 0;
-		height: 1px;
-		background: var(--accent);
-		content: '';
-		opacity: 0;
-		transform: scaleX(0.35);
-		transition:
-			opacity 150ms ease,
-			transform 150ms ease;
-	}
-	nav a.external-link {
-		text-decoration: underline;
-		text-decoration-thickness: 1px;
-		text-underline-offset: 0.22em;
-	}
-	nav a.external-link::after,
-	h2 a::after,
-	.dropdown-panel a::after {
-		display: none;
-	}
-	button.language-toggle,
-	button.theme-toggle {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.45rem;
-		min-height: 42px;
-		padding: 0.45rem 0.85rem;
-		border: 1px solid var(--control-border);
-		border-radius: 8px;
-		background:
-			linear-gradient(180deg, var(--topbar-highlight), transparent),
-			var(--control-bg);
-		color: var(--text);
-		box-shadow:
-			inset 0 1px 0 var(--highlight),
-			inset 0 -1px 0 var(--topbar-inset);
-		font: inherit;
-		font-size: 1.05rem;
-		cursor: pointer;
-	}
-	button.language-toggle {
-		min-width: 58px;
-	}
-	button.theme-toggle {
-		width: 42px;
-		min-width: 42px;
-		padding: 0;
-		font-size: 1.12rem;
-		line-height: 1;
-	}
-	.language-dot {
-		width: 0.42rem;
-		height: 0.42rem;
-		border-radius: 999px;
-		background: var(--accent);
-		box-shadow: inset 0 1px 0 var(--highlight);
-	}
-	nav a:hover,
-	nav a.active,
-	button.language-toggle:hover,
-	button.theme-toggle:hover {
-		color: var(--text);
-		border-color: var(--brass-soft);
-		text-shadow: none;
-	}
-	nav a:hover::after,
-	nav a.active::after {
-		opacity: 1;
-		transform: scaleX(1);
-	}
-	.internal-links {
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
-		gap: clamp(0.7rem, 2vw, 1.5rem);
-		flex-wrap: wrap;
-	}
-	.nav-dropdown {
-		position: relative;
-		display: flex;
-		align-items: center;
-	}
-	.dropdown-panel {
-		position: absolute;
-		top: calc(100% + 0.75rem);
-		left: 0;
-		z-index: 20;
-		display: grid;
-		min-width: 220px;
-		padding: 0.8rem 0;
-		border: 1px solid var(--control-border);
-		background:
-			linear-gradient(180deg, var(--topbar-highlight), transparent 32%),
-			var(--dropdown-bg);
-		box-shadow:
-			inset 0 1px 0 var(--highlight),
-			inset 0 -1px 0 var(--topbar-inset),
-			0 16px 30px var(--shadow-dark);
-		opacity: 0;
-		pointer-events: none;
-		transform: translateY(-4px);
-		transition:
-			opacity 150ms ease,
-			transform 150ms ease;
-	}
-	.dropdown-panel::before {
-		position: absolute;
-		right: 0;
-		bottom: 100%;
-		left: 0;
-		height: 0.75rem;
-		content: '';
-	}
-	.nav-dropdown:hover .dropdown-panel,
-	.nav-dropdown:focus-within .dropdown-panel {
-		opacity: 1;
-		pointer-events: auto;
-		transform: translateY(0);
-	}
-	.dropdown-panel a.dropdown-link {
-		padding: 0.65rem 1rem;
-		color: var(--muted);
-		white-space: nowrap;
-	}
-	.dropdown-panel a.dropdown-link:hover,
-	.dropdown-panel a.dropdown-link:focus-visible {
-		color: var(--text);
-		background: var(--thumbnail-mark);
-		outline: none;
-	}
-	@media (max-width: 720px) {
-		nav {
-			align-items: flex-start;
-			flex-direction: column;
-			padding: 1rem 0;
-		}
-		.internal-links {
-			justify-content: flex-start;
-		}
-		.nav-dropdown {
-			align-items: flex-start;
-			flex-direction: column;
-		}
-		.dropdown-panel {
-			position: static;
-			min-width: 0;
-			padding: 0.25rem 0 0 0.75rem;
-			border: 0;
-			background: transparent;
-			box-shadow: none;
-			opacity: 1;
-			pointer-events: auto;
-			transform: none;
-		}
-	}
-</style>
+<script is:inline>
+  (() => {
+    const menu = document.querySelector('.site-menu');
+    const mobile = matchMedia('(max-width: 900px)');
+    const update = () => { menu.open = !mobile.matches; };
+    update();
+    mobile.addEventListener('change', update);
+    menu.addEventListener('click', (event) => {
+      if (mobile.matches && event.target instanceof Element && event.target.closest('a')) {
+        menu.open = false;
+      }
+    });
+  })();
+</script>
+<script>
+  const links = document.querySelectorAll<HTMLAnchorElement>('[data-chapter-link]');
+  if (links.length) {
+    const positions = Array.from(links).map((link) => ({
+      link,
+      section: document.querySelector<HTMLElement>(link.getAttribute('href')!),
+    }));
+    const update = () => {
+      const reached = positions.filter(({ section }) => section && section.getBoundingClientRect().top <= innerHeight * .35);
+      const current = reached.at(-1)?.link;
+      positions.forEach(({ link }) => {
+        if (link === current) {
+          link.setAttribute('aria-current', 'location');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    };
+    addEventListener('scroll', update, { passive: true });
+    addEventListener('resize', update);
+    update();
+  }
+</script>

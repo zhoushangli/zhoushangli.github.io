@@ -1,0 +1,21 @@
+---
+import Shell from './Shell.astro';
+import ArticleBody from './ArticleBody.astro';
+import Entries from './Entries.astro';
+import Filters from './Filters.astro';
+import type { DesignProps } from '../../data/design-content';
+const { concept, view, base, data } = Astro.props as DesignProps;
+---
+<Shell concept={concept} view={view}>
+  <header class="ink-header"><a class="brand" href={base + '/home'}><span class="ink-seal">周<br />尚礼</span><span>制作之间</span></a><span class="micro">朱砂题签 / INK AND VERMILION</span></header>
+  <nav class="ink-bookmarks" aria-label="主导航"><a href={base + '/home'} aria-current={view === 'home' ? 'page' : undefined}>序 言</a><a href={base + '/articles'} aria-current={view === 'articles' ? 'page' : undefined}>文 章</a><a href={base + '/article'} aria-current={view === 'article' ? 'page' : undefined}>选 读</a><a href="/previews/">六 案</a></nav>
+  <main id="main-content" class="ink-main">
+    {view === 'home' && <>
+      <section class="ink-hero"><div class="ink-vertical" aria-hidden="true">以文字为经<br />以制作为纬</div><div><p class="eyebrow">卷首 / 制作札记</p><h1>于方寸之间，<br />造一隅天地。</h1><p class="lede">我是周尚礼。写代码、做游戏，也记录那些在实践中逐渐明晰的问题。</p><a class="action" href={base + '/articles'}>循题签，入文章 →</a></div><div class="ink-hero-image"><img src={data.projects[2].media.src} alt={data.projects[2].media.alt.zh} /><p class="micro">作品一隅 / {data.projects[2].title}</p></div></section>
+      <section class="ink-spread" id="projects"><aside><p class="eyebrow">壹 / 作品</p><h2>实践，<br />亦是观察。</h2><p class="lede">从引擎到玩法，<br />留下实现的痕迹。</p></aside><div class="ink-projects">{data.projects.map((project) => <a class="project-link" href={'/projects/' + project.slug + '/'}><img src={project.media.src} alt={project.media.alt.zh} loading="lazy" /><h3>{project.title}</h3><p>{project.summary.zh}</p><span class="micro">前往正式项目 ↗</span></a>)}</div></section>
+      <section class="ink-spread"><aside><p class="eyebrow">贰 / 文字</p><h2>题外之思</h2></aside><Entries data={data} base={base} limit={3} /></section>
+    </>}
+    {view === 'articles' && <><header class="ink-index-head"><p class="eyebrow">文目 / 按题检索</p><h1>一题，一记。</h1><p class="lede">把实践中的疑问，写成可以继续讨论的文字。</p></header><div class="ink-index"><aside><p class="micro">题签</p><Filters data={data} /></aside><Entries data={data} base={base} /></div></>}
+    {view === 'article' && <><header class="ink-article-head"><p class="eyebrow">选读 / 图形渲染</p><h1 class="article-title">{data.sample.title}</h1><p class="article-deck">{data.sample.description}</p></header><div class="ink-reading"><ArticleBody data={data} /><aside class="ink-margins"><p class="eyebrow">页边札记</p><details open><summary>关于证据</summary><p>本文依据已有帧捕获截图与分析笔记整理，观察与推断在正文中分别说明。</p></details><details><summary>如何阅读图像</summary><p>先确认中间结果的职责，再追踪后续合成如何使用它。</p></details><details><summary>本篇目录</summary><nav class="toc" aria-label="文章目录">{data.headings.map((heading) => <a href={'#' + heading.slug}>{heading.text}</a>)}</nav></details></aside></div></>}
+  </main>
+</Shell>

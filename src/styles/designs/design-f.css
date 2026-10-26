@@ -1,11 +1,95 @@
-/* Slot F placeholder stylesheet: the designer replaces this file with the full concept. */
-html.theme-design-f {
-  --paper: #0e0f0d;
-  --ink: #e9eae4;
-  --muted: #9aa094;
-  --line: #262a24;
-  --accent: #9fa88e;
-  --panel: #161815;
+html.theme-design-f { --bg:#171718; --surface:#252526; --ink:#eeeae2; --muted:#bbb9b4; --accent:#aebff9; --line:#474747; --blue:#253d95; }
+html.theme-design-f .folio-header { display:flex; justify-content:space-between; align-items:center; padding:28px 4vw; gap:30px; border-bottom:1px solid var(--line); }
+html.theme-design-f .folio-header .brand { font:bold 22px/1.1 Georgia,serif; }
+html.theme-design-f .folio-header .brand span { font:12px/1.8 var(--sans); margin-left:8px; }
+html.theme-design-f .folio-edition { text-align:right; font-size:10px; }
+html.theme-design-f .folio-main { padding:65px 4vw 90px; max-width:1650px; margin:auto; }
+html.theme-design-f .folio-cover { display:grid; grid-template-columns:1.1fr 1fr; gap:0 5vw; align-items:start; }
+html.theme-design-f .folio-cover-type h1 { font:bold clamp(65px,7.3vw,110px)/1.15 var(--sans); letter-spacing:-.055em; }
+html.theme-design-f .folio-cover-type h1 > span { color:var(--accent); }
+html.theme-design-f .folio-cover-type .lede { max-width:480px; font-size:15px; }
+html.theme-design-f .folio-cover-image { margin-top:90px; }
+html.theme-design-f .folio-cover-image img { width:100%; aspect-ratio:1.1; object-fit:cover; }
+html.theme-design-f .folio-cover-image .micro { display:block; margin-top:18px; }
+html.theme-design-f .folio-blue-leaf { grid-column:1/-1; margin-top:50px; margin-left:30%; background:var(--blue); padding:32px 40px; display:flex; align-items:center; justify-content:space-between; gap:30px; }
+html.theme-design-f .folio-blue-leaf .micro { color:#e1e6fc; font-size:10px; max-width:100px; }
+html.theme-design-f .folio-blue-leaf p { font:24px/1.6 var(--serif); }
+html.theme-design-f .folio-blue-leaf .action { margin-top:0; color:#fff; border-color:#bfc9f5; font-size:13px; }
+html.theme-design-f .folio-gallery-section { margin-top:100px; }
+html.theme-design-f .folio-gallery-section h2 { font-family:var(--sans); font-size:29px; }
+html.theme-design-f .gallery-controls { display:flex; gap:8px; }
+html.theme-design-f .gallery-controls button { min-width:48px; min-height:46px; }
+html.theme-design-f .folio-gallery { display:flex; overflow-x:auto; gap:28px; padding:10px 4px 30px; scroll-snap-type:x mandatory; scrollbar-color:var(--muted) var(--surface); }
+html.theme-design-f .folio-gallery .project-link { flex:0 0 48%; scroll-snap-align:start; }
+html.theme-design-f .folio-gallery .project-link:nth-child(even) { flex-basis:34%; padding-top:75px; }
+html.theme-design-f .folio-gallery .project-link img { aspect-ratio:1.6; }
+html.theme-design-f .folio-gallery .project-link:nth-child(even) img { aspect-ratio:1.2; }
+html.theme-design-f .folio-notes { margin-top:95px; display:grid; grid-template-columns:1fr 1.3fr; gap:6vw; border-top:1px solid var(--line); padding-top:55px; }
+html.theme-design-f .folio-note { padding:0 0 30px; margin-bottom:30px; border-bottom:1px solid var(--line); }
+html.theme-design-f .folio-note h3 { margin:15px 0; }
+html.theme-design-f .folio-note h3 a { display:block; min-height:44px; }
+html.theme-design-f .folio-page-head { margin-bottom:60px; }
+html.theme-design-f .folio-page-head h1 { font:bold clamp(48px,6vw,84px)/1.35 var(--sans); }
+html.theme-design-f .folio-page-head h1 span { color:var(--accent); }
+html.theme-design-f .folio-index-toolbar { display:flex; gap:25px; align-items:start; justify-content:space-between; margin-bottom:40px; }
+html.theme-design-f .view-switch { display:flex; gap:5px; flex-shrink:0; }
+html.theme-design-f .view-switch button { min-height:46px; }
+html.theme-design-f .folio-entries { display:grid; grid-template-columns:1fr 1fr; gap:50px; }
+html.theme-design-f .folio-entry { display:grid; grid-template-columns:110px 1fr; gap:25px; padding-top:25px; border-top:1px solid var(--line); }
+html.theme-design-f .folio-entry:nth-child(3n) { grid-column:1/-1; max-width:830px; margin-left:20%; }
+html.theme-design-f .folio-entry h3 a { display:block; min-height:48px; padding:7px 0; }
+html.theme-design-f .folio-entry > div > p { font-size:14px; color:var(--muted); margin:12px 0; }
+html.theme-design-f .folio-entry-plate { aspect-ratio:.75; background:var(--blue); padding:16px; display:flex; flex-direction:column; justify-content:space-between; }
+html.theme-design-f .folio-entry-plate > span { font:italic 48px/1 Georgia,serif; }
+html.theme-design-f .folio-entry-plate > i { font:12px/1.7 var(--serif); color:#fff; writing-mode:vertical-rl; align-self:end; }
+html.theme-design-f .folio-entry:nth-child(even) .folio-entry-plate { background:#37332e; }
+html.theme-design-f .folio-entries.is-compact { display:block; }
+html.theme-design-f .is-compact .folio-entry { display:block; margin:0; max-width:none; padding:22px 0; }
+html.theme-design-f .is-compact .folio-entry-plate,html.theme-design-f .is-compact .folio-entry > div > p { display:none; }
+html.theme-design-f .folio-article-head { display:grid; grid-template-columns:240px 1fr; gap:6vw; margin-bottom:75px; align-items:center; }
+html.theme-design-f .folio-chapter-leaf { background:var(--blue); padding:30px; min-height:320px; display:flex; flex-direction:column; justify-content:space-between; }
+html.theme-design-f .folio-chapter-leaf > span { color:#fff; font:11px/1.8 Georgia,var(--serif); letter-spacing:.12em; }
+html.theme-design-f .folio-chapter-leaf > strong { font:italic 110px/1 Georgia,serif; }
+html.theme-design-f .folio-reading { display:grid; grid-template-columns:240px minmax(0,648px); gap:6vw; justify-content:center; }
+html.theme-design-f .folio-reading > .toc { align-self:start; position:sticky; top:30px; }
+html.theme-design-f .folio-reading > .toc a span { color:var(--accent); font:italic 17px Georgia,serif; margin-right:10px; }
+@media(max-width:1100px) {
+ html.theme-design-f .folio-blue-leaf { margin-left:15%; padding:28px; }
+ html.theme-design-f .folio-blue-leaf .micro { display:none; }
+ html.theme-design-f .folio-entries { gap:35px; }
+ html.theme-design-f .folio-entry { grid-template-columns:80px 1fr; gap:18px; }
+ html.theme-design-f .folio-entry h3 { font-size:22px; }
+ html.theme-design-f .folio-entry-plate { padding:12px; }
+ html.theme-design-f .folio-index-toolbar { flex-direction:column; }
 }
-
-html.theme-design-f body { background: var(--paper); color: var(--ink); }
+@media(max-width:700px) {
+ html.theme-design-f .folio-header { padding:22px; flex-wrap:wrap; gap:20px; }
+ html.theme-design-f .folio-edition { display:none; }
+ html.theme-design-f .folio-header .brand { font-size:20px; }
+ html.theme-design-f .folio-main { padding:40px 22px 60px; }
+ html.theme-design-f .folio-cover { grid-template-columns:1fr; gap:35px; }
+ html.theme-design-f .folio-cover-type h1 { font-size:70px; }
+ html.theme-design-f .folio-cover-image { margin:0 0 0 45px; }
+ html.theme-design-f .folio-blue-leaf { margin:0; padding:25px; display:block; }
+ html.theme-design-f .folio-blue-leaf p { font-size:24px; }
+ html.theme-design-f .folio-blue-leaf .action { margin-top:18px; }
+ html.theme-design-f .folio-gallery-section { margin-top:60px; }
+ html.theme-design-f .folio-gallery-section .section-title { flex-direction:row; align-items:center; gap:15px; }
+ html.theme-design-f .folio-gallery-section h2 { font-size:23px; max-width:190px; }
+ html.theme-design-f .folio-gallery { gap:20px; }
+ html.theme-design-f .folio-gallery .project-link,html.theme-design-f .folio-gallery .project-link:nth-child(even) { flex-basis:85%; padding-top:0; }
+ html.theme-design-f .folio-gallery .project-link:nth-child(even) img { aspect-ratio:1.6; }
+ html.theme-design-f .folio-notes { grid-template-columns:1fr; padding-top:40px; margin-top:55px; gap:40px; }
+ html.theme-design-f .folio-page-head { margin-bottom:35px; }
+ html.theme-design-f .folio-page-head h1 { font-size:48px; }
+ html.theme-design-f .folio-entries { display:block; }
+ html.theme-design-f .folio-entry,html.theme-design-f .folio-entry:nth-child(3n) { grid-template-columns:80px 1fr; gap:18px; margin:0 0 35px; }
+ html.theme-design-f .folio-entry-plate { aspect-ratio:auto; min-height:180px; }
+ html.theme-design-f .folio-entry-plate > span { font-size:37px; }
+ html.theme-design-f .folio-article-head { grid-template-columns:1fr; gap:35px; margin-bottom:45px; }
+ html.theme-design-f .folio-chapter-leaf { min-height:180px; padding:22px; flex-direction:row; align-items:end; }
+ html.theme-design-f .folio-chapter-leaf > strong { font-size:100px; }
+ html.theme-design-f .folio-chapter-leaf > span { font-size:9px; max-width:60px; }
+ html.theme-design-f .folio-reading { display:block; }
+ html.theme-design-f .folio-reading > .toc { position:static; margin-bottom:40px; }
+}

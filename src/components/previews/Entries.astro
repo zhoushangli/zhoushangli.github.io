@@ -1,0 +1,16 @@
+---
+import type { DesignContent } from '../../data/design-content';
+interface Props { data: DesignContent; base: string; limit?: number; }
+const { data, base, limit } = Astro.props;
+---
+<div class="entry-list" data-entry-list>
+  {data.articles.slice(0, limit).map((item, index) => <article class="entry" data-entry data-category={item.category}>
+    <span class="entry-number">{String(index + 1).padStart(2, '0')}</span>
+    <div class="entry-copy">
+      <span class="micro">{item.categoryLabel}</span>
+      <h3><a href={item.sample ? base + '/article' : '/articles/' + item.id + '/'}>{item.title}</a></h3>
+      <p>{item.description}</p>
+      <span class="destination">{item.sample ? '本方案阅读示例 ↗' : '前往正式文章 ↗'}</span>
+    </div>
+  </article>)}
+</div>

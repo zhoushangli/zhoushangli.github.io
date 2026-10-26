@@ -1,6 +1,14 @@
 ---
-import { concepts, conceptIds, views, articles, categories, essay, featuredProjects, type ConceptId, type PreviewView } from '../../../data/preview';
-import '../../../styles/previews.css';
+import { conceptIds, views, concepts } from '../../../data/preview';
+import type { DesignRecord } from '../../../data/design-types';
+import { getDesignContent } from '../../../data/design-content';
+import LegacyPreview from '../../../components/previews/LegacyPreview.astro';
+import DesignA from '../../../components/previews/DesignA.astro';
+import DesignB from '../../../components/previews/DesignB.astro';
+import DesignC from '../../../components/previews/DesignC.astro';
+import DesignD from '../../../components/previews/DesignD.astro';
+import DesignE from '../../../components/previews/DesignE.astro';
+import DesignF from '../../../components/previews/DesignF.astro';
 import '../../../styles/designs/design-a.css';
 import '../../../styles/designs/design-b.css';
 import '../../../styles/designs/design-c.css';
@@ -12,95 +20,13 @@ export function getStaticPaths() {
   return conceptIds.flatMap((design) => views.map((view) => ({ params: { design, view } })));
 }
 
-const design = Astro.params.design as ConceptId;
-const view = Astro.params.view as PreviewView;
-const concept = concepts[design];
-const base = `/previews/${design}`;
-const slotNumber = String(conceptIds.indexOf(design) + 1).padStart(2, '0');
-const slotTotal = String(conceptIds.length).padStart(2, '0');
-const title = view === 'home' ? concept.name : view === 'articles' ? '所有文章' : view === 'category' ? '文章分类' : articles[0].title;
+const { design, view } = Astro.params;
+const base = '/previews/' + design;
+const pages = { 'design-a': DesignA, 'design-b': DesignB, 'design-c': DesignC, 'design-d': DesignD, 'design-e': DesignE, 'design-f': DesignF };
+const DesignPage = pages[design as keyof typeof pages];
+if (DesignPage && view === 'category') {
+  return Astro.redirect(base + '/articles');
+}
+const data = DesignPage ? await getDesignContent() : null;
 ---
-
-<!doctype html>
-<html lang="zh-CN" class={`preview-site theme-${design}`}>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex,nofollow" />
-    <meta name="description" content={`${concept.name}：周尚礼的博客与作品集设计原型`} />
-    <title>{title} · {concept.name} · 周尚礼</title>
-  </head>
-  <body>
-    <div class="site-shell">
-      <header class="site-header">
-        <a class="brand" href={`${base}/home`} aria-label="返回首页"><span class="brand-symbol" aria-hidden="true">✳</span><span>周尚礼<span class="brand-en"> / ShangLi Zhou</span></span></a>
-        <nav aria-label="主导航">
-          <a class:list={{ active: view === 'home' }} href={`${base}/home`}>首页</a>
-          <a class:list={{ active: view === 'articles' || view === 'article' }} href={`${base}/articles`}>文章</a>
-          <a class:list={{ active: view === 'category' }} href={`${base}/category`}>分类</a>
-          <a href={`${base}/home#projects`}>作品</a>
-        </nav>
-        <span class="header-number">NO. {slotNumber} / {slotTotal}</span>
-      </header>
-
-      <main>
-        {view === 'home' && <>
-          <section class="home-hero">
-            <div class="hero-copy">
-              <p class="eyebrow">{concept.english} <span>— 游戏开发者的个人现场</span></p>
-              <h1>把好奇心<br /><em>做成</em><span class="keep-word">可游玩的世界<span class="title-period">。</span></span></h1>
-              <p class="hero-intro">{concept.intro}</p>
-              <div class="hero-actions"><a class="button-primary" href={`${base}/articles`}>阅读文章 <span>↗</span></a><a class="button-text" href="#projects">探索作品 <span>↓</span></a></div>
-            </div>
-            <div class="hero-art" aria-hidden="true"><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="art-core">S<span>/</span>Z</div><div class="art-note note-one">CODE → WORLD</div><div class="art-note note-two">36° 52′ N</div></div>
-            <div class="hero-bottom"><span>ENGINEERING · GAME DESIGN · WRITING</span><span>SCROLL TO EXPLORE ↓</span></div>
-          </section>
-
-          <section class="home-about section-frame">
-            <p class="section-index">01 / 关于</p>
-            <div><h2>写代码，也写下<br />代码之外的事情。</h2><p>我是周尚礼，一名游戏开发者。我制作游戏引擎、设计玩法与关卡，也持续记录制作过程中的问题和发现。这里既是作品集，也是一座缓慢生长的文章档案。</p></div>
-          </section>
-
-          <section class="home-projects section-frame" id="projects">
-            <div class="section-heading"><div><p class="section-index">02 / 选定作品</p><h2>正在建造的世界</h2></div><span class="side-caption">SELECTED WORKS / 2023—2026</span></div>
-            <div class="project-grid">{featuredProjects.map((project, index) => <a class="project-card" href={`/projects/${project.slug}`}><div class="project-image"><img src={project.media.src} alt={project.media.alt.zh} loading="lazy" /><span class="project-number">0{index + 1}</span></div><div class="project-meta"><span>{project.category === 'personal' ? '个人作品' : '团队作品'}</span><span>↗</span></div><h3>{project.title}</h3><p>{project.summary.zh}</p></a>)}</div>
-          </section>
-
-          <section class="home-writing section-frame">
-            <div class="section-heading"><div><p class="section-index">03 / 近期文字</p><h2>制作中的旁白</h2></div><a class="all-link" href={`${base}/articles`}>全部文章 ↗</a></div>
-            <div class="article-list compact">{articles.slice(0, 3).map((item, index) => <a class:list={['article-row', { 'is-placeholder': index !== 0 }]} href={index === 0 ? `${base}/article` : undefined}><span class="row-number">{item.number}</span><div><span class="category-tag">{item.category}</span><h3>{item.title}</h3><p>{item.excerpt}</p>{index !== 0 && <span class="placeholder-label">排版示例 / 待发布</span>}</div><span class="article-date">{item.date} <b>{index === 0 ? '↗' : '—'}</b></span></a>)}</div>
-          </section>
-        </>}
-
-        {view === 'articles' && <>
-          <section class="page-hero"><p class="eyebrow">THE WRITING INDEX / 文章索引</p><h1>写下来，<br /><em>才能继续</em>往前走。</h1><p>关于游戏、技术与创作过程中的偶然发现。每篇文章都可以成为下一次实验的起点。</p><div class="page-count">05 <small>篇文章 / 持续更新</small></div></section>
-          <section class="content-section"><div class="section-heading"><p class="section-index">全部记录 / 2025—2026</p><a class="all-link" href={`${base}/category`}>浏览分类 ↗</a></div><div class="article-list">{articles.map((item, index) => <a class:list={['article-row', { 'is-placeholder': index !== 0 }]} href={index === 0 ? `${base}/article` : undefined}><span class="row-number">{item.number}</span><div><span class="category-tag">{item.category}</span><h2>{item.title}</h2><p>{item.excerpt}</p>{index !== 0 && <span class="placeholder-label">排版示例 / 待发布</span>}</div><span class="article-date">{item.date}<small>{item.reading}</small><b>{index === 0 ? '↗' : '—'}</b></span></a>)}</div></section>
-        </>}
-
-        {view === 'category' && <>
-          <section class="page-hero"><p class="eyebrow">A MAP OF IDEAS / 主题地图</p><h1>沿着问题，<br /><em>找到</em>另一篇文章。</h1><p>创作、空间和技术互相牵引。选择一条线索，看看它会通向哪里。</p><div class="page-count">03 <small>个主题 / 05 篇文章</small></div></section>
-          <section class="content-section"><div class="category-grid">{categories.map((category, index) => <a class:list={['category-card', { selected: index === 0 }]} href={`?topic=${encodeURIComponent(category.title)}#category-articles`} data-topic={category.title}><span class="category-number">0{index + 1} / TOPIC</span><h2>{category.title}<span>↗</span></h2><p>{category.desc}</p><span class="category-count">{category.count} 篇文章</span></a>)}</div><div class="section-heading category-results" id="category-articles"><div><p class="section-index" id="selected-category">01 / 创作笔记</p><h2>从制作现场出发</h2></div><a class="all-link" href={`${base}/articles`}>查看全部 ↗</a></div><div class="article-list">{articles.map((item, index) => <a class:list={['article-row', { 'is-placeholder': index !== 0 }]} href={index === 0 ? `${base}/article` : undefined} data-article-topic={item.category}><span class="row-number">{item.number}</span><div><span class="category-tag">{item.category}</span><h3>{item.title}</h3><p>{item.excerpt}</p>{index !== 0 && <span class="placeholder-label">排版示例 / 待发布</span>}</div><span class="article-date">{item.date}<b>{index === 0 ? '↗' : '—'}</b></span></a>)}</div></section>
-        </>}
-
-        {view === 'article' && <>
-          <article class="essay-page">
-            <header class="essay-header"><a class="back-link" href={`${base}/articles`}>← 返回文章索引</a><div class="essay-heading"><p class="eyebrow">创作笔记 / 2026.09 / 8 分钟阅读</p><h1>在自己的引擎里，<br /><em>重新认识</em>一棵树</h1><p class="essay-deck">从场景节点到屏幕上的一个像素，开发引擎让我重新理解“看见”这件事。</p></div><div class="essay-byline"><span>文 / 周尚礼</span><span>WRITING NOTE 01</span></div></header>
-            <div class="essay-body-wrap"><aside class="essay-aside"><span>目录 / CONTENTS</span>{essay.map((section, index) => <a href={`#section-${index + 1}`}>0{index + 1}　{section.title}</a>)}<span class="aside-rule">✳</span></aside><div class="essay-body"><p class="lead">一棵树，可以是一组顶点、一张贴图和一个坐标；也可以是玩家停下脚步的理由。我试着从自己的引擎出发，寻找这两种答案之间的路。</p>{essay.map((section, index) => <section id={`section-${index + 1}`}><span class="body-index">0{index + 1} / 03</span><h2>{section.title}</h2>{section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}{index === 0 && <figure class="essay-figure"><div class="diagram"><span class="diagram-node">资源</span><span>→</span><span class="diagram-node">场景</span><span>→</span><span class="diagram-node">视口</span><span>→</span><span class="diagram-node">画面</span></div><figcaption>图 01 / 从文件到画面的一条简化路径</figcaption></figure>}</section>)}<div class="essay-end">✳<span>写于持续制作之中</span></div><a class="next-article" href={`${base}/articles`}>继续阅读其他文章 <span>↗</span></a></div></div>
-          </article>
-        </>}
-      </main>
-
-      <footer class="site-footer"><div><span class="footer-symbol">✳</span><p>代码、文字与尚未完成的世界。<br />© 2026 周尚礼</p></div><div class="footer-links"><a href={`${base}/home`}>首页</a><a href={`${base}/articles`}>文章</a><a href={`${base}/category`}>分类</a><a href="/">正式网站 ↗</a></div><span class="footer-seed">SEED / {concept.seed}</span></footer>
-    </div>
-  </body>
-</html>
-
-{view === 'category' && <script>
-  const topics = ['创作笔记', '关卡设计', '技术拆解'];
-  const requested = new URLSearchParams(window.location.search).get('topic');
-  const current = topics.includes(requested ?? '') ? requested : topics[0];
-  document.querySelectorAll<HTMLElement>('[data-topic]').forEach((card) => card.classList.toggle('selected', card.dataset.topic === current));
-  document.querySelectorAll<HTMLElement>('[data-article-topic]').forEach((row) => row.hidden = row.dataset.articleTopic !== current);
-  const label = document.querySelector('#selected-category');
-  if (label) label.textContent = `${String(topics.indexOf(current!) + 1).padStart(2, '0')} / ${current}`;
-</script>}
+{DesignPage && data ? <DesignPage concept={concepts[design!] as DesignRecord} view={view as 'home' | 'articles' | 'article'} base={base} data={data} /> : <LegacyPreview />}

@@ -1,0 +1,8 @@
+---
+import DesignA from '../../components/previews/DesignA.astro';
+import concept from '../../data/designs/design-a';
+import { getDesignContent } from '../../data/design-content';
+import '../../styles/designs/design-a.css';
+const data = await getDesignContent();
+---
+<DesignA concept={concept} view="home" base="/previews/design-a" data={data} projectCurtain />

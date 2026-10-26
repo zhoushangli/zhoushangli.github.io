@@ -14,18 +14,15 @@ const titles = typeof title === 'string' ? { zh: title, en: title } : title;
 const descriptions = typeof description === 'string' ? { zh: description, en: description } : description;
 ---
 <!doctype html>
-<html lang="zh-CN" data-theme="dark" data-title-zh={titles.zh} data-title-en={titles.en} data-description-zh={descriptions.zh} data-description-en={descriptions.en}>
+<html class="portfolio" lang="zh-CN" data-theme="dark" data-title-zh={titles.zh} data-title-en={titles.en} data-description-zh={descriptions.zh} data-description-en={descriptions.en}>
   <head>
     <script is:inline>
       (() => {
         let language = 'zh';
-        let theme = 'dark';
         try {
           if (localStorage.getItem('portfolio-language') === 'en') { language = 'en'; }
-          if (localStorage.getItem('portfolio-theme') === 'light') { theme = 'light'; }
         } catch {}
         document.documentElement.dataset.language = language;
-        document.documentElement.dataset.theme = theme;
       })();
     </script>
     <style is:inline>
@@ -34,31 +31,17 @@ const descriptions = typeof description === 'string' ? { zh: description, en: de
     <BaseHead title={titles.zh} description={descriptions.zh} />
   </head>
   <body>
+    <a class="skip-link" href="#main-content" data-i18n-inline data-zh="跳到正文" data-en="Skip to content">跳到正文</a>
     <Header />
-    <main><slot /></main>
+    <main id="main-content"><slot /></main>
     <Footer />
     <script is:inline>
       (() => {
         const root = document.documentElement;
         let language = root.dataset.language === 'en' ? 'en' : 'zh';
-        let theme = root.dataset.theme === 'light' ? 'light' : 'dark';
 
         function save(key, value) {
           try { localStorage.setItem(key, value); } catch {}
-        }
-
-        function applyTheme(nextTheme) {
-          theme = nextTheme === 'light' ? 'light' : 'dark';
-          root.dataset.theme = theme;
-          document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
-            const label = language === 'zh'
-              ? (theme === 'dark' ? '切换为浅色主题' : '切换为深色主题')
-              : (theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
-            button.setAttribute('aria-label', label);
-          });
-          document.querySelectorAll('[data-theme-toggle-icon]').forEach((icon) => {
-            icon.textContent = theme === 'dark' ? '☀' : '☾';
-          });
         }
 
         function applyLanguage(nextLanguage) {
@@ -92,7 +75,6 @@ const descriptions = typeof description === 'string' ? { zh: description, en: de
           document.title = title;
           document.querySelectorAll('meta[name="title"], meta[property="og:title"], meta[property="twitter:title"]').forEach((meta) => meta.setAttribute('content', title));
           document.querySelectorAll('meta[name="description"], meta[property="og:description"], meta[property="twitter:description"]').forEach((meta) => meta.setAttribute('content', description));
-          applyTheme(theme);
           document.body.setAttribute('data-language-ready', '');
         }
 
@@ -104,11 +86,6 @@ const descriptions = typeof description === 'string' ? { zh: description, en: de
           if (!(event.target instanceof Element)) { return; }
           if (event.target.closest('[data-language-toggle]')) {
             window.setPortfolioLanguage(language === 'zh' ? 'en' : 'zh');
-          }
-          if (event.target.closest('[data-theme-toggle]')) {
-            const nextTheme = theme === 'dark' ? 'light' : 'dark';
-            save('portfolio-theme', nextTheme);
-            applyTheme(nextTheme);
           }
         });
         try {

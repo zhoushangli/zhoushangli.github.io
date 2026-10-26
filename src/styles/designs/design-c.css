@@ -1,11 +1,61 @@
-/* Slot C placeholder stylesheet: the designer replaces this file with the full concept. */
-html.theme-design-c {
-  --paper: #0d0c10;
-  --ink: #eae7ef;
-  --muted: #9d98a8;
-  --line: #2a2731;
-  --accent: #b8a6c8;
-  --panel: #16141c;
+html.theme-design-c { --bg:#191715; --surface:#25211d; --ink:#eee8dc; --muted:#c1b7a6; --accent:#eb8f7b; --line:#4c4138; }
+html.theme-design-c .ink-header { padding:30px 8vw; margin-right:85px; display:flex; align-items:center; justify-content:space-between; gap:24px; border-bottom:1px solid var(--line); }
+html.theme-design-c .ink-seal { display:inline-block; flex-shrink:0; text-align:center; font:17px/1.15 var(--serif); padding:6px 0; width:44px; height:54px; border:1px solid var(--accent); color:var(--accent); }
+html.theme-design-c .ink-bookmarks { position:fixed; top:0; right:0; bottom:0; width:86px; border-left:1px solid var(--line); display:flex; flex-direction:column; align-items:stretch; background:#141311; z-index:10; padding:130px 14px 30px; gap:16px; }
+html.theme-design-c .ink-bookmarks a { min-height:103px; writing-mode:vertical-rl; display:flex; align-items:center; justify-content:center; font:18px var(--serif); border:1px solid var(--line); }
+html.theme-design-c .ink-bookmarks a[aria-current] { color:var(--accent); border-color:var(--accent); background:#2d211c; }
+html.theme-design-c .ink-main { margin-right:86px; padding:80px clamp(30px,7vw,110px) 100px; }
+html.theme-design-c .ink-hero { display:grid; grid-template-columns:70px 1fr; column-gap:40px; position:relative; padding:15px 0 80px; }
+html.theme-design-c .ink-vertical { writing-mode:vertical-rl; font:20px/2.2 var(--serif); color:var(--muted); letter-spacing:.28em; border-left:1px solid var(--line); justify-self:start; height:260px; padding-left:22px; }
+html.theme-design-c .ink-hero h1 { font-size:clamp(42px,4.5vw,66px); }
+html.theme-design-c .ink-hero .lede { max-width:490px; }
+html.theme-design-c .ink-hero-image { grid-column:2; width:68%; margin:55px 0 0 auto; }
+html.theme-design-c .ink-hero-image img { aspect-ratio:16/9; object-fit:cover; }
+html.theme-design-c .ink-hero-image .micro { margin-top:12px; }
+html.theme-design-c .ink-spread { display:grid; grid-template-columns:200px minmax(0,1fr); gap:5vw; border-top:1px solid var(--line); padding:65px 0; }
+html.theme-design-c .ink-spread .lede { font-size:15px; }
+html.theme-design-c .ink-projects { display:grid; grid-template-columns:1fr 1fr; gap:35px; }
+html.theme-design-c .ink-projects > :nth-child(even) { margin-top:65px; }
+html.theme-design-c .ink-index-head { margin:0 0 65px 100px; }
+html.theme-design-c .ink-index { display:grid; grid-template-columns:145px minmax(0,1fr); gap:55px; }
+html.theme-design-c .ink-index .filters { display:grid; margin-top:20px; }
+html.theme-design-c .ink-index button { font-family:var(--serif); }
+html.theme-design-c .ink-index button[aria-pressed="true"] { border-color:var(--accent); color:var(--accent); }
+html.theme-design-c .ink-index .entry-number { writing-mode:vertical-rl; font-size:20px; padding-top:8px; }
+html.theme-design-c .ink-index .entry { grid-template-columns:40px minmax(0,1fr); }
+html.theme-design-c .ink-index .entry h3 { font-size:27px; }
+html.theme-design-c .ink-article-head { padding-bottom:65px; border-bottom:1px solid var(--line); margin-bottom:55px; }
+html.theme-design-c .ink-reading { display:grid; grid-template-columns:minmax(0,648px) 200px; gap:4vw; justify-content:space-between; }
+html.theme-design-c .ink-margins { padding-top:45px; }
+html.theme-design-c .ink-margins details { border-top:1px solid var(--line); padding-bottom:18px; }
+html.theme-design-c .ink-margins summary { font-family:var(--serif); color:var(--accent); }
+html.theme-design-c .ink-margins details p { font-size:13px; line-height:2; color:var(--muted); }
+html.theme-design-c .lab-footer { margin-right:86px; }
+@media(max-width:1100px) {
+ html.theme-design-c .ink-spread { grid-template-columns:150px minmax(0,1fr); gap:30px; }
+ html.theme-design-c .ink-reading { grid-template-columns:minmax(0,648px); justify-content:center; }
+ html.theme-design-c .ink-margins { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+ html.theme-design-c .ink-margins .eyebrow { grid-column:1/-1; }
 }
-
-html.theme-design-c body { background: var(--paper); color: var(--ink); }
+@media(max-width:700px) {
+ html.theme-design-c .ink-header { margin:0; padding:20px 22px; }
+ html.theme-design-c .ink-header > .micro { max-width:100px; font-size:10px; }
+ html.theme-design-c .ink-bookmarks { position:sticky; top:0; padding:8px 16px; width:auto; flex-direction:row; gap:8px; border:0; border-bottom:1px solid var(--line); }
+ html.theme-design-c .ink-bookmarks a { writing-mode:horizontal-tb; min-height:46px; flex:1; font-size:15px; }
+ html.theme-design-c .ink-main { margin:0; padding:42px 22px 60px; }
+ html.theme-design-c .ink-hero { grid-template-columns:46px minmax(0,1fr); gap:18px; padding-bottom:40px; }
+ html.theme-design-c .ink-vertical { font-size:13px; line-height:1.65; padding-left:0; border:0; letter-spacing:.18em; height:190px; }
+ html.theme-design-c .ink-hero h1 { font-size:35px; }
+ html.theme-design-c .ink-hero .lede { font-size:15px; }
+ html.theme-design-c .ink-hero-image { width:100%; margin-top:35px; }
+ html.theme-design-c .ink-spread { grid-template-columns:1fr; padding:40px 0; gap:30px; }
+ html.theme-design-c .ink-projects { grid-template-columns:1fr; gap:30px; }
+ html.theme-design-c .ink-projects > :nth-child(even) { margin-top:0; }
+ html.theme-design-c .ink-index-head { margin:0 0 35px; }
+ html.theme-design-c .ink-index { display:block; }
+ html.theme-design-c .ink-index .filters { display:flex; }
+ html.theme-design-c .ink-index .entry h3 { font-size:23px; }
+ html.theme-design-c .ink-article-head { padding-bottom:40px; margin-bottom:30px; }
+ html.theme-design-c .ink-margins { display:block; }
+ html.theme-design-c .lab-footer { margin-right:0; padding:24px 22px; }
+}

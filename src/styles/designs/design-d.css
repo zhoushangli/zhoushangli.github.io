@@ -1,11 +1,61 @@
-/* Slot D placeholder stylesheet: the designer replaces this file with the full concept. */
-html.theme-design-d {
-  --paper: #0c0f11;
-  --ink: #e8ecee;
-  --muted: #96a0a5;
-  --line: #242b2f;
-  --accent: #c98f5a;
-  --panel: #141a1d;
+html.theme-design-d { --bg:#141b17; --surface:#202b23; --ink:#eeeadd; --muted:#b7c0af; --accent:#d0ba8b; --line:#435145; }
+html.theme-design-d .specimen-header { display:flex; justify-content:space-between; align-items:center; gap:30px; padding:25px 5vw; border-bottom:1px solid var(--line); }
+html.theme-design-d .specimen-mark { font:42px Georgia,serif; color:var(--accent); }
+html.theme-design-d .specimen-main { padding:70px 5vw 90px; max-width:1550px; margin:auto; }
+html.theme-design-d .specimen-hero { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:7vw; padding-bottom:80px; }
+html.theme-design-d .specimen-hero h1 { font-size:clamp(43px,4.8vw,68px); }
+html.theme-design-d .specimen-hero h1 em { color:var(--accent); font-style:normal; }
+html.theme-design-d .specimen-plate { border:1px solid var(--line); padding:36px 28px 20px; margin:0; position:relative; background:linear-gradient(0deg,#ffffff02,#ffffff02),var(--surface); }
+html.theme-design-d .plate-corner { position:absolute; top:-12px; left:25px; padding:0 12px; background:var(--bg); color:var(--accent); font:12px/2 Georgia,serif; }
+html.theme-design-d .specimen-plate img { width:100%; aspect-ratio:1.35; object-fit:contain; }
+html.theme-design-d .specimen-plate figcaption { border-top:1px solid var(--line); margin-top:24px; padding-top:15px; display:flex; justify-content:space-between; gap:20px; font-size:11px; color:var(--muted); }
+html.theme-design-d .specimen-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border-top:1px solid var(--line); border-left:1px solid var(--line); }
+html.theme-design-d .specimen-card { border-right:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px; }
+html.theme-design-d .specimen-card .project-link { margin-top:22px; }
+html.theme-design-d .specimen-card .project-link h3 { font-size:21px; }
+html.theme-design-d .specimen-card .project-link img { aspect-ratio:1.25; object-fit:contain; background:#0e1511; }
+html.theme-design-d .specimen-card .project-link p { font-size:13px; }
+html.theme-design-d .specimen-notes { margin:80px 0 0; }
+html.theme-design-d .specimen-index { display:grid; grid-template-columns:1.15fr .85fr; gap:40px; align-items:start; margin-top:36px; }
+html.theme-design-d .specimen-records { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+html.theme-design-d .specimen-record button { width:100%; height:100%; text-align:left; padding:23px; }
+html.theme-design-d .specimen-record button h3 { font-size:21px; margin:15px 0 20px; }
+html.theme-design-d .specimen-record button[aria-pressed="true"] { border-color:var(--accent); box-shadow:inset 3px 0 var(--accent); }
+html.theme-design-d .specimen-preview { background:var(--surface); border:1px solid var(--line); padding:36px; position:sticky; top:30px; scroll-margin-top:22px; }
+html.theme-design-d .specimen-preview h2 { font-size:31px; }
+html.theme-design-d .specimen-preview .lede { font-size:15px; }
+html.theme-design-d .specimen-article-head { padding-bottom:55px; margin-bottom:50px; border-bottom:1px solid var(--line); }
+html.theme-design-d .specimen-article-head > .micro { margin-top:25px; }
+html.theme-design-d .specimen-reading { display:grid; grid-template-columns:220px minmax(0,648px); gap:6vw; justify-content:center; }
+html.theme-design-d .specimen-reading .toc { position:sticky; top:30px; align-self:start; }
+html.theme-design-d .image-zoom { border:0; padding:0; background:none; width:100%; cursor:zoom-in; }
+html.theme-design-d .image-inspector { width:min(1100px,94vw); max-height:92vh; background:var(--bg); color:var(--ink); border:1px solid var(--line); padding:25px; }
+html.theme-design-d .image-inspector::backdrop { background:#000d; }
+html.theme-design-d .image-inspector > button { display:block; margin:0 0 20px auto; min-height:44px; }
+html.theme-design-d .image-inspector img { max-height:70vh; width:100%; object-fit:contain; }
+html.theme-design-d .image-inspector p { margin-top:18px; color:var(--muted); }
+@media(max-width:1100px) {
+ html.theme-design-d .specimen-grid { grid-template-columns:1fr 1fr; }
+ html.theme-design-d .specimen-index { grid-template-columns:1fr 1fr; gap:24px; }
+ html.theme-design-d .specimen-records { grid-template-columns:1fr; }
+ html.theme-design-d .specimen-preview { padding:26px; }
+ html.theme-design-d .specimen-reading { grid-template-columns:180px minmax(0,648px); gap:35px; }
 }
-
-html.theme-design-d body { background: var(--paper); color: var(--ink); }
+@media(max-width:700px) {
+ html.theme-design-d .specimen-header { padding:18px 22px; flex-wrap:wrap; gap:10px; }
+ html.theme-design-d .specimen-header > .micro { font-size:9px; max-width:130px; }
+ html.theme-design-d .specimen-main { padding:42px 22px 60px; }
+ html.theme-design-d .specimen-hero { grid-template-columns:1fr; gap:50px; padding-bottom:55px; }
+ html.theme-design-d .specimen-hero h1 { font-size:43px; }
+ html.theme-design-d .specimen-plate { padding:25px 18px 18px; }
+ html.theme-design-d .specimen-plate figcaption { flex-direction:column; gap:5px; }
+ html.theme-design-d .specimen-grid { grid-template-columns:1fr; }
+ html.theme-design-d .specimen-card { padding:23px; }
+ html.theme-design-d .specimen-index { grid-template-columns:1fr; }
+ html.theme-design-d .specimen-preview { position:static; grid-row:1; }
+ html.theme-design-d .specimen-preview h2 { font-size:25px; }
+ html.theme-design-d .specimen-notes { margin-top:55px; }
+ html.theme-design-d .specimen-reading { display:flex; flex-direction:column; gap:35px; }
+ html.theme-design-d .specimen-reading .toc { position:static; width:100%; }
+ html.theme-design-d .image-inspector { padding:16px; }
+}

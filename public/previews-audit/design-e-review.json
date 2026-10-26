@@ -1,0 +1,949 @@
+{
+  "design": "design-e",
+  "name": "午夜剧场",
+  "passed": true,
+  "gates": {
+    "design": "design-e",
+    "round": 2,
+    "base": "http://127.0.0.1:4323",
+    "capturedAt": "2026-10-26T20:15:54.377424+00:00",
+    "views": {
+      "home": {
+        "desktop": {
+          "title": "午夜剧场 · 首页 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.28,
+          "backgroundLightness": 10.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-e\\round-2\\home-desktop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-e\\round-2\\home-desktop-full.jpg"
+          },
+          "interactions": {
+            "acts": {
+              "pass": true,
+              "screenshot": "artifacts\\preview-audit\\design-e\\round-2\\desktop-act.jpg",
+              "closed": true
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼 · 制作剧场",
+              "visible": true
+            },
+            {
+              "text": "开场",
+              "visible": true
+            },
+            {
+              "text": "节目单",
+              "visible": true
+            },
+            {
+              "text": "幕后",
+              "visible": true
+            },
+            {
+              "text": "展开这一幕 ↓",
+              "visible": true
+            },
+            {
+              "text": "ACT / 01MingEngine＋",
+              "visible": true
+            },
+            {
+              "text": "前往正式项目 ↗",
+              "visible": true
+            }
+          ],
+          "focusPass": true
+        },
+        "laptop": {
+          "title": "午夜剧场 · 首页 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.28,
+          "backgroundLightness": 10.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-e\\round-2\\home-laptop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-e\\round-2\\home-laptop-full.jpg"
+          },
+          "interactions": {
+            "acts": {
+              "pass": true,
+              "screenshot": "artifacts\\preview-audit\\design-e\\round-2\\laptop-act.jpg",
+              "closed": true
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼 · 制作剧场",
+              "visible": true
+            },
+            {
+              "text": "开场",
+              "visible": true
+            },
+            {
+              "text": "节目单",
+              "visible": true
+            },
+            {
+              "text": "幕后",
+              "visible": true
+            },
+            {
+              "text": "展开这一幕 ↓",
+              "visible": true
+            },
+            {
+              "text": "ACT / 01MingEngine＋",
+              "visible": true
+            },
+            {
+              "text": "前往正式项目 ↗",
+              "visible": true
+            }
+          ],
+          "focusPass": true
+        },
+        "mobile": {
+          "title": "午夜剧场 · 首页 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.28,
+          "backgroundLightness": 10.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-e\\round-2\\home-mobile-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-e\\round-2\\home-mobile-full.jpg"
+          },
+          "interactions": {
+            "acts": {
+              "pass": true,
+              "screenshot": "artifacts\\preview-audit\\design-e\\round-2\\mobile-act.jpg",
+              "closed": true
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼 · 制作剧场",
+              "visible": true
+            },
+            {
+              "text": "开场",
+              "visible": true
+            },
+            {
+              "text": "节目单",
+              "visible": true
+            },
+            {
+              "text": "幕后",
+              "visible": true
+            },
+            {
+              "text": "展开这一幕 ↓",
+              "visible": true
+            },
+            {
+              "text": "ACT / 01MingEngine＋",
+              "visible": true
+            },
+            {
+              "text": "前往正式项目 ↗",
+              "visible": true
+            }
+          ],
+          "focusPass": true
+        }
+      },
+      "articles": {
+        "desktop": {
+          "title": "午夜剧场 · 文章索引 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.28,
+          "backgroundLightness": 10.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-e\\round-2\\articles-desktop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-e\\round-2\\articles-desktop-full.jpg"
+          },
+          "interactions": {
+            "filters": [
+              {
+                "category": "all",
+                "expected": 7,
+                "count": 7,
+                "correct": true,
+                "selected": "all",
+                "pass": true
+              },
+              {
+                "category": "engine",
+                "expected": 3,
+                "count": 3,
+                "correct": true,
+                "selected": "engine",
+                "pass": true
+              },
+              {
+                "category": "graphics",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "graphics",
+                "pass": true
+              },
+              {
+                "category": "gameplay",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "gameplay",
+                "pass": true
+              }
+            ],
+            "filterState": {
+              "category": "engine",
+              "screenshot": "artifacts\\preview-audit\\design-e\\round-2\\articles-desktop-filter.jpg"
+            },
+            "programme": {
+              "pass": true,
+              "screenshot": "artifacts\\preview-audit\\design-e\\round-2\\desktop-programme.jpg"
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼 · 制作剧场",
+              "visible": true
+            },
+            {
+              "text": "开场",
+              "visible": true
+            },
+            {
+              "text": "节目单",
+              "visible": true
+            },
+            {
+              "text": "幕后",
+              "visible": true
+            },
+            {
+              "text": "全部文章",
+              "visible": true
+            },
+            {
+              "text": "引擎开发",
+              "visible": true
+            },
+            {
+              "text": "图形渲染",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "growthStress": {
+            "count": 21,
+            "overflow": 0,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-e\\round-2\\desktop-growth.jpg"
+          }
+        },
+        "laptop": {
+          "title": "午夜剧场 · 文章索引 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.28,
+          "backgroundLightness": 10.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-e\\round-2\\articles-laptop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-e\\round-2\\articles-laptop-full.jpg"
+          },
+          "interactions": {
+            "filters": [
+              {
+                "category": "all",
+                "expected": 7,
+                "count": 7,
+                "correct": true,
+                "selected": "all",
+                "pass": true
+              },
+              {
+                "category": "engine",
+                "expected": 3,
+                "count": 3,
+                "correct": true,
+                "selected": "engine",
+                "pass": true
+              },
+              {
+                "category": "graphics",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "graphics",
+                "pass": true
+              },
+              {
+                "category": "gameplay",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "gameplay",
+                "pass": true
+              }
+            ],
+            "filterState": {
+              "category": "engine",
+              "screenshot": "artifacts\\preview-audit\\design-e\\round-2\\articles-laptop-filter.jpg"
+            },
+            "programme": {
+              "pass": true,
+              "screenshot": "artifacts\\preview-audit\\design-e\\round-2\\laptop-programme.jpg"
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼 · 制作剧场",
+              "visible": true
+            },
+            {
+              "text": "开场",
+              "visible": true
+            },
+            {
+              "text": "节目单",
+              "visible": true
+            },
+            {
+              "text": "幕后",
+              "visible": true
+            },
+            {
+              "text": "全部文章",
+              "visible": true
+            },
+            {
+              "text": "引擎开发",
+              "visible": true
+            },
+            {
+              "text": "图形渲染",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "growthStress": {
+            "count": 21,
+            "overflow": 0,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-e\\round-2\\laptop-growth.jpg"
+          }
+        },
+        "mobile": {
+          "title": "午夜剧场 · 文章索引 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.28,
+          "backgroundLightness": 10.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-e\\round-2\\articles-mobile-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-e\\round-2\\articles-mobile-full.jpg"
+          },
+          "interactions": {
+            "filters": [
+              {
+                "category": "all",
+                "expected": 7,
+                "count": 7,
+                "correct": true,
+                "selected": "all",
+                "pass": true
+              },
+              {
+                "category": "engine",
+                "expected": 3,
+                "count": 3,
+                "correct": true,
+                "selected": "engine",
+                "pass": true
+              },
+              {
+                "category": "graphics",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "graphics",
+                "pass": true
+              },
+              {
+                "category": "gameplay",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "gameplay",
+                "pass": true
+              }
+            ],
+            "filterState": {
+              "category": "engine",
+              "screenshot": "artifacts\\preview-audit\\design-e\\round-2\\articles-mobile-filter.jpg"
+            },
+            "programme": {
+              "pass": true,
+              "screenshot": "artifacts\\preview-audit\\design-e\\round-2\\mobile-programme.jpg"
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼 · 制作剧场",
+              "visible": true
+            },
+            {
+              "text": "开场",
+              "visible": true
+            },
+            {
+              "text": "节目单",
+              "visible": true
+            },
+            {
+              "text": "幕后",
+              "visible": true
+            },
+            {
+              "text": "全部文章",
+              "visible": true
+            },
+            {
+              "text": "引擎开发",
+              "visible": true
+            },
+            {
+              "text": "图形渲染",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "growthStress": {
+            "count": 21,
+            "overflow": 0,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-e\\round-2\\mobile-growth.jpg"
+          }
+        }
+      },
+      "article": {
+        "desktop": {
+          "title": "午夜剧场 · 文章阅读 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.28,
+          "backgroundLightness": 10.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": {
+            "fontSize": 18,
+            "lineHeight": 1.9500000000000002,
+            "contrast": 14.75,
+            "width": 648,
+            "charsPerLine": 36,
+            "left": 543.5,
+            "right": 248.5,
+            "images": 17,
+            "codeBlocks": 3,
+            "headings": [
+              "zh-分析问题与证据范围",
+              "zh-用四个空间层次建立阅读顺序",
+              "zh-远景静态图像也能产生流动感",
+              "zh-背景颜色与法线分开处理",
+              "zh-中景颜色之外还需要可见性信息",
+              "zh-透明效果与边缘提亮",
+              "zh-我从这次分析中得到什么"
+            ]
+          },
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-e\\round-2\\article-desktop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-e\\round-2\\article-desktop-full.jpg",
+            "detail": "artifacts\\preview-audit\\design-e\\round-2\\article-desktop-detail.jpg"
+          },
+          "interactions": {
+            "anchor": {
+              "pass": true,
+              "href": "#zh-远景静态图像也能产生流动感",
+              "targetTop": 100.4375
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼 · 制作剧场",
+              "visible": true
+            },
+            {
+              "text": "开场",
+              "visible": true
+            },
+            {
+              "text": "节目单",
+              "visible": true
+            },
+            {
+              "text": "幕后",
+              "visible": true
+            },
+            {
+              "text": "ACT 01分析问题与证据范围",
+              "visible": true
+            },
+            {
+              "text": "ACT 02用四个空间层次建立阅读顺序",
+              "visible": true
+            },
+            {
+              "text": "ACT 03远景：静态图像也能产生流动感",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "wideContent": {
+            "overflow": 0,
+            "tableScrollable": true,
+            "codeScrollable": true,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-e\\round-2\\desktop-wide-content.jpg"
+          }
+        },
+        "laptop": {
+          "title": "午夜剧场 · 文章阅读 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.28,
+          "backgroundLightness": 10.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": {
+            "fontSize": 18,
+            "lineHeight": 1.9500000000000002,
+            "contrast": 14.75,
+            "width": 606.125,
+            "charsPerLine": 33.673611111111114,
+            "left": 356.4375,
+            "right": 61.4375,
+            "images": 17,
+            "codeBlocks": 3,
+            "headings": [
+              "zh-分析问题与证据范围",
+              "zh-用四个空间层次建立阅读顺序",
+              "zh-远景静态图像也能产生流动感",
+              "zh-背景颜色与法线分开处理",
+              "zh-中景颜色之外还需要可见性信息",
+              "zh-透明效果与边缘提亮",
+              "zh-我从这次分析中得到什么"
+            ]
+          },
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-e\\round-2\\article-laptop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-e\\round-2\\article-laptop-full.jpg",
+            "detail": "artifacts\\preview-audit\\design-e\\round-2\\article-laptop-detail.jpg"
+          },
+          "interactions": {
+            "anchor": {
+              "pass": true,
+              "href": "#zh-远景静态图像也能产生流动感",
+              "targetTop": 100.265625
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼 · 制作剧场",
+              "visible": true
+            },
+            {
+              "text": "开场",
+              "visible": true
+            },
+            {
+              "text": "节目单",
+              "visible": true
+            },
+            {
+              "text": "幕后",
+              "visible": true
+            },
+            {
+              "text": "ACT 01分析问题与证据范围",
+              "visible": true
+            },
+            {
+              "text": "ACT 02用四个空间层次建立阅读顺序",
+              "visible": true
+            },
+            {
+              "text": "ACT 03远景：静态图像也能产生流动感",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "wideContent": {
+            "overflow": 0,
+            "tableScrollable": true,
+            "codeScrollable": true,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-e\\round-2\\laptop-wide-content.jpg"
+          }
+        },
+        "mobile": {
+          "title": "午夜剧场 · 文章阅读 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 9.28,
+          "backgroundLightness": 10.2,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": {
+            "fontSize": 17,
+            "lineHeight": 1.95,
+            "contrast": 14.75,
+            "width": 346,
+            "charsPerLine": 20.352941176470587,
+            "left": 22,
+            "right": 22,
+            "images": 17,
+            "codeBlocks": 3,
+            "headings": [
+              "zh-分析问题与证据范围",
+              "zh-用四个空间层次建立阅读顺序",
+              "zh-远景静态图像也能产生流动感",
+              "zh-背景颜色与法线分开处理",
+              "zh-中景颜色之外还需要可见性信息",
+              "zh-透明效果与边缘提亮",
+              "zh-我从这次分析中得到什么"
+            ]
+          },
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-e\\round-2\\article-mobile-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-e\\round-2\\article-mobile-full.jpg",
+            "detail": "artifacts\\preview-audit\\design-e\\round-2\\article-mobile-detail.jpg"
+          },
+          "interactions": {
+            "anchor": {
+              "pass": true,
+              "href": "#zh-远景静态图像也能产生流动感",
+              "targetTop": 99.859375
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼 · 制作剧场",
+              "visible": true
+            },
+            {
+              "text": "开场",
+              "visible": true
+            },
+            {
+              "text": "节目单",
+              "visible": true
+            },
+            {
+              "text": "幕后",
+              "visible": true
+            },
+            {
+              "text": "ACT 01分析问题与证据范围",
+              "visible": true
+            },
+            {
+              "text": "ACT 02用四个空间层次建立阅读顺序",
+              "visible": true
+            },
+            {
+              "text": "ACT 03远景：静态图像也能产生流动感",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "wideContent": {
+            "overflow": 0,
+            "tableScrollable": true,
+            "codeScrollable": true,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-e\\round-2\\mobile-wide-content.jpg"
+          }
+        }
+      }
+    },
+    "gates": {
+      "routesLoaded": true,
+      "noErrors": true,
+      "localAssets": true,
+      "noBrokenImages": true,
+      "linksValid": true,
+      "noHorizontalOverflow": true,
+      "darkSurface": true,
+      "bodyContrast": true,
+      "smallTextContrast": true,
+      "readingMetrics": true,
+      "mobileGutters": true,
+      "touchTargets": true,
+      "focusVisible": true,
+      "interactions": true,
+      "growthStress": true,
+      "wideContent": true,
+      "noindex": true,
+      "reducedMotion": true,
+      "categoryRedirect": true
+    },
+    "screenshots": {
+      "desktop": "artifacts\\preview-audit\\design-e\\round-2\\contact-desktop.jpg",
+      "laptop": "artifacts\\preview-audit\\design-e\\round-2\\contact-laptop.jpg",
+      "mobile": "artifacts\\preview-audit\\design-e\\round-2\\contact-mobile.jpg"
+    },
+    "categoryRedirect": {
+      "status": 200,
+      "url": "http://127.0.0.1:4323/previews/design-e/articles/"
+    },
+    "reducedMotion": true,
+    "errors": [],
+    "externalRequests": [],
+    "links": {
+      "/articles/ming-csharp-bridge/": 200,
+      "/articles/ming-gui-input/": 200,
+      "/articles/ming-scene-resources/": 200,
+      "/articles/sifu-combat-analysis/": 200,
+      "/articles/spectrex-light-gameplay/": 200,
+      "/articles/spectrex-rendering/": 200,
+      "/previews/": 200,
+      "/previews/design-e/article": 200,
+      "/previews/design-e/articles": 200,
+      "/previews/design-e/home": 200,
+      "/projects/doomenstein/": 200,
+      "/projects/ming-engine/": 200,
+      "/projects/spectrex/": 200,
+      "/projects/the-primary-colors/": 200
+    },
+    "allGatesPass": true
+  },
+  "review": {
+    "design": "design-e",
+    "round": 2,
+    "reviewedAt": "2026-10-26T20:20:56+00:00",
+    "scores": {
+      "aesthetics": 21,
+      "reading": 23,
+      "structure": 17,
+      "diversity": 13,
+      "mobile": 13
+    },
+    "evidence": [
+      "home|1440/390|round-2/contact-desktop.jpg?contact-mobile.jpg?????????????????????????????????????",
+      "home/articles|390|mobile-act.jpg?mobile-programme.jpg? gates.json??????????????????????????????????",
+      "article|1440/390|article-desktop-detail.jpg?contact-mobile.jpg? gates.json???????????????????????18/17px???1.95???14.75:1?",
+      "comparison|1440/390??A?????B?????C???D?????F???????E????????????????????????"
+    ],
+    "defects": [
+      "?????|articles|390???????????????????????????????????????????????????"
+    ],
+    "verdict": "pass",
+    "summary": "???????????????????????????????????????????"
+  },
+  "comparisonPairs": [
+    {
+      "left": "design-a",
+      "right": "design-e",
+      "rounds": {
+        "design-a": 2,
+        "design-e": 2
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home|1440?A??????????????E?????????????A??????????E???????????",
+        "home/articles|390?A????????????E?D?3????????C/D?3??????????"
+      ]
+    },
+    {
+      "left": "design-b",
+      "right": "design-e",
+      "rounds": {
+        "design-b": 2,
+        "design-e": 2
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home|1440?B?D?3????????????E?D?3??????????D?3????????????",
+        "article/home|390?B??????????E?D?3????????C/D?3????????????"
+      ]
+    },
+    {
+      "left": "design-c",
+      "right": "design-e",
+      "rounds": {
+        "design-c": 3,
+        "design-e": 2
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home|1440?C??????????????E?D?3??????????D?3????????C/D?3??????????",
+        "article/home|390?C??????????E?D?3????????C/D?3????????????"
+      ]
+    },
+    {
+      "left": "design-d",
+      "right": "design-e",
+      "rounds": {
+        "design-d": 3,
+        "design-e": 2
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home/articles|1440?D?3?D?3?????????????E?D?3????????C/D?3????????????????",
+        "articles/article/home|390?D?3?D?3???????????E?D?3????????C/D?3???????????"
+      ]
+    },
+    {
+      "left": "design-e",
+      "right": "design-f",
+      "rounds": {
+        "design-e": 2,
+        "design-f": 2
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home|1440?E?D?3??????????F?D?3??????????D?3????????????????",
+        "home/articles|390?E?????????????F?D?3??????????D?3??????????"
+      ]
+    }
+  ]
+}

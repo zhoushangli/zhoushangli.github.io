@@ -1,25 +1,22 @@
 import type { DesignRecord } from '../design-types';
 
-// Slot D axes come from fnv1a hashing plus one recorded re-draw that separates it from slot C.
-// e.g. axes.accent was re-drawn from 同色系渐层 to 冷暖双色对照 because C already used it.
 const design: DesignRecord = {
-  id: 'design-d',
-  label: 'D',
-  seed: 'fQztxsMTC',
-  name: '待设计',
-  english: 'PENDING',
-  idea: '待设计',
-  intro: '待设计',
-  device: '待设计',
-  axes: {
-    imagery: '图书馆索书号与卡片目录',
-    layout: '宽屏左右对峙分栏',
-    typography: '无衬线正文+等宽元数据',
-    accent: '冷暖双色对照',
-    mechanism: '大图裁切主导',
-    rhythm: '均匀如表格',
-  },
-  axesNote: '重抽 A4 强调色：原派生值与 design-c 重合，改用 fnv1a(seed:4:alt3) 的冷暖双色对照。',
+  "id": "design-d",
+  "label": "D",
+  "seed": "nocturne-d-20261026",
+  "name": "橄榄标本册",
+  "english": "COLLECTED OBSERVATIONS",
+  "idea": "将游戏画面与实现问题编为一册可检索的研究标本。",
+  "intro": "观察，拆解，再重新理解。",
+  "device": "编号研究标本与可选择的摘要观察窗",
+  "axes": {
+    "imagery": "自然学术标本",
+    "layout": "编号网格与摘要观察窗",
+    "typography": "精密小字标注与学术衬线",
+    "accent": "深橄榄与骨白旧铜",
+    "mechanism": "选择条目摘要与图片放大",
+    "rhythm": "密集记录与精确分区"
+  }
 };
 
 export default design;

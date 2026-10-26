@@ -30,14 +30,29 @@ const project = pair.zh.data.relatedProject ? getProjectBySlug(pair.zh.data.rela
 			<div class="reading-layout">
 				<article class="prose"><Content /></article>
 				<aside class="toc">
+					<details class="reading-toc" open>
+					<summary>{lang === 'zh' ? '本文目录' : 'On this page'}</summary>
 					<nav aria-label={lang === 'zh' ? '文章目录' : 'Table of contents'}>
-						<p>{lang === 'zh' ? '本文目录' : 'On this page'}</p>
 						<ol>{headings.map((heading) => <li class={`depth-${heading.depth}`}><a href={`#${heading.slug.startsWith(`${lang}-`) ? heading.slug : `${lang}-${heading.slug}`}`}>{heading.text}</a></li>)}</ol>
 					</nav>
 					<p class="caption">{entry.data.tags.join(' · ')}</p>
+					</details>
 				</aside>
 			</div>
 		</section>;
 	})}
 	{pair.zh.data.contentId === 'pico8-game-jam' && <GameJamGallery />}
 </PortfolioLayout>
+<script>
+  const compact = matchMedia('(max-width: 1200px)');
+  document.querySelectorAll<HTMLDetailsElement>('.reading-toc').forEach((toc) => {
+    const update = () => { toc.open = !compact.matches; };
+    update();
+    compact.addEventListener('change', update);
+    toc.addEventListener('click', (event) => {
+      if (compact.matches && event.target instanceof Element && event.target.closest('a')) {
+        toc.open = false;
+      }
+    });
+  });
+</script>

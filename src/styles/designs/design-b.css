@@ -1,11 +1,53 @@
-/* Slot B placeholder stylesheet: the designer replaces this file with the full concept. */
-html.theme-design-b {
-  --paper: #0b0c0d;
-  --ink: #eff0f1;
-  --muted: #97999c;
-  --line: #232527;
-  --accent: #d6d8da;
-  --panel: #121415;
+html.theme-design-b { --bg:#181919; --surface:#232525; --ink:#edece6; --muted:#bcbfb9; --accent:#d8dad3; --line:#494c49; }
+html.theme-design-b .stone-header { margin:0 5vw; padding:24px 0; display:flex; justify-content:space-between; gap:30px; border-bottom:1px solid var(--line); }
+html.theme-design-b .brand { gap:22px; }
+html.theme-design-b .stone-main { padding:0 6vw 100px; max-width:1550px; margin:auto; }
+html.theme-design-b .stone-hero { text-align:center; padding:95px 0 0; }
+html.theme-design-b .stone-hero h1 { letter-spacing:.13em; font-size:clamp(48px,5vw,76px); line-height:1.65; }
+html.theme-design-b .stone-inscription { display:grid; grid-template-columns:1fr auto 1fr; gap:20px; align-items:center; }
+html.theme-design-b .stone-inscription > span { font:italic 24px Georgia,serif; color:var(--muted); }
+html.theme-design-b .stone-hero .lede { margin:30px auto 0; }
+html.theme-design-b .stone-axis { margin-top:80px; border-top:1px solid var(--line); display:flex; justify-content:space-between; padding:18px 0; font:12px var(--serif); color:var(--muted); }
+html.theme-design-b .stone-axis span { position:relative; padding-top:10px; }
+html.theme-design-b .stone-axis span::before { content:''; position:absolute; width:1px; height:18px; background:var(--line); top:-19px; left:50%; }
+html.theme-design-b .stone-works { padding:80px 0 50px; }
+html.theme-design-b .stone-work { display:grid; grid-template-columns:1.5fr 1fr; gap:7vw; align-items:center; margin:60px 0 100px; }
+html.theme-design-b .stone-work:nth-of-type(even) { grid-template-columns:1fr 1.5fr; }
+html.theme-design-b .stone-work:nth-of-type(even) > a { order:2; }
+html.theme-design-b .stone-work img { width:100%; aspect-ratio:16/10; object-fit:cover; }
+html.theme-design-b .stone-work h3 { font-size:34px; margin-top:24px; }
+html.theme-design-b .stone-work .lede { font-size:15px; margin-top:20px; }
+html.theme-design-b .stone-writing { max-width:920px; margin:0 auto; border-top:1px solid var(--line); padding-top:70px; }
+html.theme-design-b .stone-page-head { max-width:940px; text-align:center; margin:80px auto 65px; }
+html.theme-design-b .stone-page-head h1 { margin:auto; }
+html.theme-design-b .stone-page-head .lede,html.theme-design-b .stone-page-head .article-deck { margin:30px auto 0; }
+html.theme-design-b .stone-index { max-width:930px; margin:0 auto; }
+html.theme-design-b .stone-index .filters { justify-content:center; }
+html.theme-design-b .stone-index .results-status { text-align:center; margin-bottom:36px; }
+html.theme-design-b .stone-index .entry { grid-template-columns:100px minmax(0,1fr); padding:38px 0; }
+html.theme-design-b .stone-index .entry-number { font:italic 36px/1.7 Georgia,serif; }
+html.theme-design-b .stone-index .entry h3 { font-size:29px; }
+html.theme-design-b .stone-toc { max-width:648px; margin:0 auto 45px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+html.theme-design-b .stone-toc summary { display:flex; align-items:center; justify-content:space-between; }
+html.theme-design-b .stone-toc summary span { font:11px Georgia,serif; color:var(--muted); letter-spacing:.15em; }
+html.theme-design-b .stone-progress { position:fixed; height:3px; top:0; left:0; right:0; z-index:20; background:var(--line); }
+html.theme-design-b .stone-progress span { display:block; background:var(--ink); height:3px; width:0; }
+@media(max-width:700px) {
+ html.theme-design-b .stone-header { margin:0 22px; padding:18px 0; gap:12px; flex-wrap:wrap; }
+ html.theme-design-b .brand .micro { display:none; }
+ html.theme-design-b .stone-main { padding:0 22px 60px; }
+ html.theme-design-b .stone-hero { padding:60px 0 0; }
+ html.theme-design-b .stone-hero h1 { font-size:40px; letter-spacing:.06em; }
+ html.theme-design-b .stone-inscription { gap:8px; grid-template-columns:22px 1fr 22px; }
+ html.theme-design-b .stone-inscription > span { font-size:16px; }
+ html.theme-design-b .stone-axis { margin-top:55px; }
+ html.theme-design-b .stone-works { padding:50px 0 20px; }
+ html.theme-design-b .stone-work,html.theme-design-b .stone-work:nth-of-type(even) { grid-template-columns:1fr; gap:25px; margin:35px 0 65px; }
+ html.theme-design-b .stone-work:nth-of-type(even) > a { order:0; }
+ html.theme-design-b .stone-work h3 { font-size:29px; margin-top:10px; }
+ html.theme-design-b .stone-page-head { margin:55px auto 45px; }
+ html.theme-design-b .stone-index .entry { grid-template-columns:28px minmax(0,1fr); gap:14px; }
+ html.theme-design-b .stone-index .entry-number { font-size:21px; }
+ html.theme-design-b .stone-index .entry h3 { font-size:23px; }
+ html.theme-design-b .stone-writing { padding-top:40px; }
 }
-
-html.theme-design-b body { background: var(--paper); color: var(--ink); }

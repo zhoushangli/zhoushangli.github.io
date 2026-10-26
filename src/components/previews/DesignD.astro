@@ -1,0 +1,70 @@
+---
+import Shell from './Shell.astro';
+import ArticleBody from './ArticleBody.astro';
+import Entries from './Entries.astro';
+import Filters from './Filters.astro';
+import type { DesignProps } from '../../data/design-content';
+const { concept, view, base, data } = Astro.props as DesignProps;
+---
+<Shell concept={concept} view={view}>
+  <header class="specimen-header"><a class="brand" href={base + '/home'}><span class="specimen-mark" aria-hidden="true">✳</span> 周尚礼</a><span class="micro">COLLECTED OBSERVATIONS<br />游戏开发研究标本册</span><nav class="nav-links" aria-label="主导航"><a href={base + '/home'} aria-current={view === 'home' ? 'page' : undefined}>概览</a><a href={base + '/articles'} aria-current={view === 'articles' ? 'page' : undefined}>索引</a><a href={base + '/article'} aria-current={view === 'article' ? 'page' : undefined}>观察</a></nav></header>
+  <main id="main-content" class="specimen-main">
+    {view === 'home' && <>
+      <section class="specimen-hero"><div><p class="eyebrow">FIELD NOTES / 橄榄标本册</p><h1>观察世界，<br />拆解它的<br /><em>生成方式。</em></h1><p class="lede">周尚礼 / 游戏开发、图形渲染与教学。<br />将实践中的发现，编入一册持续生长的记录。</p><a class="action" href={base + '/articles'}>进入研究索引 →</a></div><figure class="specimen-plate"><span class="plate-corner">FIG. 01</span><img src="/media/animal-well/background_3.png" alt="动物井的背景合成观察图" /><figcaption><span>动物井 / 背景合成结果</span><span>图形渲染研究</span></figcaption></figure></section>
+      <section id="projects"><div class="section-title"><h2>实践标本</h2><span class="micro">01—04 / SELECTED WORKS</span></div><div class="specimen-grid">{data.projects.map((project, index) => <article class="specimen-card"><span class="micro">SPECIMEN / 0{index + 1}</span><a class="project-link" href={'/projects/' + project.slug + '/'}><img src={project.media.src} alt={project.media.alt.zh} loading="lazy" /><h3>{project.title}</h3><p>{project.summary.zh}</p><span class="micro">前往正式项目 ↗</span></a></article>)}</div></section>
+      <section class="specimen-notes"><div class="section-title"><h2>观察记录</h2><a class="action" href={base + '/articles'}>检索全部 →</a></div><Entries data={data} base={base} limit={3} /></section>
+    </>}
+    {view === 'articles' && <><header class="page-intro"><p class="eyebrow">RESEARCH INDEX / 研究索引</p><h1>从一个问题，<br />找到观察的入口。</h1></header><Filters data={data} /><div class="specimen-index"><div class="specimen-records" data-entry-list>{data.articles.map((item, index) => <article class="specimen-record" data-entry data-category={item.category}><button type="button" data-select-entry data-title={item.title} data-description={item.description} data-href={item.sample ? base + '/article' : '/articles/' + item.id + '/'} data-destination={item.sample ? '本方案阅读示例 ↗' : '前往正式文章 ↗'} aria-pressed={index === 0 ? 'true' : 'false'}><span class="micro">记录 / {String(index + 1).padStart(2, '0')} · {item.categoryLabel}</span><h3>{item.title}</h3><span class="micro">选择并查看摘要 →</span></button></article>)}</div><aside class="specimen-preview" aria-live="polite"><p class="eyebrow">OBSERVATION / 摘要窗</p><h2 data-selected-title>{data.articles[0].title}</h2><p class="lede" data-selected-description>{data.articles[0].description}</p><a class="action" data-selected-link href={base + '/article'}>本方案阅读示例 ↗</a></aside></div></>}
+    {view === 'article' && <><header class="specimen-article-head"><p class="eyebrow">OBSERVATION 01 / 图形渲染</p><h1 class="article-title">{data.sample.title}</h1><p class="article-deck">{data.sample.description}</p><p class="micro">点击正文图像，可放大检视。</p></header><div class="specimen-reading"><aside class="toc"><p class="micro">观察次序</p>{data.headings.map((heading, index) => <a href={'#' + heading.slug}>0{index + 1} / {heading.text}</a>)}</aside><ArticleBody data={data} /></div><dialog class="image-inspector" aria-label="放大图像"><button type="button" data-close-inspector aria-label="关闭放大图像">关闭 ×</button><img src="/media/animal-well/background_3.png" alt="" /><p></p></dialog></>}
+  </main>
+</Shell>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-select-entry]').forEach((button) => {
+    button.addEventListener('click', (event) => {
+      document.querySelectorAll('[data-select-entry]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+      const title = document.querySelector('[data-selected-title]');
+      const description = document.querySelector('[data-selected-description]');
+      const link = document.querySelector<HTMLAnchorElement>('[data-selected-link]');
+      if (title && description && link) {
+        title.textContent = button.dataset.title || '';
+        description.textContent = button.dataset.description || '';
+        link.href = button.dataset.href || '';
+        link.textContent = button.dataset.destination || '';
+        if (event.isTrusted && matchMedia('(max-width: 700px)').matches) {
+          title.setAttribute('tabindex', '-1');
+          (title as HTMLElement).focus({ preventScroll: true });
+          document.querySelector('.specimen-preview')?.scrollIntoView({ block: 'start' });
+        }
+      }
+    });
+  });
+  document.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((button) => {
+    button.addEventListener('click', () => {
+      document.querySelector<HTMLButtonElement>('[data-entry]:not([hidden]) [data-select-entry]')?.click();
+    });
+  });
+  const dialog = document.querySelector<HTMLDialogElement>('.image-inspector');
+  if (dialog) {
+    document.querySelectorAll<HTMLImageElement>('.reading-prose img').forEach((image) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'image-zoom';
+      button.setAttribute('aria-label', '放大：' + image.alt);
+      image.replaceWith(button);
+      button.append(image);
+      button.addEventListener('click', () => {
+        const enlarged = dialog.querySelector('img')!;
+        enlarged.src = image.src;
+        enlarged.alt = image.alt;
+        dialog.querySelector('p')!.textContent = image.alt;
+        dialog.showModal();
+      });
+    });
+    document.querySelector('[data-close-inspector]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) {
+        dialog.close();
+      }
+    });
+  }
+</script>

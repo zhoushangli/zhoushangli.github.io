@@ -1,0 +1,8 @@
+---
+const { data } = Astro.props;
+---
+<div class="filters" role="group" aria-label="文章分类">
+  <button type="button" data-filter="all" aria-pressed="true">全部文章</button>
+  {data.categories.map((item: { id: string; label: string }) => <button type="button" data-filter={item.id} aria-pressed="false">{item.label}</button>)}
+</div>
+<p class="results-status micro" data-results-status role="status">当前显示 {data.articles.length} 篇文章</p>

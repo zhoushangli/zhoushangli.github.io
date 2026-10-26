@@ -1,11 +1,62 @@
-/* Slot E placeholder stylesheet: the designer replaces this file with the full concept. */
-html.theme-design-e {
-  --paper: #0f0d0b;
-  --ink: #ece7df;
-  --muted: #a49a8c;
-  --line: #2c2822;
-  --accent: #a8825a;
-  --panel: #191512;
+html.theme-design-e { --bg:#201418; --surface:#2e2024; --ink:#f2e8da; --muted:#c9b8ac; --accent:#d7b682; --line:#584047; }
+html.theme-design-e .theatre-header { display:flex; justify-content:space-between; align-items:center; gap:30px; padding:22px 4vw; border-bottom:1px solid var(--line); }
+html.theme-design-e .theatre-header > .micro { font-size:10px; letter-spacing:.17em; }
+html.theme-design-e .theatre-header .brand { letter-spacing:.1em; }
+html.theme-design-e .theatre-main { padding-bottom:100px; }
+html.theme-design-e .theatre-overture { position:relative; min-height:690px; display:flex; align-items:center; padding:90px 8vw; isolation:isolate; background:#130e11; }
+html.theme-design-e .theatre-backdrop { position:absolute; width:100%; height:100%; inset:0; object-fit:cover; z-index:-2; }
+html.theme-design-e .theatre-overture::after { content:''; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,#1c1117f5 0%,#201418dc 46%,#20141877 100%); }
+html.theme-design-e .theatre-overture-copy { max-width:900px; }
+html.theme-design-e .theatre-overture h1 { font-size:clamp(42px,5.1vw,77px); }
+html.theme-design-e .theatre-overture h1 em { color:var(--accent); font-style:normal; }
+html.theme-design-e .theatre-overture-copy > p:not(.eyebrow) { margin-top:30px; font-size:17px; }
+html.theme-design-e .theatre-caption { position:absolute; bottom:24px; right:4vw; color:var(--ink); }
+html.theme-design-e .theatre-programme,html.theme-design-e .theatre-writing { margin:80px 8vw 0; }
+html.theme-design-e .theatre-act { border-top:1px solid var(--line); }
+html.theme-design-e .theatre-act:last-child { border-bottom:1px solid var(--line); }
+html.theme-design-e .theatre-act > summary { display:grid; grid-template-columns:120px 1fr 40px; gap:24px; align-items:center; list-style:none; padding:24px 0; min-height:100px; }
+html.theme-design-e summary::-webkit-details-marker { display:none; }
+html.theme-design-e .theatre-act > summary h3 { font-size:34px; }
+html.theme-design-e .act-toggle { justify-self:end; font:30px/1 Georgia,serif; color:var(--accent); }
+html.theme-design-e .theatre-act[open] > summary .act-toggle { transform:rotate(45deg); }
+html.theme-design-e .theatre-act-body { display:grid; grid-template-columns:1.3fr 1fr; gap:50px; padding:10px 0 45px 144px; align-items:center; }
+html.theme-design-e .theatre-act-body img { width:100%; aspect-ratio:16/10; object-fit:cover; }
+html.theme-design-e .theatre-act-body .lede { margin-top:0; font-size:15px; }
+html.theme-design-e .theatre-writing .entry-list { border-top:0; }
+html.theme-design-e .theatre-page-head { margin:80px auto 65px; max-width:1040px; padding:0 25px; }
+html.theme-design-e .theatre-page-head h1 { font-size:clamp(36px,4.5vw,65px); }
+html.theme-design-e .theatre-index { margin:0 auto; max-width:1040px; padding:0 25px; }
+html.theme-design-e .theatre-index .results-status { margin-bottom:35px; }
+html.theme-design-e .theatre-index .theatre-act .entry-list { border:0; padding:0 0 28px 144px; }
+html.theme-design-e .theatre-index .theatre-act > summary h2 { font-size:30px; }
+html.theme-design-e .theatre-reading { display:grid; grid-template-columns:230px minmax(0,648px); gap:65px; justify-content:center; padding:0 6vw; }
+html.theme-design-e .theatre-act-nav { position:sticky; top:30px; align-self:start; }
+html.theme-design-e .theatre-act-nav .toc a span { display:block; color:var(--accent); font:11px/1.8 Georgia,serif; letter-spacing:.15em; }
+html.theme-design-e .theatre-reading .reading-prose h2::before { content:'—'; color:var(--accent); display:block; margin-bottom:8px; }
+@media(max-width:1000px) {
+ html.theme-design-e .theatre-header > .micro { display:none; }
+ html.theme-design-e .theatre-act-body { padding-left:0; gap:30px; }
+ html.theme-design-e .theatre-reading { grid-template-columns:180px minmax(0,648px); gap:30px; padding:0 4vw; }
 }
-
-html.theme-design-e body { background: var(--paper); color: var(--ink); }
+@media(max-width:700px) {
+ html.theme-design-e .theatre-header { flex-wrap:wrap; padding:18px 22px; gap:8px; }
+ html.theme-design-e .theatre-header .brand { font-size:21px; }
+ html.theme-design-e .theatre-overture { min-height:610px; padding:70px 22px 90px; }
+ html.theme-design-e .theatre-overture h1 { font-size:38px; }
+ html.theme-design-e .theatre-overture::after { background:linear-gradient(90deg,#201418ee,#201418b8); }
+ html.theme-design-e .theatre-overture-copy > p:not(.eyebrow) { font-size:15px; }
+ html.theme-design-e .theatre-caption { left:22px; right:22px; font-size:11px; }
+ html.theme-design-e .theatre-programme,html.theme-design-e .theatre-writing { margin:50px 22px 0; }
+ html.theme-design-e .theatre-act > summary { grid-template-columns:65px minmax(0,1fr) 24px; gap:10px; min-height:90px; }
+ html.theme-design-e .theatre-act > summary .micro { font-size:10px; }
+ html.theme-design-e .theatre-act > summary h3 { font-size:25px; }
+ html.theme-design-e .theatre-act-body { grid-template-columns:1fr; gap:25px; padding-bottom:35px; }
+ html.theme-design-e .theatre-page-head { padding:0 22px; margin:50px auto 40px; }
+ html.theme-design-e .theatre-page-head h1 { font-size:35px; }
+ html.theme-design-e .theatre-index { padding:0 22px; }
+ html.theme-design-e .theatre-index .theatre-act .entry-list { padding:0 0 20px; }
+ html.theme-design-e .theatre-index .theatre-act > summary h2 { font-size:25px; }
+ html.theme-design-e .theatre-reading { display:block; padding:0 22px; }
+ html.theme-design-e .theatre-act-nav { position:static; margin-bottom:45px; }
+ html.theme-design-e .theatre-main { padding-bottom:60px; }
+}

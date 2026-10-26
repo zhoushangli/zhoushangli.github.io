@@ -1,0 +1,85 @@
+---
+import Shell from './Shell.astro';
+import ArticleBody from './ArticleBody.astro';
+import Entries from './Entries.astro';
+import Filters from './Filters.astro';
+import type { DesignProps } from '../../data/design-content';
+const { concept, view, base, data } = Astro.props as DesignProps;
+const { projectCurtain = false } = Astro.props;
+---
+<Shell concept={concept} view={view}>
+  <aside class="library-sidebar">
+    <a class="brand" href={base + '/home'}><span class="library-monogram">周</span> 周尚礼</a>
+    <p class="micro">THE PRIVATE LIBRARY<br />游戏开发 · 技术研究 · 教学</p>
+    <details class="library-menu" open>
+      <summary>藏书目录 <span>＋</span></summary>
+      <nav class="library-nav" aria-label="主导航">
+        <a href={base + '/home'} aria-current={view === 'home' ? 'page' : undefined}><i>I.</i> 书室序言</a>
+        <a href={base + '/articles'} aria-current={view === 'articles' ? 'page' : undefined}><i>II.</i> 文章藏目</a>
+        <a href={base + '/article'} aria-current={view === 'article' ? 'page' : undefined}><i>III.</i> 本期选读</a>
+      </nav>
+      {view === 'home' && <nav class="library-chapters" aria-label="首页章节">
+        <a href="#preface" data-section-link>序 / 制作与思考</a>
+        <a href="#projects" data-section-link>一 / 选定作品</a>
+        <a href="#writing" data-section-link>二 / 近期文字</a>
+      </nav>}
+    </details>
+    <div class="library-colophon"><span class="micro">A PERSONAL COLLECTION</span><p>写下实现的过程，<br />也留下思考的余地。</p><a href="/previews/" class="action">六案对比 ↗</a></div>
+  </aside>
+  <main id="main-content" class="library-main">
+    {view === 'home' && <>
+      <section class="library-preface" id="preface" data-section>
+        <div><p class="eyebrow">VOL. I / 制作中的世界</p><h1>在夜色里，<br />整理世界的<br /><em>另一种可能。</em></h1><p class="lede">我是周尚礼。制作游戏引擎，探索玩法与画面，也把开发过程中值得停留的问题，编入这座私人藏书室。</p><a class="action" href={base + '/articles'}>翻开文章藏目 <span>→</span></a></div>
+        <div class="book-cover" aria-hidden="true"><div class="book-border"><span>SHANGLI ZHOU</span><strong>制作札记</strong><i>Notes on<br />making worlds.</i><span>代码 / 游戏 / 观察</span></div></div>
+      </section>
+      {projectCurtain ? <section class="library-section project-curtain" id="projects" data-section data-project-curtain>
+        <div class="section-title"><h2><span>I.</span> 选定作品</h2><span class="micro">从工具到可游玩的世界</span></div>
+        <div class="project-curtain-list">
+          {data.projects.map((project, index) => <a class="project-curtain-row" href={'/projects/' + project.slug + '/'} data-project-preview={project.slug}>
+            <div class="project-curtain-backdrops" aria-hidden="true"><img src={project.media.src} alt="" loading="lazy" decoding="async" data-project-image={project.slug} /></div>
+            <span class="project-curtain-number">{String(index + 1).padStart(2, '0')}</span>
+            <div class="project-curtain-copy"><span class="micro">{project.category === 'personal' ? '个人作品' : '团队作品'}</span><h3>{project.title}</h3><p>{project.summary.zh}</p><span class="destination">前往正式项目</span></div>
+            <span class="project-curtain-arrow" aria-hidden="true">↗</span>
+          </a>)}
+        </div>
+      </section> : <section class="library-section" id="projects" data-section><div class="section-title"><h2><span>I.</span> 选定作品</h2><span class="micro">从工具到可游玩的世界</span></div><div class="library-projects">{data.projects.map((project) => <a class="project-link" href={'/projects/' + project.slug + '/'}><img src={project.media.src} alt={project.media.alt.zh} loading="lazy" /><h3>{project.title}</h3><p>{project.summary.zh}</p><span class="micro">前往正式项目 ↗</span></a>)}</div></section>}
+      <section class="library-section" id="writing" data-section><div class="section-title"><h2><span>II.</span> 近期文字</h2><a class="action" href={base + '/articles'}>查看藏目 →</a></div><Entries data={data} base={base} limit={3} /></section>
+    </>}
+    {view === 'articles' && <><header class="page-intro"><p class="eyebrow">THE CATALOGUE / 文章藏目</p><h1>按问题，<br /><em>寻找一本书。</em></h1><p class="lede">关于引擎、图形与游戏制作的研究记录。</p></header><div class="library-index"><aside><p class="micro">分类检索 / SUBJECTS</p><Filters data={data} /></aside><Entries data={data} base={base} /></div></>}
+    {view === 'article' && <><header class="library-article-head"><a class="action" href={base + '/articles'}>← 返回藏目</a><p class="eyebrow">SELECTED READING / 本期选读</p><h1 class="article-title">{data.sample.title}</h1><p class="article-deck">{data.sample.description}</p></header><div class="library-reading"><aside class="toc"><p class="micro">本篇目录</p>{data.headings.map((heading, index) => <a href={'#' + heading.slug}>{String(index + 1).padStart(2, '0')} / {heading.text}</a>)}</aside><ArticleBody data={data} /></div></>}
+  </main>
+</Shell>
+<script>
+  const menu = document.querySelector<HTMLDetailsElement>('.library-menu');
+  if (menu && matchMedia('(max-width: 700px)').matches) {
+    menu.open = false;
+  }
+  const curtain = document.querySelector<HTMLElement>('[data-project-curtain]');
+  if (curtain) {
+    const showProject = (slug?: string) => {
+      curtain.querySelectorAll<HTMLElement>('[data-project-image]').forEach((image) => {
+        image.classList.toggle('is-visible', image.dataset.projectImage === slug);
+      });
+      curtain.querySelectorAll<HTMLElement>('[data-project-preview]').forEach((row) => {
+        row.classList.toggle('is-previewed', row.dataset.projectPreview === slug);
+      });
+    };
+    curtain.querySelectorAll<HTMLElement>('[data-project-preview]').forEach((row) => {
+      row.addEventListener('pointerenter', (event) => {
+        if (event.pointerType === 'mouse' || event.pointerType === 'pen') {
+          showProject(row.dataset.projectPreview);
+        }
+      });
+      row.addEventListener('focus', () => showProject(row.dataset.projectPreview));
+      row.addEventListener('pointerleave', () => {
+        const focused = curtain.querySelector<HTMLElement>('[data-project-preview]:focus-visible');
+        showProject(focused?.dataset.projectPreview);
+      });
+    });
+    curtain.addEventListener('focusout', (event) => {
+      if (!curtain.contains(event.relatedTarget as Node | null)) {
+        showProject();
+      }
+    });
+  }
+</script>

@@ -1,8 +1,4 @@
-"""Check slot diversity and summarise both gate evidence and review scorecards.
-
-e.g. python scripts/preview-audit/report.py
-"""
-
+"""Validate independent scorecards and publish the local comparison report."""
 from __future__ import annotations
 
 import argparse
@@ -13,142 +9,91 @@ from itertools import combinations
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
-DEFAULT_OUT = Path(
-    r"C:\Users\Shangli Zhou\.codex\visualizations\2026\09\28\01a0e9ca-2d3d-73f2-a597-9a367465fd22\blog-designs"
-)
-AXIS_KEYS = ("imagery", "layout", "typography", "accent", "mechanism", "rhythm")
-SCORE_KEYS = ("reading", "structure", "creativity", "darkSystem", "mobile")
-MIN_AXIS_DISTANCE = 3
-MIN_TOTAL = 80
-MIN_READING = 20
-MIN_MOBILE = 12
-
+AUDIT = REPO / "src" / "data" / "preview-audit"
+SCORES = {"aesthetics":25,"reading":25,"structure":20,"diversity":15,"mobile":15}
+MINIMUMS = {"aesthetics":20,"reading":20,"diversity":12,"mobile":12}
+AXES = {"imagery","layout","typography","accent","mechanism","rhythm"}
+GATES = {"routesLoaded","noErrors","localAssets","noBrokenImages","linksValid","noHorizontalOverflow","darkSurface","bodyContrast","smallTextContrast","readingMetrics","mobileGutters","touchTargets","focusVisible","interactions","growthStress","wideContent","noindex","reducedMotion","categoryRedirect"}
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
+def load(path):
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
 
-def parse_slots(design_dir: Path) -> dict[str, dict[str, str]]:
-    slots: dict[str, dict[str, str]] = {}
-    for path in sorted(design_dir.glob("design-*.ts")):
-        text = path.read_text(encoding="utf-8")
-        block_match = re.search(r"axes:\s*\{(.*?)\}", text, re.S)
-        seed_match = re.search(r"seed:\s*'([^']*)'", text)
-        name_match = re.search(r"name:\s*'([^']*)'", text)
-        device_match = re.search(r"device:\s*'([^']*)'", text)
-        axes: dict[str, str] = {}
-        if block_match:
-            for key in AXIS_KEYS:
-                found = re.search(rf"{key}:\s*'([^']*)'", block_match.group(1))
-                axes[key] = found.group(1) if found else "?"
-        slots[path.stem] = {
-            "seed": seed_match.group(1) if seed_match else "?",
-            "name": name_match.group(1) if name_match else "?",
-            "device": device_match.group(1) if device_match else "?",
-            **axes,
-        }
-    return slots
-
-
-def load_json(path: Path) -> dict:
-    if not path.exists():
-        return {}
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return {}
-
-
-def main() -> int:
-    parser = argparse.ArgumentParser(description="Summarise preview audit results.")
-    parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--out", type=Path, default=REPO / "artifacts" / "preview-audit")
     args = parser.parse_args()
-
-    slots = parse_slots(REPO / "src" / "data" / "designs")
-    audit_dir = REPO / "src" / "data" / "preview-audit"
-
-    print(f"slots={len(slots)}")
-    distances: list[tuple[str, str, int]] = []
-    for left, right in combinations(sorted(slots), 2):
-        distance = sum(1 for key in AXIS_KEYS if slots[left][key] != slots[right][key])
-        distances.append((left, right, distance))
-        flag = "ok  " if distance >= MIN_AXIS_DISTANCE else "FAIL"
-        print(f"  {flag} {left} vs {right} -> {distance} axes differ")
-    worst = min((d for _, _, d in distances), default=0)
-    diversity_ok = bool(distances) and worst >= MIN_AXIS_DISTANCE
-    print(f"diversity={'PASS' if diversity_ok else 'FAIL'} worst={worst}")
-
-    rows = []
-    for design in sorted(slots):
-        gates = load_json(audit_dir / f"{design}.gates.json")
-        score = load_json(audit_dir / f"{design}.score.json")
-        gate_map = gates.get("gates", {})
-        failed_gates = [key for key, value in gate_map.items() if not value]
+    public = REPO / "public" / "previews-audit"
+    public.mkdir(parents=True, exist_ok=True)
+    comparison = load(AUDIT / "comparison.json")
+    slots = {}
+    errors = []
+    for letter in "abcdef":
+        design = "design-" + letter
+        source = (REPO / "src" / "data" / "designs" / (design + ".ts")).read_text(encoding="utf-8")
+        record = json.loads(re.search(r"const design: DesignRecord = (.*?);", source, re.S).group(1))
+        gates = load(AUDIT / (design + ".gates.json"))
+        score = load(AUDIT / (design + ".score.json"))
         scores = score.get("scores", {})
-        total = sum(scores.get(key, 0) for key in SCORE_KEYS) if scores else None
-        verdict = score.get("verdict")
-        rows.append(
-            {
-                "design": design,
-                "label": slots[design].get("name"),
-                "seed": slots[design].get("seed"),
-                "round": gates.get("round"),
-                "gatesPass": bool(gate_map) and not failed_gates,
-                "failedGates": failed_gates,
-                "rounds": gates.get("round"),
-                "scores": scores,
-                "total": total,
-                "reading": scores.get("reading"),
-                "mobile": scores.get("mobile"),
-                "verdict": verdict,
-                "defects": score.get("defects", []),
-                "passed": verdict == "pass"
-                and (total or 0) >= MIN_TOTAL
-                and (scores.get("reading") or 0) >= MIN_READING
-                and (scores.get("mobile") or 0) >= MIN_MOBILE
-                and not failed_gates,
-            }
+        valid = set(scores) == set(SCORES) and all(type(scores[k]) is int and 0 <= scores[k] <= SCORES[k] for k in SCORES)
+        total = sum(scores.values()) if valid else 0
+        gate_pass = set(gates.get("gates", {})) == GATES and all(v is True for v in gates["gates"].values())
+        current = bool(score) and score.get("round") == gates.get("round")
+        pairs = [pair for pair in comparison.get("pairs",[]) if design in (pair.get("left"),pair.get("right"))]
+        cross = len(pairs) == 5 and all(
+            pair.get("layoutDifferent") is True and pair.get("interactionDifferent") is True
+            and set(pair.get("differentAxes",[])).issubset(AXES)
+            and len(set(pair.get("differentAxes",[]))) >= 4
+            and {"layout","mechanism"}.issubset(pair.get("differentAxes",[]))
+            and bool(pair.get("evidence"))
+            and pair.get("rounds",{}).get(design) == gates.get("round")
+            for pair in pairs
         )
-        summary = "not scored"
-        if scores:
-            summary = f"total={total} reading={scores.get('reading')} mobile={scores.get('mobile')} verdict={verdict}"
-        print(f"  {design} [{rows[-1]['label']}] gates={'PASS' if rows[-1]['gatesPass'] else 'FAIL'} {summary}")
-        if failed_gates:
-            print(f"      failed gates: {failed_gates}")
-
-    qualified = [row for row in rows if row["passed"]]
-    print(f"qualified={len(qualified)}/6")
-
-    lines = ["# Preview audit summary", "", f"- diversity: {'PASS' if diversity_ok else 'FAIL'} (worst pair {worst} axes)", f"- qualified: {len(qualified)} of {len(rows)}", ""]
-    lines.append("| slot | name | seed | total | reading | mobile | gates | verdict | open defects |")
-    lines.append("| --- | --- | --- | --- | --- | --- | --- | --- | --- |")
-    for row in rows:
-        lines.append(
-            "| {design} | {label} | `{seed}` | {total} | {reading} | {mobile} | {gates} | {verdict} | {defects} |".format(
-                design=row["design"],
-                label=row["label"],
-                seed=row["seed"],
-                total=row["total"] if row["total"] is not None else "-",
-                reading=row["reading"] if row["reading"] is not None else "-",
-                mobile=row["mobile"] if row["mobile"] is not None else "-",
-                gates="PASS" if row["gatesPass"] else "FAIL " + ",".join(row["failedGates"]),
-                verdict=row["verdict"] or "-",
-                defects=len(row["defects"]),
-            )
-        )
-    lines.append("")
-    for row in rows:
-        lines.append(f"## {row['design']} · {row['label']}")
-        lines.append("")
-        lines.append(f"- seed `{row['seed']}` · round {row['round']} · verdict {row['verdict'] or 'pending'}")
-        if row["defects"]:
-            for defect in row["defects"]:
-                lines.append(f"- defect: {defect}")
-        lines.append("")
-    target = args.out / "summary.md"
-    target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text("\n".join(lines), encoding="utf-8")
-    print(f"summary -> {target}")
-    return 0 if diversity_ok and len(qualified) == len(rows) else 1
-
+        passed = valid and total >= 80 and all(scores[k] >= v for k,v in MINIMUMS.items()) and gate_pass and current and cross and score.get("verdict") == "pass"
+        if not passed:
+            errors.append(design + ": " + ", ".join(reason for reason,ok in {
+                "score format":valid,"score >=80":total >= 80,"minimums":valid and all(scores.get(k,0) >= v for k,v in MINIMUMS.items()),
+                "technical gates":gate_pass,"current independent review":current,"pairwise differences":cross,"review verdict":score.get("verdict") == "pass"
+            }.items() if not ok))
+        slots[design] = {"name":record["name"],"round":gates.get("round"),"total":total if valid else None,"scores":scores,"passed":passed,"gatesPass":gate_pass,"crossPass":cross,"score":score}
+        bundle = {"design":design,"name":record["name"],"passed":passed,"gates":gates,"review":score,"comparisonPairs":pairs}
+        (public / (design + "-review.json")).write_text(json.dumps(bundle,ensure_ascii=False,indent=2),encoding="utf-8")
+    expected = {tuple(pair) for pair in combinations(slots,2)}
+    actual = [tuple(sorted((pair.get("left",""),pair.get("right","")))) for pair in comparison.get("pairs",[])]
+    if len(actual) != 15 or set(actual) != expected:
+        errors.append("Comparison must contain all 15 unique pairs.")
+    if comparison.get("verdict") != "pass":
+        errors.append("Independent pairwise verdict is not pass.")
+    qualified = sum(slot["passed"] for slot in slots.values())
+    lines = ["# 六套暗色古典博客 · 独立评审汇总","",f"合格：{qualified}/6。证据包括三个视图、1440/1024/390px，以及每案实际交互。","",
+      "| 方案 | 轮次 | 美术 /25 | 阅读 /25 | 结构 /20 | 差异 /15 | 移动交互 /15 | 总分 | 技术 | 横向差异 | 结论 |",
+      "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
+    for design,slot in slots.items():
+        values = [slot["scores"].get(k,"—") for k in SCORES]
+        lines.append("| " + " | ".join(map(str,[design + " " + slot["name"],slot["round"],*values,slot["total"] or "—","通过" if slot["gatesPass"] else "待修复","通过" if slot["crossPass"] else "待评审","合格" if slot["passed"] else "未合格"])) + " |")
+    for design,slot in slots.items():
+        lines.extend(["","## " + design + " · " + slot["name"],"",slot["score"].get("summary","待独立评审"),""])
+        lines.extend("- " + item for item in slot["score"].get("defects",[]))
+        lines.extend(["","评审依据："])
+        lines.extend("- " + item for item in slot["score"].get("evidence",[]))
+    if comparison:
+        lines.extend(["","## 六案横向比较","",comparison.get("summary","")])
+        for pair in comparison.get("pairs",[]):
+            lines.append("- " + pair["left"] + " / " + pair["right"] + "：" + "; ".join(pair.get("evidence",[])))
+    if errors:
+        lines.extend(["","## 未完成项目","",*("- " + error for error in errors)])
+    text = "\n".join(lines) + "\n"
+    args.out.mkdir(parents=True,exist_ok=True)
+    (args.out / "summary.md").write_text(text,encoding="utf-8")
+    (public / "summary.md").write_text(text,encoding="utf-8")
+    if comparison:
+        (public / "comparison.json").write_text(json.dumps(comparison,ensure_ascii=False,indent=2),encoding="utf-8")
+    print(f"qualified={qualified}/6; uniquePairs={len(set(actual))}/15")
+    for design,slot in slots.items():
+        print(design + " " + str(slot["total"]) + " " + ("PASS" if slot["passed"] else "FAIL"))
+    for error in errors:
+        print(error)
+    return 0 if not errors and qualified == 6 else 1
 
 if __name__ == "__main__":
     raise SystemExit(main())

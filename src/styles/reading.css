@@ -1,70 +1,79 @@
 [hidden] { display: none !important; }
-html { scroll-padding-top: 9rem; }
-.page-intro { max-width: 850px; margin-bottom: 3rem; }
-.page-intro h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.2; overflow-wrap: anywhere; }
-.page-intro > p:last-child { color: var(--muted); line-height: 1.8; }
-.reading-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; }
-.reading-card { display: flex; flex-direction: column; padding: 1.8rem; border: 1px solid var(--border); background: var(--surface); color: var(--text); text-decoration: none; border-radius: 8px; min-width: 0; }
-.reading-card h2 { font-size: 1.35rem; line-height: 1.45; margin: 0.5rem 0; }
-.reading-card > p:not(.eyebrow) { color: var(--muted); line-height: 1.8; }
-.reading-card:hover { border-color: var(--accent); }
-.card-action { margin-top: auto; color: var(--accent-strong); padding-top: 1rem; }
-.category-filters, .page-links { display: flex; gap: 0.7rem; flex-wrap: wrap; margin: 1.8rem 0; }
-.category-filters button, .page-links a { border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 5px; padding: 0.65rem 1rem; font: inherit; cursor: pointer; }
-.category-filters button[aria-pressed='true'] { border-color: var(--accent); color: var(--accent-strong); background: var(--surface-soft); }
-.reading-layout { display: grid; grid-template-columns: minmax(0, 1fr) 230px; gap: 3rem; align-items: start; }
-.prose { min-width: 0; max-width: 830px; line-height: 1.95; overflow-wrap: anywhere; }
-.prose > :first-child { margin-top: 0; }
-.prose h2 { margin-top: 2.8rem; font-size: 1.65rem; line-height: 1.5; }
-.prose h3 { margin-top: 2rem; font-size: 1.2rem; }
-.prose p, .prose li { color: var(--text); }
-.prose li + li { margin-top: 0.5rem; }
-.prose img, .prose video { display: block; max-width: 100%; height: auto; margin: 1.5rem auto 0.7rem; border: 1px solid var(--border); border-radius: 5px; }
-.prose video { max-height: 560px; background: #080808; }
-.prose blockquote { margin-inline: 0; padding: 0.4rem 1.3rem; border-left: 3px solid var(--accent); background: var(--surface); }
-.prose pre { max-width: 100%; overflow-x: auto; padding: 1.25rem; border-radius: 5px; font-size: 0.85rem; line-height: 1.7; }
-.prose :not(pre) > code { font-size: 0.85em; padding: 0.15em 0.3em; border-radius: 3px; background: var(--surface-soft); overflow-wrap: anywhere; }
-.prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 0.95rem; }
-.prose th, .prose td { padding: 0.6rem 0.85rem; border: 1px solid var(--border); text-align: left; min-width: 110px; }
-.prose figcaption, .caption { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
-/* Article captions are written as a lone italic paragraph after the image/video. */
-.prose p > em:only-child { display: block; margin: 0.35rem 0 1.6rem; color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
-.toc { position: sticky; top: 8rem; border-left: 1px solid var(--border); padding-left: 1.2rem; font-size: 0.9rem; max-height: calc(100vh - 10rem); overflow-y: auto; }
-.toc ol { list-style: none; margin: 0; padding: 0; }
-.toc li { margin-block: 0.7rem; }
-.toc a { color: var(--muted); text-decoration: none; overflow-wrap: anywhere; }
-.toc a:hover { color: var(--accent-strong); }
-.toc .depth-3 { padding-left: 0.8rem; }
-.teaching-stats, .skills-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 2rem 0 3rem; }
-.teaching-stats p, .skill-item { margin: 0; padding: 1.3rem; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; }
-.skill-item h3 { margin-top: 0; }
-.skill-item p { color: var(--muted); }
-.gamejam-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.1rem; margin-top: 2rem; }
-.gamejam-card { display: flex; flex-direction: column; align-items: center; min-width: 0; padding: 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; text-align: center; }
-.gamejam-card h3 { font-size: 1.1rem; overflow-wrap: anywhere; }
-.gamejam-card img { width: 160px; max-width: 100%; height: 205px; object-fit: contain; image-rendering: pixelated; }
-.gamejam-card .cart-label { display: grid; place-content: center; width: 160px; max-width: 100%; height: 205px; border: 1px solid var(--border); font-family: monospace; color: var(--accent-strong); }
-.gamejam-card a { margin-top: auto; }
-.gamejam-card .caption { overflow-wrap: anywhere; }
-.icon-media img { object-fit: contain !important; padding: 2rem; }
-.project-notes { max-width: 850px; }
-.project-notes li { line-height: 1.85; margin-bottom: 0.6rem; }
-.project-notes dl { display: flex; flex-wrap: wrap; gap: 1.5rem 3rem; }
-.project-notes dt { color: var(--muted); font-size: 0.9rem; }
-.project-notes dd { margin: 0.5rem 0 0; }
-.section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 5px; }
-@media (max-width: 1000px) {
-	.reading-layout { grid-template-columns: minmax(0, 1fr); }
-	.toc { position: static; grid-row: 1; max-height: none; }
-	.gamejam-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.portfolio .page-intro { max-width: 980px; margin-bottom: 48px; }
+.portfolio .page-intro h1 { font-size: clamp(32px, 4vw, 52px); line-height: 1.5; margin: 22px 0; text-wrap: balance; }
+.portfolio .page-intro > p:last-of-type { max-width: 730px; color: var(--muted); line-height: 2; }
+.portfolio .page-intro > a { display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; color: var(--accent); }
+.portfolio .page-intro .page-links a { color: var(--text); }
+.portfolio .reading-grid { display: grid; grid-template-columns: minmax(0,1fr); border-top: 1px solid var(--border); }
+.portfolio .reading-card { display: block; min-width: 0; padding: 27px 0; border-bottom: 1px solid var(--border); color: var(--text); text-decoration: none; }
+.portfolio .reading-card h2 { font-size: 26px; line-height: 1.6; margin: 8px 0 13px; }
+.portfolio .reading-card > p:not(.eyebrow) { max-width: 750px; color: var(--muted); line-height: 1.95; font-size: 14px; }
+.portfolio .reading-card .card-action { display: inline-block; color: var(--accent); font-size: 12px; margin-top: 18px; min-height: 28px; }
+.portfolio .reading-card:hover h2 { color: var(--accent); }
+.portfolio .category-filters, .portfolio .page-links { display: flex; gap: 10px; flex-wrap: wrap; margin: 25px 0 35px; }
+.portfolio .category-filters button, .portfolio .page-links a { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; border: 1px solid var(--border); background: transparent; color: var(--text); padding: 9px 16px; font: inherit; font-size: 13px; cursor: pointer; }
+.portfolio .category-filters button[aria-pressed='true'], .portfolio .category-filters button:hover, .portfolio .page-links a:hover { border-color: var(--accent); color: var(--accent); background: var(--surface); }
+.portfolio .reading-layout { display: grid; grid-template-columns: minmax(0,648px) minmax(150px,200px); gap: 44px; align-items: start; justify-content: center; }
+.portfolio .prose { min-width: 0; width: 100%; max-width: 648px; font-size: 18px; line-height: 1.95; overflow-wrap: anywhere; }
+.portfolio .prose > :first-child { margin-top: 0; }
+.portfolio .prose h2 { margin: 56px 0 24px; font-size: 28px; line-height: 1.6; scroll-margin-top: 32px; }
+.portfolio .prose h3 { margin: 38px 0 22px; font-size: 23px; line-height: 1.6; scroll-margin-top: 32px; }
+.portfolio .prose p, .portfolio .prose li { color: var(--text); }
+.portfolio .prose > p, .portfolio .prose ul, .portfolio .prose ol { margin-bottom: 26px; }
+.portfolio .prose ul, .portfolio .prose ol { padding-left: 26px; }
+.portfolio .prose li + li { margin-top: 8px; }
+.portfolio .prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+.portfolio .prose img, .portfolio .prose video { display: block; max-width: 100%; height: auto; margin: 30px auto 14px; border: 1px solid var(--border); }
+.portfolio .prose video { max-height: 560px; background: var(--media-bg); }
+.portfolio .prose blockquote { margin: 30px 0; padding: 16px 24px; border-left: 2px solid var(--accent); background: var(--surface); }
+.portfolio .prose pre { max-width: 100%; overflow-x: auto; padding: 22px; border: 1px solid var(--border); font-size: 14px; line-height: 1.85; background: var(--media-bg) !important; }
+.portfolio .prose :not(pre) > code { font-size: .88em; padding: 2px 4px; background: var(--surface); overflow-wrap: anywhere; }
+.portfolio .prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 15px; margin: 26px 0; }
+.portfolio .prose th, .portfolio .prose td { padding: 12px; border: 1px solid var(--border); text-align: left; min-width: 110px; }
+.portfolio .caption, .portfolio .prose figcaption { color: var(--muted); font-size: 13px; line-height: 1.9; }
+.portfolio .prose p > em:only-child { display: block; margin: 6px 0 28px; padding-left: 16px; border-left: 1px solid var(--accent); color: var(--muted); font-size: 14px; line-height: 1.9; }
+.portfolio .toc { position: sticky; top: 32px; border-top: 1px solid var(--border); padding-top: 15px; font-size: 13px; max-height: calc(100vh - 64px); overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border) var(--bg); }
+.portfolio .toc summary { min-height: 44px; padding: 8px 0; color: var(--accent); }
+.portfolio .toc ol { list-style: none; margin: 0; padding: 0; }
+.portfolio .toc li { margin: 0; }
+.portfolio .toc a { display: block; min-height: 44px; padding: 10px 0; line-height: 1.8; color: var(--muted); text-decoration: none; overflow-wrap: anywhere; }
+.portfolio .toc a:hover { color: var(--accent); }
+.portfolio .toc .depth-3 { padding-left: 12px; }
+.portfolio .toc .caption { margin-top: 18px; font-size: 11px; }
+.portfolio .teaching-stats, .portfolio .skills-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 25px; margin: 35px 0 45px; }
+.portfolio .teaching-stats p, .portfolio .skill-item { margin: 0; padding: 20px 0 0; border-top: 1px solid var(--border); font-size: 14px; }
+.portfolio .skill-item h3 { font-size: 24px; margin: 0 0 15px; }
+.portfolio .skill-item p { font-size: 14px; }
+.portfolio .gamejam-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 20px; margin-top: 35px; }
+.portfolio .gamejam-card { display: flex; flex-direction: column; align-items: center; min-width: 0; padding: 20px 12px; border: 1px solid var(--border); text-align: center; }
+.portfolio .gamejam-card h3 { font-size: 20px; margin: 20px 0 10px; overflow-wrap: anywhere; }
+.portfolio .gamejam-card img { width: 160px; max-width: 100%; height: 205px; object-fit: contain; image-rendering: pixelated; }
+.portfolio .gamejam-card .cart-label { display: grid; place-content: center; width: 160px; max-width: 100%; height: 205px; border: 1px solid var(--border); font-family: monospace; color: var(--accent); }
+.portfolio .gamejam-card a { display: inline-flex; min-height: 44px; align-items: center; margin-top: auto; padding-top: 14px; color: var(--accent); font-size: 13px; }
+.portfolio .gamejam-card .caption { overflow-wrap: anywhere; margin-bottom: 16px; }
+.portfolio .project-notes { max-width: 850px; }
+.portfolio .project-notes h2 { margin: 35px 0 20px; font-size: 30px; }
+.portfolio .project-notes p { color: var(--text); line-height: 2; margin-bottom: 30px; }
+.portfolio .project-notes ul { padding-left: 24px; margin-bottom: 30px; }
+.portfolio .project-notes li { line-height: 1.95; margin-bottom: 12px; }
+.portfolio .project-notes dl { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 26px 40px; margin: 0 0 45px; }
+.portfolio .project-notes dt { color: var(--muted); font-size: 12px; }
+.portfolio .project-notes dd { margin: 8px 0 0; color: var(--text); font-size: 16px; }
+@media (max-width:1200px) {
+  .portfolio .reading-layout { grid-template-columns: minmax(0,648px); }
+  .portfolio .toc { position: static; grid-row: 1; max-height: none; margin-bottom: 25px; }
+  .portfolio .gamejam-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
 }
-@media (max-width: 700px) {
-	.reading-grid, .skills-grid, .teaching-stats { grid-template-columns: minmax(0, 1fr); }
-	.reading-card { padding: 1.25rem; }
-	.gamejam-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
-	.gamejam-card { padding: 0.8rem; }
-	.gamejam-card img, .gamejam-card .cart-label { height: 180px; }
-	main { padding-top: 2.5rem; }
-	.prose { font-size: 1rem; }
+@media (max-width:600px) {
+  .portfolio .page-intro { margin-bottom: 35px; }
+  .portfolio .page-intro h1 { font-size: 32px; }
+  .portfolio .reading-card h2 { font-size: 23px; }
+  .portfolio .prose { font-size: 17px; }
+  .portfolio .prose h2 { font-size: 25px; margin-top: 42px; }
+  .portfolio .prose pre { padding: 16px; font-size: 13px; }
+  .portfolio .teaching-stats, .portfolio .skills-grid { grid-template-columns: 1fr; gap: 15px; }
+  .portfolio .gamejam-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  .portfolio .gamejam-card { padding: 16px 8px; }
+  .portfolio .gamejam-card img, .portfolio .gamejam-card .cart-label { height: 190px; }
+  .portfolio .project-notes dl { grid-template-columns: 1fr; gap: 20px; }
 }

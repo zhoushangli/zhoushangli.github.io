@@ -1,645 +1,402 @@
-"""Capture screenshots and hard-gate evidence for one preview design slot.
+"""Capture browser evidence and interactions for the six dark blog prototypes.
 
-e.g. python scripts/preview-audit/capture.py --design design-a --round 1
+e.g. python scripts/preview-audit/capture.py --design design-a --round 1 --base http://127.0.0.1:4322
 """
-
 from __future__ import annotations
 
 import argparse
 import json
 import sys
-from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urljoin
 
 from PIL import Image, ImageDraw
 from playwright.sync_api import sync_playwright
 
 REPO = Path(__file__).resolve().parents[2]
-DEFAULT_OUT = Path(
-    r"C:\Users\Shangli Zhou\.codex\visualizations\2026\09\28\01a0e9ca-2d3d-73f2-a597-9a367465fd22\blog-designs"
-)
-DEFAULT_BASE = "http://127.0.0.1:4321"
-VIEWS = ("home", "articles", "category", "article")
+VIEWS = ("home", "articles", "article")
 VIEWPORTS = (("desktop", 1440, 900), ("laptop", 1024, 768), ("mobile", 390, 844))
-REMOTE_FONT_HOSTS = ("fonts.googleapis.com", "fonts.gstatic.com")
-
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-CSS_PRELUDE = """
-const parseColor = (value) => {
-  const match = value && value.match(/rgba?\\(([^)]+)\\)/);
-  if (!match) return null;
-  const parts = match[1].split(/[,\\s/]+/).filter(Boolean).map(Number);
-  if (parts.length < 3) return null;
-  return { r: parts[0], g: parts[1], b: parts[2], a: parts.length > 3 ? parts[3] : 1 };
-};
-const relLum = (c) => {
-  const f = (v) => { v = v / 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
-  return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b);
-};
-const describe = (el) => {
-  const cls = typeof el.className === 'string' && el.className.trim()
-    ? '.' + el.className.trim().split(/\\s+/).slice(0, 2).join('.')
-    : '';
-  return el.tagName.toLowerCase() + cls;
-};
-"""
-
-METRICS_JS = (
-    "() => {"
-    + CSS_PRELUDE
-    + """
-  const de = document.documentElement;
-  const vw = de.clientWidth;
-  const offenders = [];
-  for (const el of document.querySelectorAll('body *')) {
-    const rect = el.getBoundingClientRect();
-    if (rect.width < 2 || rect.height < 2) continue;
-    if (rect.right > vw + 1 || rect.left < -1) {
-      offenders.push({ sel: describe(el), left: Math.round(rect.left), right: Math.round(rect.right) });
+METRICS = r"""() => {
+  const rgb = (value) => (value.match(/[\d.]+/g) || []).map(Number);
+  const blend = (front, back) => {
+    const alpha = front.length > 3 ? front[3] : 1;
+    return [0,1,2].map((i) => front[i] * alpha + back[i] * (1 - alpha));
+  };
+  const background = (element) => {
+    const stack = [];
+    for (let node = element; node; node = node.parentElement) {
+      stack.unshift(rgb(getComputedStyle(node).backgroundColor));
     }
-  }
-  const broken = [...document.images].filter((i) => i.complete && i.naturalWidth === 0);
+    return stack.reduce((color, layer) => layer.length >= 3 ? blend(layer, color) : color, [0,0,0]);
+  };
+  const luminance = (color) => {
+    const linear = color.map((v) => v / 255).map((v) => v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4);
+    return linear[0] * .2126 + linear[1] * .7152 + linear[2] * .0722;
+  };
+  const contrast = (element) => {
+    const bg = background(element);
+    const fg = blend(rgb(getComputedStyle(element).color), bg);
+    const a = luminance(fg), b = luminance(bg);
+    return Math.round((Math.max(a,b) + .05) / (Math.min(a,b) + .05) * 100) / 100;
+  };
+  const visible = (el) => el.getClientRects().length && getComputedStyle(el).visibility !== 'hidden';
+  const label = (el) => el.tagName.toLowerCase() + '.' + String(el.className).slice(0,55);
+  const controls = [...document.querySelectorAll('a[href],button,summary')].filter(visible).filter((el) => !el.closest('astro-dev-toolbar') && !el.classList.contains('skip-link'));
+  const short = controls.map((el) => ({selector:label(el),text:el.textContent.trim().slice(0,30),height:Math.round(el.getBoundingClientRect().height)})).filter((el) => el.height < 44);
+  const small = [...document.querySelectorAll('.micro,.destination,.lede,.article-deck,.entry-copy p,.toc a,.reading-prose p:has(> em:only-child),nav a,button')].filter(visible).filter((el) => el.textContent.trim()).map((el) => ({selector:label(el),text:el.textContent.trim().slice(0,24),contrast:contrast(el)}));
+  const prose = document.querySelector('.reading-prose');
+  const paragraph = prose?.querySelector('p');
+  const cs = paragraph ? getComputedStyle(paragraph) : null;
+  const bg = rgb(getComputedStyle(document.body).backgroundColor);
+  const lightness = (Math.max(...bg.slice(0,3)) + Math.min(...bg.slice(0,3))) / 510 * 100;
   return {
-    viewportWidth: vw,
-    scrollWidth: de.scrollWidth,
-    bodyScrollWidth: document.body.scrollWidth,
-    overflow: Math.max(de.scrollWidth, document.body.scrollWidth) - vw,
-    offenders: offenders.slice(0, 12),
-    offenderCount: offenders.length,
-    imageCount: document.images.length,
-    brokenImages: broken.map((i) => i.currentSrc || i.src),
-    pendingImages: [...document.images].filter((i) => !i.complete).length,
-    title: document.title,
-    robots: (document.querySelector('meta[name=robots]') || {}).content || null,
-    dmSansLoaded: document.fonts ? document.fonts.check('16px "DM Sans"') : null,
+    title:document.title, mainCount:document.querySelectorAll('main').length,
+    overflow:Math.max(document.documentElement.scrollWidth,document.body.scrollWidth)-innerWidth,
+    brokenImages:[...document.images].filter((img) => !img.complete || !img.naturalWidth).map((img) => img.getAttribute('src')),
+    shortTargets:short,
+    smallContrastFailures:small.filter((el) => el.contrast < 4.5),
+    minimumSmallContrast:small.length ? Math.min(...small.map((el) => el.contrast)) : null,
+    backgroundLightness:Math.round(lightness*10)/10,
+    robots:document.querySelector('meta[name=robots]')?.content,
+    headingCount:document.querySelectorAll('main h1').length,
+    prose:paragraph ? {
+      fontSize:parseFloat(cs.fontSize),lineHeight:parseFloat(cs.lineHeight)/parseFloat(cs.fontSize),
+      contrast:contrast(paragraph),width:prose.getBoundingClientRect().width,
+      charsPerLine:prose.getBoundingClientRect().width/parseFloat(cs.fontSize),
+      left:prose.getBoundingClientRect().left,right:innerWidth-prose.getBoundingClientRect().right,
+      images:prose.querySelectorAll('img').length,codeBlocks:prose.querySelectorAll('pre').length,
+      headings:[...prose.querySelectorAll('h2')].map((h) => h.id),
+    } : null
   };
 }"""
-)
 
-BACKGROUND_JS = (
-    "() => {"
-    + CSS_PRELUDE
-    + """
-  const read = (el) => {
-    const cs = getComputedStyle(el);
-    return {
-      tag: el.tagName.toLowerCase(),
-      color: cs.backgroundColor,
-      image: cs.backgroundImage === 'none' ? null : cs.backgroundImage.slice(0, 80),
-    };
-  };
-  return { body: read(document.body), html: read(document.documentElement) };
-}"""
-)
+def ready(page):
+    page.evaluate("""async () => {
+      await document.fonts.ready;
+      await Promise.all([...document.images].map((img) => {
+        img.loading = 'eager';
+        return img.complete ? Promise.resolve() : new Promise((resolve) => {img.onload=resolve; img.onerror=resolve;});
+      }));
+    }""")
 
-TEXT_BOXES_JS = (
-    "() => {"
-    + CSS_PRELUDE
-    + """
-  const pick = (key, sel) => {
-    const el = document.querySelector(sel);
-    if (!el) return { key, sel, found: false };
-    const rect = el.getBoundingClientRect();
-    const cs = getComputedStyle(el);
-    return {
-      key, sel, found: true,
-      x: Math.round(rect.x), y: Math.round(rect.y),
-      w: Math.round(rect.width), h: Math.round(rect.height),
-      color: cs.color,
-      fontSize: parseFloat(cs.fontSize),
-      lineHeight: parseFloat(cs.lineHeight) || null,
-      letterSpacing: cs.letterSpacing,
-      text: (el.textContent || '').trim().slice(0, 20),
-    };
-  };
-  return [
-    pick('heroIntro', '.hero-intro'),
-    pick('aboutBody', '.home-about p:last-child'),
-    pick('essayLead', '.essay-body .lead'),
-    pick('essayBody', '.essay-body section p'),
-    pick('essaySectionTitle', '.essay-body h2'),
-    pick('metaSmall', '.article-date'),
-  ];
-}"""
-)
+def save_json(path, data):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
-TOUCH_JS = (
-    "() => {"
-    + CSS_PRELUDE
-    + """
-  const groups = [
-    ['nav', '.site-header nav a'],
-    ['brand', '.site-header .brand'],
-    ['action', '.button-primary'],
-    ['action-text', '.button-text'],
-    ['all-link', '.all-link'],
-    ['category-card', '.category-card'],
-    ['footer-link', '.site-footer a'],
-  ];
-  const targets = [];
-  for (const [group, sel] of groups) {
-    for (const el of document.querySelectorAll(sel)) {
-      const rect = el.getBoundingClientRect();
-      if (rect.width < 1 || rect.height < 1) continue;
-      targets.push({ group, sel: describe(el), w: Math.round(rect.width), h: Math.round(rect.height) });
-    }
-  }
-  const gated = targets.filter((t) => t.group === 'nav' || t.group === 'brand' || t.group === 'action');
-  return {
-    targets,
-    gatedCount: gated.length,
-    failing: gated.filter((t) => t.h < 44),
-    smallest: gated.length ? Math.min(...gated.map((t) => t.h)) : null,
-  };
-}"""
-)
+def sheet(images, target, width=480):
+    tiles = []
+    for title, path in images:
+        with Image.open(path) as source:
+            tile = source.convert("RGB")
+            tile.thumbnail((width, 1200))
+            canvas = Image.new("RGB", (width, tile.height + 30), "#111318")
+            ImageDraw.Draw(canvas).text((10,8), title, fill="#eeeeee")
+            canvas.paste(tile, (0,30))
+            tiles.append(canvas)
+    canvas = Image.new("RGB", (width * len(tiles), max(t.height for t in tiles)), "#111318")
+    for index, tile in enumerate(tiles):
+        canvas.paste(tile, (width * index, 0))
+    canvas.save(target, quality=86)
 
-FOCUS_BASELINE_JS = (
-    "() => {"
-    + CSS_PRELUDE
-    + """
-  const snap = (el) => {
-    const cs = getComputedStyle(el);
-    return [cs.outlineStyle, cs.outlineWidth, cs.outlineColor, cs.boxShadow, cs.backgroundColor, cs.color, cs.textDecorationLine].join('|');
-  };
-  const list = [...document.querySelectorAll('a[href], button')].slice(0, 16);
-  window.__focusList = list;
-  window.__focusBaseline = list.map(snap);
-  return { focusable: list.length };
-}"""
-)
+def state_shot(page, folder, name, evidence):
+    path = folder / (name + ".jpg")
+    page.screenshot(path=str(path), type="jpeg", quality=85, animations="disabled")
+    evidence["screenshot"] = str(path.relative_to(REPO))
+    return evidence
 
-FOCUS_STEP_JS = (
-    "() => {"
-    + CSS_PRELUDE
-    + """
-  const list = window.__focusList || [];
-  const active = document.activeElement;
-  const idx = list.indexOf(active);
-  if (idx < 0) return { idx: -1, changed: false, tag: active ? active.tagName.toLowerCase() : null };
-  const cs = getComputedStyle(active);
-  const now = [cs.outlineStyle, cs.outlineWidth, cs.outlineColor, cs.boxShadow, cs.backgroundColor, cs.color, cs.textDecorationLine].join('|');
-  return {
-    idx, changed: now !== window.__focusBaseline[idx], tag: active.tagName.toLowerCase(),
-    text: (active.textContent || '').trim().slice(0, 12),
-  };
-}"""
-)
+def run_interactions(page, design, view, size, folder):
+    result = {}
+    if view == "articles":
+        buttons = page.locator('[data-filter]')
+        result["filters"] = []
+        for index in range(buttons.count()):
+            button = buttons.nth(index)
+            category = button.get_attribute("data-filter")
+            button.click()
+            state = page.evaluate("""(category) => {
+              const entries = [...document.querySelectorAll('[data-entry]')];
+              const visible = entries.filter((el) => !el.hidden && el.getClientRects().length);
+              return {category, expected:entries.filter((el) => category === 'all' || el.dataset.category === category).length,
+                count:visible.length,correct:visible.every((el) => category === 'all' || el.dataset.category === category),
+                selected:document.querySelector('[data-filter][aria-pressed=true]')?.dataset.filter};
+            }""", category)
+            state["pass"] = state["correct"] and state["count"] == state["expected"] and state["selected"] == category
+            result["filters"].append(state)
+        if buttons.count() > 1:
+            buttons.nth(1).click()
+            result["filterState"] = state_shot(page, folder, view + "-" + size + "-filter", {"category":buttons.nth(1).get_attribute("data-filter")})
+        buttons.first.click()
+        if design == "design-d":
+            choices = page.locator('[data-select-entry]')
+            choice = choices.last
+            expected = choice.get_attribute("data-title")
+            choice.click()
+            page.wait_for_timeout(350)
+            link_box = page.locator('[data-selected-link]').bounding_box()
+            preview_box = page.locator('.specimen-preview').bounding_box()
+            visible = bool(link_box) and 0 <= link_box['y'] and link_box['y'] + link_box['height'] <= page.viewport_size['height']
+            result["selection"] = state_shot(page, folder, size + "-selection", {
+                "pass":page.locator('[data-selected-title]').inner_text() == expected and visible,
+                "readingLinkVisible":visible,"readingLinkBox":link_box,"previewBox":preview_box,
+                "title":expected,"href":page.locator('[data-selected-link]').get_attribute("href")
+            })
+            choices.first.click()
+        if design == "design-e":
+            group = page.locator('.theatre-index details').first
+            group.locator('summary').click()
+            closed = group.get_attribute("open") is None
+            group.locator('summary').click()
+            result["programme"] = state_shot(page, folder, size + "-programme", {"pass":closed and group.get_attribute("open") is not None})
+        if design == "design-f":
+            page.locator('[data-view-mode=compact]').click()
+            compact = page.locator('.folio-entries').evaluate("(el) => el.classList.contains('is-compact')")
+            result["viewSwitch"] = state_shot(page, folder, size + "-compact", {"pass":compact})
+            page.locator('[data-view-mode=illustrated]').click()
+            result["viewSwitch"]["restored"] = page.locator('.folio-entries').evaluate("(el) => !el.classList.contains('is-compact')")
 
-CATEGORY_ROWS_JS = (
-    "() => {"
-    + CSS_PRELUDE
-    + """
-  const rows = [...document.querySelectorAll('[data-article-topic]')];
-  const expected = {};
-  for (const row of rows) {
-    const key = row.dataset.articleTopic;
-    expected[key] = (expected[key] || 0) + 1;
-  }
-  const visible = rows.filter((row) => {
-    const cs = getComputedStyle(row);
-    return cs.display !== 'none' && cs.visibility !== 'hidden' && !row.hidden && row.offsetHeight > 0;
-  });
-  return {
-    rowCount: rows.length,
-    topics: [...document.querySelectorAll('[data-topic]')].map((c) => c.dataset.topic),
-    expected,
-    visibleCount: visible.length,
-    visibleTopics: [...new Set(visible.map((r) => r.dataset.articleTopic))],
-    selectedLabel: (document.querySelector('#selected-category') || {}).textContent || null,
-  };
-}"""
-)
-
-STRESS_JS = (
-    "() => {"
-    + CSS_PRELUDE
-    + """
-  const rows = [...document.querySelectorAll('.article-row')];
-  if (!rows.length) return { ok: false, reason: 'no .article-row found' };
-  const parent = rows[0].parentElement;
-  const before = rows.length;
-  let guard = 0;
-  while (document.querySelectorAll('.article-row').length < 15 && guard < 60) {
-    const src = rows[guard % rows.length];
-    const clone = src.cloneNode(true);
-    clone.removeAttribute('id');
-    parent.appendChild(clone);
-    guard += 1;
-  }
-  const after = document.querySelectorAll('.article-row').length;
-  const heights = [...document.querySelectorAll('.article-row')].map((r) => Math.round(r.getBoundingClientRect().height));
-  const de = document.documentElement;
-  return {
-    ok: true, before, after,
-    overflow: Math.max(de.scrollWidth, document.body.scrollWidth) - de.clientWidth,
-    minRowHeight: Math.min(...heights),
-    squashedRows: heights.filter((h) => h < 24).length,
-  };
-}"""
-)
-
-
-def srgb_channel(value: float) -> float:
-    value = value / 255.0
-    return value / 12.92 if value <= 0.03928 else ((value + 0.055) / 1.055) ** 2.4
-
-
-def relative_luminance(rgb: tuple[int, int, int]) -> float:
-    r, g, b = (srgb_channel(v) for v in rgb)
-    return 0.2126 * r + 0.7152 * g + 0.0722 * b
-
-
-def contrast_ratio(fg: tuple[int, int, int], bg: tuple[int, int, int]) -> float:
-    high, low = max(relative_luminance(fg), relative_luminance(bg)), min(
-        relative_luminance(fg), relative_luminance(bg)
-    )
-    return (high + 0.05) / (low + 0.05)
-
-
-def hsl_lightness(rgb: tuple[int, int, int]) -> float:
-    r, g, b = (v / 255.0 for v in rgb)
-    return (max(r, g, b) + min(r, g, b)) / 2 * 100
-
-
-def parse_css_color(value: str | None) -> tuple[int, int, int] | None:
-    if not value:
-        return None
-    value = value.strip()
-    if value.startswith("rgb"):
-        parts = value[value.find("(") + 1 : value.find(")")].replace("/", " ").replace(",", " ").split()
-        if len(parts) < 3:
-            return None
-        if len(parts) > 3 and float(parts[3]) < 0.9:
-            return None
-        return tuple(int(float(parts[i])) for i in range(3))  # type: ignore[return-value]
-    return None
-
-
-def dominant_color(image: Image.Image, box: tuple[int, int, int, int] | None = None) -> tuple[int, int, int]:
-    region = image.convert("RGB")
-    if box:
-        region = region.crop(box)
-    region = region.resize((min(region.width, 320), max(1, min(region.height, 320))))
-    quantized = region.quantize(colors=8, method=Image.Quantize.MEDIANCUT).convert("RGB")
-    return Counter(quantized.getdata()).most_common(1)[0][0]
-
-
-def sample_background(image: Image.Image, box: dict) -> tuple[int, int, int] | None:
-    width, height = image.size
-    x0 = max(0, min(box["x"], width - 2))
-    y0 = max(0, min(box["y"], height - 2))
-    x1 = min(width, max(x0 + 2, box["x"] + box["w"]))
-    y1 = min(height, max(y0 + 2, box["y"] + min(box["h"], 260)))
-    if x1 - x0 < 4 or y1 - y0 < 4:
-        return None
-    return dominant_color(image, (x0, y0, x1, y1))
-
-
-def text_metrics(box: dict, image: Image.Image, checks: list[dict]) -> None:
-    if not box.get("found") or box["w"] < 40 or box["h"] < 8:
-        return
-    fg = parse_css_color(box["color"])
-    bg = sample_background(image, box)
-    entry = {
-        "key": box["key"],
-        "sel": box["sel"],
-        "fontSize": box["fontSize"],
-        "lineHeight": box["lineHeight"],
-        "lineHeightRatio": round(box["lineHeight"] / box["fontSize"], 2) if box["lineHeight"] else None,
-        "width": box["w"],
-        "charsPerLine": round(box["w"] / box["fontSize"], 1) if box["fontSize"] else None,
-        "sample": box["text"],
-    }
-    if fg and bg:
-        entry["fg"] = "#%02x%02x%02x" % fg
-        entry["bgSampled"] = "#%02x%02x%02x" % bg
-        entry["contrast"] = round(contrast_ratio(fg, bg), 2)
-    checks.append(entry)
-
-
-def label_strip(draw: ImageDraw.ImageDraw, size: tuple[int, int], text: str) -> None:
-    draw.rectangle([0, 0, size[0], 22], fill=(18, 18, 20))
-    draw.text((8, 6), text, fill=(235, 235, 240))
-
-
-def stack_images(images: list[tuple[str, Image.Image]], width: int, gap: int = 10) -> Image.Image:
-    scaled = []
-    for label, image in images:
-        ratio = width / image.width
-        scaled.append((label, image.resize((width, max(1, int(image.height * ratio))), Image.LANCZOS)))
-    height = sum(img.height + 24 + gap for _, img in scaled)
-    sheet = Image.new("RGB", (width, height), (10, 10, 12))
-    draw = ImageDraw.Draw(sheet)
-    y = 0
-    for label, img in scaled:
-        label_strip(draw, (width, 22), label)
-        y += 24
-        sheet.paste(img, (0, y))
-        y += img.height + gap
-    return sheet
-
-
-def grid_images(images: list[tuple[str, Image.Image]], cell_width: int, columns: int = 2) -> Image.Image:
-    scaled = []
-    for label, image in images:
-        ratio = cell_width / image.width
-        scaled.append((label, image.resize((cell_width, max(1, int(image.height * ratio))), Image.LANCZOS)))
-    rows = (len(scaled) + columns - 1) // columns
-    cell_height = max(img.height for _, img in scaled) + 26
-    sheet = Image.new("RGB", (columns * cell_width, rows * cell_height), (10, 10, 12))
-    draw = ImageDraw.Draw(sheet)
-    for index, (label, img) in enumerate(scaled):
-        x = (index % columns) * cell_width
-        y = (index // columns) * cell_height
-        label_strip(draw, (cell_width, 22), label)
-        sheet.paste(img, (x, y + 24))
-    return sheet
-
-
-def save_thumbnail(image: Image.Image, target: Path, width: int = 900) -> int:
-    ratio = width / image.width
-    resized = image.resize((width, max(1, int(image.height * ratio))), Image.LANCZOS)
-    target.parent.mkdir(parents=True, exist_ok=True)
-    quality = 72
-    while quality >= 40:
-        resized.save(target, "WEBP", quality=quality, method=5)
-        if target.stat().st_size <= 150 * 1024:
-            break
-        quality -= 8
-    return target.stat().st_size
-
-
-def run(args: argparse.Namespace) -> int:
-    design: str = args.design
-    round_no: int = args.round
-    base: str = args.base.rstrip("/")
-    out_root: Path = args.out
-    round_dir = out_root / design / f"round-{round_no}"
-    shots_dir = round_dir / "shots"
-    shots_dir.mkdir(parents=True, exist_ok=True)
-    audit_dir = REPO / "src" / "data" / "preview-audit"
-    audit_dir.mkdir(parents=True, exist_ok=True)
-
-    screenshots: dict[str, dict[str, Image.Image]] = {view: {} for view in VIEWS}
-    console_errors: list[str] = []
-    network_errors: list[str] = []
-    report: dict = {
-        "design": design,
-        "round": round_no,
-        "base": base,
-        "capturedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "views": {},
-        "gates": {},
-        "notes": [],
-    }
-
-    def on_console(message) -> None:
-        if message.type != "error":
-            return
-        text = message.text
-        try:
-            url = (message.location or {}).get("url") or ""
-        except Exception:
-            url = ""
-        if any(host in text or host in url for host in REMOTE_FONT_HOSTS):
-            network_errors.append(f"{text} ({url})")
-        elif url and not url.startswith(base) and "ERR_" in text:
-            network_errors.append(f"{text} ({url})")
-        else:
-            console_errors.append(f"{text} ({url})" if url else text)
-
-    def on_response(response) -> None:
-        if response.status < 400:
-            return
-        url = response.url
-        if any(host in url for host in REMOTE_FONT_HOSTS):
-            network_errors.append(f"{response.status} {url}")
-        else:
-            console_errors.append(f"{response.status} {url}")
-
-    with sync_playwright() as playwright:
-        browser = playwright.chromium.launch()
-        context = browser.new_context(device_scale_factor=1)
-        for name, width, height in VIEWPORTS:
-            page = context.new_page()
-            page.set_viewport_size({"width": width, "height": height})
-            page.on("console", on_console)
-            page.on("response", on_response)
-            for view in VIEWS:
-                url = f"{base}/previews/{design}/{view}"
-                view_report = report["views"].setdefault(view, {})
-                page.goto(url, wait_until="load", timeout=45000)
+    if view == "home":
+        if design == "design-a":
+            menu = page.locator('.library-menu')
+            if size == "mobile":
+                initial = menu.get_attribute("open") is None
+                menu.locator('summary').click()
+                opened = menu.get_attribute("open") is not None
+                result["mobileMenu"] = state_shot(page, folder, "mobile-menu", {"pass":initial and opened})
+            page.locator('[data-section-link][href="#projects"]').click()
+            page.wait_for_timeout(650)
+            active = page.locator('[data-section-link][href="#projects"]').get_attribute("aria-current")
+            result["chapters"] = state_shot(page, folder, size + "-chapter", {"pass":active == "location","active":active})
+        if design == "design-e":
+            acts = page.locator('.theatre-programme details')
+            acts.nth(1).locator('summary').click()
+            opened = acts.nth(1).get_attribute("open") is not None
+            result["acts"] = state_shot(page, folder, size + "-act", {"pass":opened})
+            acts.nth(1).locator('summary').click()
+            result["acts"]["closed"] = acts.nth(1).get_attribute("open") is None
+        if design == "design-f":
+            gallery = page.locator('.folio-gallery')
+            before = gallery.evaluate("(el) => el.scrollLeft")
+            page.locator('[data-gallery-next]').click()
+            page.wait_for_timeout(200)
+            after = gallery.evaluate("(el) => el.scrollLeft")
+            page.locator('[data-gallery-prev]').click()
+            page.wait_for_timeout(200)
+            previous = gallery.evaluate("(el) => el.scrollLeft")
+            gallery.focus()
+            page.keyboard.press('ArrowRight')
+            page.wait_for_timeout(250)
+            keyboard = gallery.evaluate("(el) => el.scrollLeft")
+            result["gallery"] = state_shot(page, folder, size + "-gallery", {"pass":after > before and previous < after and keyboard > previous,"before":before,"next":after,"previous":previous,"keyboard":keyboard})
+            if size == "mobile":
+                gallery.scroll_into_view_if_needed()
+                box = gallery.bounding_box()
+                touch_before = gallery.evaluate("(el) => el.scrollLeft")
+                session = page.context.new_cdp_session(page)
+                y = max(80, min(650, box["y"] + 100))
+                session.send("Input.dispatchTouchEvent", {"type":"touchStart","touchPoints":[{"x":320,"y":y}]})
+                for x in range(300, 69, -20):
+                    session.send("Input.dispatchTouchEvent", {"type":"touchMove","touchPoints":[{"x":x,"y":y}]})
+                    page.wait_for_timeout(16)
+                session.send("Input.dispatchTouchEvent", {"type":"touchEnd","touchPoints":[]})
                 page.wait_for_timeout(450)
-                path = shots_dir / f"{view}-{width}.png"
-                page.screenshot(path=str(path), full_page=True)
-                image = Image.open(path).convert("RGB")
-                screenshots[view][name] = image
+                touch_after = gallery.evaluate("(el) => el.scrollLeft")
+                result["touchSwipe"] = state_shot(page, folder, "mobile-touch-swipe", {"pass":touch_after > touch_before,"before":touch_before,"after":touch_after})
+                session.detach()
 
-                metrics = page.evaluate(METRICS_JS)
-                entry = {
-                    "url": url,
-                    "overflow": metrics["overflow"],
-                    "offenderCount": metrics["offenderCount"],
-                    "offenders": metrics["offenders"][:6],
-                    "brokenImages": metrics["brokenImages"],
-                    "imageCount": metrics["imageCount"],
-                    "pendingImages": metrics["pendingImages"],
-                    "title": metrics["title"],
-                    "robots": metrics["robots"],
-                    "dmSansLoaded": metrics["dmSansLoaded"],
-                }
+    if view == "article":
+        if design == "design-b":
+            toc = page.locator('.stone-toc')
+            initial = toc.get_attribute("open") is None
+            toc.locator('summary').click()
+            result["toc"] = state_shot(page, folder, size + "-toc", {"pass":initial and toc.get_attribute("open") is not None})
+        if design == "design-c":
+            note = page.locator('.ink-margins details').nth(1)
+            note.locator('summary').click()
+            opened = note.get_attribute("open") is not None
+            result["marginalia"] = state_shot(page, folder, size + "-marginalia", {"pass":opened})
+            note.locator('summary').click()
+            result["marginalia"]["closed"] = note.get_attribute("open") is None
+        if design == "design-d":
+            zoom = page.locator('.image-zoom').first
+            zoom.click()
+            dialog = page.locator('.image-inspector')
+            opened = dialog.evaluate("(el) => el.open")
+            focused = page.evaluate("Boolean(document.activeElement.closest('dialog'))")
+            result["imageInspector"] = state_shot(page, folder, size + "-zoom", {"pass":opened and focused,"focusInside":focused})
+            page.keyboard.press('Escape')
+            result["imageInspector"]["escapeCloses"] = not dialog.evaluate("(el) => el.open")
+            result["imageInspector"]["focusRestored"] = zoom.evaluate("(el) => el === document.activeElement")
+            zoom.click()
+            page.locator('[data-close-inspector]').click()
+            result["imageInspector"]["buttonCloses"] = not dialog.evaluate("(el) => el.open")
+        links = page.locator('nav.toc a, .toc a')
+        if links.count():
+            link = links.nth(min(2, links.count()-1))
+            closed_details = link.locator('xpath=ancestor::details[not(@open)]')
+            if closed_details.count():
+                closed_details.locator('summary').click()
+            href = link.get_attribute("href")
+            link.click()
+            page.wait_for_timeout(650)
+            target = page.locator('[id="' + href[1:] + '"]')
+            top = target.evaluate("(el) => el.getBoundingClientRect().top") if target.count() else None
+            result["anchor"] = {"pass":top is not None and 0 <= top <= 170,"href":href,"targetTop":top}
+            if design == "design-b":
+                value = int(page.locator('.stone-progress').get_attribute('aria-valuenow'))
+                result["progress"] = {"pass":value > 0,"value":value}
+    return result
 
-                if name == "desktop":
-                    backgrounds = page.evaluate(BACKGROUND_JS)
-                    dominant = dominant_color(image)
-                    surface = (
-                        parse_css_color(backgrounds["body"]["color"])
-                        or parse_css_color(backgrounds["html"]["color"])
-                        or dominant
-                    )
-                    entry["background"] = {
-                        "body": backgrounds["body"],
-                        "html": backgrounds["html"],
-                        "dominantColor": "#%02x%02x%02x" % dominant,
-                        "surfaceColor": "#%02x%02x%02x" % surface,
-                        "surfaceLightness": round(hsl_lightness(surface), 1),
-                    }
-                    text_checks: list[dict] = []
-                    for box in page.evaluate(TEXT_BOXES_JS):
-                        text_metrics(box, image, text_checks)
-                    entry["text"] = text_checks
-                    focus_baseline = page.evaluate(FOCUS_BASELINE_JS)
-                    stops = []
-                    for _ in range(10):
-                        page.keyboard.press("Tab")
-                        stops.append(page.evaluate(FOCUS_STEP_JS))
-                    visible_stops = [s for s in stops if s.get("changed")]
-                    entry["focus"] = {
-                        "focusable": focus_baseline["focusable"],
-                        "stops": len(stops),
-                        "distinctTargets": len({s.get("idx") for s in stops if s.get("idx", -1) >= 0}),
-                        "visibleStops": len(visible_stops),
-                        "sample": stops[:6],
-                    }
+def all_pass(value):
+    if isinstance(value, dict):
+        if "pass" in value and not value["pass"]:
+            return False
+        for key in ("closed","restored","escapeCloses","focusRestored","buttonCloses"):
+            if key in value and not value[key]:
+                return False
+        return all(all_pass(v) for v in value.values())
+    if isinstance(value, list):
+        return all(all_pass(v) for v in value)
+    return True
 
-                if name in ("desktop", "mobile"):
-                    entry["touch"] = page.evaluate(TOUCH_JS)
-
-                if view == "category" and name == "desktop":
-                    baseline = page.evaluate(CATEGORY_ROWS_JS)
-                    filters = []
-                    for topic in baseline["topics"]:
-                        page.goto(f"{url}?topic={topic}", wait_until="load", timeout=45000)
-                        page.wait_for_timeout(250)
-                        state = page.evaluate(CATEGORY_ROWS_JS)
-                        filters.append(
-                            {
-                                "topic": topic,
-                                "visibleCount": state["visibleCount"],
-                                "expected": baseline["expected"].get(topic),
-                                "visibleTopics": state["visibleTopics"],
-                                "selectedLabel": state["selectedLabel"],
-                                "ok": state["visibleCount"] == baseline["expected"].get(topic)
-                                and state["visibleTopics"] == [topic],
-                            }
-                        )
-                    entry["categoryFilter"] = {"baseline": baseline, "filters": filters}
-                    page.goto(url, wait_until="load", timeout=45000)
-                    page.wait_for_timeout(250)
-
-                if view == "articles" and name in ("desktop", "mobile"):
-                    entry["growthStress"] = page.evaluate(STRESS_JS)
-                    page.goto(url, wait_until="load", timeout=45000)
-                    page.wait_for_timeout(200)
-
-                view_report[name] = entry
-            page.close()
-        context.close()
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--design", required=True, choices=["design-" + c for c in "abcdef"])
+    parser.add_argument("--round", type=int, default=1)
+    parser.add_argument("--base", default="http://127.0.0.1:4323")
+    parser.add_argument("--out", type=Path, default=REPO / "artifacts" / "preview-audit")
+    args = parser.parse_args()
+    folder = args.out.resolve() / args.design / ("round-" + str(args.round))
+    folder.mkdir(parents=True, exist_ok=True)
+    if (folder / "gates.json").exists():
+        raise SystemExit("This round is already archived. Use a new --round number.")
+    report = {"design":args.design,"round":args.round,"base":args.base,"capturedAt":datetime.now(timezone.utc).isoformat(),"views":{},"gates":{},"screenshots":{}}
+    errors, external = [], []
+    links = set()
+    folds = {size:[] for size,_,_ in VIEWPORTS}
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        context = browser.new_context(reduced_motion="reduce", has_touch=True)
+        page = context.new_page()
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.on("console", lambda msg: errors.append(msg.text) if msg.type == "error" else None)
+        page.on("response", lambda response: errors.append(str(response.status) + " " + response.url) if response.status >= 400 else None)
+        page.on("request", lambda request: external.append(request.url) if request.url.startswith("http") and not request.url.startswith(args.base) else None)
+        for size, width, height in VIEWPORTS:
+            page.set_viewport_size({"width":width,"height":height})
+            for view in VIEWS:
+                url = args.base + "/previews/" + args.design + "/" + view
+                response = page.goto(url, wait_until="networkidle")
+                ready(page)
+                metrics = page.evaluate(METRICS)
+                metrics["httpStatus"] = response.status
+                metrics["screenshots"] = {}
+                for full in (False, True):
+                    suffix = "full" if full else "fold"
+                    path = folder / (view + "-" + size + "-" + suffix + ".jpg")
+                    page.screenshot(path=str(path), type="jpeg", quality=84, full_page=full, animations="disabled")
+                    metrics["screenshots"][suffix] = str(path.relative_to(REPO))
+                    if not full:
+                        folds[size].append((view + " / " + str(width), path))
+                        if view == "home" and size in ("desktop","mobile"):
+                            public = REPO / "public" / "previews-audit" / (args.design + "-" + size + ".webp")
+                            public.parent.mkdir(parents=True, exist_ok=True)
+                            with Image.open(path) as source:
+                                source.save(public, "WEBP", quality=84)
+                if view == "article":
+                    page.locator('.reading-prose pre').first.scroll_into_view_if_needed()
+                    path = folder / (view + "-" + size + "-detail.jpg")
+                    page.screenshot(path=str(path), type="jpeg", quality=88, animations="disabled")
+                    metrics["screenshots"]["detail"] = str(path.relative_to(REPO))
+                links.update(page.locator('a[href]').evaluate_all("(els) => els.map((el) => el.getAttribute('href')).filter((href) => href.startsWith('/'))"))
+                metrics["interactions"] = run_interactions(page, args.design, view, size, folder)
+                page.goto(url, wait_until="networkidle")
+                ready(page)
+                focus = []
+                for _ in range(8):
+                    page.keyboard.press("Tab")
+                    focus.append(page.evaluate("""() => {
+                      const el = document.activeElement;
+                      const cs = getComputedStyle(el);
+                      return {text:el.textContent.trim().slice(0,24),visible:cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) >= 2};
+                    }"""))
+                metrics["focus"] = focus
+                metrics["focusPass"] = all(item["visible"] for item in focus)
+                if view == "articles":
+                    metrics["growthStress"] = page.evaluate("""() => {
+                      const entries = [...document.querySelectorAll('[data-entry]')];
+                      for (let i=entries.length; i<21; i++) {
+                        entries[0].parentElement.append(entries[i % entries.length].cloneNode(true));
+                      }
+                      const title = document.querySelector('[data-entry] h3');
+                      title.textContent = '一个用于检验长标题折行与内容增长的排版样例'.repeat(5);
+                      const overflow = Math.max(document.documentElement.scrollWidth,document.body.scrollWidth)-innerWidth;
+                      return {count:document.querySelectorAll('[data-entry]').length,overflow,pass:overflow <= 1};
+                    }""")
+                    state_shot(page, folder, size + "-growth", metrics["growthStress"])
+                if view == "article":
+                    metrics["wideContent"] = page.evaluate("""() => {
+                      const prose = document.querySelector('.reading-prose');
+                      const wrapper = document.createElement('div');
+                      wrapper.className='table-scroll'; wrapper.tabIndex=0;
+                      const table = document.createElement('table'); table.style.minWidth='1100px';
+                      table.innerHTML='<tr><th>临时宽表格</th><th>布局验证</th></tr><tr><td>仅测试中注入</td><td>不修改文章源文件</td></tr>';
+                      wrapper.append(table); prose.prepend(wrapper);
+                      const pre=document.createElement('pre');pre.textContent='wide_content_'.repeat(120);prose.prepend(pre);
+                      const overflow=Math.max(document.documentElement.scrollWidth,document.body.scrollWidth)-innerWidth;
+                      return {overflow,tableScrollable:wrapper.scrollWidth> wrapper.clientWidth,codeScrollable:pre.scrollWidth>pre.clientWidth,pass:overflow<=1 && wrapper.scrollWidth> wrapper.clientWidth && pre.scrollWidth>pre.clientWidth};
+                    }""")
+                    page.locator('[data-reading]').scroll_into_view_if_needed()
+                    state_shot(page, folder, size + "-wide-content", metrics["wideContent"])
+                report["views"].setdefault(view, {})[size] = metrics
+        link_statuses = {href:context.request.get(urljoin(args.base,href)).status for href in sorted(links)}
+        redirect = page.goto(args.base + "/previews/" + args.design + "/category", wait_until="networkidle")
+        page.wait_for_url("**/articles/**", timeout=10000)
+        report["categoryRedirect"] = {"status":redirect.status,"url":page.url}
+        report["reducedMotion"] = page.evaluate("matchMedia('(prefers-reduced-motion: reduce)').matches")
         browser.close()
-
-    fold_sheet = grid_images(
-        [(f"{view} 1440", screenshots[view]["desktop"].crop((0, 0, 1440, min(1150, screenshots[view]["desktop"].height))))
-         for view in VIEWS],
-        cell_width=800,
-    )
-    fold_sheet.save(round_dir / "fold-desktop.jpg", "JPEG", quality=80)
-    stack_images([(f"{view} 1440 full", screenshots[view]["desktop"]) for view in VIEWS], width=620).save(
-        round_dir / "contact-desktop.jpg", "JPEG", quality=78
-    )
-    stack_images([(f"{view} 390 full", screenshots[view]["mobile"]) for view in VIEWS], width=300).save(
-        round_dir / "contact-mobile.jpg", "JPEG", quality=78
-    )
-
-    thumbnails = {}
-    for view in VIEWS:
-        target = REPO / "public" / "previews-audit" / f"{design}-{view}.webp"
-        thumbnails[view] = {
-            "path": f"/previews-audit/{design}-{view}.webp",
-            "bytes": save_thumbnail(screenshots[view]["desktop"], target),
-        }
-
-    # 1) Apply the hard gates from the collected evidence.
-    # 2) Record every failing gate with the view it came from.
-    def all_views(predicate) -> bool:
-        return all(predicate(report["views"][view][name]) for view in VIEWS for name in ("desktop", "laptop", "mobile"))
-
-    category_ok = False
-    category_entry = report["views"].get("category", {}).get("desktop", {})
-    filters = category_entry.get("categoryFilter", {}).get("filters", [])
-    if filters:
-        category_ok = all(item["ok"] for item in filters)
-
-    stress_entries = [
-        report["views"]["articles"][name].get("growthStress", {}) for name in ("desktop", "mobile")
-    ]
-    stress_ok = all(
-        entry.get("ok") and entry.get("overflow", 1) <= 0 and entry.get("squashedRows", 1) == 0
-        for entry in stress_entries
-    )
-
-    desktop = report["views"]["article"]["desktop"]
-    essay_contrast = next((t for t in desktop.get("text", []) if t["key"] == "essayBody"), {})
-    essay_metrics = essay_contrast
-    surface_lightness = desktop.get("background", {}).get("surfaceLightness", 100)
-    focus = desktop.get("focus", {})
-    mobile_touch_failures = {
-        view: report["views"][view].get("mobile", {}).get("touch", {}).get("failing", []) for view in VIEWS
+    report["errors"] = sorted(set(errors))
+    report["externalRequests"] = sorted(set(external))
+    report["links"] = link_statuses
+    entries = [report["views"][v][s] for v in VIEWS for s,_,_ in VIEWPORTS]
+    articles = [report["views"]["article"][s]["prose"] for s,_,_ in VIEWPORTS]
+    desktop = report["views"]["article"]["desktop"]["prose"]
+    report["gates"] = {
+        "routesLoaded":all(e["httpStatus"] == 200 and e["mainCount"] == 1 and e["headingCount"] == 1 for e in entries),
+        "noErrors":not report["errors"],
+        "localAssets":not report["externalRequests"],
+        "noBrokenImages":all(not e["brokenImages"] for e in entries),
+        "linksValid":all(status == 200 for status in link_statuses.values()),
+        "noHorizontalOverflow":all(e["overflow"] <= 1 for e in entries),
+        "darkSurface":all(e["backgroundLightness"] <= 15 for e in entries),
+        "bodyContrast":all(p["contrast"] >= 7 for p in articles),
+        "smallTextContrast":all(not e["smallContrastFailures"] for e in entries),
+        "readingMetrics":all(17 <= p["fontSize"] <= 19 and p["lineHeight"] >= 1.75 for p in articles) and 32 <= desktop["charsPerLine"] <= 40,
+        "mobileGutters":min(report["views"]["article"]["mobile"]["prose"][side] for side in ("left","right")) >= 16,
+        "touchTargets":all(not e["shortTargets"] for e in entries),
+        "focusVisible":all(e["focusPass"] for e in entries),
+        "interactions":all(all_pass(e["interactions"]) for e in entries),
+        "growthStress":all(report["views"]["articles"][s]["growthStress"]["pass"] for s,_,_ in VIEWPORTS),
+        "wideContent":all(report["views"]["article"][s]["wideContent"]["pass"] for s,_,_ in VIEWPORTS),
+        "noindex":all(e["robots"] == "noindex,nofollow" for e in entries),
+        "reducedMotion":report["reducedMotion"],
+        "categoryRedirect":report["categoryRedirect"]["status"] == 200 and report["categoryRedirect"]["url"].rstrip("/").endswith("/articles"),
     }
-    mobile_touch_smallest = {
-        view: report["views"][view].get("mobile", {}).get("touch", {}).get("smallest") for view in VIEWS
-    }
-    touch_ok = bool(desktop.get("touch")) and all(not failures for failures in mobile_touch_failures.values())
-
-    gates = {
-        "routesLoaded": all_views(lambda entry: entry["title"] is not None),
-        "noConsoleErrors": not console_errors,
-        "noBrokenImages": all_views(lambda entry: not entry["brokenImages"]),
-        "noHorizontalOverflow": all_views(lambda entry: entry["overflow"] <= 1),
-        "darkSurface": surface_lightness <= 15,
-        "bodyContrast": bool(essay_contrast) and essay_contrast.get("contrast", 0) >= 7,
-        "touchTargets": touch_ok,
-        "focusVisible": bool(focus) and focus.get("visibleStops", 0) >= 6 and focus.get("distinctTargets", 0) >= 3,
-        "categoryFilter": category_ok,
-        "growthStress": stress_ok,
-    }
-    report["gates"] = gates
-    report["gateEvidence"] = {
-        "consoleErrors": console_errors[:10],
-        "networkErrors": network_errors[:10],
-        "surfaceLightnessPercent": surface_lightness,
-        "essayBodyContrast": essay_contrast.get("contrast"),
-        "essayBodyCharsPerLine": essay_metrics.get("charsPerLine"),
-        "essayBodyLineHeightRatio": essay_contrast.get("lineHeightRatio"),
-        "essayBodyFontSize": essay_contrast.get("fontSize"),
-        "touchSmallestHeightMobile": mobile_touch_smallest,
-        "touchFailingMobile": {view: failures[:6] for view, failures in mobile_touch_failures.items() if failures},
-        "touchSmallestHeightDesktop": desktop.get("touch", {}).get("smallest"),
-        "touchFailingDesktop": desktop.get("touch", {}).get("failing", [])[:6],
-        "focusVisibleStops": focus.get("visibleStops"),
-        "focusDistinctTargets": focus.get("distinctTargets"),
-        "categoryFilters": filters,
-        "growthStress": stress_entries,
-        "overflowByView": {
-            f"{view}/{name}": report["views"][view][name]["overflow"] for view in VIEWS for name in ("desktop", "mobile")
-        },
-    }
-    report["screenshots"] = {
-        "round": str(round_dir),
-        "foldDesktop": str(round_dir / "fold-desktop.jpg"),
-        "contactDesktop": str(round_dir / "contact-desktop.jpg"),
-        "contactMobile": str(round_dir / "contact-mobile.jpg"),
-    }
-    report["thumbnails"] = thumbnails
-    report["allGatesPass"] = all(gates.values())
-
-    target = audit_dir / f"{design}.gates.json"
-    target.write_text(json.dumps(report, ensure_ascii=True, indent=2), encoding="utf-8")
-
-    print(f"design={design} round={round_no} gates={'PASS' if report['allGatesPass'] else 'FAIL'}")
-    for key, value in gates.items():
-        print(f"  {'ok  ' if value else 'FAIL'} {key}")
-    if console_errors:
-        print(f"  console errors: {console_errors[:3]}")
-    print(
-        f"  surfaceL={surface_lightness}% bodyContrast={essay_contrast.get('contrast')} "
-        f"charsPerLine={essay_metrics.get('charsPerLine')} lineHeight={essay_contrast.get('lineHeightRatio')}"
-    )
-    print(f"  report -> {target}")
-    print(f"  sheets -> {round_dir}")
+    for size,_,_ in VIEWPORTS:
+        target = folder / ("contact-" + size + ".jpg")
+        sheet(folds[size], target, 390 if size == "mobile" else 480)
+        report["screenshots"][size] = str(target.relative_to(REPO))
+    report["allGatesPass"] = all(report["gates"].values())
+    save_json(folder / "gates.json", report)
+    save_json(REPO / "src" / "data" / "preview-audit" / (args.design + ".gates.json"), report)
+    print(args.design + " round " + str(args.round) + ": " + ("PASS" if report["allGatesPass"] else "FAIL"))
+    print("failed=" + ", ".join(k for k,v in report["gates"].items() if not v))
+    print("evidence=" + str(folder))
+    if report["errors"]:
+        print("errors=" + json.dumps(report["errors"], ensure_ascii=False))
     return 0 if report["allGatesPass"] else 1
-
-
-def main() -> int:
-    parser = argparse.ArgumentParser(description="Capture preview screenshots and hard-gate evidence.")
-    parser.add_argument("--design", required=True, help="design slot id, for example design-a")
-    parser.add_argument("--round", type=int, default=1, help="review round number")
-    parser.add_argument("--base", default=DEFAULT_BASE, help="preview server origin")
-    parser.add_argument("--out", type=Path, default=DEFAULT_OUT, help="screenshot output root")
-    return run(parser.parse_args())
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

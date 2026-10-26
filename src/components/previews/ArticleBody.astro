@@ -1,0 +1,9 @@
+---
+import type { DesignContent } from '../../data/design-content';
+interface Props { data: DesignContent; }
+const { data } = Astro.props;
+const { Content } = data;
+---
+<article class="reading-prose" data-reading>
+  <Content />
+</article>

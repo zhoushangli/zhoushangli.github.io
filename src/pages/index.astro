@@ -31,7 +31,7 @@ const skills = [
 ];
 ---
 <PortfolioLayout>
-  <section class="hero hero-intro">
+  <section class="hero hero-intro" id="intro">
     <div class="hero-copy">
       <Text as="p" class="eyebrow" zh="周尚礼 · 游戏开发与教学" en="ShangLi Zhou · Game development & teaching" />
       <Text as="h1" class="hero-title" zh="你好，我是周尚礼" en="Hi, I'm ShangLi Zhou" />
@@ -39,12 +39,23 @@ const skills = [
       <Text as="p" class="hero-intro-text" zh="我以游戏程序为基础，参与技术美术与游戏设计。目前就读于 SMU Guildhall，关注引擎开发、可玩的系统，以及如何帮助更多人开始制作游戏。" en="My foundation is game programming, with practice in technical art and game design. At SMU Guildhall, I focus on engine development, playable systems and helping others begin making games." />
       <p class="contact-line"><Text zh="联系邮箱：" en="Email: " /><a href="mailto:185600557@qq.com">185600557@qq.com</a></p>
     </div>
+    <figure class="hero-portrait">
+      <Image class="profile-image" src={HeroImage} alt="周尚礼的头像照片" data-i18n-inline-alt data-zh="周尚礼的头像照片" data-en="Portrait of ShangLi Zhou" format="webp" quality={82} widths={[320,480,720]} sizes="(max-width: 600px) 226px, 300px" loading="eager" fetchpriority="high" />
+      <figcaption>周尚礼 / SHANGLI ZHOU</figcaption>
+    </figure>
   </section>
+  <div id="projects">
+  {(['personal','team'] as const).map((category) => <section class="section showcase-section" id={category === 'personal' ? 'personal-projects' : 'team-projects'}>
+    <div class="section-heading"><Text as="h2" zh={category === 'personal' ? '个人项目' : '团队项目'} en={category === 'personal' ? 'Personal projects' : 'Team projects'} /><a href="/projects/"><Text zh="全部项目 →" en="All projects →" /></a></div>
+    <div class="showcase-list">{getProjectsByCategory(category).map((project, index) => <ProjectCard project={project} index={index} />)}</div>
+  </section>)}
+  </div>
+  <section class="section" id="articles"><div class="section-heading"><Text as="h2" zh="技术研究与开发笔记" en="Studies & development notes" /><a href="/articles/"><Text zh="全部文章 →" en="All articles →" /></a></div><div class="reading-grid">{selectedArticles.map((pair) => pair && <ContentCard pair={pair} />)}</div></section>
+  <section class="section" id="teaching"><div class="section-heading"><Text as="h2" zh="教学与社群实践" en="Teaching & community" /><a href="/teaching/"><Text zh="课程与作品展 →" en="Courses & submissions →" /></a></div><div class="reading-grid">{selectedTeaching.map((pair) => pair && <ContentCard pair={pair} />)}</div></section>
   <section class="section about-profile" id="about">
     <Text as="p" class="section-label" zh="个人介绍与经历" en="About & experience" />
     <Text as="h2" zh="从底层系统到游戏体验" en="From underlying systems to playable experiences" />
     <div class="about-profile-grid">
-      <Image class="hero-image profile-image" src={HeroImage} alt="周尚礼的头像照片" data-i18n-inline-alt data-zh="周尚礼的头像照片" data-en="Portrait of ShangLi Zhou" format="webp" quality={82} widths={[480,720,960]} sizes="(max-width: 860px) 100vw, 38vw" />
       <div class="copy-block bio-copy">
         <Text as="p" zh="我本科就读于上海科技大学计算机科学专业，目前在 SMU Guildhall 学习游戏开发，预计于 2027 年 5 月毕业。我使用 C++ 开发 Ming 引擎，也在 Godot、Unity 和 Unreal Engine 中参与独立与团队游戏制作。" en="I studied computer science at ShanghaiTech University and now study game development at SMU Guildhall, with graduation expected in May 2027. I develop the Ming engine in C++ and work on independent and team games in Godot, Unity and Unreal Engine." />
         <Text as="p" zh="我的专业基础是程序，但我希望理解制作一款游戏所需要的整体判断：玩法为什么成立，视觉如何传达规则，工具怎样支持团队，以及应该把有限时间投入哪里。长期而言，我希望成长为能够连接这些工作的游戏制作人。" en="Programming is my foundation, but I want to understand the decisions behind a complete game: why a mechanic works, how visuals communicate rules, how tools support a team and where limited production time should go. In the long term, I hope to grow into a producer who connects these responsibilities." />
@@ -62,12 +73,6 @@ const skills = [
       <div class="timeline-copy"><Text as="p" {...entry.description} /><Text as="p" class="timeline-tech" {...entry.tech} /></div>
     </article>)}</div>
   </section>)}
-  {(['personal','team'] as const).map((category) => <section class="section showcase-section" id={category === 'personal' ? 'personal-projects' : 'team-projects'}>
-    <div class="section-heading"><Text as="h2" zh={category === 'personal' ? '个人项目' : '团队项目'} en={category === 'personal' ? 'Personal projects' : 'Team projects'} /><a href="/projects/"><Text zh="全部项目 →" en="All projects →" /></a></div>
-    <div class="showcase-list">{getProjectsByCategory(category).map((project) => <ProjectCard project={project} />)}</div>
-  </section>)}
-  <section class="section" id="articles"><div class="section-heading"><Text as="h2" zh="技术研究与开发笔记" en="Studies & development notes" /><a href="/articles/"><Text zh="全部文章 →" en="All articles →" /></a></div><div class="reading-grid">{selectedArticles.map((pair) => pair && <ContentCard pair={pair} />)}</div></section>
-  <section class="section" id="teaching"><div class="section-heading"><Text as="h2" zh="教学与社群实践" en="Teaching & community" /><a href="/teaching/"><Text zh="课程与作品展 →" en="Courses & submissions →" /></a></div><div class="reading-grid">{selectedTeaching.map((pair) => pair && <ContentCard pair={pair} />)}</div></section>
 	<section class="section interests-section" id="interests">
 		<p class="section-label" data-i18n-inline data-en="Personal Interests" data-zh="个人兴趣">个人兴趣</p>
 		<h2 data-i18n-inline data-en="Beyond Game Development" data-zh="游戏开发之外">游戏开发之外</h2>

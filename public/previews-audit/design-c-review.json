@@ -1,0 +1,932 @@
+{
+  "design": "design-c",
+  "name": "朱砂题签",
+  "passed": true,
+  "gates": {
+    "design": "design-c",
+    "round": 3,
+    "base": "http://127.0.0.1:4323",
+    "capturedAt": "2026-10-26T20:18:26.078640+00:00",
+    "views": {
+      "home": {
+        "desktop": {
+          "title": "朱砂题签 · 首页 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 6.5,
+          "backgroundLightness": 9,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-c\\round-3\\home-desktop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-c\\round-3\\home-desktop-full.jpg"
+          },
+          "interactions": {},
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼制作之间",
+              "visible": true
+            },
+            {
+              "text": "序 言",
+              "visible": true
+            },
+            {
+              "text": "文 章",
+              "visible": true
+            },
+            {
+              "text": "选 读",
+              "visible": true
+            },
+            {
+              "text": "六 案",
+              "visible": true
+            },
+            {
+              "text": "循题签，入文章 →",
+              "visible": true
+            },
+            {
+              "text": "MingEngine一款使用 C++ 和 Dir",
+              "visible": true
+            }
+          ],
+          "focusPass": true
+        },
+        "laptop": {
+          "title": "朱砂题签 · 首页 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 6.5,
+          "backgroundLightness": 9,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-c\\round-3\\home-laptop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-c\\round-3\\home-laptop-full.jpg"
+          },
+          "interactions": {},
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼制作之间",
+              "visible": true
+            },
+            {
+              "text": "序 言",
+              "visible": true
+            },
+            {
+              "text": "文 章",
+              "visible": true
+            },
+            {
+              "text": "选 读",
+              "visible": true
+            },
+            {
+              "text": "六 案",
+              "visible": true
+            },
+            {
+              "text": "循题签，入文章 →",
+              "visible": true
+            },
+            {
+              "text": "MingEngine一款使用 C++ 和 Dir",
+              "visible": true
+            }
+          ],
+          "focusPass": true
+        },
+        "mobile": {
+          "title": "朱砂题签 · 首页 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 6.5,
+          "backgroundLightness": 9,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-c\\round-3\\home-mobile-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-c\\round-3\\home-mobile-full.jpg"
+          },
+          "interactions": {},
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼制作之间",
+              "visible": true
+            },
+            {
+              "text": "序 言",
+              "visible": true
+            },
+            {
+              "text": "文 章",
+              "visible": true
+            },
+            {
+              "text": "选 读",
+              "visible": true
+            },
+            {
+              "text": "六 案",
+              "visible": true
+            },
+            {
+              "text": "循题签，入文章 →",
+              "visible": true
+            },
+            {
+              "text": "MingEngine一款使用 C++ 和 Dir",
+              "visible": true
+            }
+          ],
+          "focusPass": true
+        }
+      },
+      "articles": {
+        "desktop": {
+          "title": "朱砂题签 · 文章索引 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 6.5,
+          "backgroundLightness": 9,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-c\\round-3\\articles-desktop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-c\\round-3\\articles-desktop-full.jpg"
+          },
+          "interactions": {
+            "filters": [
+              {
+                "category": "all",
+                "expected": 7,
+                "count": 7,
+                "correct": true,
+                "selected": "all",
+                "pass": true
+              },
+              {
+                "category": "engine",
+                "expected": 3,
+                "count": 3,
+                "correct": true,
+                "selected": "engine",
+                "pass": true
+              },
+              {
+                "category": "graphics",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "graphics",
+                "pass": true
+              },
+              {
+                "category": "gameplay",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "gameplay",
+                "pass": true
+              }
+            ],
+            "filterState": {
+              "category": "engine",
+              "screenshot": "artifacts\\preview-audit\\design-c\\round-3\\articles-desktop-filter.jpg"
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼制作之间",
+              "visible": true
+            },
+            {
+              "text": "序 言",
+              "visible": true
+            },
+            {
+              "text": "文 章",
+              "visible": true
+            },
+            {
+              "text": "选 读",
+              "visible": true
+            },
+            {
+              "text": "六 案",
+              "visible": true
+            },
+            {
+              "text": "全部文章",
+              "visible": true
+            },
+            {
+              "text": "引擎开发",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "growthStress": {
+            "count": 21,
+            "overflow": 0,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-c\\round-3\\desktop-growth.jpg"
+          }
+        },
+        "laptop": {
+          "title": "朱砂题签 · 文章索引 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 6.5,
+          "backgroundLightness": 9,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-c\\round-3\\articles-laptop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-c\\round-3\\articles-laptop-full.jpg"
+          },
+          "interactions": {
+            "filters": [
+              {
+                "category": "all",
+                "expected": 7,
+                "count": 7,
+                "correct": true,
+                "selected": "all",
+                "pass": true
+              },
+              {
+                "category": "engine",
+                "expected": 3,
+                "count": 3,
+                "correct": true,
+                "selected": "engine",
+                "pass": true
+              },
+              {
+                "category": "graphics",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "graphics",
+                "pass": true
+              },
+              {
+                "category": "gameplay",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "gameplay",
+                "pass": true
+              }
+            ],
+            "filterState": {
+              "category": "engine",
+              "screenshot": "artifacts\\preview-audit\\design-c\\round-3\\articles-laptop-filter.jpg"
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼制作之间",
+              "visible": true
+            },
+            {
+              "text": "序 言",
+              "visible": true
+            },
+            {
+              "text": "文 章",
+              "visible": true
+            },
+            {
+              "text": "选 读",
+              "visible": true
+            },
+            {
+              "text": "六 案",
+              "visible": true
+            },
+            {
+              "text": "全部文章",
+              "visible": true
+            },
+            {
+              "text": "引擎开发",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "growthStress": {
+            "count": 21,
+            "overflow": 0,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-c\\round-3\\laptop-growth.jpg"
+          }
+        },
+        "mobile": {
+          "title": "朱砂题签 · 文章索引 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 6.5,
+          "backgroundLightness": 9,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": null,
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-c\\round-3\\articles-mobile-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-c\\round-3\\articles-mobile-full.jpg"
+          },
+          "interactions": {
+            "filters": [
+              {
+                "category": "all",
+                "expected": 7,
+                "count": 7,
+                "correct": true,
+                "selected": "all",
+                "pass": true
+              },
+              {
+                "category": "engine",
+                "expected": 3,
+                "count": 3,
+                "correct": true,
+                "selected": "engine",
+                "pass": true
+              },
+              {
+                "category": "graphics",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "graphics",
+                "pass": true
+              },
+              {
+                "category": "gameplay",
+                "expected": 2,
+                "count": 2,
+                "correct": true,
+                "selected": "gameplay",
+                "pass": true
+              }
+            ],
+            "filterState": {
+              "category": "engine",
+              "screenshot": "artifacts\\preview-audit\\design-c\\round-3\\articles-mobile-filter.jpg"
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼制作之间",
+              "visible": true
+            },
+            {
+              "text": "序 言",
+              "visible": true
+            },
+            {
+              "text": "文 章",
+              "visible": true
+            },
+            {
+              "text": "选 读",
+              "visible": true
+            },
+            {
+              "text": "六 案",
+              "visible": true
+            },
+            {
+              "text": "全部文章",
+              "visible": true
+            },
+            {
+              "text": "引擎开发",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "growthStress": {
+            "count": 21,
+            "overflow": 0,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-c\\round-3\\mobile-growth.jpg"
+          }
+        }
+      },
+      "article": {
+        "desktop": {
+          "title": "朱砂题签 · 文章阅读 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 6.5,
+          "backgroundLightness": 9,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": {
+            "fontSize": 18,
+            "lineHeight": 1.9500000000000002,
+            "contrast": 14.65,
+            "width": 648,
+            "charsPerLine": 36,
+            "left": 100.796875,
+            "right": 691.203125,
+            "images": 17,
+            "codeBlocks": 3,
+            "headings": [
+              "zh-分析问题与证据范围",
+              "zh-用四个空间层次建立阅读顺序",
+              "zh-远景静态图像也能产生流动感",
+              "zh-背景颜色与法线分开处理",
+              "zh-中景颜色之外还需要可见性信息",
+              "zh-透明效果与边缘提亮",
+              "zh-我从这次分析中得到什么"
+            ]
+          },
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-c\\round-3\\article-desktop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-c\\round-3\\article-desktop-full.jpg",
+            "detail": "artifacts\\preview-audit\\design-c\\round-3\\article-desktop-detail.jpg"
+          },
+          "interactions": {
+            "marginalia": {
+              "pass": true,
+              "screenshot": "artifacts\\preview-audit\\design-c\\round-3\\desktop-marginalia.jpg",
+              "closed": true
+            },
+            "anchor": {
+              "pass": true,
+              "href": "#zh-远景静态图像也能产生流动感",
+              "targetTop": 100.28125
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼制作之间",
+              "visible": true
+            },
+            {
+              "text": "序 言",
+              "visible": true
+            },
+            {
+              "text": "文 章",
+              "visible": true
+            },
+            {
+              "text": "选 读",
+              "visible": true
+            },
+            {
+              "text": "六 案",
+              "visible": true
+            },
+            {
+              "text": "远景图像与扰动\n    ↓\n背景颜色、法线与背景",
+              "visible": true
+            },
+            {
+              "text": "表面颜色 = lerp(材质颜色, 雾颜色, 雾",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "wideContent": {
+            "overflow": 0,
+            "tableScrollable": true,
+            "codeScrollable": true,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-c\\round-3\\desktop-wide-content.jpg"
+          }
+        },
+        "laptop": {
+          "title": "朱砂题签 · 文章阅读 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 6.5,
+          "backgroundLightness": 9,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": {
+            "fontSize": 18,
+            "lineHeight": 1.9500000000000002,
+            "contrast": 14.65,
+            "width": 648,
+            "charsPerLine": 36,
+            "left": 145,
+            "right": 231,
+            "images": 17,
+            "codeBlocks": 3,
+            "headings": [
+              "zh-分析问题与证据范围",
+              "zh-用四个空间层次建立阅读顺序",
+              "zh-远景静态图像也能产生流动感",
+              "zh-背景颜色与法线分开处理",
+              "zh-中景颜色之外还需要可见性信息",
+              "zh-透明效果与边缘提亮",
+              "zh-我从这次分析中得到什么"
+            ]
+          },
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-c\\round-3\\article-laptop-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-c\\round-3\\article-laptop-full.jpg",
+            "detail": "artifacts\\preview-audit\\design-c\\round-3\\article-laptop-detail.jpg"
+          },
+          "interactions": {
+            "marginalia": {
+              "pass": true,
+              "screenshot": "artifacts\\preview-audit\\design-c\\round-3\\laptop-marginalia.jpg",
+              "closed": true
+            },
+            "anchor": {
+              "pass": true,
+              "href": "#zh-远景静态图像也能产生流动感",
+              "targetTop": 99.828125
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼制作之间",
+              "visible": true
+            },
+            {
+              "text": "序 言",
+              "visible": true
+            },
+            {
+              "text": "文 章",
+              "visible": true
+            },
+            {
+              "text": "选 读",
+              "visible": true
+            },
+            {
+              "text": "六 案",
+              "visible": true
+            },
+            {
+              "text": "远景图像与扰动\n    ↓\n背景颜色、法线与背景",
+              "visible": true
+            },
+            {
+              "text": "表面颜色 = lerp(材质颜色, 雾颜色, 雾",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "wideContent": {
+            "overflow": 0,
+            "tableScrollable": true,
+            "codeScrollable": true,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-c\\round-3\\laptop-wide-content.jpg"
+          }
+        },
+        "mobile": {
+          "title": "朱砂题签 · 文章阅读 · 周尚礼",
+          "mainCount": 1,
+          "overflow": 0,
+          "brokenImages": [],
+          "shortTargets": [],
+          "smallContrastFailures": [],
+          "minimumSmallContrast": 6.5,
+          "backgroundLightness": 9,
+          "robots": "noindex,nofollow",
+          "headingCount": 1,
+          "prose": {
+            "fontSize": 17,
+            "lineHeight": 1.95,
+            "contrast": 14.65,
+            "width": 346,
+            "charsPerLine": 20.352941176470587,
+            "left": 22,
+            "right": 22,
+            "images": 17,
+            "codeBlocks": 3,
+            "headings": [
+              "zh-分析问题与证据范围",
+              "zh-用四个空间层次建立阅读顺序",
+              "zh-远景静态图像也能产生流动感",
+              "zh-背景颜色与法线分开处理",
+              "zh-中景颜色之外还需要可见性信息",
+              "zh-透明效果与边缘提亮",
+              "zh-我从这次分析中得到什么"
+            ]
+          },
+          "httpStatus": 200,
+          "screenshots": {
+            "fold": "artifacts\\preview-audit\\design-c\\round-3\\article-mobile-fold.jpg",
+            "full": "artifacts\\preview-audit\\design-c\\round-3\\article-mobile-full.jpg",
+            "detail": "artifacts\\preview-audit\\design-c\\round-3\\article-mobile-detail.jpg"
+          },
+          "interactions": {
+            "marginalia": {
+              "pass": true,
+              "screenshot": "artifacts\\preview-audit\\design-c\\round-3\\mobile-marginalia.jpg",
+              "closed": true
+            },
+            "anchor": {
+              "pass": true,
+              "href": "#zh-远景静态图像也能产生流动感",
+              "targetTop": 100.453125
+            }
+          },
+          "focus": [
+            {
+              "text": "跳到正文",
+              "visible": true
+            },
+            {
+              "text": "周尚礼制作之间",
+              "visible": true
+            },
+            {
+              "text": "序 言",
+              "visible": true
+            },
+            {
+              "text": "文 章",
+              "visible": true
+            },
+            {
+              "text": "选 读",
+              "visible": true
+            },
+            {
+              "text": "六 案",
+              "visible": true
+            },
+            {
+              "text": "远景图像与扰动\n    ↓\n背景颜色、法线与背景",
+              "visible": true
+            },
+            {
+              "text": "表面颜色 = lerp(材质颜色, 雾颜色, 雾",
+              "visible": true
+            }
+          ],
+          "focusPass": true,
+          "wideContent": {
+            "overflow": 0,
+            "tableScrollable": true,
+            "codeScrollable": true,
+            "pass": true,
+            "screenshot": "artifacts\\preview-audit\\design-c\\round-3\\mobile-wide-content.jpg"
+          }
+        }
+      }
+    },
+    "gates": {
+      "routesLoaded": true,
+      "noErrors": true,
+      "localAssets": true,
+      "noBrokenImages": true,
+      "linksValid": true,
+      "noHorizontalOverflow": true,
+      "darkSurface": true,
+      "bodyContrast": true,
+      "smallTextContrast": true,
+      "readingMetrics": true,
+      "mobileGutters": true,
+      "touchTargets": true,
+      "focusVisible": true,
+      "interactions": true,
+      "growthStress": true,
+      "wideContent": true,
+      "noindex": true,
+      "reducedMotion": true,
+      "categoryRedirect": true
+    },
+    "screenshots": {
+      "desktop": "artifacts\\preview-audit\\design-c\\round-3\\contact-desktop.jpg",
+      "laptop": "artifacts\\preview-audit\\design-c\\round-3\\contact-laptop.jpg",
+      "mobile": "artifacts\\preview-audit\\design-c\\round-3\\contact-mobile.jpg"
+    },
+    "categoryRedirect": {
+      "status": 200,
+      "url": "http://127.0.0.1:4323/previews/design-c/articles/"
+    },
+    "reducedMotion": true,
+    "errors": [],
+    "externalRequests": [],
+    "links": {
+      "/articles/ming-csharp-bridge/": 200,
+      "/articles/ming-gui-input/": 200,
+      "/articles/ming-scene-resources/": 200,
+      "/articles/sifu-combat-analysis/": 200,
+      "/articles/spectrex-light-gameplay/": 200,
+      "/articles/spectrex-rendering/": 200,
+      "/previews/": 200,
+      "/previews/design-c/article": 200,
+      "/previews/design-c/articles": 200,
+      "/previews/design-c/home": 200,
+      "/projects/doomenstein/": 200,
+      "/projects/ming-engine/": 200,
+      "/projects/spectrex/": 200,
+      "/projects/the-primary-colors/": 200
+    },
+    "allGatesPass": true
+  },
+  "review": {
+    "design": "design-c",
+    "round": 3,
+    "reviewedAt": "2026-10-26T20:21:54+00:00",
+    "scores": {
+      "aesthetics": 22,
+      "reading": 23,
+      "structure": 17,
+      "diversity": 14,
+      "mobile": 13
+    },
+    "summary": "?????3?????????????????????????????????????????????????",
+    "evidence": [
+      "home|1440/390|round-3/contact-desktop.jpg?contact-mobile.jpg?home-mobile-fold.jpg???????????????????????????????????????",
+      "home|390|????????????x=22?64.875px??????????x=86px????21px?????44?54px?????????????",
+      "article|1440/390|round-3/gates.json??2?article-desktop-detail.jpg???18/17px???1.95???14.65:1?????????????????3??????",
+      "comparison|1440/390??????????????????????????????????????"
+    ],
+    "defects": [],
+    "verdict": "pass"
+  },
+  "comparisonPairs": [
+    {
+      "left": "design-a",
+      "right": "design-c",
+      "rounds": {
+        "design-a": 2,
+        "design-c": 3
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home|1440?A??????????C?D?3???????????A???C?3?D?3????????C/D?3?????????????",
+        "home/article|390?A??????????C?D?3??????????C?3?D?3????????????"
+      ]
+    },
+    {
+      "left": "design-b",
+      "right": "design-c",
+      "rounds": {
+        "design-b": 2,
+        "design-c": 3
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home|1440?B?D?3??????????C?3?D?3??????????D?3?????????????",
+        "article|390?B????????????C?3?D?3??????????????"
+      ]
+    },
+    {
+      "left": "design-c",
+      "right": "design-d",
+      "rounds": {
+        "design-c": 3,
+        "design-d": 3
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home/articles|1440?C?????????????D?3?D?3??????????D?3????????????????",
+        "article|390?C??????????D?3?D?3????????C/D?3????????????????"
+      ]
+    },
+    {
+      "left": "design-c",
+      "right": "design-e",
+      "rounds": {
+        "design-c": 3,
+        "design-e": 2
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home|1440?C??????????????E?D?3??????????D?3????????C/D?3??????????",
+        "article/home|390?C??????????E?D?3????????C/D?3????????????"
+      ]
+    },
+    {
+      "left": "design-c",
+      "right": "design-f",
+      "rounds": {
+        "design-c": 3,
+        "design-f": 2
+      },
+      "differentAxes": [
+        "imagery",
+        "layout",
+        "accent",
+        "mechanism",
+        "rhythm"
+      ],
+      "layoutDifferent": true,
+      "interactionDifferent": true,
+      "evidence": [
+        "home|1440?C??????????F?D?3??????????D?3????????C/D?3??????????",
+        "home/articles/article|390?C??????????F?D?3????????C/D?3???????????"
+      ]
+    }
+  ]
+}

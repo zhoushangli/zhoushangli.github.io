@@ -1,0 +1,60 @@
+---
+import '../../styles/design-common.css';
+const { concept, view } = Astro.props;
+const base = '/previews/' + concept.id;
+---
+<!doctype html>
+<html lang="zh-CN" class={'design-lab theme-' + concept.id}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="description" content={concept.idea} />
+    <title>{concept.name} · {view === 'home' ? '首页' : view === 'articles' ? '文章索引' : '文章阅读'} · 周尚礼</title>
+  </head>
+  <body data-design={concept.id} data-view={view}>
+    <a class="skip-link" href="#main-content">跳到正文</a>
+    <slot />
+    <footer class="lab-footer">
+      <a href={base + '/home'}>周尚礼 · 游戏开发与教学</a>
+      <span>{concept.name} / 设计原型</span>
+      <a href="/previews/">六案对比 ↗</a>
+    </footer>
+  </body>
+</html>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const category = button.dataset.filter;
+      document.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((item) => {
+        item.setAttribute('aria-pressed', String(item === button));
+      });
+      let count = 0;
+      document.querySelectorAll<HTMLElement>('[data-entry]').forEach((entry) => {
+        entry.hidden = category !== 'all' && entry.dataset.category !== category;
+        if (!entry.hidden) {
+          count += 1;
+        }
+      });
+      const status = document.querySelector('[data-results-status]');
+      if (status) {
+        status.textContent = '当前显示 ' + count + ' 篇文章';
+      }
+    });
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('[data-section-link]').forEach((link) => {
+          const current = link.getAttribute('href') === '#' + entry.target.id;
+          if (current) {
+            link.setAttribute('aria-current', 'location');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      }
+    });
+  }, { rootMargin: '-10% 0px -65% 0px' });
+  document.querySelectorAll('[data-section]').forEach((section) => observer.observe(section));
+</script>

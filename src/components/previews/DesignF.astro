@@ -1,0 +1,36 @@
+---
+import Shell from './Shell.astro';
+import ArticleBody from './ArticleBody.astro';
+import Filters from './Filters.astro';
+import type { DesignProps } from '../../data/design-content';
+const { concept, view, base, data } = Astro.props as DesignProps;
+---
+<Shell concept={concept} view={view}>
+  <header class="folio-header"><a class="brand" href={base + '/home'}>SHANGLI<br />ZHOU<span>周尚礼<br />游戏开发与教学</span></a><nav class="nav-links" aria-label="主导航"><a href={base + '/home'} aria-current={view === 'home' ? 'page' : undefined}>作品与我</a><a href={base + '/articles'} aria-current={view === 'articles' ? 'page' : undefined}>文字图录</a><a href={base + '/article'} aria-current={view === 'article' ? 'page' : undefined}>选页</a></nav><span class="folio-edition micro">FORM & PLAY<br />PERSONAL EDITION / 01</span></header>
+  <main id="main-content" class="folio-main">
+    {view === 'home' && <>
+      <section class="folio-cover"><div class="folio-cover-type"><p class="eyebrow">FORM AND PLAY / 钴蓝画册</p><h1>构造。<br /><span>游玩。</span><br />再思考。</h1><p class="lede">游戏开发者周尚礼的作品与研究。<br />在实现与体验之间，寻找更准确的表达。</p></div><a class="folio-cover-image" href={'/projects/' + data.projects[2].slug + '/'}><img src={data.projects[2].media.src} alt={data.projects[2].media.alt.zh} /><span class="micro">01 / {data.projects[2].title} · 前往正式项目 ↗</span></a><div class="folio-blue-leaf"><span class="micro">NOTES ON MAKING</span><p>把一个想法，<br />做成可被体验的世界。</p><a class="action" href={base + '/articles'}>翻阅文字图录 ↗</a></div></section>
+      <section class="folio-gallery-section" id="projects"><div class="section-title"><h2>作品 / Selected works</h2><div class="gallery-controls"><button type="button" data-gallery-prev aria-label="上一件作品">←</button><button type="button" data-gallery-next aria-label="下一件作品">→</button></div></div><div class="folio-gallery" tabindex="0" role="region" aria-label="作品画廊，可左右滚动">{data.projects.map((project, index) => <a class="project-link" href={'/projects/' + project.slug + '/'}><img src={project.media.src} alt={project.media.alt.zh} loading="lazy" /><span class="micro">0{index + 1} / 前往正式项目 ↗</span><h3>{project.title}</h3><p>{project.summary.zh}</p></a>)}</div></section>
+      <section class="folio-notes"><div><p class="eyebrow">WORDS / 制作之外</p><h2>图像之后，<br />还有文字。</h2><a class="action" href={base + '/articles'}>全部文字 →</a></div><div>{data.articles.slice(0, 3).map((item, index) => <article class="folio-note"><span class="micro">0{index + 1} / {item.categoryLabel}</span><h3><a href={item.sample ? base + '/article' : '/articles/' + item.id + '/'}>{item.title}</a></h3><span class="destination">{item.sample ? '本方案阅读示例 ↗' : '前往正式文章 ↗'}</span></article>)}</div></section>
+    </>}
+    {view === 'articles' && <><header class="folio-page-head"><p class="eyebrow">THE TEXT EDITION</p><h1>文字图录<span>。</span></h1><p class="lede">关于画面、工具与游戏体验的观察。</p></header><div class="folio-index-toolbar"><Filters data={data} /><div class="view-switch" role="group" aria-label="索引展示方式"><button type="button" data-view-mode="illustrated" aria-pressed="true">图文</button><button type="button" data-view-mode="compact" aria-pressed="false">紧凑</button></div></div><div class="folio-entries" data-entry-list>{data.articles.map((item, index) => <article class="folio-entry" data-entry data-category={item.category}><div class="folio-entry-plate" aria-hidden="true"><span>{String(index + 1).padStart(2, '0')}</span><i>{item.categoryLabel}</i></div><div><span class="micro">{item.categoryLabel}</span><h3><a href={item.sample ? base + '/article' : '/articles/' + item.id + '/'}>{item.title}</a></h3><p>{item.description}</p><span class="destination">{item.sample ? '本方案阅读示例 ↗' : '前往正式文章 ↗'}</span></div></article>)}</div></>}
+    {view === 'article' && <><header class="folio-article-head"><div class="folio-chapter-leaf"><span>ESSAY</span><strong>01</strong><span>图形渲染 / GRAPHICS</span></div><div><p class="eyebrow">READING THE FRAME</p><h1 class="article-title">{data.sample.title}</h1><p class="article-deck">{data.sample.description}</p></div></header><div class="folio-reading"><nav class="toc" aria-label="文章目录"><p class="micro">IN THIS ESSAY</p>{data.headings.map((heading, index) => <a href={'#' + heading.slug}><span>0{index + 1}</span> {heading.text}</a>)}</nav><ArticleBody data={data} /></div></>}
+  </main>
+</Shell>
+<script>
+  const gallery = document.querySelector<HTMLElement>('.folio-gallery');
+  gallery?.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+      event.preventDefault();
+      gallery.scrollBy({ left: gallery.clientWidth * .75 * (event.key === 'ArrowRight' ? 1 : -1) });
+    }
+  });
+  document.querySelector('[data-gallery-prev]')?.addEventListener('click', () => gallery?.scrollBy({ left: -gallery.clientWidth * .75 }));
+  document.querySelector('[data-gallery-next]')?.addEventListener('click', () => gallery?.scrollBy({ left: gallery.clientWidth * .75 }));
+  document.querySelectorAll<HTMLButtonElement>('[data-view-mode]').forEach((button) => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('[data-view-mode]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+      document.querySelector('.folio-entries')?.classList.toggle('is-compact', button.dataset.viewMode === 'compact');
+    });
+  });
+</script>
