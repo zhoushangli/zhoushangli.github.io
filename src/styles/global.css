@@ -40,7 +40,7 @@ html.portfolio[lang='en'] { --serif: Georgia, 'Times New Roman', serif; --sans: 
 .portfolio .section-label { margin-bottom: 16px; }
 .portfolio .section { padding: 58px 0; margin: 0; scroll-margin-top: 32px; }
 .portfolio .section-heading { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 14px 24px; margin-bottom: 30px; }
-.portfolio .section-major::before { content: ''; display: block; width: 100%; height: 2px; margin-bottom: 24px; background: linear-gradient(90deg,var(--accent) 0%,var(--accent) 70%,transparent 100%); }
+.portfolio .section-major::before { content: ''; display: block; width: 100%; height: 2px; margin-bottom: 24px; background: var(--accent); }
 .portfolio .section-heading > a { display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; color: var(--accent); }
 .portfolio .site-sidebar { position: fixed; inset: 0 auto 0 0; width: 242px; background: var(--sidebar); border-right: 1px solid var(--border); padding: 38px 25px 24px; z-index: 20; display: flex; flex-direction: column; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border) var(--sidebar); }
 .portfolio .site-brand { display: flex; align-items: center; min-height: 48px; gap: 13px; font: 23px/1.5 var(--serif); }
@@ -127,9 +127,15 @@ html.portfolio[lang='en'] { --serif: Georgia, 'Times New Roman', serif; --sans: 
 .portfolio .video-frame { position: relative; overflow: hidden; aspect-ratio: 16/9; border: 1px solid var(--border); background: var(--media-bg); }
 .portfolio .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .portfolio .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.portfolio main.home-page { --home-body-size: 18px; max-width: none; padding-inline: max(clamp(96px,7vw,112px),calc((100% - 242px - 1000px) / 2)); font-size: var(--home-body-size); }
+.portfolio .home-page :is(.hero-intro-text,.bio-copy p,.timeline-meta p,.timeline-copy p,.skills-list dd,.interests-copy p,.project-summary,.reading-card > p:not(.eyebrow)) { font-size: var(--home-body-size); line-height: 1.9; }
+.portfolio .home-page :is(.eyebrow,.section-label,.card-action) { font-size: 14px; }
+.portfolio .home-page :is(.skills-list dt,.contact-line) { font-size: 15px; }
+.portfolio .home-page :is(.timeline-date,.timeline-tech) { font-size: 14px !important; }
 @media (max-width:1200px) and (min-width:901px) {
   .portfolio .site-sidebar { width: 220px; padding: 30px 20px 22px; }
   .portfolio main, .portfolio .site-footer { margin-left: 220px; }
+  .portfolio main.home-page { padding-inline: 64px; }
   .portfolio .hero-intro { grid-template-columns: minmax(0,1.25fr) minmax(180px,.75fr); gap: 28px; min-height: 410px; }
   .portfolio .hero-title { font-size: 40px; }
   .portfolio .timeline-item { grid-template-columns: 75px minmax(0,1fr); gap: 24px; }
@@ -150,6 +156,7 @@ html.portfolio[lang='en'] { --serif: Georgia, 'Times New Roman', serif; --sans: 
   .portfolio .site-menu:not([open]) > :not(summary) { display: none; }
   .portfolio .site-navigation { border-top: 1px solid var(--border); padding-top: 10px; }
   .portfolio main { margin-left: 0; padding: 40px 28px 60px; }
+  .portfolio main.home-page { padding-inline: 28px; }
   .portfolio .site-footer { margin-left: 0; padding: 24px 28px; }
   .portfolio .hero-intro { min-height: 0; gap: 30px; grid-template-columns: minmax(0,1fr) minmax(180px,.65fr); padding-top: 10px; padding-bottom: 55px; }
   .portfolio .hero-title { font-size: 42px; }
@@ -160,6 +167,7 @@ html.portfolio[lang='en'] { --serif: Georgia, 'Times New Roman', serif; --sans: 
 @media (max-width:600px) {
   .portfolio body { font-size: 17px; }
   .portfolio main { padding: 35px 22px 55px; }
+  .portfolio main.home-page { --home-body-size: 17px; padding-inline: 22px; }
   .portfolio .site-footer { padding: 22px; }
   .portfolio .hero-intro { grid-template-columns: 1fr; gap: 35px; padding-bottom: 45px; }
   .portfolio .hero-title { font-size: 37px; }

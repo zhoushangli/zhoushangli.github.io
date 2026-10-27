@@ -33,7 +33,7 @@ const descriptions = typeof description === 'string' ? { zh: description, en: de
   <body>
     <a class="skip-link" href="#main-content" data-i18n-inline data-zh="跳到正文" data-en="Skip to content">跳到正文</a>
     {Astro.slots.has('sidebar') ? <Header><slot name="sidebar" /></Header> : <Header />}
-    <main id="main-content"><slot /></main>
+    <main id="main-content" class:list={{ 'home-page': Astro.url.pathname === '/' }}><slot /></main>
     <Footer />
     <script is:inline>
       (() => {

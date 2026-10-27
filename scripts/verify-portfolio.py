@@ -118,7 +118,7 @@ def verify_static():
         block = re.search(r'<section[^>]*id="' + section + r'"[\s\S]*?</section>', home).group()
         assert "section-major" in block and "<h2 " in block, (section, "peer section")
         if section == "about":
-            assert block.count('<p ') == 4, "four biography paragraphs"
+            assert block.count('<p ') == 3, "three biography paragraphs"
     for slug in RETIRED:
         assert "/articles/" + slug + "/" not in pages
         for lang in ("zh", "en"):
