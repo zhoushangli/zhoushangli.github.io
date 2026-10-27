@@ -28,12 +28,6 @@ export const gamejamSubmissions = [
     "cover": "/downloads/gamejam-2026/flip-the-grid.p8.png"
   },
   {
-    "fileName": "/downloads/gamejam-2026/the-director.p8",
-    "originalName": "game.p8",
-    "title": "The Director",
-    "sha256": "e138c8c757c8ac7c7c0b5ec42d84633256bdaf80fb031932061428c225d5273e"
-  },
-  {
     "fileName": "/downloads/gamejam-2026/lost.p8.png",
     "originalName": "lost.p8.png",
     "title": "Lost",
@@ -74,12 +68,6 @@ export const gamejamSubmissions = [
     "title": "Reverse Realm",
     "sha256": "446b46cdbc2fc7814a70a0c01ce9886d15c9de77e1c5f09ff7adeefb5ac0a469",
     "cover": "/downloads/gamejam-2026/reverse-realm.p8.png"
-  },
-  {
-    "fileName": "/downloads/gamejam-2026/reverse.p8",
-    "originalName": "REVERSE.p8",
-    "title": "REVERSE",
-    "sha256": "3834e81d33151578fddca1f1ab5b15592a2c5e88c70050409ca4aa839d3f15d9"
   },
   {
     "fileName": "/downloads/gamejam-2026/tenet.p8.png",

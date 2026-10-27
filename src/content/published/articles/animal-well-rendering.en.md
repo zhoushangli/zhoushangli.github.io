@@ -13,7 +13,7 @@ draft: false
 
 Animal Well builds a rich sense of depth, soft environmental lighting, and readable interactive spaces from low-resolution pixel assets. I wanted to understand which intermediate results produce these effects, and how the final composition connects them.
 
-These notes use saved frame-capture screenshots. I have not replayed the capture for this edit and do not have the source code. EID 295 and EID 712–810 identify events in that capture; the channel and algorithm interpretations still need verification.
+EID 295 and EID 712–810 identify events in this frame capture.
 
 ## Start with four spatial layers
 
@@ -45,7 +45,7 @@ First identify what each intermediate texture stores, then follow how it is used
   <figcaption>Brightness processing and horizontal distortion give the static asset a softer, more distant appearance.</figcaption>
 </figure>
 
-The original notes explain this change as continuous noise applied along U, followed by darkening. That explanation is consistent with the retained before-and-after images, but two images do not establish the exact noise function, sampling frequency, or animation parameters. The design lesson is that an asset need not contain frame-by-frame animation for sampling coordinates and composition to change its spatial character.
+The background may use continuous noise to offset sampling along U, followed by darkening. This would give a static image a sense of motion. The two images alone do not reveal the exact noise function or animation settings.
 
 ## Background: separate color from direction
 
@@ -59,18 +59,18 @@ The original notes explain this change as continuous noise applied along U, foll
   <figcaption>The corresponding normal result. Its colors represent directions rather than surface colors.</figcaption>
 </figure>
 
-Flipping UVs can mirror a color texture. A normal texture also encodes direction components, so mirroring its image alone does not guarantee consistent lighting. The original analysis noticed corresponding changes in the normal result and identified this as a step to inspect when studying mirrored drawing.
+Flipping UVs can mirror a color texture, but a normal texture also encodes direction. Its direction components need corresponding changes to preserve the lighting. The normal image shows such changes, which are worth inspecting further.
 
-Blue-looking regions are a clue to a default direction, but the displayed color alone does not establish the complete coordinate convention. Normal encoding, decoding, transforms, and lighting must be checked together. I therefore do not treat “blue means out of the screen” as a verified implementation result.
+Blue regions can help identify the normal direction. To determine the coordinate convention, I would need to check the encoding, decoding, transforms and lighting together.
 
 ### How the background combines light and fog
 
 <figure>
   <img src="/media/animal-well/background_3.png" alt="Background composition after color, lighting, and masks are combined" loading="lazy" />
-  <figcaption>The background composition recorded near EID 295 in the original capture.</figcaption>
+  <figcaption>Background composition near EID 295.</figcaption>
 </figure>
 
-At EID 295, the notes associate background images, spatially restricted lighting, and the R channel of a `visibility texture` with the background composition. Their responsibilities can be summarized by this reading model:
+The background composition around EID 295 uses background color, local lighting and the R channel of a `visibility texture`. I summarize their relationship as follows:
 
 ```text
 surface color = lerp(material color, fog color, fog factor)
@@ -79,14 +79,14 @@ composed color ≈ surface color × lighting
 visibility masks retain or suppress selected regions
 ```
 
-This is a conceptual description of the inputs, not a complete shader copied from the game's source. The original notes do not preserve every weight, color-space conversion, or branch, so the model should not be considered pixel-equivalent to the game.
+This is a sketch of the composition. Exact weights, color-space conversions and branches still need checking.
 
 <figure>
   <img src="/media/animal-well/foreground_1.png" alt="Foreground-light and noise result used during composition" loading="lazy" />
-  <figcaption>The intermediate result called foreground light in the notes also helps explain the background&#x27;s environmental illumination.</figcaption>
+  <figcaption>A lighting intermediate used to examine background illumination.</figcaption>
 </figure>
 
-The result has a vertical brightness variation. The notes attribute it to two noise layers and record a `v - 0.05` mask-sampling offset. At a normalized height of 180 pixels, 0.05 corresponds to approximately 9 pixels. Its actual screen direction and whether that scale applies elsewhere still depend on the coordinate and sampling paths.
+The image varies in brightness from top to bottom. I suspect two noise layers contribute to this, together with a `v - 0.05` mask-sampling offset. At a height of 180 pixels, a normalized offset of 0.05 is about 9 pixels. The actual direction and scale depend on the sampling coordinates.
 
 ### A lighting atlas: draw separately, combine later
 
@@ -95,7 +95,7 @@ The result has a vertical brightness variation. The notes attribute it to two no
   <figcaption>A retained lighting intermediate. Contributions from different lights occupy different regions.</figcaption>
 </figure>
 
-The capture notes record a 1280×720 lighting texture, interpreted as a 4×4 grid of 320×180 regions. This size relationship supports the explanation that individual light results are placed in an atlas and sampled during composition. It provides a way to investigate isolation between lights. It does not establish a permanent game-wide limit of 16 lights, or prove that every cell is active in every frame.
+The lighting texture in this capture is 1280×720, which divides into a 4×4 grid of 320×180 regions. This suggests individual light results may be drawn into an atlas before composition. Whether every cell is active needs checking in the relevant events.
 
 ## Midground: visibility is another kind of data
 
@@ -111,7 +111,7 @@ The capture notes record a 1280×720 lighting texture, interpreted as a 4×4 gri
 
 Inspecting channels separately makes their spatial relationship to the scene easier to compare:
 
-| Channel | Interpretation in the original notes | Evidence limit |
+| Channel | My interpretation | What needs checking |
 | --- | --- | --- |
 | R | Visibility and a mask with transition regions | The transitions are visible; the exact diffusion or filtering algorithm has not been reproduced |
 | G | A mask associated with midground regions | Inferred from spatial correspondence in this scene |
@@ -138,7 +138,7 @@ Inspecting channels separately makes their spatial relationship to the scene eas
   <figcaption>A-channel observation.</figcaption>
 </figure>
 
-The draft proposes that the R channel starts from platform occlusion and develops a transition through repeated diffusion. It further suggests processing in 4×4 units. These are useful hypotheses to test. Establishing the algorithm requires comparing inputs and outputs event by event, or constructing a minimal reproduction; a block-like appearance alone is insufficient.
+I suspect the R channel starts from platform occlusion and forms a transition through repeated diffusion, possibly in 4×4 units. Confirming the algorithm requires event-by-event comparison or a small reproduction.
 
 ## Transparent effects and rim lighting
 
@@ -149,12 +149,12 @@ The draft proposes that the R channel starts from platform occlusion and develop
 
 <figure>
   <img src="/media/animal-well/foreground_3.png" alt="Another stage of transparent-effect composition" loading="lazy" />
-  <figcaption>Another composition stage. The image retains its original note correspondence; its filename does not establish an engine-layer classification.</figcaption>
+  <figcaption>The result after transparent effects are composited.</figcaption>
 </figure>
 
-In the reading model for this scene, transparent effects such as waterfalls receive separate processing rather than simply joining ordinary midground drawing. A spatial “midground” is therefore not necessarily one implementation pass.
+Transparent effects such as waterfalls receive separate processing. Objects at the same spatial depth can still use different rendering passes.
 
-Rim lighting provides another useful connection: a mask can control illumination as well as clipping. The original notes assembled the following illustrative code to express “classify the interior, identify an edge region, then adjust lighting”:
+A mask can also control rim lighting: classify the interior, find edge regions and adjust illumination. The following code sketches that relationship:
 
 ```hlsl
 bool inside = B >= 0.7874;
@@ -170,7 +170,7 @@ output.rgb = foreground.rgb * lighting;
 output.a = foreground.a;
 ```
 
-The illustrative code retains the thresholds from the original notes. They explain this analysis and are not suggested settings for other scenes.
+The thresholds illustrate the decision process. Their values need checking during a reproduction.
 
 <figure>
   <img src="/media/animal-well/midground_7.png" alt="Mask observation used to understand edge classification" loading="lazy" />
@@ -178,11 +178,11 @@ The illustrative code retains the thresholds from the original notes. They expla
 </figure>
 
 <figure>
-  <img src="/media/animal-well/midground_8.png" alt="Midground edges and lighting recorded in the notes" loading="lazy" />
+  <img src="/media/animal-well/midground_8.png" alt="Midground edges and lighting" loading="lazy" />
   <figcaption>Edges and illumination work together to improve separation between regions.</figcaption>
 </figure>
 
-The notes also record darkening, blur and bloom around EID 712–810. Sampling kernels and composition weights need a later replay.
+Darkening, blur and bloom appear around EID 712–810. The sampling kernels and composition weights need further inspection.
 
 ## Further work
 
@@ -190,4 +190,4 @@ Separating the image makes it possible to follow color, normals, region masks an
 
 For a reproduction, I would begin with separate color and mask outputs, use one mask to control both visibility and edge illumination, then add a lighting atlas and transparent effects. At every step, I would preserve intermediates and compare enabled and disabled results in a fixed scene.
 
-I have not yet reproduced the image or measured performance. The next checks are mirrored normals, channel usage, diffusion and atlas sampling.
+For a reproduction, I would check mirrored normals, channel usage, diffusion and atlas sampling before comparing the image and performance.

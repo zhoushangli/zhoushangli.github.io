@@ -6,7 +6,7 @@ title: "PICO-8 L03: Objects and Levels"
 description: "Update game objects together and create level content from map markers."
 category: teaching
 tags: ["PICO-8", "Teaching practice"]
-draft: false
+draft: true
 ---
 
 ## Lesson content

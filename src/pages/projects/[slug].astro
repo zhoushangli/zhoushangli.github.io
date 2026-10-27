@@ -15,7 +15,7 @@ const duration = project.duration
   : undefined;
 ---
 <PortfolioLayout title={title} description={project.summary}>
-  <header class="page-intro">
+  <header class="page-intro project-intro">
     <a href="/projects/"><Text zh="← 作品" en="← Projects" /></a>
     <Text as="p" class="eyebrow" zh={project.category === 'personal' ? '个人项目' : '团队项目'} en={project.category === 'personal' ? 'Personal project' : 'Team project'} />
     <h1>{project.title}</h1><Text as="p" class="page-description" {...project.summary} /><Text as="p" class="showcase-tech" {...project.tech} />
@@ -34,10 +34,26 @@ const duration = project.duration
     </dl>
     <Text as="h2" zh="项目介绍" en="Overview" /><Text as="p" {...project.detail} />
     {project.category === 'team' && <><Text as="h2" zh="我的工作" en="My work" /><Text as="p" {...project.contribution} /></>}
-    {project.features?.length > 0 && <><Text as="h2" zh="主要功能" en="Features" /><ul>{project.features.map((feature) => <Text as="li" {...feature} />)}</ul></>}
+    {project.designNotes?.length > 0 && <div class="project-design">
+      <Text as="h2" zh="策划与关卡" en="Game and level design" />
+      {project.designNotes.map((note) => <><Text as="h3" {...note.title} /><Text as="p" {...note.body} /></>)}
+    </div>}
+    {project.renderingNotes?.length > 0 && <div class="project-rendering">
+      <Text as="h2" zh="自定义渲染管线" en="Custom rendering pipeline" />
+      {project.renderingNotes.map((note) => <><Text as="h3" {...note.title} /><Text as="p" {...note.body} /></>)}
+    </div>}
+    {project.features?.length > 0 && <><Text as="h2" zh={project.renderingNotes?.length ? '其他程序工作' : project.designNotes?.length ? '程序与技术美术' : '主要功能'} en={project.renderingNotes?.length ? 'Other programming work' : project.designNotes?.length ? 'Programming and technical art' : 'Features'} /><ul>{project.features.map((feature) => <Text as="li" {...feature} />)}</ul></>}
     {project.decisions?.length > 0 && <><Text as="h2" zh="实现" en="Implementation" /><ul>{project.decisions.map((decision) => <Text as="li" {...decision} />)}</ul></>}
     {project.limitations?.length > 0 && <><Text as="h2" zh="开发进展" en="Development notes" /><ul>{project.limitations.map((limit) => <Text as="li" {...limit} />)}</ul></>}
   </section>
   {project.embedVideo && <section class="section"><Text as="h2" zh="项目演示" en="Project demonstration" /><div class="video-frame"><iframe src={project.embedVideo.src} title={project.embedVideo.title.zh} data-i18n-inline-title data-zh={project.embedVideo.title.zh} data-en={project.embedVideo.title.en} loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen /></div></section>}
   {articles.length > 0 && <section class="section"><Text as="h2" zh="相关专题" en="Related studies" /><div class="reading-grid">{articles.map((pair) => <ContentCard pair={pair} />)}</div></section>}
+  {project.developmentLogs?.length > 0 && <section class="section">
+    <Text as="h2" zh="开发记录" en="Development logs" />
+    <div class="development-logs">{project.developmentLogs.map((log) => <a href={log.href} target="_blank" rel="noreferrer">
+      <time datetime={log.date}>{log.date.slice(5).replace('-', '.')}</time>
+      <Text class="log-title" {...log.label} />
+      <span class="log-arrow" aria-hidden="true">↗</span>
+    </a>)}</div>
+  </section>}
 </PortfolioLayout>

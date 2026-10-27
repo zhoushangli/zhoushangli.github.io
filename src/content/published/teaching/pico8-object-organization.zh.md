@@ -6,7 +6,7 @@ title: "PICO-8 对象管理案例"
 description: "用 table 保存物体数据，创建多个实例并统一更新。"
 category: teaching
 tags: ["PICO-8", "教学实践"]
-draft: false
+draft: true
 ---
 
 ## 用一个实际问题引入结构

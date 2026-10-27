@@ -14,13 +14,19 @@ const teaching = await getContentPairs('teaching');
 const selectedArticles = ['animal-well-rendering', 'sifu-combat-analysis'].map((id) => articles.find((pair) => pair.zh.data.contentId === id)).filter(Boolean);
 const selectedTeaching = ['pico8-2026', 'pico8-game-jam'].map((id) => teaching.find((pair) => pair.zh.data.contentId === id)).filter(Boolean);
 
+const skills = [
+  { title: { zh: '程序与引擎', en: 'Programming & engines' }, body: { zh: 'C++ · C# · DirectX 11 · 自研引擎 · 编辑器开发', en: 'C++ · C# · DirectX 11 · Custom engines · Editor development' } },
+  { title: { zh: '引擎与技术', en: 'Engines & technology' }, body: { zh: 'Godot 源代码阅读 · Unity · Unreal Engine · Shader · PCG', en: 'Godot source-code reading · Unity · Unreal Engine · Shaders · PCG' } },
+  { title: { zh: '设计与测试', en: 'Design & testing' }, body: { zh: '玩法设计 · 关卡设计 · Playtest', en: 'Gameplay design · Level design · Playtesting' } },
+  { title: { zh: '组织与培训', en: 'Organization & training' }, body: { zh: '社团活动组织 · PICO-8 · 入门培训 · Gamejam', en: 'Game-club event organization · PICO-8 · Introductory training · Game jams' } },
+];
 ---
 <PortfolioLayout>
   <section class="hero hero-intro" id="intro">
     <div class="hero-copy">
-      <Text as="p" class="eyebrow" zh="周尚礼 · 游戏开发与教学" en="ShangLi Zhou · Game development & teaching" />
-      <Text as="h1" class="hero-title" zh="你好，我是周尚礼" en="Hi, I'm ShangLi Zhou" />
-      <Text as="p" class="hero-intro-text" zh="我目前在 SMU Guildhall 学习游戏开发。平时写引擎、做游戏，也给游戏社的新同学讲 PICO-8。" en="I study game development at SMU Guildhall. I write engines, make games and teach PICO-8 to new game-club members." />
+      <Text as="h1" class="hero-title" zh="您好，我是周尚礼" en="Hello, I'm ShangLi Zhou" />
+      <Text as="p" class="hero-subtitle" zh="我开发游戏！" en="I make games!" />
+      <Text as="p" class="hero-intro-text" zh="我目前在 SMU Guildhall 学习游戏开发。平时写引擎、做游戏，也给游戏社的新同学做做培训。" en="I study game development at SMU Guildhall. I write engines, make games and help train new game-club members." />
       <p class="contact-line"><Text zh="联系邮箱：" en="Email: " /><a href="mailto:185600557@qq.com">185600557@qq.com</a></p>
     </div>
     <figure class="hero-portrait">
@@ -28,22 +34,37 @@ const selectedTeaching = ['pico8-2026', 'pico8-game-jam'].map((id) => teaching.f
       <figcaption>周尚礼 / SHANGLI ZHOU</figcaption>
     </figure>
   </section>
-  <div id="about">
-    <div class="section-heading experience-heading"><Text as="h2" zh="个人经历" en="Experience" /><a href="/experience/"><Text zh="查看独立页面 →" en="View experience page →" /></a></div>
-    <ExperienceTimeline />
-  </div>
+  <section class="section section-major about-profile" id="about">
+    <Text as="h2" zh="个人经历" en="Experience" />
+    <div class="about-profile-grid">
+      <div class="copy-block bio-copy">
+        <Text as="p" zh="我本科就读于上海科技大学计算机科学专业，目前在 SMU Guildhall 学习游戏开发，预计于 2027 年 5 月毕业。我使用 C++ 开发 Ming 引擎，也在 Godot、Unity 和 Unreal Engine 中参与独立与团队游戏制作。" en="I studied computer science at ShanghaiTech University and now study game development at SMU Guildhall, with graduation expected in May 2027. I develop the Ming engine in C++ and work on independent and team games in Godot, Unity and Unreal Engine." />
+        <Text as="p" zh="我的主要方向是游戏程序，也学习玩法、视觉和制作工具。我希望逐步理解游戏制作中的整体判断，长期目标是成为游戏制作人。" en="My main focus is game programming. I also study gameplay, visuals and production tools, with a long-term goal of becoming a game producer." />
+        <Text as="p" zh="我也面向游戏社新成员主讲 PICO-8 开发入门课程，通过讲解、跟随操作、答疑和习题帮助大家开始创作。课程后的一周 Game Jam 为同学们提供了实践与展示作品的机会。" en="I also teach introductory PICO-8 development to new game-club members through explanations, live coding, Q&A and exercises. A subsequent one-week game jam offered participants an opportunity to practice and share their work." />
+        <Text as="p" zh="在程序之外，我学习关卡设计，写过《奥日与萤火意志》和《蔚蓝》的关卡拆解，也复刻过《神秘海域4》的关卡，以理解节奏、空间、移动路径和遭遇设计。" en="Beyond programming, I study level design. I have written breakdowns of Ori and the Will of the Wisps and Celeste, and recreated a level from Uncharted 4 to study pacing, space, traversal and encounter design." />
+      </div>
+    </div>
+  </section>
+  <ExperienceTimeline />
+  <section class="section section-major" id="skills">
+    <Text as="h2" zh="技能" en="Skills" />
+    <dl class="skills-list">{skills.map((skill) => <div>
+      <Text as="dt" {...skill.title} />
+      <Text as="dd" {...skill.body} />
+    </div>)}</dl>
+  </section>
   <div id="projects">
-  {(['personal','team'] as const).map((category) => <section class="section showcase-section" id={category === 'personal' ? 'personal-projects' : 'team-projects'}>
+  {(['personal','team'] as const).map((category) => <section class="section section-major showcase-section" id={category === 'personal' ? 'personal-projects' : 'team-projects'}>
     <div class="section-heading"><Text as="h2" zh={category === 'personal' ? '个人项目' : '团队项目'} en={category === 'personal' ? 'Personal projects' : 'Team projects'} /><a href="/projects/"><Text zh="全部项目 →" en="All projects →" /></a></div>
     <div class="showcase-list">{getProjectsByCategory(category).map((project, index) => <ProjectCard project={project} index={index} />)}</div>
   </section>)}
   </div>
-  <section class="section" id="articles"><div class="section-heading"><Text as="h2" zh="笔记" en="Notes" /><a href="/articles/"><Text zh="全部笔记 →" en="All notes →" /></a></div><div class="reading-grid">{selectedArticles.map((pair) => pair && <ContentCard pair={pair} />)}</div></section>
-  <section class="section" id="teaching"><div class="section-heading"><Text as="h2" zh="教学" en="Teaching" /><a href="/teaching/"><Text zh="课程与作品展 →" en="Courses & submissions →" /></a></div><div class="reading-grid">{selectedTeaching.map((pair) => pair && <ContentCard pair={pair} />)}</div></section>
+  <section class="section section-major" id="articles"><div class="section-heading"><Text as="h2" zh="笔记" en="Notes" /><a href="/articles/"><Text zh="全部笔记 →" en="All notes →" /></a></div><div class="reading-grid">{selectedArticles.map((pair) => pair && <ContentCard pair={pair} />)}</div></section>
+  <section class="section section-major" id="teaching"><div class="section-heading"><Text as="h2" zh="教学" en="Teaching" /><a href="/teaching/"><Text zh="课程与作品展 →" en="Courses & submissions →" /></a></div><div class="reading-grid">{selectedTeaching.map((pair) => pair && <ContentCard pair={pair} />)}</div></section>
 
-	<section class="section interests-section" id="interests">
-		<p class="section-label" data-i18n-inline data-en="Personal Interests" data-zh="个人兴趣">个人兴趣</p>
-		<h2 data-i18n-inline data-en="Beyond Game Development" data-zh="游戏开发之外">游戏开发之外</h2>
+	<section class="section section-major interests-section" id="interests">
+		<h2 data-i18n-inline data-en="Personal Interests" data-zh="个人兴趣">个人兴趣</h2>
+		<p class="section-label" data-i18n-inline data-en="Beyond Game Development" data-zh="游戏开发之外">游戏开发之外</p>
 		<div class="interests-grid">
 			<figure class="interests-media">
 				<Image

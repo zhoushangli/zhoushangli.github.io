@@ -6,7 +6,7 @@ title: "PICO-8 Object Management Example"
 description: "Group object data in tables, create multiple instances and update them together."
 category: teaching
 tags: ["PICO-8", "Teaching practice"]
-draft: false
+draft: true
 ---
 
 ## Introduce structure through a concrete problem

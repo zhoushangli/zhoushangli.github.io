@@ -6,7 +6,7 @@ title: "PICO-8 L02：调试、移动与动画"
 description: "检查跳跃问题，整理移动函数，并根据状态切换动画。"
 category: teaching
 tags: ["PICO-8", "教学实践"]
-draft: false
+draft: true
 ---
 
 ## 从已经能动的程序开始

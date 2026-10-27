@@ -6,7 +6,7 @@ title: "PICO-8 A02：打砖块练习（二）"
 description: "参考教程第 6—12 部分继续开发，说明新增内容和遇到的问题。"
 category: teaching
 tags: ["PICO-8", "教学实践"]
-draft: false
+draft: true
 ---
 
 ## 作业内容

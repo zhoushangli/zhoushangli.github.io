@@ -6,7 +6,7 @@ title: "PICO-8 Intro：课程介绍"
 description: "介绍 PICO-8 和课程安排，练习保存、加载与运行卡带。"
 category: teaching
 tags: ["PICO-8", "教学实践"]
-draft: false
+draft: true
 ---
 
 ## 课程安排

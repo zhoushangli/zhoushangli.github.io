@@ -6,14 +6,9 @@ import { getContentPairs, teachingOrder } from '../../data/content';
 const pairs = await getContentPairs('teaching');
 pairs.sort((a, b) => teachingOrder.indexOf(a.zh.data.contentId) - teachingOrder.indexOf(b.zh.data.contentId));
 const title = { zh: '教学', en: 'Teaching' };
-const description = { zh: '面向游戏社新成员的 PICO-8 入门培训：四次课程、跟随操作、课后答疑与习题课，并衔接一周 Game Jam。', en: 'PICO-8 training for new game-club members: four sessions with live coding, follow-up Q&A and exercise sessions, followed by a one-week game jam.' };
+const description = { zh: 'Pico8 入社培训与 Gamejam 作品展。', en: 'PICO-8 training for new members and a game jam showcase.' };
 ---
 <PortfolioLayout title={title} description={description}>
 	<header class="page-intro"><Text as="h1" {...title} /><Text as="p" class="page-description" {...description} /></header>
-	<div class="teaching-stats">
-		<Text as="p" zh="4 次课程 · 每次约 90 分钟" en="4 sessions · about 90 minutes each" />
-		<Text as="p" zh="每次十余人 · 讲解与跟随操作" en="Around a dozen attendees per session · explanation & live coding" />
-		<Text as="p" zh="课后答疑与习题课 · 一周 Game Jam" en="Follow-up Q&A & exercise sessions · one-week game jam" />
-	</div>
 	<div class="reading-grid">{pairs.map((pair) => <ContentCard pair={pair} />)}</div>
 </PortfolioLayout>

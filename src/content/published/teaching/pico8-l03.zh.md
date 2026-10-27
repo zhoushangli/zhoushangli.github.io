@@ -6,7 +6,7 @@ title: "PICO-8 L03：对象管理与关卡"
 description: "统一更新游戏对象，根据地图标记创建关卡内容。"
 category: teaching
 tags: ["PICO-8", "教学实践"]
-draft: false
+draft: true
 ---
 
 ## 本课内容

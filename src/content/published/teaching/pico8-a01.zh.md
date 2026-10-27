@@ -6,7 +6,7 @@ title: "PICO-8 A01：打砖块练习（一）"
 description: "参考教程第 1—5 部分，完成小球移动、边缘碰撞和声音。"
 category: teaching
 tags: ["PICO-8", "教学实践"]
-draft: false
+draft: true
 ---
 
 ## 作业内容

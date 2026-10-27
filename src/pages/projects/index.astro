@@ -9,7 +9,7 @@ const description = { zh: '个人引擎、独立游戏与团队制作：项目�
 <PortfolioLayout title={title} description={description}>
 	<header class="page-intro"><Text as="h1" {...title} /><Text as="p" class="page-description" {...description} /></header>
 	{(['personal', 'team'] as const).map((category) => (
-		<section class="section">
+		<section class="section section-major">
 			<Text as="h2" zh={category === 'personal' ? '个人项目' : '团队项目'} en={category === 'personal' ? 'Personal projects' : 'Team projects'} />
 			<div class="showcase-list">{getProjectsByCategory(category).map((project, index) => <ProjectCard project={project} index={index} />)}</div>
 		</section>

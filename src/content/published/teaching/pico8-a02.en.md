@@ -6,7 +6,7 @@ title: "PICO-8 A02: Breakout Exercise 2"
 description: "Continue with tutorial parts 6–12 and explain additions and unresolved problems."
 category: teaching
 tags: ["PICO-8", "Teaching practice"]
-draft: false
+draft: true
 ---
 
 ## Assignment

@@ -37,6 +37,9 @@ export interface Project {
 		en: string;
 		zh: string;
 	};
+	renderingNotes?: { title: { zh: string; en: string }; body: { zh: string; en: string } }[];
+	designNotes?: { title: { zh: string; en: string }; body: { zh: string; en: string } }[];
+	developmentLogs?: { date: string; href: string; label: { zh: string; en: string } }[];
 	features?: {
 		en: string;
 		zh: string;
@@ -77,8 +80,8 @@ export const projects: Project[] = [
 		category: 'personal',
 		title: 'MingEngine',
 		summary: {
-			en: 'A 3D game engine and editor I am building in C++ and DirectX 11, with Godot-inspired nodes and resources and C#/.NET scripting.',
-			zh: '我用 C++ 和 DirectX 11 开发的 3D 游戏引擎与编辑器，参考了 Godot 的节点和资源系统，支持 C#/.NET 脚本。',
+			en: 'A custom 3D game engine and editor I am building in C++, with DirectX 11 rendering and C#/.NET scripting.',
+			zh: '我用 C++ 自研的 3D 游戏引擎与编辑器，使用 DirectX 11 渲染，支持 C#/.NET 脚本。',
 		},
 		detail: {
 			en: 'MingEngine is a custom 3D game engine and editor built around a reusable C++ runtime. I developed a Godot-inspired node and scene architecture, a DirectX 11 rendering backend, and editor tools for importing assets, authoring scenes, inspecting properties and running gameplay. The current code integrates C# through .NET and introduces native CanvasItem/Control UI alongside the existing ImGui tooling.',
@@ -94,8 +97,8 @@ export const projects: Project[] = [
 			zh: '独立引擎开发者',
 		},
 		tech: {
-			en: 'C++ | DirectX 11 | C# / .NET',
-			zh: 'C++ | DirectX 11 | C# / .NET',
+			en: 'Custom engine | C++ | DirectX 11',
+			zh: '自研引擎 | C++ | DirectX 11',
 		},
 		features: [
 			{
@@ -142,28 +145,28 @@ export const projects: Project[] = [
   "detailLayout": "stacked",
   "title": "SpectreX",
   "summary": {
-    "zh": "使用 Godot 与 C# 制作的团队光学解谜游戏，围绕光路、颜色和机关设计谜题。",
-    "en": "A team-made optical puzzle game built with Godot and C#, with puzzles based on light paths, colors and mechanisms."
+    "zh": "一款结合光学解谜的类银河恶魔城游戏。我担任策划，负责全部三章的关卡设计，并参与程序和技术美术。",
+    "en": "A Metroidvania with optical puzzles. I was the designer for all three chapters and also contributed programming and technical art."
   },
   "detail": {
-    "zh": "SpectreX 围绕光路、颜色与场景交互构建谜题。当前项目包含光线求解、镜面与插槽交互、感光器、分层渲染，以及房间、存档和 UI 服务。我在团队中参与技术美术、程序与策划。",
-    "en": "SpectreX builds puzzles around light paths, color and environmental interaction. The current project includes light solving, mirrors and sockets, sensors, layered rendering, and room, save and UI services. My role spans technical art, programming and game design."
+    "zh": "SpectreX 由团队使用 Godot 与 C# 制作，围绕光路、颜色与场景交互设计谜题。玩家通过反射、分光和合光操作机关，在相互连接的场景中探索。",
+    "en": "SpectreX is a team project built with Godot and C#. Puzzles use light paths, colors and environmental interactions. Players reflect, split and combine light to operate mechanisms and explore connected spaces."
   },
   "contribution": {
-    "zh": "在团队中承担技术美术、程序与策划工作，参与光学交互与视觉呈现之间的整合，并维护相关实现与制作流程。",
-    "en": "I work across technical art, programming and game design, contributing to the integration of optical interactions and visual presentation and supporting the associated implementation and production workflow."
+    "zh": "我负责全部三章的关卡设计，并参与玩法简化、程序和技术美术。开发期间，我全程观察了约 10 小时的深度试玩，与测试者一起复盘，并根据反馈调整关卡。",
+    "en": "I designed the levels across all three chapters and contributed to simplifying the mechanics, programming and technical art. During development, I closely observed about 10 hours of in-depth playtesting, reviewed the levels with testers and revised them based on feedback."
   },
   "role": {
-    "zh": "技术美术 · 程序 · 策划",
-    "en": "Technical artist · programmer · designer"
+    "zh": "策划 · 程序 · 技术美术",
+    "en": "Game designer · programmer · technical artist"
   },
   "tech": {
     "zh": "Godot | C#",
     "en": "Godot | C#"
   },
   "platform": {
-    "zh": "桌面端 · Godot GL Compatibility",
-    "en": "Desktop · Godot GL Compatibility"
+    "zh": "桌面端 · Godot",
+    "en": "Desktop · Godot"
   },
   "status": {
     "zh": "团队制作项目",
@@ -179,15 +182,9 @@ export const projects: Project[] = [
       "en": "Schedule light-path updates with dirty flags and solving budgets."
     },
     {
-      "zh": "以多组 SubViewport、遮罩、法线和发光层组织像素场景的渲染。",
-      "en": "Organize pixel-scene rendering with SubViewports, masks, normals and emission layers."
-    },
-    {
       "zh": "使用房间、存档、UI 与编辑器插件支持内容制作。",
       "en": "Support content production with room, save and UI services and editor plugins."
-    }
-  ],
-  "decisions": [
+    },
     {
       "zh": "区分真实的机关激活条件与用于阅读场景的视觉反馈状态。",
       "en": "Separate actual mechanism activation from visual feedback used to read the scene."
@@ -197,6 +194,7 @@ export const projects: Project[] = [
       "en": "Keep optical solving separate from image compositing so gameplay state and presentation can be maintained independently."
     }
   ],
+  "decisions": [],
   "limitations": [],
   "relatedArticles": [],
   "externalLink": {
@@ -216,12 +214,139 @@ export const projects: Project[] = [
   "media": {
     "type": "image",
     "src": "/media/projects/spectrex-cover.jpg",
-    "caption": { "zh": "SpectreX 宣传封面", "en": "SpectreX promotional cover" },
+    "caption": {
+      "zh": "SpectreX 宣传封面",
+      "en": "SpectreX promotional cover"
+    },
     "alt": {
       "zh": "SpectreX 彩色标题与像素风场景",
       "en": "The SpectreX title in rainbow colors over a pixel-art scene"
     }
-  }
+  },
+  "designNotes": [
+    {
+      "title": {
+        "zh": "章节与关卡设计",
+        "en": "Chapters and levels"
+      },
+      "body": {
+        "zh": "我先确定章节整体的行进方式，再安排房间里的教学、挑战和变化。第一章围绕下落与返回展开，第三章围绕光路回环组织关卡。各个房间的小动态与章节整体的大动态配合。",
+        "en": "I planned the overall movement through each chapter before designing individual rooms for teaching, challenges and variations. The first chapter centers on descent and return; the third uses looping light paths. Each room supports the larger movement of the chapter."
+      }
+    },
+    {
+      "title": {
+        "zh": "玩法简化",
+        "en": "Simplifying the mechanics"
+      },
+      "body": {
+        "zh": "我将原先 16 个光的频率简化为 3 个，并通过明确的分光镜和合光镜组织玩法，让光路规则更容易理解，也方便围绕有限规则设计谜题。",
+        "en": "I simplified the original 16 light frequencies to three and organized the mechanics around explicit light-splitting and combining devices. This made the rules easier to understand and gave level design a smaller set of mechanics to combine."
+      }
+    },
+    {
+      "title": {
+        "zh": "试玩与关卡调整",
+        "en": "Playtesting and iteration"
+      },
+      "body": {
+        "zh": "我邀请同学进行多轮深度试玩，让他们边玩边说出自己的想法，并全程观察约 10 小时。测试结束后，我们一起重走关卡，复盘卡住的位置和当时的判断。早期部分关卡难度过高，原本安排在第二章的内容后来移到了第三章。测试也暴露了背景被误认为平台、出口藏在暗处等引导问题。",
+        "en": "I invited classmates to multiple in-depth playtests and asked them to think aloud, closely observing about 10 hours in total. Afterwards, we walked through the levels again to discuss where they got stuck and what they had expected. Some early levels were too difficult, so content originally planned for chapter two moved to chapter three. Testing also revealed misleading background platforms and exits hidden in darkness."
+      }
+    }
+  ],
+  "developmentLogs": [
+    {
+      "date": "2026-10-03",
+      "href": "https://www.taptap.cn/moment/855777399978066391",
+      "label": {
+        "zh": "第一周开发日志",
+        "en": "Week one"
+      }
+    },
+    {
+      "date": "2026-10-07",
+      "href": "https://www.taptap.cn/moment/857245166883311389",
+      "label": {
+        "zh": "第二周开发日志",
+        "en": "Week two"
+      }
+    },
+    {
+      "date": "2026-10-11",
+      "href": "https://www.taptap.cn/moment/858659679956370829",
+      "label": {
+        "zh": "第二周开发日志",
+        "en": "Week two"
+      }
+    },
+    {
+      "date": "2026-10-18",
+      "href": "https://www.taptap.cn/moment/861213861250862698",
+      "label": {
+        "zh": "第三周开发日志",
+        "en": "Week three"
+      }
+    },
+    {
+      "date": "2026-10-20",
+      "href": "https://www.taptap.cn/moment/861635509066140433",
+      "label": {
+        "zh": "第三周开发日志",
+        "en": "Week three"
+      }
+    },
+    {
+      "date": "2026-10-24",
+      "href": "https://www.taptap.cn/moment/863177748976239312",
+      "label": {
+        "zh": "开发总结",
+        "en": "Development retrospective"
+      }
+    }
+  ],
+  "renderingNotes": [
+    {
+      "title": {
+        "zh": "分层采集与多阶段合成",
+        "en": "Layer capture and staged composition"
+      },
+      "body": {
+        "zh": "我基于 Godot 的 SubViewport 和 CanvasItem Shader 搭建了多阶段 2D 渲染管线。场景按远景、背景、中景和前景分别采集，先完成各层的处理，再通过 Composite A/B/C 逐步合成。这让我可以控制光带、透明物体和普通场景层之间的先后关系。",
+        "en": "I built a multi-stage 2D rendering pipeline using Godot SubViewports and CanvasItem shaders. Far background, background, midground and foreground are captured separately, processed, then combined through Composite A/B/C. This gives me control over the order of light beams, transparent objects and ordinary scene layers."
+      }
+    },
+    {
+      "title": {
+        "zh": "分开处理颜色与材质数据",
+        "en": "Separate color and material data"
+      },
+      "body": {
+        "zh": "透明物体分别输出颜色覆盖、法线与粗糙度，再读取前一阶段的场景颜色进行扭曲和模糊，最后恢复自身颜色与高光。中景和前景各有处理阶段，可以使用不同的背景输入。背景光照也单独采集法线与局部光源，再结合环境光、Glow 和负光合成。",
+        "en": "Transparent objects output color coverage, normals and roughness separately. Their passes sample the preceding scene color for distortion and blur, then restore surface color and highlights. Midground and foreground have separate stages with different scene inputs. Background lighting also captures normals and local lights separately before combining them with ambient light, glow and negative light."
+      }
+    },
+    {
+      "title": {
+        "zh": "分层自发光与后处理",
+        "en": "Layered emission and post-processing"
+      },
+      "body": {
+        "zh": "自发光按背景、中景透明、中景、前景透明和前景分别采集，并结合普通场景层的覆盖关系合成。合成后的可见发光统一生成光晕，再与场景颜色叠加。之后依次处理可见性、渐变调色和颜色调整，让遮挡、光晕与最终色彩各有明确的位置。",
+        "en": "Emission is captured separately for background, transparent midground, midground, transparent foreground and foreground. It is composited using the coverage of ordinary scene layers, then blurred into a shared glow and added to scene color. Visibility, gradient color filtering and color adjustment follow, giving occlusion, glow and final color distinct stages."
+      }
+    },
+    {
+      "title": {
+        "zh": "管线调度与配置分工",
+        "en": "Scheduling and configuration"
+      },
+      "body": {
+        "zh": "RenderService 负责管线生命周期、当前场景接入和配置切换；RenderPipeline 负责中间纹理连接、视口依赖顺序、启停与最终输出。具体效果放在对应 ShaderMaterial 和配置资源中。采集阶段跟随场景相机，处理与合成阶段使用屏幕坐标；运行时还可以保存材质参数、重载背景配置，便于调试画面。",
+        "en": "RenderService handles pipeline lifetime, current-scene integration and configuration changes. RenderPipeline connects intermediate textures, orders viewport dependencies and controls activation and output. Effects are authored in their ShaderMaterials and configuration resources. Capture follows the scene camera while processing and composition use screen coordinates. Runtime material saving and background-configuration reloading support visual tuning."
+      }
+    }
+  ]
 },
 	{
 		slug: 'doomenstein',
@@ -233,12 +358,12 @@ export const projects: Project[] = [
 		category: 'personal',
 		title: 'Doomenstein',
 		summary: {
-			en: 'A retro 3D first-person shooter I developed independently, with eight-direction sprites and local two-player support.',
-			zh: '我独立开发的复古 3D 第一人称射击游戏，使用八方向精灵，支持本地双人。',
+			en: 'A retro 3D first-person shooter built on my own C++ engine, with eight-direction sprites and local two-player support.',
+			zh: '基于自研 C++ 引擎制作的复古 3D 第一人称射击游戏，使用八方向精灵，支持本地双人。',
 		},
 		detail: {
-			en: 'Doomenstein began as a retro-style 3D first-person shooter using 8-direction sprites, with local multiplayer support for up to two players using keyboard/mouse or Xbox controllers. I later expanded it with OBJ model loading, simple IK, a post-processing chain, CPU quad particles, volumetric clouds, emissive textures, and a hell-themed environment, turning it into a small but complete doomlike shooter prototype.',
-			zh: '《末日迷宫》（Doomenstein）最初是一款复古风格的 3D 第一人称射击游戏，使用 8 面精灵图表现角色朝向，并支持最多 2 名玩家通过键盘鼠标或 Xbox 手柄进行本地多人游玩。随后我为项目加入了 OBJ 3D 模型加载、简易 IK、后处理链、CPU quad 粒子、体积云、自发光贴图和地狱风格场景，将它扩展成一个简单但完整的 doomlike 地狱射击游戏原型。',
+			en: 'Built on my own C++ engine, Doomenstein began as a retro-style 3D first-person shooter using 8-direction sprites, with local multiplayer support for up to two players using keyboard/mouse or Xbox controllers. I later expanded it with OBJ model loading, simple IK, a post-processing chain, CPU quad particles, volumetric clouds, emissive textures, and a hell-themed environment, turning it into a small but complete doomlike shooter prototype.',
+			zh: '《末日迷宫》（Doomenstein）基于我的自研 C++ 引擎开发，最初是一款复古风格的 3D 第一人称射击游戏，使用 8 面精灵图表现角色朝向，并支持最多 2 名玩家通过键盘鼠标或 Xbox 手柄进行本地多人游玩。随后我为项目加入了 OBJ 3D 模型加载、简易 IK、后处理链、CPU quad 粒子、体积云、自发光贴图和地狱风格场景，将它扩展成一个简单但完整的 doomlike 地狱射击游戏原型。',
 		},
 		contribution: {
 			en: 'As the solo developer, I built the node-style gameplay framework, rendering features, input and controller support, local multiplayer, enemy behavior, IK, particles, post-processing, and hell-themed scene content.',
@@ -250,8 +375,8 @@ export const projects: Project[] = [
 			zh: '独立开发',
 		},
 		tech: {
-			en: 'C++ | DirectX 11',
-			zh: 'C++ | DirectX 11',
+			en: 'Custom engine | C++ | DirectX 11',
+			zh: '自研引擎 | C++ | DirectX 11',
 		},
 		features: [
 			{

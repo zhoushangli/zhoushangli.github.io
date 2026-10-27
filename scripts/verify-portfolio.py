@@ -48,6 +48,8 @@ class MainContent(HTMLParser):
             self.inside = False
 
 
+RETIRED_TEACHING = ("pico8-intro", "pico8-l01", "pico8-l02", "pico8-l03", "pico8-a01", "pico8-a02", "pico8-object-organization")
+
 RETIRED = ("ming-scene-resources", "ming-csharp-bridge", "ming-gui-input", "spectrex-light-gameplay", "spectrex-rendering")
 
 
@@ -57,7 +59,7 @@ def verify_static():
         for path in (REPO / "dist").rglob("index.html")
         if not path.relative_to(REPO / "dist").as_posix().startswith("previews/")
     }
-    assert len(pages) == 21 and "/experience/" in pages, sorted(pages)
+    assert len(pages) == 13 and "/experience/" not in pages, sorted(pages)
     parsed = {}
     local_links = assets = anchors = captions = 0
     for route, path in pages.items():
@@ -70,9 +72,11 @@ def verify_static():
         assert len(all_ids) == len(set(all_ids)), (route, "duplicate document IDs")
         assert "???" not in source and "\ufffd" not in source, (route, "encoding")
         assert not any("/articles/" + slug in source for slug in RETIRED), (route, "retired reference")
+        assert not any("/teaching/" + slug + "/" in source for slug in RETIRED_TEACHING), (route, "retired teaching reference")
         main_navigation = re.search(r'<nav class="site-navigation"[^>]*>(.*?)</nav>', source, re.S).group(1)
         assert re.findall(r'href="([^"]+)"', main_navigation) == ["/", "/projects/", "/articles/", "/teaching/"]
         assert "secondary-navigation" in source
+        assert '/experience/' not in source, (route, "retired experience link")
         for tag, attrs in parser.nodes:
             if "showcase-tech" in attrs.get("class", "").split():
                 for language in ("zh", "en"):
@@ -105,16 +109,24 @@ def verify_static():
                         assert unquote(url.fragment) in target_parser.ids, (route, value, "missing anchor")
                         anchors += 1
     home = pages["/"].read_text(encoding="utf-8")
-    experience = pages["/experience/"].read_text(encoding="utf-8")
-    for section in ("education", "experience"):
-        pattern = r'<section[^>]*id="' + section + r'"[\s\S]*?</section>'
-        assert re.search(pattern, home).group() == re.search(pattern, experience).group(), (section, "experience drift")
-    order = [home.index('id="' + section + '"') for section in ("intro", "about", "education", "experience", "projects", "articles", "teaching", "interests")]
+    chapters = ("intro", "about", "education", "experience", "skills", "personal-projects", "team-projects", "articles", "teaching", "interests")
+    order = [home.index('id="' + section + '"') for section in chapters]
     assert order == sorted(order), "home order"
+    chapter_links = [attrs["href"] for tag, attrs in parsed["/"].nodes if "data-chapter-link" in attrs]
+    assert chapter_links == ["#" + section for section in chapters], "home contents order"
+    for section in chapters[1:]:
+        block = re.search(r'<section[^>]*id="' + section + r'"[\s\S]*?</section>', home).group()
+        assert "section-major" in block and "<h2 " in block, (section, "peer section")
+        if section == "about":
+            assert block.count('<p ') == 4, "four biography paragraphs"
     for slug in RETIRED:
         assert "/articles/" + slug + "/" not in pages
         for lang in ("zh", "en"):
             assert "draft: true" in (REPO / "src/content/published/articles" / (slug + "." + lang + ".md")).read_text(encoding="utf-8")
+    for slug in RETIRED_TEACHING:
+        assert "/teaching/" + slug + "/" not in pages
+        for lang in ("zh", "en"):
+            assert "draft: true" in (REPO / "src/content/published/teaching" / (slug + "." + lang + ".md")).read_text(encoding="utf-8")
     for route, parser in parsed.items():
         if route.startswith("/projects/") and route != "/projects/":
             current = [a["href"] for tag, a in parser.nodes if a.get("aria-current") == "page"]
@@ -122,16 +134,32 @@ def verify_static():
         if route.startswith(("/articles/", "/teaching/")) and route.count("/") == 3:
             assert any("reading-toc" in a.get("class", "") for _, a in parser.nodes), (route, "sidebar contents")
     sitemap = (REPO / "dist/sitemap-0.xml").read_text(encoding="utf-8")
-    assert sitemap.count("<loc>") == 21 and "/previews/" not in sitemap
+    assert sitemap.count("<loc>") == 13 and "/previews/" not in sitemap and "/experience/" not in sitemap
     assert not any("/articles/" + slug in sitemap for slug in RETIRED)
+    for slug in ("animal-well-rendering", "sifu-combat-analysis"):
+        source_text = pages["/articles/" + slug + "/"].read_text(encoding="utf-8").lower()
+        editorial_phrases = ("原笔记", "原稿", "原分析", "原记录", "原始笔记", "original notes", "initial draft", "the draft", "for this edit")
+        assert not any(phrase in source_text for phrase in editorial_phrases), (slug, "editorial voice")
+    rendering = pages["/projects/spectrex/"].read_text(encoding="utf-8")
+    assert 'class="project-rendering"' in rendering and "RenderService" in rendering and "RenderPipeline" in rendering
     source = (REPO / "src/data/gamejam.ts").read_text(encoding="utf-8")
     hashes = re.findall(r'"sha256":\s*"([0-9a-f]{64})"', source)
-    assert len(hashes) == 17
+    assert len(hashes) == 15
     actual = [hashlib.sha256(path.read_bytes()).hexdigest() for path in (REPO / "public/downloads/gamejam-2026").iterdir() if path.is_file()]
     assert Counter(hashes) == Counter(actual), "cartridge integrity"
+    assert all(path.suffix == ".png" for path in (REPO / "public/downloads/gamejam-2026").iterdir() if path.is_file())
+    gallery = parsed["/teaching/pico8-game-jam/"]
+    assert sum("gamejam-card" in attrs.get("class", "").split() for _, attrs in gallery.nodes) == 15
+    assert not any("download" in attrs for _, attrs in gallery.nodes)
+    training_links = {attrs.get("href") for tag, attrs in parsed["/teaching/pico8-2026/"].nodes if tag == "a"}
+    assert {"https://meeting.tencent.com/crm/237OkeqV26", "https://meeting.tencent.com/crm/KErQqqpObc", "https://meeting.tencent.com/crm/NARXvk9a12"} <= training_links
+    assert "NARXvk9acd" not in pages["/teaching/pico8-2026/"].read_text(encoding="utf-8")
+    assert "\u60a8\u597d\uff0c\u6211\u662f\u5468\u5c1a\u793c" in home and "hero-subtitle" in home
+    logs = [attrs.get("href") for tag, attrs in parsed["/projects/spectrex/"].nodes if tag == "a" and "www.taptap.cn/moment/" in attrs.get("href", "")]
+    assert len(logs) == 6 and len(set(logs)) == 6
     assert "spectrex-cover.jpg" in pages["/projects/spectrex/"].read_text(encoding="utf-8")
     assert "BV1gEny6hEAC" in pages["/projects/spectrex/"].read_text(encoding="utf-8")
-    return {"routes": len(pages), "localLinks": local_links, "assets": assets, "anchors": anchors, "captions": captions, "retiredArticlePairs": len(RETIRED), "cartridges": len(hashes), "pass": True}
+    return {"routes": len(pages), "localLinks": local_links, "assets": assets, "anchors": anchors, "captions": captions, "retiredArticlePairs": len(RETIRED), "retiredTeachingPairs": len(RETIRED_TEACHING), "pngSubmissions": len(hashes), "pass": True}
 
 
 METRICS = r"""() => {
@@ -207,7 +235,7 @@ def main():
     )
     routes = ["/" if route == "/./" else route for route in routes]
     report = {"content": static, "pages": {}, "interactions": {}}
-    shots = {"/experience/":"experience","/projects/spectrex/":"spectrex","/":"home","/projects/":"projects","/articles/":"articles","/teaching/":"teaching","/projects/ming-engine/":"project-detail","/articles/animal-well-rendering/":"reading","/teaching/pico8-game-jam/":"gamejam"}
+    shots = {"/projects/spectrex/":"spectrex","/":"home","/projects/":"projects","/articles/":"articles","/teaching/":"teaching","/projects/ming-engine/":"project-detail","/articles/animal-well-rendering/":"reading","/teaching/pico8-game-jam/":"gamejam"}
     links, local_errors, page_errors = set(), set(), []
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
@@ -264,7 +292,7 @@ def main():
         page.reload(wait_until="domcontentloaded")
         assert page.locator('html').get_attribute('data-theme') == "dark"
         assert page.locator('.hero-portrait img').count() == 1
-        order = page.evaluate("['intro','about','education','experience','projects','articles','teaching','interests'].map(id=>document.getElementById(id).getBoundingClientRect().top)")
+        order = page.evaluate("['intro','about','education','experience','skills','personal-projects','team-projects','articles','teaching','interests'].map(id=>document.getElementById(id).getBoundingClientRect().top)")
         assert order == sorted(order), order
         report["interactions"]["homeOrder"] = order
         page.locator('[data-language-toggle]').click()
@@ -347,9 +375,14 @@ def main():
             assert response.status == 200, (href,response.status)
         report["internalLinksChecked"] = len(links)
         page.goto(args.base + "/teaching/pico8-game-jam/",wait_until="domcontentloaded")
-        downloads = page.locator('a[download]').count()
-        assert downloads > 0
-        report["cartridgeDownloads"] = downloads
+        assert page.locator('a[download]').count() == 0
+        assert page.locator('.gamejam-card img').count() == 15
+        report["pngGallery"] = {"covers": 15, "downloads": 0}
+        for width in (1440, 1024):
+            for lang in ("zh", "en"):
+                tops = [data["sidebar"]["secondaryTop"] for key, data in report["pages"].items() if key.startswith(lang + "/" + str(width) + "/")]
+                assert max(tops) - min(tops) <= 1, (width, lang, "secondary navigation start moved")
+        report["interactions"]["fixedSecondaryStart"] = True
         context.close()
         blocked = browser.new_context()
         blocked.add_init_script("if(location.origin === " + json.dumps(args.base) + "){Object.defineProperty(window,'localStorage',{get(){throw new Error('Storage blocked for verification');}});}")

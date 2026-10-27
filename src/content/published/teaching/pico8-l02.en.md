@@ -6,7 +6,7 @@ title: "PICO-8 L02: Debugging, Movement and Animation"
 description: "Investigate jumping problems, organize movement functions and select animations from state."
 category: teaching
 tags: ["PICO-8", "Teaching practice"]
-draft: false
+draft: true
 ---
 
 ## Begin with a program that already moves

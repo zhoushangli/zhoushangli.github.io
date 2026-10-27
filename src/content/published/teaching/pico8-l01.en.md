@@ -6,7 +6,7 @@ title: "PICO-8 L01: Input, Drawing and Variables"
 description: "Draw a rectangle, store its position and move it using button input."
 category: teaching
 tags: ["PICO-8", "Teaching practice"]
-draft: false
+draft: true
 ---
 
 ## Lesson content

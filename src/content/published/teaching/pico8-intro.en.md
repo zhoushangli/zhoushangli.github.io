@@ -6,7 +6,7 @@ title: "PICO-8 Intro: Course Introduction"
 description: "Introducing PICO-8 and the course, with practice saving, loading and running cartridges."
 category: teaching
 tags: ["PICO-8", "Teaching practice"]
-draft: false
+draft: true
 ---
 
 ## Course outline

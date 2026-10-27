@@ -2,15 +2,13 @@
 import Text from './Text.astro';
 import { gamejamSubmissions } from '../data/gamejam';
 ---
-<section class="section">
-	<Text as="h2" zh="学生作品提交展示" en="Student submissions" />
-	<Text as="p" class="caption" zh="以下为活动留存的卡带提交，作品属于各自创作者。提交文件不等同于独立作品或参与人数；下载文件保留原始游戏数据。" en="These cartridges were retained from the activity and belong to their respective creators. Submission files do not establish a count of distinct games or participants; downloads preserve the original game data." />
+<section class="section" id="gamejam-gallery">
+	<Text as="h2" zh="作品展示" en="Gallery" />
+	<Text as="p" class="caption" zh="以下展示活动中留存的作品封面，作品属于各自创作者。" en="Covers retained from the game jam. The games belong to their respective creators." />
 	<div class="gamejam-grid">
 		{gamejamSubmissions.map((submission) => <article class="gamejam-card">
-			{submission.cover ? <img src={submission.cover} alt={`${submission.title} 卡带封面`} data-i18n-inline-alt data-zh={`${submission.title} 卡带封面`} data-en={`${submission.title} cartridge cover`} loading="lazy" width="160" height="205" /> : <div class="cart-label" aria-hidden="true">PICO-8<br />.p8</div>}
+			<img src={submission.cover} alt={`${submission.title} 卡带封面`} data-i18n-inline-alt data-zh={`${submission.title} 卡带封面`} data-en={`${submission.title} cartridge cover`} loading="lazy" width="160" height="205" />
 			<h3>{submission.title}</h3>
-			<p class="caption">{submission.originalName}</p>
-			<a href={submission.fileName} download><Text zh="下载原始卡带" en="Download cartridge" /></a>
 		</article>)}
 	</div>
 </section>

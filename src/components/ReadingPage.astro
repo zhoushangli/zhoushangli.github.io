@@ -20,6 +20,7 @@ const project = pair.zh.data.relatedProject ? getProjectBySlug(pair.zh.data.rela
     {versions.map(({ lang, rendered }) => <nav class="reading-toc" data-language-block={lang} lang={lang === 'zh' ? 'zh-CN' : 'en'} hidden={lang === 'en'} inert={lang === 'en'} aria-label={lang === 'zh' ? '本文目录' : 'On this page'}>
       <p class="navigation-label">{lang === 'zh' ? '本文目录' : 'On this page'}</p>
       {rendered.headings.filter((heading) => heading.depth === 2 || heading.depth === 3).map((heading) => <a class={`depth-${heading.depth}`} data-chapter-link href={`#${heading.slug.startsWith(`${lang}-`) ? heading.slug : `${lang}-${heading.slug}`}`}>{heading.text}</a>)}
+      {pair.zh.data.contentId === 'pico8-game-jam' && <a href="#gamejam-gallery" data-chapter-link>{lang === 'zh' ? '作品展示' : 'Gallery'}</a>}
     </nav>)}
   </Fragment>
 	<header class="page-intro">

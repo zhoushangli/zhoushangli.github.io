@@ -14,7 +14,7 @@ const education = [
   { image: ShanghaiTechImage, name: { zh: '上海科技大学', en: 'ShanghaiTech University' }, date: { zh: '2021—2025', en: '2021–2025' }, role: { zh: '计算机科学本科', en: 'Undergraduate study in computer science' }, description: { zh: '建立程序设计、计算机系统与软件开发基础，并通过独立游戏实践探索交互与关卡设计。', en: 'Built a foundation in programming, computer systems and software development, and explored interaction and level design through independent games.' }, tech: { zh: '计算机科学 · 软件开发', en: 'Computer science · Software development' } },
 ];
 ---
-  {[{ id: 'education', title: { zh: '教育经历', en: 'Education' }, entries: education }, { id: 'experience', title: { zh: '实习经历', en: 'Internships' }, entries: experiences }].map((group) => <section class="section timeline-section" id={group.id}>
+  {[{ id: 'education', title: { zh: '教育经历', en: 'Education' }, entries: education }, { id: 'experience', title: { zh: '实习经历', en: 'Internships' }, entries: experiences }].map((group) => <section class="section section-major timeline-section" id={group.id}>
     <Text as="h2" {...group.title} />
     <div class="timeline-list">{group.entries.map((entry) => <article class="timeline-item">
       <div class="timeline-media"><Image src={entry.image} alt={entry.name.zh} data-i18n-inline-alt data-zh={entry.name.zh} data-en={entry.name.en} width={420} format="webp" quality={84} loading="lazy" /></div>

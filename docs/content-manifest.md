@@ -4,11 +4,10 @@
 
 ## 1. 站点结构与正式路由
 
-正式路由 21 条（构建共 59 页，其中 38 页为 `/previews/` 设计稿，已 `noindex` 且不进入 sitemap）：
+正式路由 13 条（构建共 51 页，其中 38 页为 `/previews/` 设计稿，已 `noindex` 且不进入 sitemap）：
 
 ```
-/                                  简介、教育、实习、作品、笔记、教学、个人兴趣
-/experience/                       独立经历页（个人介绍、教育、实习、技能）
+/                                  简介、个人经历、教育、实习、技能、个人项目、团队项目、笔记、教学、个人兴趣
 /projects/                         项目作品总览（个人 / 团队）
 /projects/ming-engine/             项目详情
 /projects/spectrex/
@@ -20,13 +19,6 @@
 /articles/sifu-combat-analysis/
 /teaching/                         教学
 /teaching/pico8-2026/
-/teaching/pico8-intro/
-/teaching/pico8-l01/
-/teaching/pico8-l02/
-/teaching/pico8-l03/
-/teaching/pico8-a01/
-/teaching/pico8-a02/
-/teaching/pico8-object-organization/
 /teaching/pico8-game-jam/
 ```
 
@@ -41,27 +33,22 @@
 
 MingEngine 的 `ming-scene-resources`、`ming-csharp-bridge`、`ming-gui-input`，以及 SpectreX 的 `spectrex-light-gameplay`、`spectrex-rendering` 共五组双语源稿设为 `draft: true`。不生成页面，不进入公开列表与 sitemap，项目页不再关联这些文章。
 
-## 3. 教学（9 对）
+## 3. 教学（2 对）
 
 | contentId | 中文标题 |
 | --- | --- |
-| pico8-2026 | PICO-8 游戏开发培训 |
-| pico8-a01 | PICO-8 A01：打砖块练习（一） |
-| pico8-a02 | PICO-8 A02：打砖块练习（二） |
-| pico8-game-jam | 游戏社 Game Jam 作品展 |
-| pico8-intro | PICO-8 Intro：课程介绍 |
-| pico8-l01 | PICO-8 L01：输入、绘制与变量 |
-| pico8-l02 | PICO-8 L02：调试、移动与动画 |
-| pico8-l03 | PICO-8 L03：对象管理与关卡 |
-| pico8-object-organization | PICO-8 对象管理案例 |
+| pico8-2026 | Pico8 入社培训 |
+| pico8-game-jam | Gamejam 作品展 |
+
+原来的 Intro、L01/L02/L03、A01/A02 和对象管理案例共七组双语页面设为草稿，不再生成路由。培训页保留简要课程大纲及三份用户提供的腾讯会议录制链接；录制日期按所附记录显示，不推定为授课日期。L03 使用新地址 `NARXvk9a12`。
 
 ## 4. 项目（5 个）
 
 | 项目 | 分类 | 技术栈（最多三项） |
 | --- | --- | --- |
-| MingEngine | personal | C++ / DirectX 11 / C# .NET |
+| MingEngine | personal | 自研引擎 / C++ / DirectX 11 |
 | SpectreX | team | Godot / C# |
-| Doomenstein | personal | C++ / DirectX 11 |
+| Doomenstein | personal | 自研引擎 / C++ / DirectX 11 |
 | The Primary Colors | personal | Unity / C# / QFramework |
 | Hamsterballin' | team | Unreal Engine 5 / PCG |
 
@@ -71,7 +58,7 @@ MingEngine 的 `ming-scene-resources`、`ming-csharp-bridge`、`ming-gui-input`�
 
 | 内容 | 来源（只读） | 仓库位置 | 校验 |
 | --- | --- | --- | --- |
-| Game Jam 卡带提交 17 个 | `C:\Users\Shangli Zhou\Desktop\GameJam2026`（17 个文件，含 `.p8` 与带封面 `.p8.png`） | `public/downloads/gamejam-2026/` | SHA-256 与原件逐一比对 17/17 一致；哈希同时记录在 `src/data/gamejam.ts`；副本与声明哈希 17/17 一致 |
+| Gamejam PNG 封面 15 份 | 原有 `GameJam2026` 提交中的 PNG 文件 | `public/downloads/gamejam-2026/` | 原始 PNG 未改写；15/15 与清单 SHA-256 一致；两个纯 `.p8` 提交按用户要求删除 |
 | 《动物井》帧捕获截图 17 张 | `C:\Users\Shangli Zhou\Desktop\NoteBook\Semester 4\聚光灯\分析\动物井\截图\`（18 个文件） | `public/media/animal-well/` | 已复制的 17 张全部哈希一致；未复制的 `texture.png` 在正文中未使用 |
 | 《师父》分析图 2 张 + 录屏 8 段 | `C:\Users\Shangli Zhou\Downloads\《师父SIFU》简要分析\图片和附件\` | `public/media/sifu/`（重命名为语义化英文名） | 10/10 哈希一致 |
 | SpectreX 宣传封面 | 用户提供的 [B 站宣传视频](https://www.bilibili.com/video/BV1gEny6hEAC/) 封面（1920×1080） | `public/media/projects/spectrex-cover.jpg` | 从视频元数据取得原始封面，画面与用户提供图片一致；旧图标保留但不再展示 |
@@ -88,7 +75,7 @@ MingEngine 的 `ming-scene-resources`、`ming-csharp-bridge`、`ming-gui-input`�
 - **SpectreX**：个人职责限定为技术美术、程序与策划的交叉工作，页面明确不把团队全部设计与资产归为个人成果；使用用户提供的宣传封面与视频，不添加推测性实机截图。
 - **《动物井》**：区分观察与推断；EID 仅指原文所用捕获中的事件编号；本轮未重放捕获、没有源码，因此不把通道语义与设计意图写成已验证事实。
 - **《师父》**：以可见行为描述「窗口 / 短硬直 / 长硬直」，不声称恢复内部状态机或数值公式；设计实验部分明确为尚未测试的原型方向。
-- **PICO-8 教学**：明确区分保存的教案安排与实际授课记录；课程编号与教案/口述不一致处已说明；L03 录像作为外部中文材料链接，正文主要依据教案与授课回忆；Game Jam 的文件数不等同于独立作品、学生或团队数量；A01/A02 引用外部 YouTube 教程并保留出处与作者归属。
+- **PICO-8 教学**：公开内容缩减为大纲、录制链接和 PNG 作品展。录制时间使用用户给出的原始记录。详细教案源稿留存为草稿，PNG 提交数量不作为参与人数。
 - **双语完整性**：每对内容的结构（二级标题、图片、视频、表格数量）保持一致；图注、图片替代文本、项目元数据均提供中英文。
 
 ## 7. 首次内容整理的历史验证（2026-10-26，非本轮验收）
@@ -141,7 +128,7 @@ MingEngine 的 `ming-scene-resources`、`ming-csharp-bridge`、`ming-gui-input`�
 - 构建日志、截图和验收数据位于 `artifacts/preview-audit/site-migration/`，该目录仅保留在本机。第 7 节是迁移前的历史验收记录，其中的浅色主题测试不代表当前功能。
 - 本轮仅修改和验证本地代码，未进行远程推送或部署。
 
-## 11. 结构与文案调整（2026-10-26）
+## 11. 上轮结构与文案调整的历史记录（2026-10-26）
 
 - 首页顺序：简介 → 完整教育、实习 → 作品 → 笔记 → 教学 → 个人兴趣。独立经历页与首页复用 `ExperienceTimeline`。
 - 主导航为首页、作品、笔记、教学；左下按页面显示项目、内容列表或双语正文目录。
@@ -152,3 +139,34 @@ MingEngine 的 `ming-scene-resources`、`ming-csharp-bridge`、`ming-gui-input`�
 - 本地 HTTP 检查：21 个正式页面返回 200，五个撤下文章地址返回 404。22 份公开中英文正文的代码块、媒体引用、外部来源链接和二级章节数量均与修改前一致。
 - 浏览器工具未连接（无可用 apps/browsers，native pipe 不存在）：本轮未完成 1440/1024/390px 视觉、交互和实际视频播放验收。此前历史验收不代表本轮通过。
 - 本地修改，未推送或部署。
+
+## 12. 展示精简与项目补充（2026-10-26）
+
+- 首页使用“您好，我是周尚礼”“我开发游戏！”和用户提供的简介，副标题缩小并使用铜色。移除重复的身份说明。
+- 桌面侧栏上下目录之间的间距由窗口高度确定，次级目录使用固定起点和内部滚动，不受条目数量影响。
+- 教学只保留入社培训与 Gamejam 作品展，七组详细教学源稿设为草稿。作品展只显示 15 份 PNG 与名称，桌面三列、手机两列，无文件名和下载按钮。
+- 删除 `the-director.p8`、`reverse.p8`，保留 `.p8.png` 等 PNG 原件；清单哈希对应 15 份保留图片。
+- MingEngine 与 Doomenstein 强调自研 C++ 引擎，技术栈仍最多三项。MingEngine 的 C#/.NET 功能保留在项目说明中。
+- SpectreX 按用户确认写明类银河恶魔城定位、全部三章关卡设计与约 10 小时全程观察的深度试玩；策划内容先于程序、技术美术。项目页末尾加入六个 TapTap 开发日志和总结链接，正文不摘录 AI 使用反思。
+- 构建通过：52 页（14 正式 + 38 预览）。静态检查通过：326 条本地链接、94 个资源引用、86 条锚点、61 个图注、15 份 PNG 哈希、五组文章与七组教学草稿隔离。
+- 浏览器工具仍未连接，本轮屏幕布局、滚动交互及外部视频播放未作视觉或实际播放验收。
+- 未推送或发布。
+
+## 13. 分隔线、图标与笔记文风（2026-10-26）
+
+- 取消普通区块、笔记列表、经历条目、技能和开发日志的重复横线；首页三个主要栏目用 2px 铜色短线，项目间保留低对比度 1px 细线。表格保留较厚表头线与细行分隔，移除竖向网格。
+- 学校和企业图片均有透明通道，经历图标容器改为深蓝底并去掉外框，原图片未修改。
+- SpectreX 新增独立“自定义渲染管线”章节，介绍分层采集与 Composite A/B/C、颜色与材质数据、分层自发光和后处理、RenderService/RenderPipeline/配置资源的分工。原先的简略渲染功能项由该章节取代，光学解算和反馈方面的内容保留在其他程序工作中。
+- 渲染描述依据 `C:\Work\Godot\Project\Spectrum\Spectrum` 下当前的 `Scripts/Core/RenderService.cs`、`Scripts/Core/RenderPipeline.cs`、`Prefabs/Runtime/Core/SCN_RenderPipeline.tscn` 和对应 Shader 核对。没有修改 Spectrum 文件、运行其构建或执行新的 GPU/性能验证。平台说明简化为“桌面端 · Godot”。
+- 两篇笔记的中英文正文改为作者直接描述观察、推测和问题；删除“原笔记”“原稿”等审阅措辞，图注直接说明画面内容，保留数值假设与局部不确定性。
+- 四份正文的代码块和媒体引用与修改前一致。构建与静态检查通过，14 个正式页面、326 条本地链接、94 个资源引用、86 条锚点和 15 份 PNG 哈希有效；新增检查防止编辑腔措辞再次进入公开笔记。
+- 浏览器工具无可用连接，实际排版、滚动和视频播放未作本轮视觉验收。没有推送或发布。
+
+## 14. 个人经历并入首页（2026-10-26）
+
+- 首页顺序为：简介、个人经历、教育经历、实习经历、技能、个人项目、团队项目、笔记、教学、个人兴趣。个人经历保留学习背景、职业方向、教学、关卡设计四段正文，使用 800px 最大正文宽度、16px 字号和 2 倍行高。
+- 个人经历与教育、实习为同级栏目；正文栏目统一使用 h2 标题和内容区全宽的 2px 铜色渐隐线。个人兴趣使用大标题，“游戏开发之外”使用小号铜色副标题。
+- 技能保留在实习经历之后。左上仍为首页、作品、笔记、教学四个入口，首页次级目录按正文顺序列出个人经历、技能及个人／团队项目。
+- 取消独立经历页与“查看独立页面”链接；检查脚本改为验证首页栏目和目录顺序、四段个人经历、独立经历页与链接已移除。
+- `npm run build` 通过：51 页（13 正式 + 38 预览）。`python scripts/verify-portfolio.py --static-only` 通过：310 条本地链接、90 个资源引用、82 条锚点、61 个图注和 15 份 PNG 哈希。`git diff --check` 通过。
+- 浏览器工具返回无可用浏览器，原生连接亦不可用，因此未执行本轮浏览器排版与滚动交互验收。没有推送或发布。

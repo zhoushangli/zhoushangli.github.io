@@ -12,16 +12,19 @@ if (section === 'teaching')
   entries.sort((a, b) => teachingOrder.indexOf(a.zh.data.contentId) - teachingOrder.indexOf(b.zh.data.contentId));
 }
 const links = [
-  { href: '/', number: 'I.', zh: '首页', en: 'Home', active: home || path.startsWith('/experience') },
+  { href: '/', number: 'I.', zh: '首页', en: 'Home', active: home },
   { href: '/projects/', number: 'II.', zh: '作品', en: 'Projects', active: path.startsWith('/projects') },
   { href: '/articles/', number: 'III.', zh: '笔记', en: 'Notes', active: path.startsWith('/articles') },
   { href: '/teaching/', number: 'IV.', zh: '教学', en: 'Teaching', active: path.startsWith('/teaching') },
 ];
 const chapters = [
   { href: '#intro', zh: '个人简介', en: 'Introduction' },
+  { href: '#about', zh: '个人经历', en: 'Experience' },
   { href: '#education', zh: '教育经历', en: 'Education' },
   { href: '#experience', zh: '实习经历', en: 'Internships' },
-  { href: '#projects', zh: '作品', en: 'Projects' },
+  { href: '#skills', zh: '技能', en: 'Skills' },
+  { href: '#personal-projects', zh: '个人项目', en: 'Personal projects' },
+  { href: '#team-projects', zh: '团队项目', en: 'Team projects' },
   { href: '#articles', zh: '笔记', en: 'Notes' },
   { href: '#teaching', zh: '教学', en: 'Teaching' },
   { href: '#interests', zh: '个人兴趣', en: 'Interests' },

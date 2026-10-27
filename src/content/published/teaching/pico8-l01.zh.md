@@ -6,7 +6,7 @@ title: "PICO-8 L01：输入、绘制与变量"
 description: "绘制矩形，用变量保存位置，再通过按钮输入控制移动。"
 category: teaching
 tags: ["PICO-8", "教学实践"]
-draft: false
+draft: true
 ---
 
 ## 本课内容

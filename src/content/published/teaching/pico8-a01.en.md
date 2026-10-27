@@ -6,7 +6,7 @@ title: "PICO-8 A01: Breakout Exercise 1"
 description: "Follow tutorial parts 1–5 to implement ball movement, boundary collisions and sound."
 category: teaching
 tags: ["PICO-8", "Teaching practice"]
-draft: false
+draft: true
 ---
 
 ## Purpose
