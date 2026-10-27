@@ -29,12 +29,6 @@ export interface Project {
 	limitations?: { zh: string; en: string }[];
 	relatedArticles?: string[];
 	downloads?: { href: string; label: { zh: string; en: string } }[];
-	platform?: { zh: string; en: string };
-	status?: { zh: string; en: string };
-	decisions?: { zh: string; en: string }[];
-	limitations?: { zh: string; en: string }[];
-	relatedArticles?: string[];
-	downloads?: { href: string; label: { zh: string; en: string } }[];
 	role?: {
 		en: string;
 		zh: string;
@@ -64,6 +58,7 @@ export interface Project {
 	media: {
 		type: 'image' | 'video';
 		src: string;
+		caption?: { zh: string; en: string };
 		alt: {
 			en: string;
 			zh: string;
@@ -78,12 +73,12 @@ export const projects: Project[] = [
 		"status": {"zh": "持续开发中的个人引擎", "en": "Personal engine in active development"},
 		"decisions": [{"zh": "参考 Godot 的节点与资源职责划分，将场景对象、序列化数据和渲染提交分开。", "en": "Use Godot as a reference for separating scene objects, serialized data and rendering submission."}, {"zh": "脚本桥接使用生成代码与反射绑定，编辑器逐步引入原生 UI。", "en": "Use generated code and reflection for script bindings while incrementally introducing native editor UI."}],
 		"limitations": [{"zh": "原生编辑器 UI 与导出流程仍在完善，现有截图来自较早的编辑器阶段。", "en": "Native editor UI and export workflows are still evolving; the displayed screenshot is from an earlier editor stage."}],
-		"relatedArticles": ["ming-scene-resources", "ming-csharp-bridge", "ming-gui-input"],
+		"relatedArticles": [],
 		category: 'personal',
 		title: 'MingEngine',
 		summary: {
-			en: 'A Godot-inspired 3D game engine and editor built with C++ and DirectX 11, featuring a node-based scene system, asset pipeline, scene serialization, editor tooling, and C#/.NET script integration.',
-			zh: '一款使用 C++ 和 DirectX 11 开发、受 Godot 启发的 3D 游戏引擎与编辑器，包含节点式场景系统、资源管线、场景序列化、编辑器工具和 C#/.NET 脚本集成。',
+			en: 'A 3D game engine and editor I am building in C++ and DirectX 11, with Godot-inspired nodes and resources and C#/.NET scripting.',
+			zh: '我用 C++ 和 DirectX 11 开发的 3D 游戏引擎与编辑器，参考了 Godot 的节点和资源系统，支持 C#/.NET 脚本。',
 		},
 		detail: {
 			en: 'MingEngine is a custom 3D game engine and editor built around a reusable C++ runtime. I developed a Godot-inspired node and scene architecture, a DirectX 11 rendering backend, and editor tools for importing assets, authoring scenes, inspecting properties and running gameplay. The current code integrates C# through .NET and introduces native CanvasItem/Control UI alongside the existing ImGui tooling.',
@@ -99,8 +94,8 @@ export const projects: Project[] = [
 			zh: '独立引擎开发者',
 		},
 		tech: {
-			en: 'C++ | DirectX 11 | C# / .NET | Editor UI',
-			zh: 'C++ | DirectX 11 | C# / .NET | Editor UI',
+			en: 'C++ | DirectX 11 | C# / .NET',
+			zh: 'C++ | DirectX 11 | C# / .NET',
 		},
 		features: [
 			{
@@ -131,9 +126,13 @@ export const projects: Project[] = [
 		media: {
 			type: 'image',
 			src: MingEngineImage.src,
-			alt: {
+			caption: {
 				en: 'MingEngine editor screenshot from an earlier development stage',
 				zh: 'MingEngine 较早开发阶段的编辑器截图',
+			},
+			alt: {
+				en: 'MingEngine editor showing its scene and tool panels',
+				zh: 'MingEngine 编辑器中的场景和工具面板',
 			},
 		},
 	},
@@ -143,12 +142,12 @@ export const projects: Project[] = [
   "detailLayout": "stacked",
   "title": "SpectreX",
   "summary": {
-    "zh": "使用 Godot 与 C# 制作的光学解谜团队项目。我参与技术美术、程序与策划，连接光路交互、视觉反馈和制作工具。",
-    "en": "A light-based puzzle team project built with Godot and C#. I contribute technical art, programming and game design, connecting optical interactions, visual feedback and authoring tools."
+    "zh": "使用 Godot 与 C# 制作的团队光学解谜游戏，围绕光路、颜色和机关设计谜题。",
+    "en": "A team-made optical puzzle game built with Godot and C#, with puzzles based on light paths, colors and mechanisms."
   },
   "detail": {
-    "zh": "SpectreX 围绕光路、颜色与场景交互构建谜题。当前项目包含光线求解、镜面与插槽交互、感光器、分层渲染，以及房间、存档和 UI 服务。我的工作横跨技术美术、程序与策划；页面中的系统分析说明当前实现，不将团队的全部设计与资产归为个人成果。",
-    "en": "SpectreX builds puzzles around light paths, color and environmental interaction. The current project includes light solving, mirrors and sockets, sensors, layered rendering, and room, save and UI services. My role spans technical art, programming and design; the implementation studies describe the current project without attributing all team design or assets to me."
+    "zh": "SpectreX 围绕光路、颜色与场景交互构建谜题。当前项目包含光线求解、镜面与插槽交互、感光器、分层渲染，以及房间、存档和 UI 服务。我在团队中参与技术美术、程序与策划。",
+    "en": "SpectreX builds puzzles around light paths, color and environmental interaction. The current project includes light solving, mirrors and sockets, sensors, layered rendering, and room, save and UI services. My role spans technical art, programming and game design."
   },
   "contribution": {
     "zh": "在团队中承担技术美术、程序与策划工作，参与光学交互与视觉呈现之间的整合，并维护相关实现与制作流程。",
@@ -159,8 +158,8 @@ export const projects: Project[] = [
     "en": "Technical artist · programmer · designer"
   },
   "tech": {
-    "zh": "Godot | C# | 光学交互 | Shader | 制作工具",
-    "en": "Godot | C# | Optical interaction | Shaders | Tools"
+    "zh": "Godot | C#",
+    "en": "Godot | C#"
   },
   "platform": {
     "zh": "桌面端 · Godot GL Compatibility",
@@ -198,22 +197,29 @@ export const projects: Project[] = [
       "en": "Keep optical solving separate from image compositing so gameplay state and presentation can be maintained independently."
     }
   ],
-  "limitations": [
-    {
-      "zh": "本页展示项目原始图标；玩法与渲染专题依据当前源码展开，不附加未经记录的玩家测试或性能提升数据。",
-      "en": "This page displays the original project icon. The linked implementation studies are grounded in current source, without unrecorded playtest or performance claims."
+  "limitations": [],
+  "relatedArticles": [],
+  "externalLink": {
+    "href": "https://www.bilibili.com/video/BV1gEny6hEAC/",
+    "label": {
+      "zh": "在 B 站观看宣传视频 ↗",
+      "en": "Watch the trailer on Bilibili ↗"
     }
-  ],
-  "relatedArticles": [
-    "spectrex-light-gameplay",
-    "spectrex-rendering"
-  ],
+  },
+  "embedVideo": {
+    "src": "https://player.bilibili.com/player.html?bvid=BV1gEny6hEAC&page=1&autoplay=0",
+    "title": {
+      "zh": "[2026 TapTap 聚光灯] SpectreX——我们用三周做了一款光学解谜游戏！",
+      "en": "[2026 TapTap Spotlight] SpectreX — We made an optical puzzle game in three weeks!"
+    }
+  },
   "media": {
     "type": "image",
-    "src": "/media/projects/spectrex-icon.png",
+    "src": "/media/projects/spectrex-cover.jpg",
+    "caption": { "zh": "SpectreX 宣传封面", "en": "SpectreX promotional cover" },
     "alt": {
-      "zh": "SpectreX 项目原始图标",
-      "en": "Original SpectreX project icon"
+      "zh": "SpectreX 彩色标题与像素风场景",
+      "en": "The SpectreX title in rainbow colors over a pixel-art scene"
     }
   }
 },
@@ -227,8 +233,8 @@ export const projects: Project[] = [
 		category: 'personal',
 		title: 'Doomenstein',
 		summary: {
-			en: 'A solo-developed retro 3D first-person hell shooter with 8-direction sprites, local two-player support, OBJ model loading, post-processing, CPU particles, and simple IK-driven enemies.',
-			zh: '一款独立开发的复古 3D 第一人称地狱射击游戏，结合 8 面精灵、本地双人、OBJ 模型加载、后处理、CPU 粒子和简易 IK 敌人。',
+			en: 'A retro 3D first-person shooter I developed independently, with eight-direction sprites and local two-player support.',
+			zh: '我独立开发的复古 3D 第一人称射击游戏，使用八方向精灵，支持本地双人。',
 		},
 		detail: {
 			en: 'Doomenstein began as a retro-style 3D first-person shooter using 8-direction sprites, with local multiplayer support for up to two players using keyboard/mouse or Xbox controllers. I later expanded it with OBJ model loading, simple IK, a post-processing chain, CPU quad particles, volumetric clouds, emissive textures, and a hell-themed environment, turning it into a small but complete doomlike shooter prototype.',
@@ -244,8 +250,8 @@ export const projects: Project[] = [
 			zh: '独立开发',
 		},
 		tech: {
-			en: 'Node System | Hell-Styled Scene | IK Spider',
-			zh: '节点系统 | 地狱风格化场景 | IK 蜘蛛',
+			en: 'C++ | DirectX 11',
+			zh: 'C++ | DirectX 11',
 		},
 		features: [
 			{
@@ -291,6 +297,10 @@ export const projects: Project[] = [
 		media: {
 			type: 'image',
 			src: DoomensteinTitleImage.src,
+			caption: {
+				en: 'Doomenstein title image',
+				zh: 'Doomenstein 标题图',
+			},
 			alt: {
 				en: 'Doomenstein title image',
 				zh: 'Doomenstein 标题图',
@@ -324,8 +334,8 @@ export const projects: Project[] = [
 			zh: '独立开发者',
 		},
 		tech: {
-			en: 'Unity | C# | QFramework | MVC',
-			zh: 'Unity | C# | QFramework | MVC',
+			en: 'Unity | C# | QFramework',
+			zh: 'Unity | C# | QFramework',
 		},
 		features: [
 			{
@@ -359,6 +369,10 @@ export const projects: Project[] = [
 		media: {
 			type: 'image',
 			src: ThePrimaryColorsImage.src,
+			caption: {
+				en: 'The Primary Colors title image',
+				zh: '《三原色》封面图',
+			},
 			alt: {
 				en: 'The Primary Colors title image',
 				zh: '《三原色》封面图',
@@ -370,7 +384,7 @@ export const projects: Project[] = [
 		"platform": {"zh": "PC · Unreal Engine 5", "en": "PC · Unreal Engine 5"},
 		"status": {"zh": "团队游戏项目 · Steam 页面可访问", "en": "Team game project · Steam page available"},
 		"decisions": [{"zh": "将重复的赛道制作任务转化为 PCG 道路生成流程，配合美术生产使用。", "en": "Turn repetitive track-authoring work into a PCG road-generation workflow for art production."}, {"zh": "围绕实际制作需求处理生成开销，并协作完成材质、视觉效果和部分 UI。", "en": "Address generation overhead for production needs and collaborate on materials, effects and selected UI features."}],
-		"limitations": [{"zh": "展示的是我负责的工具与协作内容，游戏整体由团队共同制作；不列未经核实的团队人数或性能提升比例。", "en": "My contribution centers on tools and cross-discipline support; the game as a whole was made by the team. No unverified team-size or performance figures are listed."}],
+		"limitations": [{"zh": "游戏由团队共同制作，我主要参与道路生成工具、技术美术和部分 UI。", "en": "The game was made by a team. My work focused on road-generation tools, technical art and selected UI features."}],
 		"relatedArticles": [],
 		category: 'team',
 		detailLayout: 'stacked',
@@ -393,8 +407,8 @@ export const projects: Project[] = [
 			zh: '游戏程序',
 		},
 		tech: {
-			en: 'Unreal Engine 5 | PCG | Technical Art | UI',
-			zh: 'Unreal Engine 5 | PCG | 技术美术 | UI',
+			en: 'Unreal Engine 5 | PCG',
+			zh: 'Unreal Engine 5 | PCG',
 		},
 		features: [
 			{
@@ -431,6 +445,10 @@ export const projects: Project[] = [
 		media: {
 			type: 'image',
 			src: HamsterballinImage.src,
+			caption: {
+				en: "Hamsterballin' title image",
+				zh: "《Hamsterballin'》封面图",
+			},
 			alt: {
 				en: "Hamsterballin' title image",
 				zh: "《Hamsterballin'》封面图",

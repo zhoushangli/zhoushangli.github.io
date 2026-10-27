@@ -2,22 +2,22 @@
 contentId: pico8-l01
 lang: en
 section: teaching
-title: "PICO-8 L01: Making Input Visible"
-description: "Connecting variables, functions and drawing through a small movement exercise."
+title: "PICO-8 L01: Input, Drawing and Variables"
+description: "Draw a rectangle, store its position and move it using button input."
 category: teaching
 tags: ["PICO-8", "Teaching practice"]
 draft: false
 ---
 
-## The question for this lesson
+## Lesson content
 
-A first coding class needs observable results quickly. The original plan starts with a rectangle, introduces variables and button input, then prepares collision and platform movement. This page retains that progression without treating every planned topic as confirmed classroom coverage.
+The first coding lesson starts with a rectangle, then adds variables, button input and movement. The plan also prepares collision and platform jumping for later practice.
 
 The goal is to identify where input is read, where position is stored and where the picture uses that position. Explaining those relationships makes a small example useful for later debugging and extension.
 
 ## From a rectangle to interaction
 
-Begin with a stationary rectangle. Change its coordinates and color, then replace its horizontal position with a variable. Finally update that variable in response to input. This minimal example is edited for the teaching case, not a verbatim classroom listing:
+Start with a rectangle, change its coordinates and color, then store its position in a variable and update it from input. The following teaching example follows that sequence:
 
 ```lua
 function _init()
@@ -43,7 +43,7 @@ Ask learners to predict the result before running a change. After demonstrating 
 
 ## Separate update from drawing
 
-The preparation notes use a simplified comparison between `_update` and `_draw`. In a public lesson, their responsibilities should be explicit: update handles input and state, while drawing reads that state to produce the image. Both are callbacks, but teaching them as identical would be misleading.
+`_update` handles input and state; `_draw` reads that state and draws the result. Keeping them separate makes it easier to see when data changes and when the image updates.
 
 This separation helps explain why a changed position might not appear on screen and discourages duplicated gameplay logic in drawing. Refer to the [official manual](https://www.lexaloffle.com/dl/docs/pico-8_manual.html) for callback behavior.
 

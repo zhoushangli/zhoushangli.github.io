@@ -2,15 +2,14 @@
 import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
 import Text from '../../components/Text.astro';
 import ContentCard from '../../components/ContentCard.astro';
-import { getContentPairs } from '../../data/content';
+import { getContentPairs, teachingOrder } from '../../data/content';
 const pairs = await getContentPairs('teaching');
-const order = ['pico8-2026', 'pico8-intro', 'pico8-l01', 'pico8-l02', 'pico8-l03', 'pico8-a01', 'pico8-a02', 'pico8-object-organization', 'pico8-game-jam'];
-pairs.sort((a, b) => order.indexOf(a.zh.data.contentId) - order.indexOf(b.zh.data.contentId));
-const title = { zh: '教学与社群实践', en: 'Teaching & community' };
+pairs.sort((a, b) => teachingOrder.indexOf(a.zh.data.contentId) - teachingOrder.indexOf(b.zh.data.contentId));
+const title = { zh: '教学', en: 'Teaching' };
 const description = { zh: '面向游戏社新成员的 PICO-8 入门培训：四次课程、跟随操作、课后答疑与习题课，并衔接一周 Game Jam。', en: 'PICO-8 training for new game-club members: four sessions with live coding, follow-up Q&A and exercise sessions, followed by a one-week game jam.' };
 ---
 <PortfolioLayout title={title} description={description}>
-	<header class="page-intro"><Text as="p" class="eyebrow" zh="一起学习，一起创作" en="Learning & making together" /><Text as="h1" {...title} /><Text as="p" {...description} /></header>
+	<header class="page-intro"><Text as="h1" {...title} /><Text as="p" class="page-description" {...description} /></header>
 	<div class="teaching-stats">
 		<Text as="p" zh="4 次课程 · 每次约 90 分钟" en="4 sessions · about 90 minutes each" />
 		<Text as="p" zh="每次十余人 · 讲解与跟随操作" en="Around a dozen attendees per session · explanation & live coding" />

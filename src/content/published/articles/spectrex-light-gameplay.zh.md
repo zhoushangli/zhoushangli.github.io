@@ -7,7 +7,7 @@ description: "从光源、镜面与玻璃，到感光器和门，梳理 SpectreX
 category: gameplay
 tags: [Godot, C#, 光学解谜, 交互系统]
 relatedProject: spectrex
-draft: false
+draft: true
 ---
 
 ## 光既要看得见，也要能决定机关状态

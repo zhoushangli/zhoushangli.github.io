@@ -7,7 +7,7 @@ description: "Following RenderService and RenderPipeline from layered viewports 
 category: graphics
 tags: [Godot, C#, Shader, Rendering pipeline]
 relatedProject: spectrex
-draft: false
+draft: true
 ---
 
 ## A final screenshot does not explain the whole image

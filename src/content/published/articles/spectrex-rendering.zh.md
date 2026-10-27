@@ -7,7 +7,7 @@ description: "沿着 RenderService 和 RenderPipeline，解释分层视口、数
 category: graphics
 tags: [Godot, C#, Shader, 渲染管线]
 relatedProject: spectrex
-draft: false
+draft: true
 ---
 
 ## 为什么一张最终截图解释不了这套画面

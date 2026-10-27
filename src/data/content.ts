@@ -1,5 +1,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
+export const teachingOrder = ['pico8-2026', 'pico8-intro', 'pico8-l01', 'pico8-l02', 'pico8-l03', 'pico8-a01', 'pico8-a02', 'pico8-object-organization', 'pico8-game-jam'];
+
 export const categories = {
 	engine: { zh: '引擎开发', en: 'Engine development' },
 	graphics: { zh: '图形渲染', en: 'Graphics & rendering' },

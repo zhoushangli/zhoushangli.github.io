@@ -7,7 +7,7 @@ description: "从 .NET 托管、反射绑定和对象句柄，到程序集重载
 category: engine
 tags: [C++, C#, 脚本系统, 对象生命周期]
 relatedProject: ming-engine
-draft: false
+draft: true
 ---
 
 ## 跨语言调用之前，先解决对象关系

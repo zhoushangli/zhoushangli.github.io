@@ -2,14 +2,14 @@
 contentId: pico8-intro
 lang: en
 section: teaching
-title: "PICO-8 Intro: From Shared Interests to a First Making Goal"
-description: "Introducing the tool, encouraging questions and observing small games before the development sessions and jam."
+title: "PICO-8 Intro: Course Introduction"
+description: "Introducing PICO-8 and the course, with practice saving, loading and running cartridges."
 category: teaching
 tags: ["PICO-8", "Teaching practice"]
 draft: false
 ---
 
-## Why begin with games rather than code?
+## Course outline
 
 The original Intro plan deliberately limits technical detail. Its first purpose is to explain what we will make. For new club members, knowing what others enjoy, who can help, and how to ask questions is part of being ready to create.
 
@@ -17,7 +17,7 @@ My introduction connects my computing background, game-development studies at SM
 
 ## Learning goals
 
-The intended outcomes are to explain how the course leads into the jam, locate a saved project, and choose a small game to observe more closely. These are curriculum goals reconstructed from the plan, not individually measured achievements.
+The goals are to understand the course and jam, locate a saved project and choose a small game to observe.
 
 The plan includes voluntary introductions and recording recommended PICO-8 games. With a larger group, it does not require everyone to speak: volunteers can establish the pattern while others retain space to ask questions.
 
@@ -40,9 +40,9 @@ The original closing activity asks members to choose a PICO-8 game and play toge
 
 The purpose is to translate “fun” into observable behavior rather than immediately judge the work. Subsequent lessons can then ask what input, state and presentation would support that experience.
 
-## Scope of this record
+## Next lessons
 
-The Intro connects follow-along classes, questions, exercises and the eventual jam. The initial plan considered platform movement, dashing, sound and levels, while later notes make cuts. Those differences describe an evolving curriculum rather than a checklist of completed features.
+Later sessions combine explanations, follow-along work and exercises before the jam. The plan includes platform movement, dashing, sound and levels, with adjustments as the course progresses.
 
-This page is edited from the Intro plan, omitting private names, classroom jokes and unconfirmed details. Continue with [L01: input and visible feedback](/teaching/pico8-l01/).
+This page follows the Intro plan. Continue with [L01: Input, Drawing and Variables](/teaching/pico8-l01/).
 

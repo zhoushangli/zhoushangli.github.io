@@ -1,0 +1,24 @@
+---
+import { Image } from 'astro:assets';
+import Text from './Text.astro';
+import TencentImage from '../content/images/tencent.png';
+import NuverseImage from '../content/images/nuverse.png';
+import ShanghaiTechImage from '../content/images/shanghaitech.png';
+import SmuImage from '../content/images/smu.png';
+const experiences = [
+  { image: TencentImage, name: { zh: '腾讯魔方工作室群', en: 'Tencent MoreFun Studios' }, date: { zh: '2024 年 1—2 月', en: 'Jan–Feb 2024' }, role: { zh: '战斗策划实习生', en: 'Combat designer intern' }, description: { zh: '参与游戏音效和敌人战斗动画的配置。', en: 'Configured in-game audio and enemy combat animations.' }, tech: { zh: '战斗策划 · 音效配置 · 敌人动画', en: 'Combat design · Audio configuration · Enemy animation' } },
+  { image: NuverseImage, name: { zh: '朝夕光年', en: 'Nuverse' }, date: { zh: '2023 年 8—12 月', en: 'Aug–Dec 2023' }, role: { zh: '软件开发实习生', en: 'Software development intern' }, description: { zh: '使用 PyQt 开发引擎工具链界面。', en: 'Developed PyQt interfaces for an engine toolchain.' }, tech: { zh: 'PyQt · 工具链 · 界面开发', en: 'PyQt · Toolchains · UI development' } },
+];
+const education = [
+  { image: SmuImage, name: { zh: 'SMU Guildhall', en: 'SMU Guildhall' }, date: { zh: '2025—2027 · 预计 2027 年 5 月毕业', en: '2025–2027 · Expected graduation: May 2027' }, role: { zh: '游戏开发研究生课程 · 程序方向', en: 'Graduate study in game development · Programming' }, description: { zh: '关注引擎编程、玩法系统与团队制作实践，同时通过游戏社课程分享开发经验。', en: 'Studying engine programming, gameplay systems and team production while sharing development experience through game-club teaching.' }, tech: { zh: 'C++ · Direct3D 11 · 游戏制作', en: 'C++ · Direct3D 11 · Game production' } },
+  { image: ShanghaiTechImage, name: { zh: '上海科技大学', en: 'ShanghaiTech University' }, date: { zh: '2021—2025', en: '2021–2025' }, role: { zh: '计算机科学本科', en: 'Undergraduate study in computer science' }, description: { zh: '建立程序设计、计算机系统与软件开发基础，并通过独立游戏实践探索交互与关卡设计。', en: 'Built a foundation in programming, computer systems and software development, and explored interaction and level design through independent games.' }, tech: { zh: '计算机科学 · 软件开发', en: 'Computer science · Software development' } },
+];
+---
+  {[{ id: 'education', title: { zh: '教育经历', en: 'Education' }, entries: education }, { id: 'experience', title: { zh: '实习经历', en: 'Internships' }, entries: experiences }].map((group) => <section class="section timeline-section" id={group.id}>
+    <Text as="h2" {...group.title} />
+    <div class="timeline-list">{group.entries.map((entry) => <article class="timeline-item">
+      <div class="timeline-media"><Image src={entry.image} alt={entry.name.zh} data-i18n-inline-alt data-zh={entry.name.zh} data-en={entry.name.en} width={420} format="webp" quality={84} loading="lazy" /></div>
+      <div class="timeline-meta"><Text as="p" class="timeline-date" {...entry.date} /><Text as="h3" {...entry.name} /><Text as="p" {...entry.role} /></div>
+      <div class="timeline-copy"><Text as="p" {...entry.description} /><Text as="p" class="timeline-tech" {...entry.tech} /></div>
+    </article>)}</div>
+  </section>)}

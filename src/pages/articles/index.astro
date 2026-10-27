@@ -5,11 +5,11 @@ import ContentCard from '../../components/ContentCard.astro';
 import { getContentPairs, categories } from '../../data/content';
 const pairs = await getContentPairs('articles');
 const usedCategories = Object.entries(categories).filter(([key]) => pairs.some((pair) => pair.zh.data.category === key));
-const title = { zh: '技术研究与开发笔记', en: 'Technical studies & development notes' };
-const description = { zh: '从源码、帧捕获和游戏体验出发，记录实现原理、设计取舍与尚待验证的问题。', en: 'Studies of implementation, design decisions and open questions, grounded in source code, frame captures and play observations.' };
+const title = { zh: '笔记', en: 'Notes' };
+const description = { zh: '游戏分析和开发笔记。', en: 'Game analysis and development notes.' };
 ---
 <PortfolioLayout title={title} description={description}>
-	<header class="page-intro"><Text as="p" class="eyebrow" zh="研究与记录" en="Studies & notes" /><Text as="h1" {...title} /><Text as="p" {...description} /></header>
+	<header class="page-intro"><Text as="h1" {...title} /><Text as="p" class="page-description" {...description} /></header>
 	<div class="category-filters" role="group" aria-label="文章分类" data-i18n-inline-aria-label data-zh="文章分类" data-en="Article categories">
 		<button type="button" data-filter="all" aria-pressed="true"><Text zh="全部" en="All" /></button>
 		{usedCategories.map(([key, label]) => <button type="button" data-filter={key} aria-pressed="false"><Text {...label} /></button>)}

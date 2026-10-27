@@ -7,7 +7,7 @@ description: "Tracing the input queue, Viewport routing, mouse capture, and butt
 category: engine
 tags: [C++, GUI, Input events, Editor]
 relatedProject: ming-engine
-draft: false
+draft: true
 ---
 
 ## Why cannot press and release choose recipients independently?

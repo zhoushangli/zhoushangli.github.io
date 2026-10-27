@@ -1,37 +1,60 @@
 ---
 import Text from './Text.astro';
+import { getProjectsByCategory } from '../data/projects';
+import { getContentPairs, teachingOrder } from '../data/content';
 import { GITHUB_URL, LINKEDIN_URL } from '../consts';
 const path = Astro.url.pathname;
 const home = path === '/';
+const section = path.startsWith('/teaching') ? 'teaching' : 'articles';
+const entries = path === '/articles/' || path === '/teaching/' ? await getContentPairs(section) : [];
+if (section === 'teaching')
+{
+  entries.sort((a, b) => teachingOrder.indexOf(a.zh.data.contentId) - teachingOrder.indexOf(b.zh.data.contentId));
+}
 const links = [
-  { href: '/', number: 'I.', zh: '首页序言', en: 'Home', active: home },
-  { href: '/projects/', number: 'II.', zh: '项目作品', en: 'Projects', active: path.startsWith('/projects') },
-  { href: '/articles/', number: 'III.', zh: '研究与笔记', en: 'Studies & notes', active: path.startsWith('/articles') },
-  { href: '/teaching/', number: 'IV.', zh: '教学与社群', en: 'Teaching', active: path.startsWith('/teaching') },
-  { href: '/#about', number: 'V.', zh: '个人经历', en: 'About & experience', active: false },
+  { href: '/', number: 'I.', zh: '首页', en: 'Home', active: home || path.startsWith('/experience') },
+  { href: '/projects/', number: 'II.', zh: '作品', en: 'Projects', active: path.startsWith('/projects') },
+  { href: '/articles/', number: 'III.', zh: '笔记', en: 'Notes', active: path.startsWith('/articles') },
+  { href: '/teaching/', number: 'IV.', zh: '教学', en: 'Teaching', active: path.startsWith('/teaching') },
 ];
 const chapters = [
-  { href: '#projects', zh: '一 / 选定作品', en: '01 / Selected works' },
-  { href: '#articles', zh: '二 / 近期文字', en: '02 / Recent writing' },
-  { href: '#teaching', zh: '三 / 教学实践', en: '03 / Teaching' },
-  { href: '#about', zh: '四 / 个人经历', en: '04 / About' },
-  { href: '#interests', zh: '五 / 个人兴趣', en: '05 / Beyond games' },
+  { href: '#intro', zh: '个人简介', en: 'Introduction' },
+  { href: '#education', zh: '教育经历', en: 'Education' },
+  { href: '#experience', zh: '实习经历', en: 'Internships' },
+  { href: '#projects', zh: '作品', en: 'Projects' },
+  { href: '#articles', zh: '笔记', en: 'Notes' },
+  { href: '#teaching', zh: '教学', en: 'Teaching' },
+  { href: '#interests', zh: '个人兴趣', en: 'Interests' },
 ];
 ---
 <header class="site-sidebar">
   <a class="site-brand" href="/"><span class="brand-seal" aria-hidden="true">周</span><Text zh="周尚礼" en="ShangLi Zhou" /></a>
-  <Text as="p" class="sidebar-description" zh="游戏开发 · 研究 · 教学" en="Game development · Studies · Teaching" />
+  <Text as="p" class="sidebar-description" zh="游戏开发 · 笔记 · 教学" en="Game development · Notes · Teaching" />
   <details class="site-menu" open>
     <summary><Text zh="站点目录" en="Contents" /><span aria-hidden="true">＋</span></summary>
-    <nav class="site-navigation" aria-label="主导航" data-i18n-inline-aria-label data-zh="主导航" data-en="Main navigation">
-      {links.map((link) => <a href={link.href} aria-current={link.active ? 'page' : undefined}><span class="nav-number" aria-hidden="true">{link.number}</span><Text zh={link.zh} en={link.en} /></a>)}
-    </nav>
-    {home && <nav class="home-chapters" aria-label="首页章节" data-i18n-inline-aria-label data-zh="首页章节" data-en="Home chapters">
-      {chapters.map((link) => <a href={link.href} data-chapter-link><Text zh={link.zh} en={link.en} /></a>)}
-    </nav>}
+    <div class="menu-content">
+      <nav class="site-navigation" aria-label="主导航" data-i18n-inline-aria-label data-zh="主导航" data-en="Main navigation">
+        {links.map((link) => <a href={link.href} aria-current={link.active ? 'page' : undefined}><span class="nav-number" aria-hidden="true">{link.number}</span><Text zh={link.zh} en={link.en} /></a>)}
+      </nav>
+      <div class="secondary-navigation">
+        <slot>
+          {home && <nav aria-label="首页章节" data-i18n-inline-aria-label data-zh="首页章节" data-en="Home sections">
+            {chapters.map((link) => <a href={link.href} data-chapter-link><Text zh={link.zh} en={link.en} /></a>)}
+          </nav>}
+          {path.startsWith('/projects') && <nav aria-label="项目列表" data-i18n-inline-aria-label data-zh="项目列表" data-en="Project list">
+            {(['personal', 'team'] as const).map((category) => <div class="navigation-group">
+              <Text as="p" class="navigation-label" zh={category === 'personal' ? '个人项目' : '团队项目'} en={category === 'personal' ? 'Personal projects' : 'Team projects'} />
+              {getProjectsByCategory(category).map((project) => <a href={`/projects/${project.slug}/`} aria-current={path.replace(/\/$/, '') === `/projects/${project.slug}` ? 'page' : undefined}>{project.title}</a>)}
+            </div>)}
+          </nav>}
+          {entries.length > 0 && <nav aria-label="内容列表" data-i18n-inline-aria-label data-zh="内容列表" data-en="Content list">
+            {entries.map((pair) => <a href={`/${section}/${pair.zh.data.contentId}/`}><Text zh={pair.zh.data.title} en={pair.en.data.title} /></a>)}
+          </nav>}
+        </slot>
+      </div>
+    </div>
   </details>
   <div class="sidebar-bottom">
-    <Text as="p" class="sidebar-note" zh="写下实现的过程，\n也留下思考的余地。" en="Notes on making,\nand room for thought." />
     <div class="sidebar-social"><a href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub ↗</a><a href={LINKEDIN_URL} target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
     <button class="language-toggle" type="button" data-language-toggle aria-label="切换为英文"><span class="language-mark" aria-hidden="true"></span><span data-language-label>EN</span></button>
   </div>
@@ -51,25 +74,30 @@ const chapters = [
   })();
 </script>
 <script>
-  const links = document.querySelectorAll<HTMLAnchorElement>('[data-chapter-link]');
-  if (links.length) {
-    const positions = Array.from(links).map((link) => ({
-      link,
-      section: document.querySelector<HTMLElement>(link.getAttribute('href')!),
-    }));
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-chapter-link]'));
+  if (links.length)
+  {
     const update = () => {
-      const reached = positions.filter(({ section }) => section && section.getBoundingClientRect().top <= innerHeight * .35);
-      const current = reached.at(-1)?.link;
-      positions.forEach(({ link }) => {
-        if (link === current) {
+      const positions = links.filter((link) => !link.closest('[hidden]')).map((link) => ({
+        link,
+        section: document.getElementById(decodeURIComponent(link.hash.slice(1))),
+      })).filter((item) => item.section);
+      const reached = positions.filter(({ section }) => section!.getBoundingClientRect().top <= innerHeight * .35);
+      const current = reached.at(-1)?.link ?? positions[0]?.link;
+      links.forEach((link) => {
+        if (link === current)
+        {
           link.setAttribute('aria-current', 'location');
-        } else {
+        }
+        else
+        {
           link.removeAttribute('aria-current');
         }
       });
     };
     addEventListener('scroll', update, { passive: true });
     addEventListener('resize', update);
+    document.addEventListener('portfolio-language-change', update);
     update();
   }
 </script>

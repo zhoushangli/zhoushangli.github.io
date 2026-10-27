@@ -7,7 +7,7 @@ description: "Following .NET hosting, reflected bindings, object handles, and as
 category: engine
 tags: [C++, C#, Scripting, Object lifetime]
 relatedProject: ming-engine
-draft: false
+draft: true
 ---
 
 ## Object relationships come before cross-language calls

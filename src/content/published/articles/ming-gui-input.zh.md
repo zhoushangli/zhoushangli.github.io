@@ -7,7 +7,7 @@ description: "沿着输入队列、Viewport 分派、鼠标捕获和按钮状态
 category: engine
 tags: [C++, GUI, 输入事件, 编辑器]
 relatedProject: ming-engine
-draft: false
+draft: true
 ---
 
 ## 按下与松开，为什么不能分别寻找接收者？

@@ -9,21 +9,21 @@ export function getStaticPaths() {
 }
 const { project } = Astro.props;
 const articles = (await getContentPairs('articles')).filter((pair) => project.relatedArticles?.includes(pair.zh.data.contentId));
-const title = { zh: `${project.title} · 项目作品`, en: `${project.title} · Projects` };
+const title = { zh: `${project.title} · 作品`, en: `${project.title} · Projects` };
 const duration = project.duration
   ? { zh: project.duration.replace('Present', '至今'), en: project.duration }
   : undefined;
 ---
 <PortfolioLayout title={title} description={project.summary}>
   <header class="page-intro">
-    <a href="/projects/"><Text zh="← 全部项目" en="← All projects" /></a>
+    <a href="/projects/"><Text zh="← 作品" en="← Projects" /></a>
     <Text as="p" class="eyebrow" zh={project.category === 'personal' ? '个人项目' : '团队项目'} en={project.category === 'personal' ? 'Personal project' : 'Team project'} />
-    <h1>{project.title}</h1><Text as="p" {...project.summary} /><Text as="p" class="showcase-tech" {...project.tech} />
+    <h1>{project.title}</h1><Text as="p" class="page-description" {...project.summary} /><Text as="p" class="showcase-tech" {...project.tech} />
     <div class="page-links">{project.externalLink && <a href={project.externalLink.href} target="_blank" rel="noreferrer"><Text {...project.externalLink.label} /></a>}{project.downloads?.map((download) => <a href={download.href}><Text {...download.label} /></a>)}</div>
   </header>
-  <figure class={`project-detail-media ${project.slug === 'spectrex' ? 'icon-media' : ''}`}>
+  <figure class="project-detail-media">
     <img src={project.media.src} alt={project.media.alt.zh} data-i18n-inline-alt data-zh={project.media.alt.zh} data-en={project.media.alt.en} />
-    <Text as="figcaption" class="caption" {...project.media.alt} />
+    {project.media.caption && <Text as="figcaption" class="caption" {...project.media.caption} />}
   </figure>
   <section class="section project-notes">
     <dl>
@@ -33,10 +33,10 @@ const duration = project.duration
       {project.role && <div><Text as="dt" zh="我的职责" en="My role" /><Text as="dd" {...project.role} /></div>}
     </dl>
     <Text as="h2" zh="项目介绍" en="Overview" /><Text as="p" {...project.detail} />
-    <Text as="h2" zh="我的贡献" en="My contribution" /><Text as="p" {...project.contribution} />
-    <Text as="h2" zh="主要功能" en="Key features" /><ul>{project.features?.map((feature) => <Text as="li" {...feature} />)}</ul>
-    <Text as="h2" zh="实现与设计取舍" en="Implementation & design decisions" /><ul>{project.decisions?.map((decision) => <Text as="li" {...decision} />)}</ul>
-    <Text as="h2" zh="范围与反思" en="Scope & reflection" /><ul>{project.limitations?.map((limit) => <Text as="li" {...limit} />)}</ul>
+    {project.category === 'team' && <><Text as="h2" zh="我的工作" en="My work" /><Text as="p" {...project.contribution} /></>}
+    {project.features?.length > 0 && <><Text as="h2" zh="主要功能" en="Features" /><ul>{project.features.map((feature) => <Text as="li" {...feature} />)}</ul></>}
+    {project.decisions?.length > 0 && <><Text as="h2" zh="实现" en="Implementation" /><ul>{project.decisions.map((decision) => <Text as="li" {...decision} />)}</ul></>}
+    {project.limitations?.length > 0 && <><Text as="h2" zh="开发进展" en="Development notes" /><ul>{project.limitations.map((limit) => <Text as="li" {...limit} />)}</ul></>}
   </section>
   {project.embedVideo && <section class="section"><Text as="h2" zh="项目演示" en="Project demonstration" /><div class="video-frame"><iframe src={project.embedVideo.src} title={project.embedVideo.title.zh} data-i18n-inline-title data-zh={project.embedVideo.title.zh} data-en={project.embedVideo.title.en} loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen /></div></section>}
   {articles.length > 0 && <section class="section"><Text as="h2" zh="相关专题" en="Related studies" /><div class="reading-grid">{articles.map((pair) => <ContentCard pair={pair} />)}</div></section>}

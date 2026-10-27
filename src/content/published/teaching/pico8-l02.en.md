@@ -2,8 +2,8 @@
 contentId: pico8-l02
 lang: en
 section: teaching
-title: "PICO-8 L02: From Debugging Movement to Organizing Objects"
-description: "A lesson-plan reconstruction connecting movement debugging, animation and Lua tables."
+title: "PICO-8 L02: Debugging, Movement and Animation"
+description: "Investigate jumping problems, organize movement functions and select animations from state."
 category: teaching
 tags: ["PICO-8", "Teaching practice"]
 draft: false
@@ -13,13 +13,13 @@ draft: false
 
 The retained L02 plan covers code cleanup, movement debugging, movement functions, animation and object refactoring. Rather than starting a new game, the lesson addresses a program that has grown enough to become difficult to change.
 
-The intended goals are to narrow a bug through observable state and explain why grouping related data helps when adding objects. The written plan and my recollection number the refactoring differently; this page follows the plan, with the method presented separately as a [teaching case](/teaching/pico8-object-organization/).
+This lesson uses position and velocity to investigate faults, then groups related object data. The refactoring method has a separate [object-management case](/teaching/pico8-object-organization/).
 
 ## Describe the fault before changing a formula
 
 The notes record unusual jumping behavior and propose printing vertical velocity and pausing/resuming execution. The edited sequence asks whether the fault occurs on takeoff, ascent, descent or landing, whether displacement matches velocity, and whether movement is applied more than once in an update.
 
-Track only the relevant position, vertical velocity and grounded condition. Inspect how they change within an update before choosing a fix. A local correction written in preparation notes should not be presented as a general formula without the complete algorithm.
+Track position, vertical velocity and the grounded condition within one update before choosing a fix. Movement formulas need to be read alongside the complete collision and displacement logic.
 
 ## Separate movement from presentation
 
@@ -31,11 +31,11 @@ Animation reads movement and grounding state to choose a presentation. Check idl
 
 What happens if adding a balloon means adding another group of global variables? This question gives tables a practical purpose. Complex inheritance is unnecessary: compare scattered variables with grouped object data, then identify shared behavior and state that each object must own.
 
-The notes also prepare dashing, alongside reminders to cut it or defer it if time runs short. This is evidence of scope adjustment, not proof that a complete dash system was delivered in the lesson.
+Dashing is optional in the plan and can be cut or deferred when time is short.
 
 ## Practice and reflection
 
 Keep a working version and change one responsibility at a time. After extracting movement into a function, compare the old behavior before adding an ability. Learners should be able to name the caller, inputs and state being changed.
 
-The plan proposes inertia-based movement for exercise support. Such preparation items are practice directions, not verified completed teaching outcomes. The useful progression is towards a repeatable, explainable way of investigating faults.
+Inertia-based movement is an extension exercise in the plan. Each change should be explainable and easy to check.
 

@@ -7,7 +7,7 @@ description: "Following optical data from emitters, mirrors, and glass to sensor
 category: gameplay
 tags: [Godot, C#, Optical puzzles, Interaction]
 relatedProject: spectrex
-draft: false
+draft: true
 ---
 
 ## Light needs to be visible and determine mechanism state

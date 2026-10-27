@@ -2,8 +2,8 @@
 contentId: pico8-object-organization
 lang: en
 section: teaching
-title: "Teaching Case: From Scattered Variables to Lua Objects"
-description: "Using a second object to motivate grouped data, instance construction and shared updates."
+title: "PICO-8 Object Management Example"
+description: "Group object data in tables, create multiple instances and update them together."
 category: teaching
 tags: ["PICO-8", "Teaching practice"]
 draft: false
@@ -13,7 +13,7 @@ draft: false
 
 The starting question is practical: a character already moves, so where should the data for a balloon, platform or another object go? Copying groups of global variables is easy initially, but makes their relationship to functions harder to follow.
 
-The original L02 notes record tables, templates and instances, while my classroom recollection places this material in L03. This is therefore a cross-session case about the teaching approach, not a reconstruction of the exact lesson timeline.
+Tables, templates and instances appear in the L02 notes, while my recollection places them in L03. This case is presented separately.
 
 ## Group data before introducing more machinery
 
@@ -23,7 +23,7 @@ Then distinguish shared behavior from per-instance state. Objects may follow one
 
 ## A minimal example
 
-This example was written for the article. It is not the original classroom file and does not introduce an inheritance framework:
+The following simplified example was written for these notes:
 
 ```lua
 function make_actor(x,y)
@@ -66,5 +66,5 @@ Ask learners to trace who creates an object, where it enters the collection and 
 
 First change only the second instance's velocity and predict the effect on the other object. Next give objects independent colors and update drawing to use them. Finally discuss what should happen to the collection when changing rooms.
 
-These exercises edit and extend the teaching plan; they do not report measured student performance. Changing input, animation, collision and structure simultaneously makes comparison difficult for beginners. Retain behavior while changing one organizational idea at a time, then connect it to [lifecycle and level loading](/teaching/pico8-l03/).
+These exercises adapt and extend the plan. Changing input, animation, collision and structure at once makes comparison difficult. Preserve behavior and change one organizational idea at a time. Continue with [L03: Objects and Levels](/teaching/pico8-l03/).
 

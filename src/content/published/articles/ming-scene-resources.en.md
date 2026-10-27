@@ -7,7 +7,7 @@ description: "Tracing scene lifetime, two-phase PackedScene instantiation, and r
 category: engine
 tags: [C++, Scene tree, Serialization, Resources]
 relatedProject: ming-engine
-draft: false
+draft: true
 ---
 
 ## Why does a scene need several representations?

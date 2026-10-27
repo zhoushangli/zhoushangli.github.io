@@ -7,7 +7,7 @@ description: "从场景树的生命周期，到 PackedScene 的两阶段实例�
 category: engine
 tags: [C++, 场景树, 序列化, 资源管理]
 relatedProject: ming-engine
-draft: false
+draft: true
 ---
 
 ## 一个场景，为什么需要几种表示？

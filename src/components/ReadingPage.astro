@@ -9,50 +9,34 @@ interface Props { pair: ContentPair; }
 const { pair } = Astro.props;
 const zh = await render(pair.zh);
 const en = await render(pair.en);
-const versions = [{ lang: 'zh', entry: pair.zh, rendered: zh }, { lang: 'en', entry: pair.en, rendered: en }];
+const versions = [{ lang: 'zh', rendered: zh }, { lang: 'en', rendered: en }];
 const title = { zh: pair.zh.data.title, en: pair.en.data.title };
 const description = { zh: pair.zh.data.description, en: pair.en.data.description };
 const section = pair.zh.data.section;
 const project = pair.zh.data.relatedProject ? getProjectBySlug(pair.zh.data.relatedProject) : undefined;
 ---
 <PortfolioLayout title={title} description={description}>
+  <Fragment slot="sidebar">
+    {versions.map(({ lang, rendered }) => <nav class="reading-toc" data-language-block={lang} lang={lang === 'zh' ? 'zh-CN' : 'en'} hidden={lang === 'en'} inert={lang === 'en'} aria-label={lang === 'zh' ? '本文目录' : 'On this page'}>
+      <p class="navigation-label">{lang === 'zh' ? '本文目录' : 'On this page'}</p>
+      {rendered.headings.filter((heading) => heading.depth === 2 || heading.depth === 3).map((heading) => <a class={`depth-${heading.depth}`} data-chapter-link href={`#${heading.slug.startsWith(`${lang}-`) ? heading.slug : `${lang}-${heading.slug}`}`}>{heading.text}</a>)}
+    </nav>)}
+  </Fragment>
 	<header class="page-intro">
-		<a href={`/${section}/`}><Text zh={section === 'articles' ? '← 技术研究与开发笔记' : '← 教学与社群实践'} en={section === 'articles' ? '← Studies & notes' : '← Teaching & community'} /></a>
+		<a href={`/${section}/`}><Text zh={section === 'articles' ? '← 笔记' : '← 教学'} en={section === 'articles' ? '← Notes' : '← Teaching'} /></a>
 		<Text as="p" class="eyebrow" {...categories[pair.zh.data.category]} />
 		<Text as="h1" {...title} />
-		<Text as="p" {...description} />
+		<Text as="p" class="page-description" {...description} />
 		{project && <a href={`/projects/${project.slug}`}><Text zh={`相关项目：${project.title}`} en={`Related project: ${project.title}`} /></a>}
 	</header>
-	{versions.map(({ lang, entry, rendered }) => {
+	{versions.map(({ lang, rendered }) => {
 		const Content = rendered.Content;
-		const headings = rendered.headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+
 		return <section data-language-block={lang} lang={lang === 'zh' ? 'zh-CN' : 'en'} hidden={lang === 'en'} inert={lang === 'en'}>
 			<div class="reading-layout">
 				<article class="prose"><Content /></article>
-				<aside class="toc">
-					<details class="reading-toc" open>
-					<summary>{lang === 'zh' ? '本文目录' : 'On this page'}</summary>
-					<nav aria-label={lang === 'zh' ? '文章目录' : 'Table of contents'}>
-						<ol>{headings.map((heading) => <li class={`depth-${heading.depth}`}><a href={`#${heading.slug.startsWith(`${lang}-`) ? heading.slug : `${lang}-${heading.slug}`}`}>{heading.text}</a></li>)}</ol>
-					</nav>
-					<p class="caption">{entry.data.tags.join(' · ')}</p>
-					</details>
-				</aside>
 			</div>
 		</section>;
 	})}
 	{pair.zh.data.contentId === 'pico8-game-jam' && <GameJamGallery />}
 </PortfolioLayout>
-<script>
-  const compact = matchMedia('(max-width: 1200px)');
-  document.querySelectorAll<HTMLDetailsElement>('.reading-toc').forEach((toc) => {
-    const update = () => { toc.open = !compact.matches; };
-    update();
-    compact.addEventListener('change', update);
-    toc.addEventListener('click', (event) => {
-      if (compact.matches && event.target instanceof Element && event.target.closest('a')) {
-        toc.open = false;
-      }
-    });
-  });
-</script>

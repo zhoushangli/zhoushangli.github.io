@@ -1,7 +1,7 @@
 [hidden] { display: none !important; }
 .portfolio .page-intro { max-width: 980px; margin-bottom: 48px; }
 .portfolio .page-intro h1 { font-size: clamp(32px, 4vw, 52px); line-height: 1.5; margin: 22px 0; text-wrap: balance; }
-.portfolio .page-intro > p:last-of-type { max-width: 730px; color: var(--muted); line-height: 2; }
+.portfolio .page-intro .page-description { max-width: 730px; color: var(--muted); line-height: 2; }
 .portfolio .page-intro > a { display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; color: var(--accent); }
 .portfolio .page-intro .page-links a { color: var(--text); }
 .portfolio .reading-grid { display: grid; grid-template-columns: minmax(0,1fr); border-top: 1px solid var(--border); }
@@ -13,7 +13,7 @@
 .portfolio .category-filters, .portfolio .page-links { display: flex; gap: 10px; flex-wrap: wrap; margin: 25px 0 35px; }
 .portfolio .category-filters button, .portfolio .page-links a { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; border: 1px solid var(--border); background: transparent; color: var(--text); padding: 9px 16px; font: inherit; font-size: 13px; cursor: pointer; }
 .portfolio .category-filters button[aria-pressed='true'], .portfolio .category-filters button:hover, .portfolio .page-links a:hover { border-color: var(--accent); color: var(--accent); background: var(--surface); }
-.portfolio .reading-layout { display: grid; grid-template-columns: minmax(0,648px) minmax(150px,200px); gap: 44px; align-items: start; justify-content: center; }
+.portfolio .reading-layout { width: 100%; max-width: 648px; margin: 0 auto; }
 .portfolio .prose { min-width: 0; width: 100%; max-width: 648px; font-size: 18px; line-height: 1.95; overflow-wrap: anywhere; }
 .portfolio .prose > :first-child { margin-top: 0; }
 .portfolio .prose h2 { margin: 56px 0 24px; font-size: 28px; line-height: 1.6; scroll-margin-top: 32px; }
@@ -30,16 +30,10 @@
 .portfolio .prose :not(pre) > code { font-size: .88em; padding: 2px 4px; background: var(--surface); overflow-wrap: anywhere; }
 .portfolio .prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 15px; margin: 26px 0; }
 .portfolio .prose th, .portfolio .prose td { padding: 12px; border: 1px solid var(--border); text-align: left; min-width: 110px; }
-.portfolio .caption, .portfolio .prose figcaption { color: var(--muted); font-size: 13px; line-height: 1.9; }
-.portfolio .prose p > em:only-child { display: block; margin: 6px 0 28px; padding-left: 16px; border-left: 1px solid var(--accent); color: var(--muted); font-size: 14px; line-height: 1.9; }
-.portfolio .toc { position: sticky; top: 32px; border-top: 1px solid var(--border); padding-top: 15px; font-size: 13px; max-height: calc(100vh - 64px); overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border) var(--bg); }
-.portfolio .toc summary { min-height: 44px; padding: 8px 0; color: var(--accent); }
-.portfolio .toc ol { list-style: none; margin: 0; padding: 0; }
-.portfolio .toc li { margin: 0; }
-.portfolio .toc a { display: block; min-height: 44px; padding: 10px 0; line-height: 1.8; color: var(--muted); text-decoration: none; overflow-wrap: anywhere; }
-.portfolio .toc a:hover { color: var(--accent); }
-.portfolio .toc .depth-3 { padding-left: 12px; }
-.portfolio .toc .caption { margin-top: 18px; font-size: 11px; }
+.portfolio .caption, .portfolio .prose figcaption { color: var(--subtle); font-size: 13px; line-height: 1.9; text-align: center; }
+.portfolio .prose figure { margin: 30px 0; }
+.portfolio .prose figure img, .portfolio .prose figure video { margin: 0 auto 14px; }
+.portfolio .prose figcaption { margin-top: 14px; }
 .portfolio .teaching-stats, .portfolio .skills-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 25px; margin: 35px 0 45px; }
 .portfolio .teaching-stats p, .portfolio .skill-item { margin: 0; padding: 20px 0 0; border-top: 1px solid var(--border); font-size: 14px; }
 .portfolio .skill-item h3 { font-size: 24px; margin: 0 0 15px; }
@@ -60,8 +54,6 @@
 .portfolio .project-notes dt { color: var(--muted); font-size: 12px; }
 .portfolio .project-notes dd { margin: 8px 0 0; color: var(--text); font-size: 16px; }
 @media (max-width:1200px) {
-  .portfolio .reading-layout { grid-template-columns: minmax(0,648px); }
-  .portfolio .toc { position: static; grid-row: 1; max-height: none; margin-bottom: 25px; }
   .portfolio .gamejam-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
 }
 @media (max-width:600px) {

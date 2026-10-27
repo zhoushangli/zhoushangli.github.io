@@ -7,12 +7,13 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import re
+import hashlib
 from collections import Counter
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlsplit, unquote
 
-from playwright.sync_api import sync_playwright
 
 REPO = Path(__file__).resolve().parents[1]
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -23,9 +24,11 @@ class MainContent(HTMLParser):
         super().__init__()
         self.inside = False
         self.pairs, self.links, self.ids, self.image_alts = [], [], [], []
+        self.nodes = []
 
     def handle_starttag(self, tag, attrs):
         data = dict(attrs)
+        self.nodes.append((tag, data))
         if tag == "main":
             self.inside = True
         if not self.inside:
@@ -45,39 +48,95 @@ class MainContent(HTMLParser):
             self.inside = False
 
 
-def preserve_content(folder):
-    baseline_path = folder / "baseline.json"
-    if not baseline_path.exists():
-        return {"available": False}
-    baseline = json.loads(baseline_path.read_text(encoding="utf-8"))
-    current = {}
-    for relative in baseline:
+RETIRED = ("ming-scene-resources", "ming-csharp-bridge", "ming-gui-input", "spectrex-light-gameplay", "spectrex-rendering")
+
+
+def verify_static():
+    pages = {
+        "/" if path.parent == REPO / "dist" else "/" + path.parent.relative_to(REPO / "dist").as_posix() + "/": path
+        for path in (REPO / "dist").rglob("index.html")
+        if not path.relative_to(REPO / "dist").as_posix().startswith("previews/")
+    }
+    assert len(pages) == 21 and "/experience/" in pages, sorted(pages)
+    parsed = {}
+    local_links = assets = anchors = captions = 0
+    for route, path in pages.items():
+        source = path.read_text(encoding="utf-8")
         parser = MainContent()
-        parser.feed((REPO / "dist" / relative).read_text(encoding="utf-8"))
-        current[relative] = parser
-    project_alts = Counter(
-        pair for path, parser in current.items()
-        if path.startswith("projects/") and path != "projects/index.html"
-        for pair in parser.image_alts
-    )
-    changes = []
-    for relative, old in baseline.items():
-        parser = current[relative]
-        missing = Counter(map(tuple, old["pairs"])) - Counter(parser.pairs)
-        # List pictures became decorative backgrounds; detail pictures retain their alt text.
-        # e.g. a project row now describes the work through its title, summary and technologies.
-        allowed = missing & project_alts if relative in ("index.html", "projects/index.html") else Counter()
-        unexpected = missing - allowed
-        assert not unexpected, (relative, "missing text", unexpected)
-        assert not set(old["links"]) - set(parser.links), (relative, "missing links")
-        assert not set(old["ids"]) - set(parser.ids), (relative, "missing anchors")
-        changes.extend({"page": relative, "decorativeAlt": pair} for pair in allowed)
-    return {"available": True, "pagesPreserved": len(baseline), "intentionalDecorativeAltChanges": changes}
+        parser.feed(source)
+        parsed[route] = parser
+        assert len(parser.ids) == len(set(parser.ids)), (route, "duplicate main IDs")
+        all_ids = [attrs["id"] for _, attrs in parser.nodes if "id" in attrs]
+        assert len(all_ids) == len(set(all_ids)), (route, "duplicate document IDs")
+        assert "???" not in source and "\ufffd" not in source, (route, "encoding")
+        assert not any("/articles/" + slug in source for slug in RETIRED), (route, "retired reference")
+        main_navigation = re.search(r'<nav class="site-navigation"[^>]*>(.*?)</nav>', source, re.S).group(1)
+        assert re.findall(r'href="([^"]+)"', main_navigation) == ["/", "/projects/", "/articles/", "/teaching/"]
+        assert "secondary-navigation" in source
+        for tag, attrs in parser.nodes:
+            if "showcase-tech" in attrs.get("class", "").split():
+                for language in ("zh", "en"):
+                    assert 1 <= len(attrs["data-" + language].split("|")) <= 3, (route, "technology count")
+            if tag == "iframe":
+                assert attrs.get("loading") == "lazy"
+                if "bilibili" in attrs.get("src", ""):
+                    assert "autoplay=0" in attrs["src"]
+            if tag == "video":
+                assert attrs.get("preload") == "none" and "autoplay" not in attrs
+            if tag == "figcaption":
+                captions += 1
+            for attribute in ("href", "src"):
+                value = attrs.get(attribute, "")
+                if not value or urlsplit(value).scheme or value.startswith("//"):
+                    continue
+                url = urlsplit(urljoin("https://local.test" + route, value))
+                target = unquote(url.path)
+                candidate = REPO / "dist" / target.lstrip("/")
+                if target.endswith("/") or not candidate.suffix:
+                    candidate = candidate / "index.html"
+                assert candidate.is_file(), (route, value, "missing local target")
+                if attribute == "src":
+                    assets += 1
+                else:
+                    local_links += 1
+                    if url.fragment:
+                        target_parser = MainContent()
+                        target_parser.feed(candidate.read_text(encoding="utf-8"))
+                        assert unquote(url.fragment) in target_parser.ids, (route, value, "missing anchor")
+                        anchors += 1
+    home = pages["/"].read_text(encoding="utf-8")
+    experience = pages["/experience/"].read_text(encoding="utf-8")
+    for section in ("education", "experience"):
+        pattern = r'<section[^>]*id="' + section + r'"[\s\S]*?</section>'
+        assert re.search(pattern, home).group() == re.search(pattern, experience).group(), (section, "experience drift")
+    order = [home.index('id="' + section + '"') for section in ("intro", "about", "education", "experience", "projects", "articles", "teaching", "interests")]
+    assert order == sorted(order), "home order"
+    for slug in RETIRED:
+        assert "/articles/" + slug + "/" not in pages
+        for lang in ("zh", "en"):
+            assert "draft: true" in (REPO / "src/content/published/articles" / (slug + "." + lang + ".md")).read_text(encoding="utf-8")
+    for route, parser in parsed.items():
+        if route.startswith("/projects/") and route != "/projects/":
+            current = [a["href"] for tag, a in parser.nodes if a.get("aria-current") == "page"]
+            assert route in current, (route, "current project")
+        if route.startswith(("/articles/", "/teaching/")) and route.count("/") == 3:
+            assert any("reading-toc" in a.get("class", "") for _, a in parser.nodes), (route, "sidebar contents")
+    sitemap = (REPO / "dist/sitemap-0.xml").read_text(encoding="utf-8")
+    assert sitemap.count("<loc>") == 21 and "/previews/" not in sitemap
+    assert not any("/articles/" + slug in sitemap for slug in RETIRED)
+    source = (REPO / "src/data/gamejam.ts").read_text(encoding="utf-8")
+    hashes = re.findall(r'"sha256":\s*"([0-9a-f]{64})"', source)
+    assert len(hashes) == 17
+    actual = [hashlib.sha256(path.read_bytes()).hexdigest() for path in (REPO / "public/downloads/gamejam-2026").iterdir() if path.is_file()]
+    assert Counter(hashes) == Counter(actual), "cartridge integrity"
+    assert "spectrex-cover.jpg" in pages["/projects/spectrex/"].read_text(encoding="utf-8")
+    assert "BV1gEny6hEAC" in pages["/projects/spectrex/"].read_text(encoding="utf-8")
+    return {"routes": len(pages), "localLinks": local_links, "assets": assets, "anchors": anchors, "captions": captions, "retiredArticlePairs": len(RETIRED), "cartridges": len(hashes), "pass": True}
 
 
 METRICS = r"""() => {
   const visible = (el) => el.getClientRects().length && getComputedStyle(el).visibility !== 'hidden';
-  const blocks = [...document.querySelectorAll('[data-language-block]')];
+  const blocks = [...document.querySelectorAll('main [data-language-block]')];
   const active = blocks.filter((el) => !el.hidden);
   const prose = active[0]?.querySelector('.prose');
   const paragraph = prose?.querySelector('p');
@@ -100,8 +159,11 @@ METRICS = r"""() => {
     activeVersions:active.length,versionCount:blocks.length,
     inactiveInert:blocks.filter((el) => el.hidden).every((el) => el.inert),
     prose:prose ? {fontSize:parseFloat(style.fontSize),lineHeight:parseFloat(style.lineHeight)/parseFloat(style.fontSize),width:prose.getBoundingClientRect().width,left:prose.getBoundingClientRect().left,right:innerWidth-prose.getBoundingClientRect().right,color:style.color} : null,
+    technologies:[...document.querySelectorAll('main .showcase-tech')].map(el=>({size:parseFloat(getComputedStyle(el).fontSize),detail:!!el.closest('.page-intro'),color:getComputedStyle(el).color,count:el.textContent.split('|').length})),
+    captions:[...document.querySelectorAll('main figcaption')].map(el=>({size:parseFloat(getComputedStyle(el).fontSize),align:getComputedStyle(el).textAlign})),
+    sidebar:{primaryBottom:document.querySelector('.site-navigation').getBoundingClientRect().bottom,secondaryTop:document.querySelector('.secondary-navigation').getBoundingClientRect().top,secondaryBottom:document.querySelector('.secondary-navigation').getBoundingClientRect().bottom,footerTop:document.querySelector('.sidebar-bottom').getBoundingClientRect().top},
     detailImage:image ? {filter:getComputedStyle(image).filter,fit:getComputedStyle(image).objectFit,opacity:getComputedStyle(image).opacity} : null,
-    shortControls:[...document.querySelectorAll('.site-navigation a,.language-toggle,.category-filters button,.site-menu summary')].filter(visible).filter(el => el.getBoundingClientRect().height < 44).map(el=>el.textContent.trim()),
+    shortControls:[...document.querySelectorAll('.site-navigation a,.secondary-navigation a,.language-toggle,.category-filters button,.site-menu summary')].filter(visible).filter(el => el.getBoundingClientRect().height < 44).map(el=>el.textContent.trim()),
     damagedLabels:[...document.querySelectorAll('[data-zh],[data-en]')].filter(el=>['data-zh','data-en'].some(key=>(el.getAttribute(key)||'').includes('???'))).map(el=>el.tagName),
   };
 }"""
@@ -129,7 +191,13 @@ def contrast(first, second):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--base", default="http://127.0.0.1:4323")
+    parser.add_argument("--static-only", action="store_true", help="Check built pages without a browser")
     args = parser.parse_args()
+    static = verify_static()
+    if args.static_only:
+        print(json.dumps(static, ensure_ascii=False, indent=2))
+        return 0
+    from playwright.sync_api import sync_playwright
     folder = REPO / "artifacts" / "preview-audit" / "site-migration"
     folder.mkdir(parents=True, exist_ok=True)
     routes = sorted(
@@ -138,8 +206,8 @@ def main():
         if not path.relative_to(REPO / "dist").as_posix().startswith("previews/")
     )
     routes = ["/" if route == "/./" else route for route in routes]
-    report = {"content": preserve_content(folder), "pages": {}, "interactions": {}}
-    shots = {"/":"home","/projects/":"projects","/articles/":"articles","/teaching/":"teaching","/projects/ming-engine/":"project-detail","/articles/animal-well-rendering/":"reading","/teaching/pico8-game-jam/":"gamejam"}
+    report = {"content": static, "pages": {}, "interactions": {}}
+    shots = {"/experience/":"experience","/projects/spectrex/":"spectrex","/":"home","/projects/":"projects","/articles/":"articles","/teaching/":"teaching","/projects/ming-engine/":"project-detail","/articles/animal-well-rendering/":"reading","/teaching/pico8-game-jam/":"gamejam"}
     links, local_errors, page_errors = set(), set(), []
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
@@ -166,6 +234,11 @@ def main():
                     assert not data["badAnchors"] and not data["duplicateIds"], (key,"anchors")
                     assert not data["shortControls"], (key,"touch",data["shortControls"])
                     assert not data["damagedLabels"], (key,"label encoding")
+                    assert all(item["count"] <= 3 and item["size"] == (18 if item["detail"] else 14) and item["color"] == "rgb(210, 179, 135)" for item in data["technologies"]), (key,"technology style")
+                    assert all(13 <= item["size"] <= 14 and item["align"] == "center" for item in data["captions"]), (key,"caption style")
+                    if width > 900:
+                        sidebar = data["sidebar"]
+                        assert sidebar["secondaryTop"] >= sidebar["primaryBottom"] and abs(sidebar["secondaryBottom"] - sidebar["footerTop"]) <= 4, (key,"sidebar layout")
                     if data["versionCount"]:
                         assert data["activeVersions"] == 1 and data["inactiveInert"], (key,"language blocks")
                     if data["prose"]:
@@ -191,7 +264,7 @@ def main():
         page.reload(wait_until="domcontentloaded")
         assert page.locator('html').get_attribute('data-theme') == "dark"
         assert page.locator('.hero-portrait img').count() == 1
-        order = page.evaluate("['projects','articles','teaching','about','interests'].map(id=>document.getElementById(id).getBoundingClientRect().top)")
+        order = page.evaluate("['intro','about','education','experience','projects','articles','teaching','interests'].map(id=>document.getElementById(id).getBoundingClientRect().top)")
         assert order == sorted(order), order
         report["interactions"]["homeOrder"] = order
         page.locator('[data-language-toggle]').click()
@@ -243,21 +316,20 @@ def main():
         report["interactions"]["responsiveMenu"] = True
         page.goto(args.base + "/articles/animal-well-rendering/",wait_until="domcontentloaded")
         page.set_viewport_size({"width":390,"height":844})
-        toc = page.locator('[data-language-block="zh"] .reading-toc')
-        page.wait_for_function("!document.querySelector('[data-language-block=zh] .reading-toc').open")
-        assert toc.get_attribute('open') is None
-        toc.locator('summary').click()
+        toc = page.locator('.secondary-navigation .reading-toc[data-language-block="zh"]')
+        page.locator('.site-menu summary').click()
         target = toc.locator('a').nth(2).get_attribute('href')[1:]
         toc.locator('a').nth(2).click()
-        assert toc.get_attribute('open') is None
+        assert page.locator('.site-menu').get_attribute('open') is None
         top = page.locator('[id="'+target+'"]').bounding_box()["y"]
         assert 0 <= top <= 100, top
         report["interactions"]["mobileToc"] = {"pass":True,"targetTop":top}
         page.locator('[data-language-toggle]').click()
-        english_toc = page.locator('[data-language-block="en"] .reading-toc')
-        english_toc.locator('summary').click()
+        english_toc = page.locator('.secondary-navigation .reading-toc[data-language-block="en"]')
+        page.locator('.site-menu summary').click()
         target = english_toc.locator('a').nth(2).get_attribute('href')[1:]
         english_toc.locator('a').nth(2).click()
+        assert page.locator('.site-menu').get_attribute('open') is None
         assert 0 <= page.locator('[id="'+target+'"]').bounding_box()["y"] <= 100
         report["interactions"]["englishToc"] = True
         result = page.evaluate("""() => {
