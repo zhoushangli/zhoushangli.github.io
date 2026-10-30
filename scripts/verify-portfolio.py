@@ -216,6 +216,92 @@ def contrast(first, second):
     return (max(a,b)+.05)/(min(a,b)+.05)
 
 
+def verify_language_detection(browser, base):
+    endpoint = "https://ipwho.is/**"
+    cases = [
+        (country, {"success": True, "country_code": country}, 200, "zh-CN" if country == "CN" else "en")
+        for country in ("CN", "US", "HK", "MO", "TW")
+    ] + [
+        ("api-error", {"success": False, "country_code": "CN"}, 200, "en"),
+        ("http-error", {"success": True, "country_code": "CN"}, 429, "en"),
+        ("missing-country", {}, 200, "en"),
+        ("invalid-json", None, 200, "en"),
+    ]
+    for name, payload, status, expected in cases:
+        context = browser.new_context()
+        requests, errors = [], []
+        def respond(route):
+            requests.append(route.request.url)
+            route.fulfill(status=status, content_type="application/json", body=json.dumps(payload) if payload is not None else "invalid json")
+        context.route(endpoint, respond)
+        page = context.new_page()
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.goto(base + "/articles/animal-well-rendering/", wait_until="domcontentloaded")
+        page.evaluate("window.portfolioLanguageReady")
+        assert page.locator("html").get_attribute("lang") == expected, name
+        language = "zh" if expected == "zh-CN" else "en"
+        assert page.title() == page.locator("html").get_attribute("data-title-" + language), name
+        assert page.locator('[data-language-block]:not([hidden])').count() > 0, name
+        assert page.locator('[data-language-block="' + ("en" if language == "zh" else "zh") + '"]:not([hidden])').count() == 0, name
+        assert page.evaluate("localStorage.getItem('portfolio-language')") is None, name
+        if name == "CN":
+            page.reload(wait_until="domcontentloaded")
+            assert page.locator("html").get_attribute("lang") == "zh-CN"
+            page.goto(base + "/projects/", wait_until="domcontentloaded")
+            assert page.locator("html").get_attribute("lang") == "zh-CN"
+            assert len(requests) == 1, "reuse automatic language across pages"
+        assert not errors, (name, errors)
+        context.close()
+
+    for preferred in ("zh", "en"):
+        context = browser.new_context()
+        context.add_init_script("localStorage.setItem('portfolio-language', " + json.dumps(preferred) + ")")
+        requests = []
+        context.route(endpoint, lambda route: (requests.append(route.request.url), route.abort()))
+        page = context.new_page()
+        page.goto(base + "/", wait_until="domcontentloaded")
+        assert page.locator("html").get_attribute("lang") == ("zh-CN" if preferred == "zh" else "en")
+        assert not requests, "manual preference skips IP lookup"
+        context.close()
+
+    for storage_blocked in (False, True):
+        context = browser.new_context()
+        if storage_blocked:
+            context.add_init_script("for(const key of ['localStorage','sessionStorage']) { Object.defineProperty(window,key,{get(){throw new Error('Storage blocked');}}); }")
+        pending = []
+        context.route(endpoint, lambda route: pending.append(route))
+        page = context.new_page()
+        page.goto(base + "/", wait_until="domcontentloaded")
+        assert page.locator("body").get_attribute("data-language-ready") is not None
+        assert page.locator("html").get_attribute("lang") == "en", "visible English while lookup is pending"
+        page.locator('[data-language-toggle]').click()
+        page.locator('[data-language-toggle]').click()
+        assert pending, "IP lookup started"
+        pending[0].fulfill(json={"success": True, "country_code": "CN"})
+        page.evaluate("window.portfolioLanguageReady")
+        assert page.locator("html").get_attribute("lang") == "en", "late lookup must preserve manual choice"
+        if not storage_blocked:
+            page.reload(wait_until="domcontentloaded")
+            assert page.locator("html").get_attribute("lang") == "en", "manual choice survives reload"
+            assert len(pending) == 1, "manual choice avoids another lookup"
+        context.close()
+
+    context = browser.new_context()
+    context.add_init_script("""const originalFetch = window.fetch;
+        window.fetch = (url, options) => String(url).startsWith('https://ipwho.is/')
+            ? new Promise((resolve, reject) => options.signal.addEventListener('abort',
+                () => reject(new DOMException('Lookup timed out', 'AbortError')), {once: true}))
+            : originalFetch(url, options);
+    """)
+    page = context.new_page()
+    page.goto(base + "/", wait_until="domcontentloaded")
+    assert page.evaluate("window.portfolioLanguageReady") == "en", "timeout fallback"
+    assert page.locator("html").get_attribute("lang") == "en"
+    assert page.locator("body").get_attribute("data-language-ready") is not None
+    context.close()
+    return {"countryAndErrorCases": len(cases), "manualPriority": True, "sessionCache": True, "lateResponse": True, "blockedStorage": True, "timeout": True}
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--base", default="http://127.0.0.1:4323")
@@ -239,6 +325,7 @@ def main():
     links, local_errors, page_errors = set(), set(), []
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
+        report["interactions"]["ipLanguageDetection"] = verify_language_detection(browser, args.base)
         for lang in ("zh","en"):
             context = browser.new_context(reduced_motion="reduce")
             context.add_init_script("if(location.origin === " + json.dumps(args.base) + "){localStorage.setItem('portfolio-language'," + json.dumps(lang) + "); localStorage.setItem('portfolio-theme','light');}")
@@ -286,10 +373,12 @@ def main():
             context.close()
 
         context = browser.new_context(reduced_motion="reduce",viewport={"width":1440,"height":1000})
+        context.route("https://ipwho.is/**", lambda route: route.fulfill(json={"success": True, "country_code": "CN"}))
         page = context.new_page()
         page.goto(args.base + "/",wait_until="domcontentloaded")
         page.evaluate("localStorage.setItem('portfolio-theme','light')")
         page.reload(wait_until="domcontentloaded")
+        page.evaluate("window.portfolioLanguageReady")
         assert page.locator('html').get_attribute('data-theme') == "dark"
         assert page.locator('.hero-portrait img').count() == 1
         order = page.evaluate("['intro','about','education','experience','skills','personal-projects','team-projects','articles','teaching','interests'].map(id=>document.getElementById(id).getBoundingClientRect().top)")
@@ -385,13 +474,15 @@ def main():
         report["interactions"]["fixedSecondaryStart"] = True
         context.close()
         blocked = browser.new_context()
+        blocked.route("https://ipwho.is/**", lambda route: route.abort())
         blocked.add_init_script("if(location.origin === " + json.dumps(args.base) + "){Object.defineProperty(window,'localStorage',{get(){throw new Error('Storage blocked for verification');}});}")
         fallback = blocked.new_page()
         fallback.goto(args.base + "/",wait_until="domcontentloaded")
-        assert fallback.locator('html').get_attribute('lang') == "zh-CN"
+        fallback.evaluate("window.portfolioLanguageReady")
+        assert fallback.locator('html').get_attribute('lang') == "en"
         assert fallback.locator('body').get_attribute('data-language-ready') is not None
         fallback.locator('[data-language-toggle]').click()
-        assert fallback.locator('html').get_attribute('lang') == "en"
+        assert fallback.locator('html').get_attribute('lang') == "zh-CN"
         report["interactions"]["storageFallback"] = True
         blocked.close()
         browser.close()
