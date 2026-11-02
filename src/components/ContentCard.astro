@@ -7,7 +7,8 @@ const category = categories[pair.zh.data.category];
 ---
 <a class="reading-card" href={`/${pair.zh.data.section}/${pair.zh.data.contentId}`} data-category={pair.zh.data.category}>
 	<Text as="p" class="eyebrow" {...category} />
-	<Text as="h2" zh={pair.zh.data.title} en={pair.en.data.title} />
-	<Text as="p" zh={pair.zh.data.description} en={pair.en.data.description} />
-	<Text class="card-action" zh="阅读全文 →" en="Read more →" />
+	<Text as="h2" zh={pair.zh.data.title} en={pair.en.data.title} lang={pair.zh.data.chineseOnly ? 'zh-CN' : undefined} />
+	<Text as="p" zh={pair.zh.data.description} en={pair.en.data.description} lang={pair.zh.data.chineseOnly ? 'zh-CN' : undefined} />
+	{pair.zh.data.chineseOnly && <Text as="p" class="content-language-note" zh="暂仅提供中文" en="Available in Chinese only" />}
+	<Text class="card-action" zh={pair.zh.data.seriesOrder === 0 ? '查看系列 →' : '阅读全文 →'} en={pair.zh.data.seriesOrder === 0 ? 'Explore series →' : 'Read more →'} />
 </a>

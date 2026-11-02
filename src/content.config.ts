@@ -13,6 +13,11 @@ const published = defineCollection({
 		tags: z.array(z.string()),
 		relatedProject: z.string().optional(),
 		draft: z.boolean().default(false),
+		chineseOnly: z.boolean().default(false),
+		seriesId: z.string().optional(),
+		seriesOrder: z.number().int().nonnegative().optional(),
+		sourceUrl: z.string().url().optional(),
+		publishedAt: z.string().optional(),
 	}),
 });
 

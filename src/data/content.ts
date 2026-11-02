@@ -15,8 +15,8 @@ export interface ContentPair {
 	en: CollectionEntry<'published'>;
 }
 
-// Return complete language pairs, excluding a pair when either translation is a draft.
-// e.g. getContentPairs('articles') rejects duplicate IDs and missing translations.
+// Pair translations, using Chinese for entries explicitly published in Chinese only.
+// e.g. getContentPairs('articles') still rejects an accidentally missing translation.
 export async function getContentPairs(section: 'articles' | 'teaching'): Promise<ContentPair[]> {
 	const entries = await getCollection('published');
 	const groups = new Map<string, Partial<ContentPair>>();
@@ -32,6 +32,10 @@ export async function getContentPairs(section: 'articles' | 'teaching'): Promise
 
 	const pairs: ContentPair[] = [];
 	for (const [id, group] of groups) {
+		if (group.zh?.data.chineseOnly && !group.en) {
+			group.en = group.zh;
+		}
+
 		if (!group.zh || !group.en) {
 			throw new Error(`Missing translation: ${id}`);
 		}
@@ -46,4 +50,10 @@ export async function getContentPairs(section: 'articles' | 'teaching'): Promise
 	}
 
 	return pairs;
+}
+
+// Show series introductions in indexes while keeping chapters on their own routes.
+// e.g. isContentIndexEntry(pair) includes a series introduction with order zero.
+export function isContentIndexEntry(pair: ContentPair): boolean {
+	return !pair.zh.data.seriesId || pair.zh.data.seriesOrder === 0;
 }

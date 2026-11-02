@@ -11,7 +11,7 @@ import { getProjectsByCategory } from '../data/projects';
 import { getContentPairs } from '../data/content';
 const articles = await getContentPairs('articles');
 const teaching = await getContentPairs('teaching');
-const selectedArticles = ['animal-well-rendering', 'sifu-combat-analysis'].map((id) => articles.find((pair) => pair.zh.data.contentId === id)).filter(Boolean);
+const selectedArticles = ['animal-well-rendering', 'sifu-combat-analysis', 'celeste-level-analysis', 'ori2-level-analysis'].map((id) => articles.find((pair) => pair.zh.data.contentId === id)).filter(Boolean);
 const selectedTeaching = ['pico8-2026', 'pico8-game-jam'].map((id) => teaching.find((pair) => pair.zh.data.contentId === id)).filter(Boolean);
 
 const skills = [

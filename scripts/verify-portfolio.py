@@ -59,7 +59,7 @@ def verify_static():
         for path in (REPO / "dist").rglob("index.html")
         if not path.relative_to(REPO / "dist").as_posix().startswith("previews/")
     }
-    assert len(pages) == 13 and "/experience/" not in pages, sorted(pages)
+    assert len(pages) == 30 and "/experience/" not in pages, sorted(pages)
     parsed = {}
     local_links = assets = anchors = captions = 0
     for route, path in pages.items():
@@ -134,7 +134,7 @@ def verify_static():
         if route.startswith(("/articles/", "/teaching/")) and route.count("/") == 3:
             assert any("reading-toc" in a.get("class", "") for _, a in parser.nodes), (route, "sidebar contents")
     sitemap = (REPO / "dist/sitemap-0.xml").read_text(encoding="utf-8")
-    assert sitemap.count("<loc>") == 13 and "/previews/" not in sitemap and "/experience/" not in sitemap
+    assert sitemap.count("<loc>") == 30 and "/previews/" not in sitemap and "/experience/" not in sitemap
     assert not any("/articles/" + slug in sitemap for slug in RETIRED)
     for slug in ("animal-well-rendering", "sifu-combat-analysis"):
         source_text = pages["/articles/" + slug + "/"].read_text(encoding="utf-8").lower()
@@ -164,7 +164,7 @@ def verify_static():
 
 METRICS = r"""() => {
   const visible = (el) => el.getClientRects().length && getComputedStyle(el).visibility !== 'hidden';
-  const blocks = [...document.querySelectorAll('main [data-language-block]')];
+  const blocks = [...document.querySelectorAll('main [data-language-block], main [data-chinese-only]')];
   const active = blocks.filter((el) => !el.hidden);
   const prose = active[0]?.querySelector('.prose');
   const paragraph = prose?.querySelector('p');
@@ -321,7 +321,7 @@ def main():
     )
     routes = ["/" if route == "/./" else route for route in routes]
     report = {"content": static, "pages": {}, "interactions": {}}
-    shots = {"/projects/spectrex/":"spectrex","/":"home","/projects/":"projects","/articles/":"articles","/teaching/":"teaching","/projects/ming-engine/":"project-detail","/articles/animal-well-rendering/":"reading","/teaching/pico8-game-jam/":"gamejam"}
+    shots = {"/projects/spectrex/":"spectrex","/":"home","/projects/":"projects","/articles/":"articles","/teaching/":"teaching","/projects/ming-engine/":"project-detail","/articles/animal-well-rendering/":"reading","/teaching/pico8-game-jam/":"gamejam", "/articles/celeste-level-analysis/":"celeste-series", "/articles/celeste-level-analysis-02/":"celeste-chapter", "/articles/ori2-level-analysis-01/":"ori-chapter"}
     links, local_errors, page_errors = set(), set(), []
     with sync_playwright() as pw:
         browser = pw.chromium.launch()

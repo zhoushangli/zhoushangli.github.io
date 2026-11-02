@@ -3,41 +3,69 @@ import { render } from 'astro:content';
 import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 import Text from './Text.astro';
 import GameJamGallery from './GameJamGallery.astro';
-import { categories, type ContentPair } from '../data/content';
+import { categories, getContentPairs, type ContentPair } from '../data/content';
 import { getProjectBySlug } from '../data/projects';
 interface Props { pair: ContentPair; }
 const { pair } = Astro.props;
+const chineseOnly = pair.zh.data.chineseOnly;
 const zh = await render(pair.zh);
-const en = await render(pair.en);
-const versions = [{ lang: 'zh', rendered: zh }, { lang: 'en', rendered: en }];
+const versions = [{ lang: 'zh', rendered: zh }];
+if (!chineseOnly) versions.push({ lang: 'en', rendered: await render(pair.en) });
 const title = { zh: pair.zh.data.title, en: pair.en.data.title };
 const description = { zh: pair.zh.data.description, en: pair.en.data.description };
 const section = pair.zh.data.section;
 const project = pair.zh.data.relatedProject ? getProjectBySlug(pair.zh.data.relatedProject) : undefined;
+const seriesEntries = pair.zh.data.seriesId ? (await getContentPairs('articles'))
+  .filter((entry) => entry.zh.data.seriesId === pair.zh.data.seriesId)
+  .sort((a, b) => (a.zh.data.seriesOrder ?? 0) - (b.zh.data.seriesOrder ?? 0)) : [];
+const series = seriesEntries.find((entry) => entry.zh.data.seriesOrder === 0);
+const chapters = seriesEntries.filter((entry) => entry.zh.data.seriesOrder !== 0);
+const chapterIndex = chapters.findIndex((entry) => entry.zh.data.contentId === pair.zh.data.contentId);
+const previous = chapters[chapterIndex - 1];
+const next = chapterIndex >= 0 ? chapters[chapterIndex + 1] : undefined;
 ---
 <PortfolioLayout title={title} description={description}>
   <Fragment slot="sidebar">
-    {versions.map(({ lang, rendered }) => <nav class="reading-toc" data-language-block={lang} lang={lang === 'zh' ? 'zh-CN' : 'en'} hidden={lang === 'en'} inert={lang === 'en'} aria-label={lang === 'zh' ? '本文目录' : 'On this page'}>
+    {versions.map(({ lang, rendered }) => <nav class="reading-toc" data-language-block={chineseOnly ? undefined : lang} lang={lang === 'zh' ? 'zh-CN' : 'en'} hidden={lang === 'en'} inert={lang === 'en'} aria-label={lang === 'zh' ? '本文目录' : 'On this page'}>
       <p class="navigation-label">{lang === 'zh' ? '本文目录' : 'On this page'}</p>
       {rendered.headings.filter((heading) => heading.depth === 2 || heading.depth === 3).map((heading) => <a class={`depth-${heading.depth}`} data-chapter-link href={`#${heading.slug.startsWith(`${lang}-`) ? heading.slug : `${lang}-${heading.slug}`}`}>{heading.text}</a>)}
       {pair.zh.data.contentId === 'pico8-game-jam' && <a href="#gamejam-gallery" data-chapter-link>{lang === 'zh' ? '作品展示' : 'Gallery'}</a>}
     </nav>)}
+    {series && <nav class="reading-toc navigation-group" aria-label="系列目录" lang="zh-CN">
+      <p class="navigation-label">系列目录</p>
+      {seriesEntries.map((entry) => <a href={`/articles/${entry.zh.data.contentId}/`} aria-current={entry.zh.data.contentId === pair.zh.data.contentId ? 'page' : undefined}>{entry.zh.data.title}</a>)}
+    </nav>}
   </Fragment>
 	<header class="page-intro">
 		<a href={`/${section}/`}><Text zh={section === 'articles' ? '← 笔记' : '← 教学'} en={section === 'articles' ? '← Notes' : '← Teaching'} /></a>
 		<Text as="p" class="eyebrow" {...categories[pair.zh.data.category]} />
-		<Text as="h1" {...title} />
-		<Text as="p" class="page-description" {...description} />
+		<Text as="h1" {...title} lang={chineseOnly ? 'zh-CN' : undefined} />
+		<Text as="p" class="page-description" {...description} lang={chineseOnly ? 'zh-CN' : undefined} />
+		{chineseOnly && <Text as="p" class="content-language-note" zh="本文目前仅提供中文。" en="This article is currently available in Chinese only." />}
+		{pair.zh.data.sourceUrl && <p class="article-source">
+			{pair.zh.data.publishedAt && <><Text zh="首次发布于 " en="First published on " /><time datetime={pair.zh.data.publishedAt}>{pair.zh.data.publishedAt}</time><span> · </span></>}
+			<a href={pair.zh.data.sourceUrl} target="_blank" rel="noreferrer"><Text zh="B 站原文 ↗" en="Original on Bilibili ↗" /></a>
+		</p>}
+		{series && chapterIndex >= 0 && <a href={`/articles/${series.zh.data.contentId}/`} lang="zh-CN">← {series.zh.data.title}</a>}
 		{project && <a href={`/projects/${project.slug}`}><Text zh={`相关项目：${project.title}`} en={`Related project: ${project.title}`} /></a>}
 	</header>
 	{versions.map(({ lang, rendered }) => {
 		const Content = rendered.Content;
 
-		return <section data-language-block={lang} lang={lang === 'zh' ? 'zh-CN' : 'en'} hidden={lang === 'en'} inert={lang === 'en'}>
+		return <section data-language-block={chineseOnly ? undefined : lang} data-chinese-only={chineseOnly || undefined} lang={lang === 'zh' ? 'zh-CN' : 'en'} hidden={lang === 'en'} inert={lang === 'en'}>
 			<div class="reading-layout">
 				<article class="prose"><Content /></article>
 			</div>
 		</section>;
 	})}
+	{series && chapterIndex === -1 && <section class="series-chapters reading-layout" lang="zh-CN" aria-labelledby="series-chapters">
+		<h2 id="series-chapters">系列目录</h2>
+		<ol>{chapters.map((entry) => <li><a href={`/articles/${entry.zh.data.contentId}/`}>{entry.zh.data.title}</a></li>)}</ol>
+	</section>}
+	{series && chapterIndex >= 0 && <nav class="series-pagination reading-layout" aria-label="章节导航" lang="zh-CN">
+		{previous && <a href={`/articles/${previous.zh.data.contentId}/`} rel="prev">← 上一篇：{previous.zh.data.title}</a>}
+		<a href={`/articles/${series.zh.data.contentId}/`}>返回系列目录</a>
+		{next && <a href={`/articles/${next.zh.data.contentId}/`} rel="next">下一篇：{next.zh.data.title} →</a>}
+	</nav>}
 	{pair.zh.data.contentId === 'pico8-game-jam' && <GameJamGallery />}
 </PortfolioLayout>

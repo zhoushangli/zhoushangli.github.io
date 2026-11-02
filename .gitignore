@@ -1,6 +1,8 @@
 # build output
 dist/
 artifacts/preview-audit/
+artifacts/bilibili/
+scripts/__pycache__/
 # generated types
 .astro/
 

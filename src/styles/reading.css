@@ -37,6 +37,16 @@
 .portfolio .prose tbody tr + tr td { border-top: 1px solid var(--divider); }
 .portfolio .caption, .portfolio .prose figcaption { color: var(--subtle); font-size: 13px; line-height: 1.9; text-align: center; }
 .portfolio .prose figure { margin: 30px 0; }
+.portfolio .prose hr { border: 0; border-top: 1px solid var(--divider); margin: 32px 0; }
+.portfolio .content-language-note { color: var(--subtle); font-size: 13px; margin-top: 14px; }
+.portfolio .article-source { color: var(--subtle); font-size: 13px; margin-top: 14px; }
+.portfolio .article-source a { color: var(--accent); }
+.portfolio .series-chapters, .portfolio .series-pagination { margin-top: 48px; border-top: 1px solid var(--divider); padding-top: 28px; }
+.portfolio .series-chapters h2 { font-size: 28px; }
+.portfolio .series-chapters ol { padding-left: 26px; }
+.portfolio .series-chapters a, .portfolio .series-pagination a { display: block; min-height: 44px; padding: 10px 0; color: var(--accent); }
+.portfolio .prose figure > a { display: block; }
+.portfolio .prose figure > a:focus-visible { outline-offset: 6px; }
 .portfolio .prose figure img, .portfolio .prose figure video { margin: 0 auto 14px; }
 .portfolio .prose figcaption { margin-top: 14px; }
 .portfolio .teaching-stats { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 25px; margin: 35px 0 45px; }

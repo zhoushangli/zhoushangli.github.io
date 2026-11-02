@@ -1,12 +1,12 @@
 ---
 import Text from './Text.astro';
 import { getProjectsByCategory } from '../data/projects';
-import { getContentPairs, teachingOrder } from '../data/content';
+import { getContentPairs, teachingOrder, isContentIndexEntry } from '../data/content';
 import { GITHUB_URL, LINKEDIN_URL } from '../consts';
 const path = Astro.url.pathname;
 const home = path === '/';
 const section = path.startsWith('/teaching') ? 'teaching' : 'articles';
-const entries = path === '/articles/' || path === '/teaching/' ? await getContentPairs(section) : [];
+const entries = path === '/articles/' || path === '/teaching/' ? (await getContentPairs(section)).filter(isContentIndexEntry) : [];
 if (section === 'teaching')
 {
   entries.sort((a, b) => teachingOrder.indexOf(a.zh.data.contentId) - teachingOrder.indexOf(b.zh.data.contentId));

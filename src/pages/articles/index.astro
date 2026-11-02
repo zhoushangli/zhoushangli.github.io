@@ -2,8 +2,8 @@
 import PortfolioLayout from '../../layouts/PortfolioLayout.astro';
 import Text from '../../components/Text.astro';
 import ContentCard from '../../components/ContentCard.astro';
-import { getContentPairs, categories } from '../../data/content';
-const pairs = await getContentPairs('articles');
+import { getContentPairs, categories, isContentIndexEntry } from '../../data/content';
+const pairs = (await getContentPairs('articles')).filter(isContentIndexEntry);
 const usedCategories = Object.entries(categories).filter(([key]) => pairs.some((pair) => pair.zh.data.category === key));
 const title = { zh: '笔记', en: 'Notes' };
 const description = { zh: '游戏分析和开发笔记。', en: 'Game analysis and development notes.' };

@@ -34,7 +34,8 @@ src/content/published/
 
 - 同一篇内容用相同的 `contentId` 维护中文、英文两个文件，图片与附件共享（放在 `public/media/`）。
 - frontmatter 字段：`contentId`、`lang`、`section`、`title`、`description`、`category`、`tags`、`relatedProject`（可选）、`draft`。
-- 生成页面时会校验：同一 `contentId` 缺少任一语言、或中英文 `category` / `relatedProject` 不一致，构建直接失败。
+- 生成页面时会校验：同一 `contentId` 缺少任一语言、或中英文 `category` / `relatedProject` 不一致，构建直接失败。明确标记 `chineseOnly: true` 的中文文章可以暂不提供英文；切换到英文界面后仍显示中文正文与目录，并提示尚无译文。
+- 关卡分析使用 `seriesId` 和 `seriesOrder` 组织，序号 `0` 为系列入口，其他序号为章节。首页、笔记列表与侧栏列表展示系列入口，系列内提供章节目录与上一篇／下一篇。
 - `draft: true` 的内容不生成页面，也不进入公开列表与 sitemap（成对内容任一语言为草稿即整体不发布）。MingEngine 三组、SpectreX 两组文章，以及七组详细教学页已设为草稿，源文件保留。教学仅发布入社培训和作品展。
 - 标题锚点按语言加前缀（`zh-` / `en-`），保证同一页面两种语言的目录锚点不重名。
 - `src/content/articles/` 下是早期随笔与 Obsidian 提示词，不在集合加载范围内，不会发布。
@@ -58,7 +59,7 @@ npm run preview  # 预览构建结果
 
 要求 Node.js >= 22.12.0。
 
-正式页面改动后，先运行 `npm run build`，再在另一个终端用 `npm run preview -- --host 127.0.0.1 --port 4323` 启动构建产物，执行 `python scripts/verify-portfolio.py`。检查覆盖 13 个正式路由、中英文及 1440/1024/390px，验证深色主题、语言记忆、项目行背景、目录、筛选和 PNG 作品展。结果与截图位于 `artifacts/preview-audit/site-migration/`；该目录仅保留在本机。
+正式页面改动后，先运行 `npm run build`，再在另一个终端用 `npm run preview -- --host 127.0.0.1 --port 4323` 启动构建产物，执行 `python scripts/verify-portfolio.py`。检查覆盖 30 个正式路由、中英文及 1440/1024/390px，验证深色主题、语言记忆、项目行背景、目录、筛选和 PNG 作品展。结果与截图位于 `artifacts/preview-audit/site-migration/`；该目录仅保留在本机。
 
 无浏览器时运行 `python scripts/verify-portfolio.py --static-only`，检查构建页面、链接与锚点、草稿隔离、首页栏目与目录顺序、技术栈数量、媒体配置及 PNG 文件哈希。静态检查不代表浏览器视觉或视频播放验收。
 
