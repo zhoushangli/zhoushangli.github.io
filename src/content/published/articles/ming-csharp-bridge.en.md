@@ -2,47 +2,89 @@
 contentId: ming-csharp-bridge
 lang: en
 section: articles
-title: "Ming: bridging C++ objects and C# scripts"
-description: "Following .NET hosting, reflected bindings, object handles, and assembly-reload recovery in Ming's current scripting implementation."
+title: "Ming: connecting C++ objects and C# scripts"
+description: "Following a node with an attached C# script through two kinds of code generation, native and managed identities, and instance recreation with retry after assembly reload failure."
 category: engine
 tags: [C++, C#, Scripting, Object lifetime]
 relatedProject: ming-engine
-draft: true
+draft: false
 ---
 
-## Object relationships come before cross-language calls
+## Why does one node need several script objects?
 
-Exposing a C++ method to C# addresses only part of a scripting system. The engine also needs to associate script resources with managed types, native objects with managed instances, and surviving owners with reconstructed instances after an assembly replacement. Ming's current source uses a C#/.NET bridge; earlier descriptions of AngelScript no longer describe its present implementation.
+Suppose I attach a C# controller to a native `Node3D` and use it to change the node’s position during updates. Exposing engine functions to C# is only part of the problem. I also need to identify the managed type associated with the file, connect an instance to the correct native node, and rebuild that connection after recompiling the assembly.
 
-Three identities matter here: `CSharpScript` represents the script resource, `CSharpInstance` connects a script to a particular native owner, and a handle provides access to its managed instance. Collapsing these into a single “script pointer” makes resource sharing, multiple instances, and post-reload relationships difficult to explain.
-
-## Calls travel in both directions
-
-`ScriptSystem::Startup()` initializes the .NET runtime and managed bridge. `InitializeDotNetRuntime()` obtains runtime entry points through `hostfxr` and loads the managed initialization function. Native callbacks are passed to managed code, while native code retains entry points for managed operations.
+In Ming, I separate these identities. The native node is the owner, `CSharpScript` is a shareable script resource, and `CSharpInstance` connects one owner to that resource. A GC handle gives the native side access to the corresponding managed instance. Two nodes using the same script resource still require separate instances.
 
 ```text
-Generated C# API → NativeFuncs.MethodBindPtrCall → C++ method binding
-C++ notification → CSharpInstance → ScriptSystem → Managed script method
+Engine reflection metadata
+    ↓ CSharpScriptGenerator (native tool)
+Engine C# API → MethodBindPtrCall → native MethodBind
+
+User C# source
+    ↓ ScriptPathGenerator (Roslyn, during compilation)
+Script path attribute + method dispatch → project assembly
+    ↓ hostfxr-hosted .NET / managed bridge
+CSharpScript path → managed Type
+    ↓ Instantiate(owner)
+Native owner ↔ CSharpInstance / GC handle ↔ managed instance
 ```
 
-`CSharpScriptGenerator` reads engine reflection metadata to produce class bindings, construction interfaces, and call wrappers. Reflection registration therefore acts as a shared source for native and script-facing interfaces. Generation must still handle argument layout, return values, and built-in type conversion; it is more than writing method names into strings.
+## hostfxr connects the runtime; generated code connects the API
 
-In the other direction, `CSharpInstance::Call()` and its notification entry point forward work to `ScriptSystem`. Scene nodes do not have to take responsibility for loading managed assemblies themselves.
+`ScriptSystem::Startup()` initializes the scripting system. `InitializeDotNetRuntime()` uses `hostfxr` to obtain the .NET loading entry point. The system loads managed entry points, exchanges callback tables and loads the project assembly through the bridge. Scene nodes do not need to locate DLLs or manage runtime entry points themselves.
 
-## Resolving a script resource to a managed type
+There are two kinds of generator with different responsibilities. The native `CSharpScriptGenerator` reads type, method and property metadata from `ClassDatabase`. It generates C# engine API wrappers, constructor entry points and call adapters. Calls from C# reach native `MethodBind` through `NativeFuncs.MethodBindPtrCall`, with explicit handling of argument layouts, object pointers and return conversions.
 
-On the managed side, `ScriptManagerBridge` maps script paths to `Type` objects and associates native script resource pointers with those types. `AddScriptBridge()` converts the incoming path to a managed string, resolves a registered type, and creates the association. It rejects conditions such as null pointers and types that cannot serve as instantiable scripts.
+The Roslyn `ScriptPathGenerator` runs when the user project compiles. It validates script declarations and generates `ScriptPathAttribute`, mapping files inside the project to `res://` paths. It also generates user method lookup and dispatch. Scripts currently require a non-generic top-level class, `partial` on every declaration, and a filename matching the class name. User method dispatch currently selects ordinary instance methods with no parameters and a `void` return. This does not imply support for arbitrary C# signatures.
 
-Native object wrappers and user script instances also have different roles. `GetOrCreateNativeManagedWrapper()` reuses an owner's existing native-binding handle when possible, while user instances use a separate creation and recovery path. `ManagedGCHandle` is movable but non-copyable and releases its handle, avoiding accidental duplication of ownership. Managed code distinguishes user-script handles from native-binding handles and tracks references by assembly load context.
+## How does a script path become an instance on an owner?
 
-## Reloading includes a failure state
+The managed side registers a `Type` by script path. `CSharpScript::Instantiate(owner)` first uses `AddScriptBridge()` to associate the native resource with that type. It then creates a `CSharpInstance`, attaches it to the owner and requests a user instance from the managed bridge.
 
-`ReloadProjectAssembly()` suspends script execution, gathers instance recovery information, detaches old instances, unloads the assembly, loads the replacement, and restores instances. Only a complete success clears recovery data and resumes execution. A failed attempt retains recovery information and suspension for a later retry. `PackedScene::Pack()` also checks whether script execution is suspended, preventing a scene save during an incomplete recovery.
+`ScriptManagerBridge.CreateUserManagedInstance()` checks compatibility between the script type and the owner’s native type, establishes `NativePtr`, executes construction and returns a handle. The native side installs that handle on the owner’s script instance. Failed creation or handle installation cleans up the attempted instantiation. This describes a real script instance; editor placeholder instances follow a separate path.
 
-Loading a DLL again and completing a safe scripting reload are therefore different capabilities. The current code explicitly manages reconstruction and failed retries, but a method name cannot establish that every arbitrary C# field survives. Field persistence, cross-object references, owners destroyed during reload, and actual assembly unloadability need their own checks.
+Native API wrappers and user script instances also have different roles. `GetOrCreateNativeManagedWrapper()` attempts to reuse the owner’s native binding handle. A user script instance has its own script handle. `ManagedGCHandle` disallows copying, supports moving and informs the managed side when released. A handle value therefore cannot accidentally be copied in C++ and treated as two independent owners.
 
-## A useful verification sequence
+## How do native notifications and named calls reach C#?
 
-A native node with a small C# script provides a starting point: invoke a generated API, dispatch a script notification, then exercise a successful reload, a failed load, and a retry. Observe handle counts, old-object validity, and scene-saving behavior as well. This write-up checks the source chain; it does not introduce new compilation or runtime results, and a working development-machine assembly path is not evidence of an independently distributable application.
+Position changes in the script travel through the generated API to C++. In the other direction, `CSharpInstance::Notification()` forwards native notifications to managed `_Notification`, which leads into script lifecycle methods. Named calls pass through `CSharpInstance::Call()`, `ScriptSystem` and the managed bridge to generated dispatch code.
 
-Source entry points: `Code/MingEngine/Engine/Script/ScriptSystem.cpp`, `CSharpScript.cpp`, `CSharpScriptGenerator.cpp`, and `Code/CSharp/MingSharp/Core/ScriptManagerBridge.cs`. Return to the [Ming project](/projects/ming-engine/).
+`Object::Call()` defines an important fallback rule: it tries the script first and looks up a native binding only if the result is `InvalidMethod`. Argument errors and execution failures remain errors. They are not mistaken for a missing script method and followed by a call to a native method with the same name. Callers such as Callable can therefore receive a meaningful failure reason.
+
+## Reload must rebuild connections and retain a path to retry
+
+After recompiling a DLL, an old managed instance cannot be treated as an object from the new assembly. In `ReloadProjectAssembly()`, I suspend script execution, record instance associations, detach old instances, unload the old assembly, load the new one and recreate instances.
+
+The backup structure makes the current capability precise:
+
+```cpp
+struct StateBackup
+{
+    ObjectID          m_owner;
+    Ref<CSharpScript> m_script;
+};
+```
+
+This structure in `ScriptSystem.hpp` records which owner should receive which script, and keeps the script resource alive through a reference. It does not record arbitrary C# field values. The current flow recreates instances; it cannot promise complete preservation of controller timers, collections or object references.
+
+If unloading, loading or restoration fails while recovery records remain, the system retains the original records and suspended state. A retry first detaches any partially restored instances, then loads and restores again. Owners destroyed during recovery are skipped. Success clears the records and resumes execution. A failure with no pending recovery records releases suspension, so it would be inaccurate to describe every failure as leaving execution indefinitely paused.
+
+`PackedScene::Pack()` also rejects packing while script execution is suspended. This prevents an incompletely restored scene from being saved as normal state and establishes a concrete constraint between assembly reload and scene persistence.
+
+## Current limits and useful checks
+
+I checked the generation, call, handle and reload paths in the current source without recompiling or running the engine for this documentation update. A minimal runtime check should cover two owners sharing a script resource but receiving separate instances, calls into native APIs, managed notifications and parameterless methods, successful reload, failure followed by retry, and deletion of an owner during recovery.
+
+Field-state migration, complex cross-object references and actual assembly unloading each need their own runtime evidence. Reloading a project assembly also does not establish a complete standalone distribution or packaging workflow.
+
+Source entry points, relative to the Ming repository:
+
+- `Code/MingEngine/Engine/Script/ScriptSystem.cpp` and `ScriptSystem.hpp`
+- `Code/MingEngine/Engine/Script/CSharpScript.cpp`
+- `Code/MingEngine/Engine/Script/CSharpScriptGenerator.cpp`
+- `Code/CSharp/Ming.SourceGenerators/ScriptPathGenerator.cs`
+- `Code/CSharp/MingSharp/Core/ScriptManagerBridge.cs`
+- `Code/MingEngine/Core/Object/ManagedGCHandle.cpp` and `Object.cpp`
+
+Return to the [Ming project page](/projects/ming-engine/).

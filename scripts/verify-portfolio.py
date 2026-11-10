@@ -50,7 +50,8 @@ class MainContent(HTMLParser):
 
 RETIRED_TEACHING = ("pico8-intro", "pico8-l01", "pico8-l02", "pico8-l03", "pico8-a01", "pico8-a02", "pico8-object-organization")
 
-RETIRED = ("ming-scene-resources", "ming-csharp-bridge", "ming-gui-input", "spectrex-light-gameplay", "spectrex-rendering")
+RETIRED = ("spectrex-light-gameplay", "spectrex-rendering")
+MING_ARTICLES = ("ming-scene-resources", "ming-csharp-bridge", "ming-gui-input")
 
 
 def verify_static():
@@ -59,7 +60,7 @@ def verify_static():
         for path in (REPO / "dist").rglob("index.html")
         if not path.relative_to(REPO / "dist").as_posix().startswith("previews/")
     }
-    assert len(pages) == 30 and "/experience/" not in pages, sorted(pages)
+    assert len(pages) == 33 and "/experience/" not in pages, sorted(pages)
     parsed = {}
     local_links = assets = anchors = captions = 0
     for route, path in pages.items():
@@ -123,6 +124,23 @@ def verify_static():
         assert "/articles/" + slug + "/" not in pages
         for lang in ("zh", "en"):
             assert "draft: true" in (REPO / "src/content/published/articles" / (slug + "." + lang + ".md")).read_text(encoding="utf-8")
+    ming_project = "/projects/ming-engine/"
+    ming_project_links = {link.rstrip("/") for link in parsed[ming_project].links}
+    engine_article_links = {
+        attrs.get("href", "").rstrip("/")
+        for tag, attrs in parsed["/articles/"].nodes
+        if tag == "a" and attrs.get("data-category") == "engine"
+    }
+    assert 'data-filter="engine"' in pages["/articles/"].read_text(encoding="utf-8")
+    for slug in MING_ARTICLES:
+        route = "/articles/" + slug + "/"
+        assert route in pages, (slug, "published Ming article")
+        assert route.rstrip("/") in ming_project_links, (slug, "project article link")
+        assert ming_project.rstrip("/") in {link.rstrip("/") for link in parsed[route].links}, (slug, "article project link")
+        assert route.rstrip("/") in engine_article_links, (slug, "engine article index link")
+        for lang in ("zh", "en"):
+            article = (REPO / "src/content/published/articles" / (slug + "." + lang + ".md")).read_text(encoding="utf-8")
+            assert "draft: false" in article and "relatedProject: ming-engine" in article, (slug, lang)
     for slug in RETIRED_TEACHING:
         assert "/teaching/" + slug + "/" not in pages
         for lang in ("zh", "en"):
@@ -134,8 +152,9 @@ def verify_static():
         if route.startswith(("/articles/", "/teaching/")) and route.count("/") == 3:
             assert any("reading-toc" in a.get("class", "") for _, a in parser.nodes), (route, "sidebar contents")
     sitemap = (REPO / "dist/sitemap-0.xml").read_text(encoding="utf-8")
-    assert sitemap.count("<loc>") == 30 and "/previews/" not in sitemap and "/experience/" not in sitemap
+    assert sitemap.count("<loc>") == 33 and "/previews/" not in sitemap and "/experience/" not in sitemap
     assert not any("/articles/" + slug in sitemap for slug in RETIRED)
+    assert all("/articles/" + slug + "/" in sitemap for slug in MING_ARTICLES)
     for slug in ("animal-well-rendering", "sifu-combat-analysis"):
         source_text = pages["/articles/" + slug + "/"].read_text(encoding="utf-8").lower()
         editorial_phrases = ("原笔记", "原稿", "原分析", "原记录", "原始笔记", "original notes", "initial draft", "the draft", "for this edit")

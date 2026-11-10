@@ -74,9 +74,39 @@ export const projects: Project[] = [
 		slug: 'ming-engine',
 		"platform": {"zh": "Windows · Direct3D 11", "en": "Windows · Direct3D 11"},
 		"status": {"zh": "持续开发中的个人引擎", "en": "Personal engine in active development"},
-		"decisions": [{"zh": "参考 Godot 的节点与资源职责划分，将场景对象、序列化数据和渲染提交分开。", "en": "Use Godot as a reference for separating scene objects, serialized data and rendering submission."}, {"zh": "脚本桥接使用生成代码与反射绑定，编辑器逐步引入原生 UI。", "en": "Use generated code and reflection for script bindings while incrementally introducing native editor UI."}],
-		"limitations": [{"zh": "原生编辑器 UI 与导出流程仍在完善，现有截图来自较早的编辑器阶段。", "en": "Native editor UI and export workflows are still evolving; the displayed screenshot is from an earlier editor stage."}],
-		"relatedArticles": [],
+		decisions: [
+			{
+				zh: '场景与资源：为了让保存的数据独立于运行对象，我将 Node、SceneTree 与 PackedScene 分开。实例化时先恢复完整层级，再通过反射设置属性；资源重载则通过 CopyFrom 更新缓存对象，让已有引用继续指向同一资源。',
+				en: 'Scenes and resources: I separate Node, SceneTree and PackedScene so saved data is independent of live objects. Instantiation rebuilds the hierarchy before applying reflected properties; resource reload uses CopyFrom to update the cached object while preserving existing references.',
+			},
+			{
+				zh: 'C++ / C# 桥接：我通过 hostfxr 承载 .NET，由原生反射生成引擎 API 绑定，由 Roslyn 源码生成器补充用户脚本路径与方法分派。程序集重载时记录 owner 和脚本资源、释放旧实例并重建，失败后保留记录供重试。',
+				en: 'C++ / C# bridge: I host .NET through hostfxr, generate engine API bindings from native reflection, and use a Roslyn source generator for user script paths and method dispatch. Assembly reload records owners and script resources, releases old instances and recreates them, retaining the records for retry after a failure.',
+			},
+			{
+				zh: '原生 GUI：我使用引擎自己的 CanvasItem、Control、容器与 Theme 组装编辑器面板，让编辑器复用运行时的绘制、布局与输入分发。Viewport 分别管理悬停、鼠标捕获和键盘焦点，按钮通过状态机处理激活与取消，并可发射 pressed 信号。',
+				en: 'Native GUI: I build editor panels with the engine’s CanvasItem, Control, containers and Theme, reusing runtime drawing, layout and input routing. Viewport manages hover, mouse capture and keyboard focus separately; buttons use an activation and cancellation state machine and can emit a pressed signal.',
+			},
+			{
+				zh: '属性编辑与撤销：拖动 Inspector 数值时需要即时反馈，也需要一次撤销恢复整次操作。我在编辑开始时保存原值，拖动期间应用预览，确认后提交一条历史记录；取消时检查对象和当前值，再恢复原值，避免覆盖外部改动。',
+				en: 'Property editing and undo: Inspector drags need immediate feedback and a single undo step for the whole gesture. I save the original value at edit start, apply previews during the drag and commit one history action on acceptance. Cancellation checks the target and current value before restoring the original, avoiding overwriting external changes.',
+			},
+			{
+				zh: 'RID 与视口渲染：场景对象通过 RID 同步渲染状态，RenderServer 组织各视口的提交，再交给 Direct3D 11 渲染器。编辑器将场景放入 SubViewport；合成前沿视口纹理依赖先渲染被引用的视口，并检测循环依赖。',
+				en: 'RIDs and viewport rendering: Scene objects synchronize render state through RIDs; RenderServer prepares each viewport’s submissions for the Direct3D 11 renderer. The editor embeds the scene in a SubViewport. Rendering follows viewport texture dependencies before compositing their consumers and detects dependency cycles.',
+			},
+		],
+		limitations: [
+			{
+				zh: '原生编辑器仍在持续完善，现有截图来自较早的编辑器阶段。程序集重载目前重建脚本实例，尚未实现任意 C# 字段状态的完整迁移。',
+				en: 'The native editor is still evolving, and the displayed screenshot is from an earlier stage. Assembly reload currently recreates script instances; it does not provide complete migration of arbitrary C# field state.',
+			},
+			{
+				zh: 'SDFGI、Vulkan 后端与完整的游戏打包导出流程属于后续计划。',
+				en: 'SDFGI, a Vulkan backend and a complete game packaging and export workflow remain future work.',
+			},
+		],
+		relatedArticles: ['ming-scene-resources', 'ming-csharp-bridge', 'ming-gui-input'],
 		category: 'personal',
 		title: 'MingEngine',
 		summary: {
@@ -84,8 +114,8 @@ export const projects: Project[] = [
 			zh: '我用 C++ 自研的 3D 游戏引擎与编辑器，使用 DirectX 11 渲染，支持 C#/.NET 脚本。',
 		},
 		detail: {
-			en: 'MingEngine is a custom 3D game engine and editor built around a reusable C++ runtime. I developed a Godot-inspired node and scene architecture, a DirectX 11 rendering backend, and editor tools for importing assets, authoring scenes, inspecting properties and running gameplay. The current code integrates C# through .NET and introduces native CanvasItem/Control UI alongside the existing ImGui tooling.',
-			zh: 'MingEngine 是一款围绕可复用 C++ 运行时开发的自定义 3D 游戏引擎与编辑器。我构建了受 Godot 启发的节点与场景架构、DirectX 11 渲染后端，以及资源导入、场景编辑、属性检查与运行工具。目前源码采用 C#/.NET 脚本集成，并在既有 ImGui 工具之外推进原生 CanvasItem/Control UI。',
+			en: 'MingEngine is a custom 3D game engine and editor I am building around a reusable C++ runtime. Using Godot as an architectural reference, I developed node and resource systems, a DirectX 11 renderer and C#/.NET scripting. I build the current editor with the engine’s native GUI controls, connecting asset import, scene editing, property inspection and gameplay execution through the same object and scene infrastructure.',
+			zh: 'MingEngine 是我围绕可复用 C++ 运行时开发的 3D 游戏引擎与编辑器。我参考 Godot 的架构思想，构建节点与资源系统、DirectX 11 渲染器和 C#/.NET 脚本集成。当前编辑器使用引擎自己的原生 GUI 控件，通过共同的对象与场景基础设施连接资源导入、场景编辑、属性检查和游戏运行。',
 		},
 		contribution: {
 			en: 'As the solo engine developer, I designed and implemented the engine architecture, rendering backend, scene and resource systems, editor tools, asset pipeline, and scripting integration.',
@@ -106,8 +136,8 @@ export const projects: Project[] = [
 				zh: '构建了受 Godot 启发的节点、场景树、反射和类注册系统。',
 			},
 			{
-				en: 'Developed an ImGui editor with scene hierarchy, inspector, filesystem, import, viewport, and output panels.',
-				zh: '开发了基于 ImGui 的编辑器，包含场景层级、属性检查器、文件系统、资源导入、视口和输出面板。',
+				en: 'Built native editor panels for scene hierarchy, property inspection, filesystem browsing, asset import, viewport interaction and output, with docking and theme support.',
+				zh: '使用原生控件构建场景层级、属性检查器、文件系统、资源导入、视口和输出面板，并支持停靠布局与主题。',
 			},
 			{
 				en: 'Implemented interactive translation, rotation, and scale gizmos for editing 3D transforms.',
